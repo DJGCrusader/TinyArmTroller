@@ -9,9 +9,10 @@ MMCU=atxmega32a4
 CFLAGS=-g -mmcu=$(MMCU) -Os \
 	-fpack-struct -fshort-enums             \
 	-funsigned-bitfields -funsigned-char    \
-	-Wall -Wstrict-prototypes               
-#	-Wa,-ahlms=$(firstword                  \
-#	$(filter %.lst, $(<:.c=.lst)))
+	-Wall
+	#	-Wstrict-prototypes               
+	#	-Wa,-ahlms=$(firstword                  \
+	#	$(filter %.lst, $(<:.c=.lst)))
 
 $(PROJECT).hex: $(PROJECT).out
 	$(OBJCOPY) -j .text -O ihex $(PROJECT).out $(PROJECT).hex

@@ -5,27 +5,20 @@
 #include "requiredFiles/avr_compiler.h"
 #include "requiredFiles/clksys_driver.h"
 #include "requiredFiles/clksys_driver.c"
-//#include <math.h>
 
-void delay_ms(int ms);
-void blink(int val);
-void blinkFast(void);
-void blinkSlow(void);
-void setClock(void);
-void init(void);
-void mainLoop(void);
-int main(void);
+
 
 void delay_ms(int ms) 
 { 
     while (ms--) 
-        _delay_us(1000); 
+        _delay_us(1000);  
 } 
 
-void init(void){
-		setClock();
-		PORTD.DIRSET = _BV(4);  
-        PORTD.DIRSET = _BV(5);
+void setClock(){
+    // Configure Clock -- Based on Application Notes & Examples on AVRFreaks
+	CLKSYS_Enable( OSC_RC32MEN_bm );
+	//	do {} while ( CLKSYS_IsReady( OSC_RC32MRDY_bm ) == 0 );
+	CLKSYS_Main_ClockSource_Select( CLK_SCLKSEL_RC32M_gc );
 }
 
 void blink(int myVal){
@@ -38,41 +31,44 @@ void blink(int myVal){
         delay_ms(myVal);
 }
 
-void blinkSlow(void){
+void blinkSlow(){
 	blink(2000);
 }
 
-void blinkFast(void){
-	int i;
-	for (i=0;i<10;i++){
-		
-		blink(100);
-	}
-	
+void blinkFast(){
+	blink(100);
 }
 
-void mainLoop(void){
+void blinkQuick(){
+	blink(500);
+}
+
+void blinkTen(){
+	int i;
+	for (i=0;i<10;i++){
+		blink(50);
+	}
+}
+
+void mainLoop(){
 		while(1){
-			
-			blinkSlow();
+			blinkQuick();
 			blinkFast();
-			blink(1000);
+			blinkSlow();
+			blinkTen(); 
 		}
 }
 
-void setClock(void){
-    // Configure Clock -- Based on Application Notes & Examples on AVRFreaks
-	CLKSYS_Enable( OSC_RC32MEN_bm );
-//	do {} while ( CLKSYS_IsReady( OSC_RC32MRDY_bm ) == 0 );
-	CLKSYS_Main_ClockSource_Select( CLK_SCLKSEL_RC32M_gc );
+void init(){
+		setClock();
+		PORTD.DIRSET = _BV(4);  
+        PORTD.DIRSET = _BV(5);
 }
 
-
-
-int main (void)
-{	
-
-		init();
-        mainLoop();
-        return 0;
+int main ()
+{
+	init();	
+	delay_ms(1000);
+	mainLoop();
+	return 0;
 }
