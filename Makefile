@@ -1,12 +1,17 @@
 # AVR-GCC Makefile
-PROJECT=tutorial_1
+PROJECT=blinky
 SOURCES=main.c
 CC=avr-gcc
 OBJCOPY=avr-objcopy
 #This is what the atxmega16a4 uses according to http://www.nongnu.org/avr-libc/user-manual/using_tools.html
 MMCU=atxmega32a4
 
-CFLAGS=-mmcu=$(MMCU) -Wall -O1
+CFLAGS=-g -mmcu=$(MMCU) -Os \
+	-fpack-struct -fshort-enums             \
+	-funsigned-bitfields -funsigned-char    \
+	-Wall -Wstrict-prototypes               
+#	-Wa,-ahlms=$(firstword                  \
+#	$(filter %.lst, $(<:.c=.lst)))
 
 $(PROJECT).hex: $(PROJECT).out
 	$(OBJCOPY) -j .text -O ihex $(PROJECT).out $(PROJECT).hex
