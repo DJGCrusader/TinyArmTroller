@@ -23,6 +23,7 @@ void delay_ms(int ms)
 } 
 
 void init(void){
+		setClock();
 		PORTD.DIRSET = _BV(4);  
         PORTD.DIRSET = _BV(5);
 }
@@ -52,16 +53,17 @@ void blinkFast(void){
 
 void mainLoop(void){
 		while(1){
-			blink(1000);
+			
 			blinkSlow();
 			blinkFast();
+			blink(1000);
 		}
 }
 
 void setClock(void){
     // Configure Clock -- Based on Application Notes & Examples on AVRFreaks
 	CLKSYS_Enable( OSC_RC32MEN_bm );
-	do {} while ( CLKSYS_IsReady( OSC_RC32MRDY_bm ) == 0 );
+//	do {} while ( CLKSYS_IsReady( OSC_RC32MRDY_bm ) == 0 );
 	CLKSYS_Main_ClockSource_Select( CLK_SCLKSEL_RC32M_gc );
 }
 
@@ -69,7 +71,7 @@ void setClock(void){
 
 int main (void)
 {	
-		setClock();
+
 		init();
         mainLoop();
         return 0;
