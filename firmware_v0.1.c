@@ -195,7 +195,7 @@ void clearPin(char portNum, int pinNum){
 	}
 }
 // getTime
-long getTime();
+long getTime(void);
 
 // setPinMode
 void setPinMode(char portNum, int pinNum, int direction)
@@ -203,7 +203,7 @@ void setPinMode(char portNum, int pinNum, int direction)
 	INPUT =0
 	
 // move all the stepper one by one
-void action();
+void action(void);
 	
 
 // Compute the required speed for each stepper 
@@ -218,7 +218,7 @@ void readInstruction(int port);
 }
 
 // Move the whole robotic arm to a destination within a predefined time 
-void moveArm();
+void moveArm(void);
 {read global variable: time, step1angle, step2angle, ... step6angle
 	setSpeedAll();
 	action();
@@ -228,7 +228,9 @@ void moveArm();
 
 int main(void){
 
-PORTA_DIR = 0XFF;//Set PortA to output
+PORTA_DIR = 0XFF;//Set PortA to output:
+PORTB_DIR = 0xFF
+
 
 setSpeed(Left_Wrist,30);
 step(Left_Wrist,50);
