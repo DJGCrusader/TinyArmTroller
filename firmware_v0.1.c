@@ -35,9 +35,9 @@ struct Stepper{
 	int motor_pin_4;
 
 	long last_step_time //ms, time stamp when last step was taken
-} Base,Shoulder,Elbow,Right_Wrist,Hand;
+} Base,Shoulder,Elbow,Left_Wrist,Right_Wrist,Hand;
 
-Stepper Left_Wrist = {
+Left_Wrist = {
 	int direction=0;
 	int speed=0; // RPM
 	unsigned long step_delay=10; //ms
@@ -101,7 +101,7 @@ void step(Stepper stepper, int steps_to_move){
 }
 
 
-	/// Set Speed, in RPM
+// Set Speed, in RPM
 void setSpeed(Stepper stepper, long whatSpeed){
 	stepper.step_delay = 60L * 1000L / stepper.number_of_steps / whatSpeed;
 }
@@ -198,9 +198,10 @@ void clearPin(char portNum, int pinNum){
 long getTime(void);
 
 // setPinMode
-void setPinMode(char portNum, int pinNum, int direction)
+void setPinMode(char portNum, int pinNum, int direction){
 	OUTPUT =1 
 	INPUT =0
+}
 	
 // move all the stepper one by one
 void action(void);
@@ -229,7 +230,7 @@ void moveArm(void);
 int main(void){
 
 PORTA_DIR = 0XFF;//Set PortA to output:
-PORTB_DIR = 0xFF
+PORTB_DIR = 0xFF;
 
 
 setSpeed(Left_Wrist,30);
