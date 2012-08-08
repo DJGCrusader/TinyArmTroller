@@ -1,17 +1,12 @@
-/* TinyArmTroller Firmware v0.02
- * by Daniel J. Gonzalez and Azureviolin, modified from Arduino stepper.cpp V.04
+/* TinyArmTroller Advertisement Demo
+ * by Daniel J. Gonzalez
  * July 2012, yameb.blogspot.com
  * 
- * TODO: 
- *  - Solder last 2 channels
- *  - Implement distributed motor timing
- *  - Finish mainLoop() implementation
- *  - - Initialization/localize State
- *  - - - Use single switch, don't mount
- *  - - - mount multiple switches
- *  - - Check limits and do not exceed them
- *  - - - Finish kinematic characterization
- *  - Implement V-USB
+ * Home: 
+ * * Facing right 
+ * * Shoulder and elbow down 
+ * * Advert facing wherever 
+ * * Gripper already gripping
  */
 
 #define F_CPU 	32000000UL //32 MHz Internal Oscillator

@@ -78,7 +78,7 @@ PROGRAMMER_MCU=x16a4
 
 # Name of our project
 # (use a single word, e.g. 'myproject')
-PROJECTNAME=tinyArmTroller
+PROJECTNAME=timingInterrupt
 
 # Source files
 # List C/C++/Assembly source files:
