@@ -62,10 +62,8 @@ void blinkTen(void){
 
 void mainLoop(void){
 		while(1){
-			if(!(PORTC.IN & _BV(3))){ //if pin C3 goes LOW
+			//if(!(PORTD.IN & _BV(4))) //if pin C3 goes LOW
 				blinkQuick();
-				blinkTen();
-			}
 		}
 }
 
@@ -74,9 +72,10 @@ void mainLoop(void){
  * 
  */
 void init(void){
-		Config32MHzClock(); //Set Clock Speed to 32MHz
+		Config32MHzClock(); //Set Clock Speed to 32MHz	
+		PORTD.PIN4CTRL = PORT_OPC_PULLUP_gc; //Set pin D4 as INPUT and as a pullup (Detect when pulled LOW)
 		PORTE.DIRSET |= _BV(0); //Set pin E0 as OUTPUT
-		PORTC.PIN3CTRL = PORT_OPC_PULLUP_gc; //Set pin C3 as INPUT and as a pullup (Detect when pulled LOW)
+		
 }
 
 int main (void)

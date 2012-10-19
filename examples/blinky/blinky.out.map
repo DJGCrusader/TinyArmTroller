@@ -1,11 +1,7 @@
 Archive member included because of file (symbol)
 
-/usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_exit.o)
-                              /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o (exit)
-/usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_copy_data.o)
-                              main.o (__do_copy_data)
-/usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_clear_bss.o)
-                              main.o (__do_clear_bss)
+/usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+                              /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o (exit)
 
 Memory Configuration
 
@@ -20,12 +16,12 @@ signature        0x00840000         0x00000400         rw !x
 
 Linker script and memory map
 
-LOAD /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o
-LOAD /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/libm.a
+LOAD /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+LOAD /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/libm.a
 LOAD main.o
-LOAD /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a
-LOAD /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/libc.a
-LOAD /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a
+LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
+LOAD /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/libc.a
+LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
 
 .hash
  *(.hash)
@@ -117,9 +113,9 @@ LOAD /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x532
+.text           0x00000000      0x336
  *(.vectors)
- .vectors       0x00000000      0x178 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o
+ .vectors       0x00000000      0x178 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
                 0x00000000                __vectors
                 0x00000000                __vector_default
  *(.vectors)
@@ -144,21 +140,17 @@ LOAD /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x00000178        0x0 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o
+ .init0         0x00000178        0x0 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
                 0x00000178                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x00000178       0x14 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o
+ .init2         0x00000178        0xc /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x0000018c       0x16 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_copy_data.o)
-                0x0000018c                __do_copy_data
- .init4         0x000001a2       0x10 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_clear_bss.o)
-                0x000001a2                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -169,136 +161,143 @@ LOAD /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x000001b2        0x8 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o
+ .init9         0x00000184        0x8 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
  *(.init9)
  *(.text)
- .text          0x000001ba        0x4 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o
-                0x000001ba                __vector_38
-                0x000001ba                __vector_22
-                0x000001ba                __vector_63
-                0x000001ba                __vector_28
-                0x000001ba                __vector_67
-                0x000001ba                __vector_1
-                0x000001ba                __vector_32
-                0x000001ba                __vector_75
-                0x000001ba                __vector_71
-                0x000001ba                __vector_91
-                0x000001ba                __vector_34
-                0x000001ba                __vector_62
-                0x000001ba                __vector_77
-                0x000001ba                __vector_24
-                0x000001ba                __vector_12
-                0x000001ba                __vector_55
-                0x000001ba                __vector_69
-                0x000001ba                __vector_81
-                0x000001ba                __vector_90
-                0x000001ba                __vector_46
-                0x000001ba                __bad_interrupt
-                0x000001ba                __vector_72
-                0x000001ba                __vector_6
-                0x000001ba                __vector_31
-                0x000001ba                __vector_92
-                0x000001ba                __vector_35
-                0x000001ba                __vector_78
-                0x000001ba                __vector_74
-                0x000001ba                __vector_39
-                0x000001ba                __vector_3
-                0x000001ba                __vector_23
-                0x000001ba                __vector_68
-                0x000001ba                __vector_30
-                0x000001ba                __vector_73
-                0x000001ba                __vector_45
-                0x000001ba                __vector_25
-                0x000001ba                __vector_93
-                0x000001ba                __vector_61
-                0x000001ba                __vector_11
-                0x000001ba                __vector_54
-                0x000001ba                __vector_13
-                0x000001ba                __vector_17
-                0x000001ba                __vector_19
-                0x000001ba                __vector_56
-                0x000001ba                __vector_7
-                0x000001ba                __vector_49
-                0x000001ba                __vector_41
-                0x000001ba                __vector_86
-                0x000001ba                __vector_64
-                0x000001ba                __vector_88
-                0x000001ba                __vector_43
-                0x000001ba                __vector_27
-                0x000001ba                __vector_5
-                0x000001ba                __vector_33
-                0x000001ba                __vector_76
-                0x000001ba                __vector_47
-                0x000001ba                __vector_52
-                0x000001ba                __vector_37
-                0x000001ba                __vector_89
-                0x000001ba                __vector_4
-                0x000001ba                __vector_44
-                0x000001ba                __vector_82
-                0x000001ba                __vector_51
-                0x000001ba                __vector_9
-                0x000001ba                __vector_2
-                0x000001ba                __vector_21
-                0x000001ba                __vector_15
-                0x000001ba                __vector_66
-                0x000001ba                __vector_36
-                0x000001ba                __vector_79
-                0x000001ba                __vector_58
-                0x000001ba                __vector_70
-                0x000001ba                __vector_83
-                0x000001ba                __vector_29
-                0x000001ba                __vector_60
-                0x000001ba                __vector_40
-                0x000001ba                __vector_85
-                0x000001ba                __vector_8
-                0x000001ba                __vector_26
-                0x000001ba                __vector_48
-                0x000001ba                __vector_80
-                0x000001ba                __vector_14
-                0x000001ba                __vector_84
-                0x000001ba                __vector_57
-                0x000001ba                __vector_53
-                0x000001ba                __vector_10
-                0x000001ba                __vector_50
-                0x000001ba                __vector_16
-                0x000001ba                __vector_59
-                0x000001ba                __vector_18
-                0x000001ba                __vector_20
-                0x000001ba                __vector_42
-                0x000001ba                __vector_87
-                0x000001ba                __vector_65
- .text          0x000001be      0x370 main.o
-                0x000001be                CCPWrite
-                0x000001e8                CLKSYS_XOSC_Config
-                0x000001fe                CLKSYS_PLL_Config
-                0x0000020a                CLKSYS_Disable
-                0x0000021e                CLKSYS_Prescalers_Config
-                0x0000024e                CLKSYS_Main_ClockSource_Select
-                0x00000288                CLKSYS_RTC_ClockSource_Enable
-                0x00000298                CLKSYS_AutoCalibration_Enable
-                0x000002d6                CLKSYS_XOSC_FailureDetection_Enable
-                0x00000306                CLKSYS_Configuration_Lock
-                0x00000336                delay_ms
-                0x0000034e                Config32MHzClock
-                0x0000036c                blink
-                0x000003b2                blinkQuick
-                0x000003fc                blinkTen
-                0x0000044e                mainLoop
-                0x000004a6                init
-                0x000004d8                main
- .text          0x0000052e        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_exit.o)
- .text          0x0000052e        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_copy_data.o)
- .text          0x0000052e        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_clear_bss.o)
-                0x0000052e                . = ALIGN (0x2)
+ .text          0x0000018c        0x4 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+                0x0000018c                __vector_38
+                0x0000018c                __vector_22
+                0x0000018c                __vector_63
+                0x0000018c                __vector_28
+                0x0000018c                __vector_67
+                0x0000018c                __vector_1
+                0x0000018c                __vector_32
+                0x0000018c                __vector_75
+                0x0000018c                __vector_71
+                0x0000018c                __vector_91
+                0x0000018c                __vector_34
+                0x0000018c                __vector_62
+                0x0000018c                __vector_77
+                0x0000018c                __vector_24
+                0x0000018c                __vector_12
+                0x0000018c                __vector_55
+                0x0000018c                __vector_69
+                0x0000018c                __vector_81
+                0x0000018c                __vector_90
+                0x0000018c                __vector_46
+                0x0000018c                __bad_interrupt
+                0x0000018c                __vector_72
+                0x0000018c                __vector_6
+                0x0000018c                __vector_31
+                0x0000018c                __vector_92
+                0x0000018c                __vector_35
+                0x0000018c                __vector_78
+                0x0000018c                __vector_74
+                0x0000018c                __vector_39
+                0x0000018c                __vector_3
+                0x0000018c                __vector_23
+                0x0000018c                __vector_68
+                0x0000018c                __vector_30
+                0x0000018c                __vector_73
+                0x0000018c                __vector_45
+                0x0000018c                __vector_25
+                0x0000018c                __vector_93
+                0x0000018c                __vector_61
+                0x0000018c                __vector_11
+                0x0000018c                __vector_54
+                0x0000018c                __vector_13
+                0x0000018c                __vector_17
+                0x0000018c                __vector_19
+                0x0000018c                __vector_56
+                0x0000018c                __vector_7
+                0x0000018c                __vector_49
+                0x0000018c                __vector_41
+                0x0000018c                __vector_86
+                0x0000018c                __vector_64
+                0x0000018c                __vector_88
+                0x0000018c                __vector_43
+                0x0000018c                __vector_27
+                0x0000018c                __vector_5
+                0x0000018c                __vector_33
+                0x0000018c                __vector_76
+                0x0000018c                __vector_47
+                0x0000018c                __vector_52
+                0x0000018c                __vector_37
+                0x0000018c                __vector_89
+                0x0000018c                __vector_4
+                0x0000018c                __vector_44
+                0x0000018c                __vector_82
+                0x0000018c                __vector_51
+                0x0000018c                __vector_9
+                0x0000018c                __vector_2
+                0x0000018c                __vector_21
+                0x0000018c                __vector_15
+                0x0000018c                __vector_66
+                0x0000018c                __vector_36
+                0x0000018c                __vector_79
+                0x0000018c                __vector_58
+                0x0000018c                __vector_70
+                0x0000018c                __vector_83
+                0x0000018c                __vector_29
+                0x0000018c                __vector_60
+                0x0000018c                __vector_40
+                0x0000018c                __vector_85
+                0x0000018c                __vector_8
+                0x0000018c                __vector_26
+                0x0000018c                __vector_48
+                0x0000018c                __vector_80
+                0x0000018c                __vector_14
+                0x0000018c                __vector_84
+                0x0000018c                __vector_57
+                0x0000018c                __vector_53
+                0x0000018c                __vector_10
+                0x0000018c                __vector_50
+                0x0000018c                __vector_16
+                0x0000018c                __vector_59
+                0x0000018c                __vector_18
+                0x0000018c                __vector_20
+                0x0000018c                __vector_42
+                0x0000018c                __vector_87
+                0x0000018c                __vector_65
+ .text          0x00000190      0x190 main.o
+                0x00000190                CCPWrite
+                0x000001ba                CLKSYS_XOSC_Config
+                0x000001ce                CLKSYS_PLL_Config
+                0x000001da                CLKSYS_Disable
+                0x000001ee                CLKSYS_Prescalers_Config
+                0x000001f8                CLKSYS_Main_ClockSource_Select
+                0x0000021e                CLKSYS_RTC_ClockSource_Enable
+                0x0000022e                CLKSYS_AutoCalibration_Enable
+                0x00000266                CLKSYS_XOSC_FailureDetection_Enable
+                0x00000270                CLKSYS_Configuration_Lock
+                0x0000027a                delay_ms
+                0x00000296                Config32MHzClock
+                0x000002b4                blink
+                0x000002e0                blinkQuick
+                0x000002e8                blinkTen
+                0x00000302                mainLoop
+                0x00000308                init
+ .text          0x00000320        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+                0x00000320                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x0000052e        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_exit.o)
- .text.libgcc   0x0000052e        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_copy_data.o)
- .text.libgcc   0x0000052e        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_clear_bss.o)
-                0x0000052e                . = ALIGN (0x2)
+ .text.startup  0x00000320       0x12 main.o
+                0x00000320                main
+ .text.libgcc.mul
+                0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+ .text.libgcc   0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+                0x00000332                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000052e        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_exit.o)
-                0x0000052e                exit
-                0x0000052e                _exit
+ .fini9         0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+                0x00000332                exit
+                0x00000332                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -317,18 +316,16 @@ LOAD /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000052e        0x4 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_exit.o)
+ .fini0         0x00000332        0x4 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
  *(.fini0)
-                0x00000532                _etext = .
+                0x00000336                _etext = .
 
-.data           0x00802000        0x0 load address 0x00000532
+.data           0x00802000        0x0 load address 0x00000336
                 0x00802000                PROVIDE (__data_start, .)
  *(.data)
- .data          0x00802000        0x0 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o
+ .data          0x00802000        0x0 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
  .data          0x00802000        0x0 main.o
- .data          0x00802000        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_exit.o)
- .data          0x00802000        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_copy_data.o)
- .data          0x00802000        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_clear_bss.o)
+ .data          0x00802000        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
@@ -340,16 +337,14 @@ LOAD /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a
 .bss            0x00802000        0x0
                 0x00802000                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00802000        0x0 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o
+ .bss           0x00802000        0x0 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
  .bss           0x00802000        0x0 main.o
- .bss           0x00802000        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_exit.o)
- .bss           0x00802000        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_copy_data.o)
- .bss           0x00802000        0x0 /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a(_clear_bss.o)
+ .bss           0x00802000        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
  *(.bss*)
  *(COMMON)
                 0x00802000                PROVIDE (__bss_end, .)
-                0x00000532                __data_load_start = LOADADDR (.data)
-                0x00000532                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000336                __data_load_start = LOADADDR (.data)
+                0x00000336                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00802000        0x0
                 0x00802000                PROVIDE (__noinit_start, .)
@@ -374,15 +369,15 @@ LOAD /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x25e0
+.stab           0x00000000     0x2124
  *(.stab)
- .stab          0x00000000      0x6e4 /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o
- .stab          0x000006e4     0x1efc main.o
-                               0x1f08 (size before relaxing)
+ .stab          0x00000000      0x6cc /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+ .stab          0x000006cc     0x1a58 main.o
+                               0x1a64 (size before relaxing)
 
-.stabstr        0x00000000     0xb94f
+.stabstr        0x00000000     0xb74c
  *(.stabstr)
- .stabstr       0x00000000     0xb94f /usr/lib/gcc/avr/4.3.4/../../../avr/lib/avrxmega3/crtx32a4.o
+ .stabstr       0x00000000     0xb74c /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
 
 .stab.excl
  *(.stab.excl)
@@ -396,8 +391,10 @@ LOAD /usr/lib/gcc/avr/4.3.4/avrxmega3/libgcc.a
 .stab.indexstr
  *(.stab.indexstr)
 
-.comment
+.comment        0x00000000       0x11
  *(.comment)
+ .comment       0x00000000       0x11 main.o
+                                 0x12 (size before relaxing)
 
 .debug
  *(.debug)
