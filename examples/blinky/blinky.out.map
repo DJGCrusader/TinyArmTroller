@@ -1,7 +1,7 @@
 Archive member included because of file (symbol)
 
-/usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
-                              /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o (exit)
+/usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
+                              /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o (exit)
 
 Memory Configuration
 
@@ -16,12 +16,12 @@ signature        0x00840000         0x00000400         rw !x
 
 Linker script and memory map
 
-LOAD /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
-LOAD /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/libm.a
+LOAD /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
+LOAD /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/libm.a
 LOAD main.o
-LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
-LOAD /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/libc.a
-LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
+LOAD /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a
+LOAD /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/libc.a
+LOAD /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a
 
 .hash
  *(.hash)
@@ -113,9 +113,9 @@ LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x336
+.text           0x00000000      0x350
  *(.vectors)
- .vectors       0x00000000      0x178 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+ .vectors       0x00000000      0x178 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
                 0x00000000                __vectors
                 0x00000000                __vector_default
  *(.vectors)
@@ -140,13 +140,13 @@ LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x00000178        0x0 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+ .init0         0x00000178        0x0 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
                 0x00000178                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x00000178        0xc /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+ .init2         0x00000178        0xc /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
  *(.init2)
  *(.init3)
  *(.init3)
@@ -161,10 +161,10 @@ LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000184        0x8 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+ .init9         0x00000184        0x8 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
  *(.init9)
  *(.text)
- .text          0x0000018c        0x4 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+ .text          0x0000018c        0x4 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
                 0x0000018c                __vector_38
                 0x0000018c                __vector_22
                 0x0000018c                __vector_63
@@ -259,45 +259,34 @@ LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
                 0x0000018c                __vector_42
                 0x0000018c                __vector_87
                 0x0000018c                __vector_65
- .text          0x00000190      0x190 main.o
+ .text          0x00000190      0x1bc main.o
                 0x00000190                CCPWrite
                 0x000001ba                CLKSYS_XOSC_Config
-                0x000001ce                CLKSYS_PLL_Config
-                0x000001da                CLKSYS_Disable
-                0x000001ee                CLKSYS_Prescalers_Config
-                0x000001f8                CLKSYS_Main_ClockSource_Select
-                0x0000021e                CLKSYS_RTC_ClockSource_Enable
-                0x0000022e                CLKSYS_AutoCalibration_Enable
-                0x00000266                CLKSYS_XOSC_FailureDetection_Enable
-                0x00000270                CLKSYS_Configuration_Lock
-                0x0000027a                delay_ms
-                0x00000296                Config32MHzClock
-                0x000002b4                blink
-                0x000002e0                blinkQuick
-                0x000002e8                blinkTen
-                0x00000302                mainLoop
-                0x00000308                init
- .text          0x00000320        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
-                0x00000320                . = ALIGN (0x2)
+                0x000001d0                CLKSYS_PLL_Config
+                0x000001dc                CLKSYS_Disable
+                0x000001f0                CLKSYS_Prescalers_Config
+                0x000001fc                CLKSYS_Main_ClockSource_Select
+                0x00000222                CLKSYS_RTC_ClockSource_Enable
+                0x00000232                CLKSYS_AutoCalibration_Enable
+                0x0000026c                CLKSYS_XOSC_FailureDetection_Enable
+                0x00000278                CLKSYS_Configuration_Lock
+                0x00000284                delay_ms
+                0x000002a0                Config32MHzClock
+                0x000002be                blink
+                0x000002f0                blinkQuick
+                0x000002fa                blinkTen
+                0x00000314                mainLoop
+                0x0000031a                init
+                0x00000332                main
+ .text          0x0000034c        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
+                0x0000034c                . = ALIGN (0x2)
  *(.text.*)
- .text.startup  0x00000320       0x12 main.o
-                0x00000320                main
- .text.libgcc.mul
-                0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
- .text.libgcc.div
-                0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
- .text.libgcc   0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
- .text.libgcc.prologue
-                0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
- .text.libgcc.builtins
-                0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
- .text.libgcc.fmul
-                0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
-                0x00000332                . = ALIGN (0x2)
+ .text.libgcc   0x0000034c        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
+                0x0000034c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000332        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
-                0x00000332                exit
-                0x00000332                _exit
+ .fini9         0x0000034c        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
+                0x0000034c                exit
+                0x0000034c                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -316,16 +305,16 @@ LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000332        0x4 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+ .fini0         0x0000034c        0x4 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
  *(.fini0)
-                0x00000336                _etext = .
+                0x00000350                _etext = .
 
-.data           0x00802000        0x0 load address 0x00000336
+.data           0x00802000        0x0 load address 0x00000350
                 0x00802000                PROVIDE (__data_start, .)
  *(.data)
- .data          0x00802000        0x0 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+ .data          0x00802000        0x0 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
  .data          0x00802000        0x0 main.o
- .data          0x00802000        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+ .data          0x00802000        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
@@ -337,14 +326,14 @@ LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
 .bss            0x00802000        0x0
                 0x00802000                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00802000        0x0 /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+ .bss           0x00802000        0x0 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
  .bss           0x00802000        0x0 main.o
- .bss           0x00802000        0x0 /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a(_exit.o)
+ .bss           0x00802000        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
  *(.bss*)
  *(COMMON)
                 0x00802000                PROVIDE (__bss_end, .)
-                0x00000336                __data_load_start = LOADADDR (.data)
-                0x00000336                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000350                __data_load_start = LOADADDR (.data)
+                0x00000350                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00802000        0x0
                 0x00802000                PROVIDE (__noinit_start, .)
@@ -369,15 +358,15 @@ LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x2124
+.stab           0x00000000     0x2238
  *(.stab)
- .stab          0x00000000      0x6cc /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
- .stab          0x000006cc     0x1a58 main.o
-                               0x1a64 (size before relaxing)
+ .stab          0x00000000      0x6cc /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
+ .stab          0x000006cc     0x1b6c main.o
+                               0x1b78 (size before relaxing)
 
-.stabstr        0x00000000     0xb74c
+.stabstr        0x00000000     0xb958
  *(.stabstr)
- .stabstr       0x00000000     0xb74c /usr/lib/gcc/avr/4.7.0/../../../avr/lib/avrxmega2/crtx32a4.o
+ .stabstr       0x00000000     0xb958 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
 
 .stab.excl
  *(.stab.excl)
@@ -391,10 +380,8 @@ LOAD /usr/lib/gcc/avr/4.7.0/avrxmega2/libgcc.a
 .stab.indexstr
  *(.stab.indexstr)
 
-.comment        0x00000000       0x11
+.comment
  *(.comment)
- .comment       0x00000000       0x11 main.o
-                                 0x12 (size before relaxing)
 
 .debug
  *(.debug)

@@ -1,0 +1,106 @@
+   1               		.file	"Events.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  10               		.text
+  11               	.Ltext0:
+  12               		.cfi_sections	.debug_frame
+  13               		.section	.text.USB_Event_Stub,"ax",@progbits
+  14               	.global	USB_Event_Stub
+  16               	USB_Event_Stub:
+  17               	.LFB16:
+  18               		.file 1 "LUFA//Drivers/USB/Core/Events.c"
+   1:LUFA//Drivers/USB/Core/Events.c **** /*
+   2:LUFA//Drivers/USB/Core/Events.c ****              LUFA Library
+   3:LUFA//Drivers/USB/Core/Events.c ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Core/Events.c **** 
+   5:LUFA//Drivers/USB/Core/Events.c ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Core/Events.c ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Core/Events.c **** */
+   8:LUFA//Drivers/USB/Core/Events.c **** 
+   9:LUFA//Drivers/USB/Core/Events.c **** /*
+  10:LUFA//Drivers/USB/Core/Events.c ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Core/Events.c **** 
+  12:LUFA//Drivers/USB/Core/Events.c ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Core/Events.c ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Core/Events.c ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Core/Events.c ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Core/Events.c ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Core/Events.c ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Core/Events.c ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Core/Events.c ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Core/Events.c **** 
+  21:LUFA//Drivers/USB/Core/Events.c ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Core/Events.c ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Core/Events.c ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Core/Events.c ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Core/Events.c ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Core/Events.c ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Core/Events.c ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Core/Events.c ****   this software.
+  29:LUFA//Drivers/USB/Core/Events.c **** */
+  30:LUFA//Drivers/USB/Core/Events.c **** 
+  31:LUFA//Drivers/USB/Core/Events.c **** #define  __INCLUDE_FROM_EVENTS_C
+  32:LUFA//Drivers/USB/Core/Events.c **** #define  __INCLUDE_FROM_USB_DRIVER
+  33:LUFA//Drivers/USB/Core/Events.c **** #include "Events.h"
+  34:LUFA//Drivers/USB/Core/Events.c **** 
+  35:LUFA//Drivers/USB/Core/Events.c **** // cppcheck-suppress unusedFunction
+  36:LUFA//Drivers/USB/Core/Events.c **** void USB_Event_Stub(void)
+  37:LUFA//Drivers/USB/Core/Events.c **** {
+  19               		.loc 1 37 0
+  20               		.cfi_startproc
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 0 */
+  24               	.L__stack_usage = 0
+  25               	/* epilogue start */
+  38:LUFA//Drivers/USB/Core/Events.c **** 
+  39:LUFA//Drivers/USB/Core/Events.c **** }
+  26               		.loc 1 39 0
+  27 0000 0895      		ret
+  28               		.cfi_endproc
+  29               	.LFE16:
+  31               		.weak	EVENT_USB_Device_Connect
+  32               		.set	EVENT_USB_Device_Connect,USB_Event_Stub
+  33               		.weak	EVENT_USB_Device_Disconnect
+  34               		.set	EVENT_USB_Device_Disconnect,USB_Event_Stub
+  35               		.weak	EVENT_USB_Device_ControlRequest
+  36               		.set	EVENT_USB_Device_ControlRequest,USB_Event_Stub
+  37               		.weak	EVENT_USB_Device_ConfigurationChanged
+  38               		.set	EVENT_USB_Device_ConfigurationChanged,USB_Event_Stub
+  39               		.weak	EVENT_USB_Device_Suspend
+  40               		.set	EVENT_USB_Device_Suspend,USB_Event_Stub
+  41               		.weak	EVENT_USB_Device_WakeUp
+  42               		.set	EVENT_USB_Device_WakeUp,USB_Event_Stub
+  43               		.weak	EVENT_USB_Device_Reset
+  44               		.set	EVENT_USB_Device_Reset,USB_Event_Stub
+  45               		.weak	EVENT_USB_Device_StartOfFrame
+  46               		.set	EVENT_USB_Device_StartOfFrame,USB_Event_Stub
+  47               		.text
+  48               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 Events.c
+     /tmp/cc1BWwuM.s:2      *ABS*:0000003f __SREG__
+     /tmp/cc1BWwuM.s:3      *ABS*:0000003e __SP_H__
+     /tmp/cc1BWwuM.s:4      *ABS*:0000003d __SP_L__
+     /tmp/cc1BWwuM.s:5      *ABS*:00000034 __CCP__
+     /tmp/cc1BWwuM.s:6      *ABS*:00000000 __tmp_reg__
+     /tmp/cc1BWwuM.s:7      *ABS*:00000001 __zero_reg__
+     /tmp/cc1BWwuM.s:16     .text.USB_Event_Stub:00000000 USB_Event_Stub
+     /tmp/cc1BWwuM.s:16     .text.USB_Event_Stub:00000000 EVENT_USB_Device_Connect
+     /tmp/cc1BWwuM.s:16     .text.USB_Event_Stub:00000000 EVENT_USB_Device_Disconnect
+     /tmp/cc1BWwuM.s:16     .text.USB_Event_Stub:00000000 EVENT_USB_Device_ControlRequest
+     /tmp/cc1BWwuM.s:16     .text.USB_Event_Stub:00000000 EVENT_USB_Device_ConfigurationChanged
+     /tmp/cc1BWwuM.s:16     .text.USB_Event_Stub:00000000 EVENT_USB_Device_Suspend
+     /tmp/cc1BWwuM.s:16     .text.USB_Event_Stub:00000000 EVENT_USB_Device_WakeUp
+     /tmp/cc1BWwuM.s:16     .text.USB_Event_Stub:00000000 EVENT_USB_Device_Reset
+     /tmp/cc1BWwuM.s:16     .text.USB_Event_Stub:00000000 EVENT_USB_Device_StartOfFrame
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

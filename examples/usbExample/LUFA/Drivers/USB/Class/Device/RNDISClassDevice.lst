@@ -1,0 +1,3055 @@
+   1               		.file	"RNDISClassDevice.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  10               		.text
+  11               	.Ltext0:
+  12               		.cfi_sections	.debug_frame
+  13               		.section	.text.Endpoint_SelectEndpoint,"ax",@progbits
+  15               	Endpoint_SelectEndpoint:
+  16               	.LFB22:
+  17               		.file 1 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h"
+   1:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /*
+   2:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****              LUFA Library
+   3:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+   5:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** */
+   8:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+   9:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /*
+  10:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  12:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  21:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   this software.
+  29:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** */
+  30:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  31:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \file
+  32:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief USB Endpoint definitions for the AVR XMEGA microcontrollers.
+  33:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \copydetails Group_EndpointManagement_XMEGA
+  34:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  35:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \note This file should not be included directly. It is automatically included as needed by the 
+  36:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *        dispatch header located in LUFA/Drivers/USB/USB.h.
+  37:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  38:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  39:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointRW
+  40:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointRW_XMEGA Endpoint Data Reading and Writing (XMEGA)
+  41:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint data read/write definitions for the Atmel AVR XMEGA architecture.
+  42:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  43:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros, variables, enums and types related to data reading and writing from and to e
+  44:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  45:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  46:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointPrimitiveRW
+  47:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointPrimitiveRW_XMEGA Read/Write of Primitive Data Types (XMEGA)
+  48:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint primitive read/write definitions for the Atmel AVR XMEGA architecture.
+  49:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  50:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros, variables, enums and types related to data reading and writing of primitive 
+  51:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  from and to endpoints.
+  52:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  53:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  54:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointPacketManagement
+  55:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointPacketManagement_XMEGA Endpoint Packet Management (XMEGA)
+  56:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint packet management definitions for the Atmel AVR XMEGA architecture.
+  57:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  58:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros, variables, enums and types related to packet management of endpoints.
+  59:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  60:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  61:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointManagement
+  62:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointManagement_XMEGA Endpoint Management (XMEGA)
+  63:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint management definitions for the Atmel AVR XMEGA architecture.
+  64:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  65:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
+  66:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  module contains the endpoint management macros, as well as endpoint interrupt and data
+  67:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  send/receive functions for various data types.
+  68:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  69:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  @{
+  70:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  71:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  72:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** #ifndef __ENDPOINT_XMEGA_H__
+  73:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** #define __ENDPOINT_XMEGA_H__
+  74:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  75:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Includes: */
+  76:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../../../../Common/Common.h"
+  77:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../USBTask.h"
+  78:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../USBInterrupt.h"
+  79:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../USBController.h"
+  80:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  81:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Enable C linkage for C++ Compilers: */
+  82:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#if defined(__cplusplus)
+  83:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern "C" {
+  84:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#endif
+  85:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  86:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Preprocessor Checks: */
+  87:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+  88:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+  89:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#endif
+  90:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  91:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Public Interface - May be used in end-application: */
+  92:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Macros: */
+  93:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#if (!defined(MAX_ENDPOINT_INDEX) && !defined(CONTROL_ONLY_DEVICE)) || defined(__DOXYGEN__)
+  94:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				/** Total number of endpoints (including the default control endpoint at address 0) which may
+  95:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 *  be used in the device. Different USB AVR models support different amounts of endpoints,
+  96:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
+  97:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 */
+  98:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#define ENDPOINT_TOTAL_ENDPOINTS            16
+  99:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#else
+ 100:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#if defined(CONTROL_ONLY_DEVICE)
+ 101:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					#define ENDPOINT_TOTAL_ENDPOINTS        1
+ 102:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#else
+ 103:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					#define ENDPOINT_TOTAL_ENDPOINTS        (MAX_ENDPOINT_INDEX + 1)
+ 104:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#endif
+ 105:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#endif
+ 106:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 107:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Private Interface - For use in library only: */
+ 108:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	#if !defined(__DOXYGEN__)
+ 109:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Type Defines: */
+ 110:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			typedef struct
+ 111:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 112:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t Data[64];
+ 113:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 114:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t Length;
+ 115:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t Position;
+ 116:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			} Endpoint_FIFO_t;
+ 117:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 118:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			typedef struct
+ 119:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 120:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_FIFO_t OUT;
+ 121:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_FIFO_t IN;
+ 122:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			} Endpoint_FIFOPair_t;
+ 123:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 124:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* External Variables: */
+ 125:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern Endpoint_FIFOPair_t       USB_Endpoint_FIFOs[ENDPOINT_TOTAL_ENDPOINTS];
+ 126:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern volatile uint8_t          USB_Endpoint_SelectedEndpoint;
+ 127:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern volatile USB_EP_t*        USB_Endpoint_SelectedHandle;
+ 128:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern volatile Endpoint_FIFO_t* USB_Endpoint_SelectedFIFO;
+ 129:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 130:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Inline Functions: */
+ 131:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT A
+ 132:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                                                       ATTR_ALWAYS_INLINE;
+ 133:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
+ 134:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 135:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t  MaskVal    = 0;
+ 136:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint16_t CheckBytes = 8;
+ 137:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 138:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				while (CheckBytes < Bytes)
+ 139:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 140:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					MaskVal++;
+ 141:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					CheckBytes <<= 1;
+ 142:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 143:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 144:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return (MaskVal << USB_EP_BUFSIZE_gp);
+ 145:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 146:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 147:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Function Prototypes: */
+ 148:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Address,
+ 149:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                    const uint8_t Config,
+ 150:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                    const uint8_t Size);
+ 151:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			void Endpoint_ClearEndpoints(void);
+ 152:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	#endif
+ 153:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 154:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Public Interface - May be used in end-application: */
+ 155:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Macros: */
+ 156:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
+ 157:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				/** Default size of the default control endpoint's bank, until altered by the control endpoint 
+ 158:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 *  value in the device descriptor. Not available if the \c FIXED_CONTROL_ENDPOINT_SIZE token i
+ 159:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 */
+ 160:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE     8
+ 161:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#endif
+ 162:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 163:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Enums: */
+ 164:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Enum for the possible error return codes of the \ref Endpoint_WaitUntilReady() function.
+ 165:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 166:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointRW_XMEGA
+ 167:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 168:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			enum Endpoint_WaitUntilReady_ErrorCodes_t
+ 169:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 170:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_NoError                 = 0, /**< Endpoint is ready for next packet, no erro
+ 171:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_EndpointStalled         = 1, /**< The endpoint was stalled during the stream
+ 172:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   transfer by the host or device.
+ 173:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 174:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_DeviceDisconnected      = 2,	/**< Device was disconnected from the host whil
+ 175:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   waiting for the endpoint to become ready.
+ 176:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 177:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_BusSuspended            = 3, /**< The USB bus has been suspended by the host
+ 178:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   no USB endpoint traffic can occur until th
+ 179:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   has resumed.
+ 180:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 181:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_Timeout                 = 4, /**< The host failed to accept or send the next
+ 182:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   within the software timeout period set by 
+ 183:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   \ref USB_STREAM_TIMEOUT_MS macro.
+ 184:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 185:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			};
+ 186:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 187:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Inline Functions: */
+ 188:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Selects the given endpoint address.
+ 189:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 190:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  Any endpoint operations which do not require the endpoint address to be indicated will opera
+ 191:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  the currently selected endpoint.
+ 192:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 193:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Address  Endpoint address to select.
+ 194:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 195:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_SelectEndpoint(const uint8_t Address);
+ 196:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_SelectEndpoint(const uint8_t Address)
+ 197:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+  18               		.loc 1 197 0
+  19               		.cfi_startproc
+  20               	.LVL0:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 0 */
+  24               	.L__stack_usage = 0
+ 198:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t EndpointNumber = (Address & ENDPOINT_EPNUM_MASK);
+  25               		.loc 1 198 0
+  26 0000 282F      		mov r18,r24
+  27 0002 2F70      		andi r18,lo8(15)
+  28               	.LVL1:
+ 199:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 200:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedEndpoint = Address;
+  29               		.loc 1 200 0
+  30 0004 8093 0000 		sts USB_Endpoint_SelectedEndpoint,r24
+  31 0008 30E0      		ldi r19,lo8(0)
+ 201:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 202:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Address & ENDPOINT_DIR_IN)
+ 203:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 204:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber].IN;
+  32               		.loc 1 204 0
+  33 000a 44E8      		ldi r20,lo8(132)
+  34 000c 50E0      		ldi r21,hi8(132)
+ 202:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Address & ENDPOINT_DIR_IN)
+  35               		.loc 1 202 0
+  36 000e 87FF      		sbrs r24,7
+  37 0010 00C0      		rjmp .L2
+  38               		.loc 1 204 0
+  39 0012 249F      		mul r18,r20
+  40 0014 C001      		movw r24,r0
+  41 0016 259F      		mul r18,r21
+  42 0018 900D      		add r25,r0
+  43 001a 349F      		mul r19,r20
+  44 001c 900D      		add r25,r0
+  45 001e 1124      		clr r1
+  46               	.LVL2:
+  47 0020 8050      		subi r24,lo8(-(USB_Endpoint_FIFOs+66))
+  48 0022 9040      		sbci r25,hi8(-(USB_Endpoint_FIFOs+66))
+  49 0024 8093 0000 		sts USB_Endpoint_SelectedFIFO,r24
+  50 0028 9093 0000 		sts USB_Endpoint_SelectedFIFO+1,r25
+ 205:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedHandle = &((USB_EndpointTable_t*)USB.EPPTR)->Endpoints[EndpointNumber].IN
+  51               		.loc 1 205 0
+  52 002c 8091 C604 		lds r24,1222
+  53 0030 9091 C704 		lds r25,1222+1
+  54 0034 74E0      		ldi r23,4
+  55 0036 220F      	1:	lsl r18
+  56 0038 331F      		rol r19
+  57 003a 7A95      		dec r23
+  58 003c 01F4      		brne 1b
+  59               	.LVL3:
+  60 003e 285F      		subi r18,lo8(-(8))
+  61 0040 3F4F      		sbci r19,hi8(-(8))
+  62 0042 00C0      		rjmp .L4
+  63               	.LVL4:
+  64               	.L2:
+ 206:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 207:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				else
+ 208:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 209:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber].OUT;
+  65               		.loc 1 209 0
+  66 0044 249F      		mul r18,r20
+  67 0046 C001      		movw r24,r0
+  68 0048 259F      		mul r18,r21
+  69 004a 900D      		add r25,r0
+  70 004c 349F      		mul r19,r20
+  71 004e 900D      		add r25,r0
+  72 0050 1124      		clr r1
+  73 0052 8050      		subi r24,lo8(-(USB_Endpoint_FIFOs))
+  74 0054 9040      		sbci r25,hi8(-(USB_Endpoint_FIFOs))
+  75 0056 8093 0000 		sts USB_Endpoint_SelectedFIFO,r24
+  76 005a 9093 0000 		sts USB_Endpoint_SelectedFIFO+1,r25
+ 210:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedHandle = &((USB_EndpointTable_t*)USB.EPPTR)->Endpoints[EndpointNumber].OU
+  77               		.loc 1 210 0
+  78 005e 8091 C604 		lds r24,1222
+  79 0062 9091 C704 		lds r25,1222+1
+  80 0066 64E0      		ldi r22,4
+  81 0068 220F      	1:	lsl r18
+  82 006a 331F      		rol r19
+  83 006c 6A95      		dec r22
+  84 006e 01F4      		brne 1b
+  85               	.LVL5:
+  86               	.L4:
+  87 0070 820F      		add r24,r18
+  88 0072 931F      		adc r25,r19
+  89 0074 8093 0000 		sts USB_Endpoint_SelectedHandle,r24
+  90 0078 9093 0000 		sts USB_Endpoint_SelectedHandle+1,r25
+  91 007c 0895      		ret
+  92               		.cfi_endproc
+  93               	.LFE22:
+  95               		.section	.text.RNDIS_Device_ProcessControlRequest,"ax",@progbits
+  96               	.global	RNDIS_Device_ProcessControlRequest
+  98               	RNDIS_Device_ProcessControlRequest:
+  99               	.LFB83:
+ 100               		.file 2 "LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c"
+   1:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** /*
+   2:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****              LUFA Library
+   3:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+   5:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** */
+   8:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+   9:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** /*
+  10:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  12:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  21:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****   this software.
+  29:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** */
+  30:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  31:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** #define  __INCLUDE_FROM_USB_DRIVER
+  32:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** #include "../../Core/USBMode.h"
+  33:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  34:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** #if defined(USB_CAN_BE_DEVICE)
+  35:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  36:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** #define  __INCLUDE_FROM_RNDIS_DRIVER
+  37:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** #define  __INCLUDE_FROM_RNDIS_DEVICE_C
+  38:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** #include "RNDISClassDevice.h"
+  39:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  40:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** static const uint32_t PROGMEM AdapterSupportedOIDList[]  =
+  41:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	{
+  42:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_SUPPORTED_LIST),
+  43:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_PHYSICAL_MEDIUM),
+  44:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_HARDWARE_STATUS),
+  45:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_MEDIA_SUPPORTED),
+  46:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_MEDIA_IN_USE),
+  47:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_MAXIMUM_FRAME_SIZE),
+  48:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_MAXIMUM_TOTAL_SIZE),
+  49:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_LINK_SPEED),
+  50:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_TRANSMIT_BLOCK_SIZE),
+  51:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_RECEIVE_BLOCK_SIZE),
+  52:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_VENDOR_ID),
+  53:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_VENDOR_DESCRIPTION),
+  54:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_CURRENT_PACKET_FILTER),
+  55:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_MAXIMUM_TOTAL_SIZE),
+  56:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_MEDIA_CONNECT_STATUS),
+  57:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_XMIT_OK),
+  58:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_RCV_OK),
+  59:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_XMIT_ERROR),
+  60:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_RCV_ERROR),
+  61:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_GEN_RCV_NO_BUFFER),
+  62:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_802_3_PERMANENT_ADDRESS),
+  63:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_802_3_CURRENT_ADDRESS),
+  64:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_802_3_MULTICAST_LIST),
+  65:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_802_3_MAXIMUM_LIST_SIZE),
+  66:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_802_3_RCV_ERROR_ALIGNMENT),
+  67:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_802_3_XMIT_ONE_COLLISION),
+  68:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		CPU_TO_LE32(OID_802_3_XMIT_MORE_COLLISIONS),
+  69:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	};
+  70:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  71:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** void RNDIS_Device_ProcessControlRequest(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
+  72:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 101               		.loc 2 72 0
+ 102               		.cfi_startproc
+ 103               	.LVL6:
+ 104 0000 0F93      		push r16
+ 105               	.LCFI0:
+ 106               		.cfi_def_cfa_offset 3
+ 107               		.cfi_offset 16, -2
+ 108 0002 1F93      		push r17
+ 109               	.LCFI1:
+ 110               		.cfi_def_cfa_offset 4
+ 111               		.cfi_offset 17, -3
+ 112 0004 CF93      		push r28
+ 113               	.LCFI2:
+ 114               		.cfi_def_cfa_offset 5
+ 115               		.cfi_offset 28, -4
+ 116 0006 DF93      		push r29
+ 117               	.LCFI3:
+ 118               		.cfi_def_cfa_offset 6
+ 119               		.cfi_offset 29, -5
+ 120               	/* prologue: function */
+ 121               	/* frame size = 0 */
+ 122               	/* stack size = 4 */
+ 123               	.L__stack_usage = 4
+ 124 0008 8C01      		movw r16,r24
+ 125               	.LBB46:
+ 126               	.LBB47:
+ 211:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 212:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 213:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 214:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Configures the specified endpoint address with the given endpoint type, direction, bank size
+ 215:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  and banking mode. Once configured, the endpoint may be read from or written to, depending
+ 216:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  on its direction.
+ 217:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 218:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Address    Endpoint address to configure.
+ 219:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 220:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Type       Type of endpoint to configure, a \c EP_TYPE_* mask. Not all endpoint t
+ 221:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        are available on Low Speed USB devices - refer to the USB 2.0 specific
+ 222:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 223:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Size       Size of the endpoint's bank, where packets are stored before they are 
+ 224:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        to the USB host, or after they have been received from the USB host (d
+ 225:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        the endpoint's data direction). The bank size must indicate the maximu
+ 226:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        that the endpoint can handle.
+ 227:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 228:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Banks      Number of hardware banks to use for the endpoint being configured.
+ 229:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 230:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \note The default control endpoint should not be manually configured by the user application
+ 231:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *        it is automatically configured by the library internally.
+ 232:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *        \n\n
+ 233:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 234:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \note This routine will automatically select the specified endpoint.
+ 235:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 236:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the configuration succeeded, \c false otherwise.
+ 237:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 238:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Address,
+ 239:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Type,
+ 240:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint16_t Size,
+ 241:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Banks) ATTR_ALWAYS_INLINE;
+ 242:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Address,
+ 243:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Type,
+ 244:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint16_t Size,
+ 245:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Banks)
+ 246:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 247:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t EPConfigMask = (USB_EP_INTDSBL_bm | ((Banks > 1) ? USB_EP_PINGPONG_bm : 0) | Endpoint_B
+ 248:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 249:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if ((Address & ENDPOINT_EPNUM_MASK) >= ENDPOINT_TOTAL_ENDPOINTS)
+ 250:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return false;
+ 251:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 252:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				// TODO - Fix once limitations are lifted
+ 253:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				EPConfigMask &= ~USB_EP_PINGPONG_bm;
+ 254:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Size > 64)
+ 255:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return false;
+ 256:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 257:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				switch (Type)
+ 258:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 259:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					case EP_TYPE_CONTROL:
+ 260:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						EPConfigMask |= USB_EP_TYPE_CONTROL_gc;
+ 261:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						break;
+ 262:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					case EP_TYPE_ISOCHRONOUS:
+ 263:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						EPConfigMask |= USB_EP_TYPE_ISOCHRONOUS_gc;
+ 264:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						break;
+ 265:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					default:
+ 266:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						EPConfigMask |= USB_EP_TYPE_BULK_gc;
+ 267:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						break;
+ 268:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 269:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 270:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Type == EP_TYPE_CONTROL)
+ 271:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  Endpoint_ConfigureEndpoint_PRV(Address ^ ENDPOINT_DIR_IN, EPConfigMask, Size);
+ 272:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 273:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return Endpoint_ConfigureEndpoint_PRV(Address, EPConfigMask, Size);
+ 274:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 275:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 276:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Indicates the number of bytes currently stored in the current endpoint's selected bank.
+ 277:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 278:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointRW_XMEGA
+ 279:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 280:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Total number of bytes in the currently selected Endpoint's FIFO buffer.
+ 281:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 282:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint16_t Endpoint_BytesInEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE
+ 283:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint16_t Endpoint_BytesInEndpoint(void)
+ 284:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 285:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (USB_Endpoint_SelectedEndpoint & ENDPOINT_DIR_IN)
+ 286:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return USB_Endpoint_SelectedFIFO->Position;
+ 287:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				else
+ 288:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return (USB_Endpoint_SelectedFIFO->Length - USB_Endpoint_SelectedFIFO->Position);
+ 289:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 290:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 291:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Get the endpoint address of the currently selected endpoint. This is typically used to save
+ 292:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  the currently selected endpoint so that it can be restored after another endpoint has been
+ 293:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  manipulated.
+ 294:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 295:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Index of the currently selected endpoint.
+ 296:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 297:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint8_t Endpoint_GetCurrentEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLI
+ 298:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint8_t Endpoint_GetCurrentEndpoint(void)
+ 299:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 300:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return USB_Endpoint_SelectedEndpoint;
+ 301:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 302:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 303:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB control
+ 304:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  data In and Out pointers to the bank's contents.
+ 305:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 306:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Address  Endpoint address whose FIFO buffers are to be reset.
+ 307:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 308:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ResetEndpoint(const uint8_t Address) ATTR_ALWAYS_INLINE;
+ 309:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ResetEndpoint(const uint8_t Address)
+ 310:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 311:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Address & ENDPOINT_DIR_IN)
+ 312:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  USB_Endpoint_FIFOs[Address & ENDPOINT_EPNUM_MASK].IN.Position  = 0;
+ 313:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				else
+ 314:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  USB_Endpoint_FIFOs[Address & ENDPOINT_EPNUM_MASK].OUT.Position = 0;
+ 315:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 316:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 317:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
+ 318:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 319:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 * \return Boolean \c true if the currently selected endpoint is enabled, \c false otherwise.
+ 320:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 321:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsEnabled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 322:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsEnabled(void)
+ 323:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 324:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return true;
+ 325:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 326:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 327:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Aborts all pending IN transactions on the currently selected endpoint, once the bank
+ 328:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  has been queued for transmission to the host via \ref Endpoint_ClearIN(). This function
+ 329:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  will terminate all queued transactions, resetting the endpoint banks ready for a new
+ 330:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  packet.
+ 331:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 332:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 333:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 334:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_AbortPendingIN(void)
+ 335:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 336:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_BUSNACK0_bm;
+ 337:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 338:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 339:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the currently selected endpoint may be read from (if data is waiting in the en
+ 340:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  bank and the endpoint is an OUT direction, or if the bank is not yet full if the endpoint is
+ 341:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  direction). This function will return false if an error has occurred in the endpoint, if the
+ 342:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  is an OUT direction and no packet (or an empty packet) has been received, or if the endpoint
+ 343:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  direction and the endpoint bank is full.
+ 344:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 345:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 346:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 347:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the currently selected endpoint may be read from or written to, d
+ 348:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *          on its direction.
+ 349:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 350:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 351:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsReadWriteAllowed(void)
+ 352:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 353:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return (USB_Endpoint_SelectedFIFO->Position < USB_Endpoint_SelectedFIFO->Length);
+ 354:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 355:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 356:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the currently selected endpoint is configured.
+ 357:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 358:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the currently selected endpoint has been configured, \c false oth
+ 359:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 360:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 361:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsConfigured(void)
+ 362:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 363:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_TYPE_gm) ? true : false);
+ 364:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 365:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 366:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the selected IN endpoint is ready for a new packet to be sent to the host.
+ 367:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 368:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 369:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 370:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the current endpoint is ready for an IN packet, \c false otherwis
+ 371:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 372:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 373:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsINReady(void)
+ 374:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 375:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
+ 376:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 377:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return ((USB_Endpoint_SelectedHandle->STATUS & USB_EP_BUSNACK0_bm) ? true : false);
+ 378:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 379:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 380:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the selected OUT endpoint has received new packet from the host.
+ 381:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 382:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 383:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 384:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if current endpoint is has received an OUT packet, \c false otherwis
+ 385:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 386:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsOUTReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 387:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsOUTReceived(void)
+ 388:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 389:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+ 390:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 391:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_TRNCOMPL0_bm)
+ 392:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 393:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
+ 394:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					return true;
+ 395:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 396:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 397:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return false;
+ 398:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 399:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 400:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the current CONTROL type endpoint has received a SETUP packet.
+ 401:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 402:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 403:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 404:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the selected endpoint has received a SETUP packet, \c false other
+ 405:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 406:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsSETUPReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 407:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsSETUPReceived(void)
+ 408:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 409:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+ 127               		.loc 1 409 0
+ 128 000a 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 129               	.LVL7:
+ 130 000e 8F77      		andi r24,lo8(127)
+ 131 0010 0E94 0000 		call Endpoint_SelectEndpoint
+ 410:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 411:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_SETUP_bm)
+ 132               		.loc 1 411 0
+ 133 0014 A091 0000 		lds r26,USB_Endpoint_SelectedHandle
+ 134 0018 B091 0000 		lds r27,USB_Endpoint_SelectedHandle+1
+ 135 001c 8C91      		ld r24,X
+ 136 001e 84FF      		sbrs r24,4
+ 137 0020 00C0      		rjmp .L5
+ 412:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 413:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
+ 138               		.loc 1 413 0
+ 139 0022 E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 140 0026 F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 141 002a 1296      		adiw r26,2
+ 142 002c 8D91      		ld r24,X+
+ 143 002e 9C91      		ld r25,X
+ 144 0030 1397      		sbiw r26,2+1
+ 145 0032 E05C      		subi r30,lo8(-(64))
+ 146 0034 FF4F      		sbci r31,hi8(-(64))
+ 147 0036 8083      		st Z,r24
+ 148               	.LBE47:
+ 149               	.LBE46:
+  73:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (!(Endpoint_IsSETUPReceived()))
+  74:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	  return;
+  75:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  76:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (USB_ControlRequest.wIndex != RNDISInterfaceInfo->Config.ControlInterfaceNumber)
+ 150               		.loc 2 76 0
+ 151 0038 F801      		movw r30,r16
+ 152 003a 8081      		ld r24,Z
+ 153 003c 90E0      		ldi r25,lo8(0)
+ 154 003e 2091 0000 		lds r18,USB_ControlRequest+4
+ 155 0042 3091 0000 		lds r19,USB_ControlRequest+4+1
+ 156 0046 2817      		cp r18,r24
+ 157 0048 3907      		cpc r19,r25
+ 158 004a 01F0      		breq .+2
+ 159 004c 00C0      		rjmp .L5
+  77:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	  return;
+  78:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  79:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	switch (USB_ControlRequest.bRequest)
+ 160               		.loc 2 79 0
+ 161 004e 8091 0000 		lds r24,USB_ControlRequest+1
+ 162 0052 8823      		tst r24
+ 163 0054 01F0      		breq .L7
+ 164 0056 8130      		cpi r24,lo8(1)
+ 165 0058 01F0      		breq .+2
+ 166 005a 00C0      		rjmp .L5
+ 167 005c 00C0      		rjmp .L54
+ 168               	.L7:
+  80:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	{
+  81:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case RNDIS_REQ_SendEncapsulatedCommand:
+  82:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE)
+ 169               		.loc 2 82 0
+ 170 005e 8091 0000 		lds r24,USB_ControlRequest
+ 171 0062 8132      		cpi r24,lo8(33)
+ 172 0064 01F0      		breq .+2
+ 173 0066 00C0      		rjmp .L5
+ 174               	.LBB48:
+ 175               	.LBB49:
+ 414:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					return true;
+ 415:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 416:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 417:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return false;
+ 418:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 419:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 420:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Clears a received SETUP packet on the currently selected CONTROL type endpoint, freeing up t
+ 421:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  endpoint for the next packet.
+ 422:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 423:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 424:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 425:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \note This is not applicable for non CONTROL type endpoints.
+ 426:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 427:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearSETUP(void) ATTR_ALWAYS_INLINE;
+ 428:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearSETUP(void)
+ 429:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 430:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+ 176               		.loc 1 430 0
+ 177 0068 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 178 006c 8F77      		andi r24,lo8(127)
+ 179 006e 0E94 0000 		call Endpoint_SelectEndpoint
+ 431:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_SETUP_bm | USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK
+ 180               		.loc 1 431 0
+ 181 0072 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 182 0076 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 183 007a 8081      		ld r24,Z
+ 184 007c 8D78      		andi r24,lo8(-115)
+ 185 007e 8083      		st Z,r24
+ 432:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
+ 186               		.loc 1 432 0
+ 187 0080 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 188 0084 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 189 0088 8081      		ld r24,Z
+ 190 008a 8160      		ori r24,lo8(1)
+ 191 008c 8083      		st Z,r24
+ 433:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 192               		.loc 1 433 0
+ 193 008e E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 194 0092 F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 195 0096 EF5B      		subi r30,lo8(-(65))
+ 196 0098 FF4F      		sbci r31,hi8(-(65))
+ 197 009a 1082      		st Z,__zero_reg__
+ 434:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 435:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
+ 198               		.loc 1 435 0
+ 199 009c 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 200 00a0 8068      		ori r24,lo8(-128)
+ 201 00a2 0E94 0000 		call Endpoint_SelectEndpoint
+ 436:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
+ 202               		.loc 1 436 0
+ 203 00a6 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 204 00aa F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 205 00ae 8081      		ld r24,Z
+ 206 00b0 8160      		ori r24,lo8(1)
+ 207 00b2 8083      		st Z,r24
+ 437:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 208               		.loc 1 437 0
+ 209 00b4 E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 210 00b8 F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 211 00bc EF5B      		subi r30,lo8(-(65))
+ 212 00be FF4F      		sbci r31,hi8(-(65))
+ 213 00c0 1082      		st Z,__zero_reg__
+ 214               	.LBE49:
+ 215               	.LBE48:
+  83:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			{
+  84:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				Endpoint_ClearSETUP();
+  85:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				Endpoint_Read_Control_Stream_LE(RNDISInterfaceInfo->State.RNDISMessageBuffer, USB_ControlReques
+ 216               		.loc 2 85 0
+ 217 00c2 6091 0000 		lds r22,USB_ControlRequest+6
+ 218 00c6 7091 0000 		lds r23,USB_ControlRequest+6+1
+ 219 00ca C801      		movw r24,r16
+ 220 00cc 4896      		adiw r24,24
+ 221 00ce 0E94 0000 		call Endpoint_Read_Control_Stream_LE
+ 222               	.LBB50:
+ 223               	.LBB51:
+ 438:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 439:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 440:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Sends an IN packet to the host on the currently selected endpoint, freeing up the endpoint f
+ 441:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  next packet and switching to the alternative endpoint bank if double banked.
+ 442:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 443:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 444:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 445:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearIN(void) ATTR_ALWAYS_INLINE;
+ 446:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearIN(void)
+ 447:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 448:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->CNT     = USB_Endpoint_SelectedFIFO->Position;
+ 224               		.loc 1 448 0
+ 225 00d2 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 226 00d6 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 227 00da A091 0000 		lds r26,USB_Endpoint_SelectedFIFO
+ 228 00de B091 0000 		lds r27,USB_Endpoint_SelectedFIFO+1
+ 229 00e2 AF5B      		subi r26,lo8(-(65))
+ 230 00e4 BF4F      		sbci r27,hi8(-(65))
+ 231 00e6 8C91      		ld r24,X
+ 232 00e8 90E0      		ldi r25,lo8(0)
+ 233 00ea 8283      		std Z+2,r24
+ 234 00ec 9383      		std Z+3,r25
+ 449:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_
+ 235               		.loc 1 449 0
+ 236 00ee 8081      		ld r24,Z
+ 237 00f0 8D79      		andi r24,lo8(-99)
+ 238 00f2 8083      		st Z,r24
+ 450:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 239               		.loc 1 450 0
+ 240 00f4 E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 241 00f8 F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 242 00fc EF5B      		subi r30,lo8(-(65))
+ 243 00fe FF4F      		sbci r31,hi8(-(65))
+ 244 0100 1082      		st Z,__zero_reg__
+ 245               	.LVL8:
+ 246               	.LBE51:
+ 247               	.LBE50:
+ 248               	.LBB52:
+ 249               	.LBB53:
+  86:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				Endpoint_ClearIN();
+  87:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  88:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				RNDIS_Device_ProcessRNDISControlMessage(RNDISInterfaceInfo);
+  89:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			}
+  90:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  91:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			break;
+  92:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case RNDIS_REQ_GetEncapsulatedResponse:
+  93:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE)
+  94:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			{
+  95:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->State.RND
+  96:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+  97:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				if (!(MessageHeader->MessageLength))
+  98:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				{
+  99:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 					RNDISInterfaceInfo->State.RNDISMessageBuffer[0] = 0;
+ 100:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 					MessageHeader->MessageLength                    = CPU_TO_LE32(1);
+ 101:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				}
+ 102:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 103:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				Endpoint_ClearSETUP();
+ 104:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				Endpoint_Write_Control_Stream_LE(RNDISInterfaceInfo->State.RNDISMessageBuffer, le32_to_cpu(Mess
+ 105:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				Endpoint_ClearOUT();
+ 106:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 107:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				MessageHeader->MessageLength = CPU_TO_LE32(0);
+ 108:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			}
+ 109:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 110:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			break;
+ 111:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	}
+ 112:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 113:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 114:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
+ 115:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 116:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	memset(&RNDISInterfaceInfo->State, 0x00, sizeof(RNDISInterfaceInfo->State));
+ 117:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 118:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDISInterfaceInfo->Config.DataINEndpoint.Type       = EP_TYPE_BULK;
+ 119:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDISInterfaceInfo->Config.DataOUTEndpoint.Type      = EP_TYPE_BULK;
+ 120:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDISInterfaceInfo->Config.NotificationEndpoint.Type = EP_TYPE_INTERRUPT;
+ 121:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 122:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (!(Endpoint_ConfigureEndpointTable(&RNDISInterfaceInfo->Config.DataINEndpoint, 1)))
+ 123:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	  return false;
+ 124:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 125:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (!(Endpoint_ConfigureEndpointTable(&RNDISInterfaceInfo->Config.DataOUTEndpoint, 1)))
+ 126:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	  return false;
+ 127:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 128:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (!(Endpoint_ConfigureEndpointTable(&RNDISInterfaceInfo->Config.NotificationEndpoint, 1)))
+ 129:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	  return false;
+ 130:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 131:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	return true;
+ 132:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 133:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 134:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
+ 135:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 136:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (USB_DeviceState != DEVICE_STATE_Configured)
+ 137:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	  return;
+ 138:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 139:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.NotificationEndpoint.Address);
+ 140:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 141:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (Endpoint_IsINReady() && RNDISInterfaceInfo->State.ResponseReady)
+ 142:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	{
+ 143:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		USB_Request_Header_t Notification = (USB_Request_Header_t)
+ 144:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			{
+ 145:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
+ 146:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				.bRequest      = RNDIS_NOTIF_ResponseAvailable,
+ 147:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				.wValue        = CPU_TO_LE16(0),
+ 148:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				.wIndex        = CPU_TO_LE16(0),
+ 149:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				.wLength       = CPU_TO_LE16(0),
+ 150:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			};
+ 151:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 152:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		Endpoint_Write_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NULL);
+ 153:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 154:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		Endpoint_ClearIN();
+ 155:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 156:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		RNDISInterfaceInfo->State.ResponseReady = false;
+ 157:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	}
+ 158:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 159:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 160:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo
+ 161:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 162:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	/* Note: Only a single buffer is used for both the received message and its response to save SRAM.
+ 163:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	         this, response bytes should be filled in order so that they do not clobber unread data in
+ 164:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 165:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->State.RNDISM
+ 166:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 167:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	switch (le32_to_cpu(MessageHeader->MessageType))
+ 250               		.loc 2 167 0
+ 251 0102 F801      		movw r30,r16
+ 252 0104 808D      		ldd r24,Z+24
+ 253 0106 918D      		ldd r25,Z+25
+ 254 0108 A28D      		ldd r26,Z+26
+ 255 010a B38D      		ldd r27,Z+27
+ 256 010c 8430      		cpi r24,lo8(4)
+ 257 010e 9105      		cpc r25,__zero_reg__
+ 258 0110 A105      		cpc r26,__zero_reg__
+ 259 0112 B105      		cpc r27,__zero_reg__
+ 260 0114 01F4      		brne .+2
+ 261 0116 00C0      		rjmp .L11
+ 262 0118 8530      		cpi r24,lo8(5)
+ 263 011a 9105      		cpc r25,__zero_reg__
+ 264 011c A105      		cpc r26,__zero_reg__
+ 265 011e B105      		cpc r27,__zero_reg__
+ 266 0120 00F4      		brsh .L15
+ 267 0122 8230      		cpi r24,lo8(2)
+ 268 0124 9105      		cpc r25,__zero_reg__
+ 269 0126 A105      		cpc r26,__zero_reg__
+ 270 0128 B105      		cpc r27,__zero_reg__
+ 271 012a 01F0      		breq .L9
+ 272 012c 8330      		cpi r24,lo8(3)
+ 273 012e 9105      		cpc r25,__zero_reg__
+ 274 0130 A105      		cpc r26,__zero_reg__
+ 275 0132 B105      		cpc r27,__zero_reg__
+ 276 0134 01F0      		breq .+2
+ 277 0136 00C0      		rjmp .L5
+ 278 0138 00C0      		rjmp .L55
+ 279               	.L15:
+ 280 013a 8630      		cpi r24,lo8(6)
+ 281 013c 9105      		cpc r25,__zero_reg__
+ 282 013e A105      		cpc r26,__zero_reg__
+ 283 0140 B105      		cpc r27,__zero_reg__
+ 284 0142 01F4      		brne .+2
+ 285 0144 00C0      		rjmp .L13
+ 286 0146 8630      		cpi r24,lo8(6)
+ 287 0148 9105      		cpc r25,__zero_reg__
+ 288 014a A105      		cpc r26,__zero_reg__
+ 289 014c B105      		cpc r27,__zero_reg__
+ 290 014e 00F4      		brsh .+2
+ 291 0150 00C0      		rjmp .L12
+ 292 0152 8830      		cpi r24,lo8(8)
+ 293 0154 9105      		cpc r25,__zero_reg__
+ 294 0156 A105      		cpc r26,__zero_reg__
+ 295 0158 B105      		cpc r27,__zero_reg__
+ 296 015a 01F0      		breq .+2
+ 297 015c 00C0      		rjmp .L5
+ 298 015e 00C0      		rjmp .L56
+ 299               	.L9:
+ 300               	.LBB54:
+ 168:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	{
+ 169:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case REMOTE_NDIS_INITIALIZE_MSG:
+ 170:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.ResponseReady     = true;
+ 301               		.loc 2 170 0
+ 302 0160 F801      		movw r30,r16
+ 303 0162 E856      		subi r30,lo8(-(152))
+ 304 0164 FF4F      		sbci r31,hi8(-(152))
+ 305 0166 21E0      		ldi r18,lo8(1)
+ 306 0168 2083      		st Z,r18
+ 307               	.LVL9:
+ 171:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 172:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDIS_Initialize_Message_t*  INITIALIZE_Message  =
+ 173:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			               (RNDIS_Initialize_Message_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
+ 174:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDIS_Initialize_Complete_t* INITIALIZE_Response =
+ 175:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			               (RNDIS_Initialize_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
+ 176:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 177:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->MessageType            = CPU_TO_LE32(REMOTE_NDIS_INITIALIZE_CMPLT);
+ 308               		.loc 2 177 0
+ 309 016a 82E0      		ldi r24,lo8(-2147483646)
+ 310 016c 90E0      		ldi r25,hi8(-2147483646)
+ 311 016e A0E0      		ldi r26,hlo8(-2147483646)
+ 312 0170 B0E8      		ldi r27,hhi8(-2147483646)
+ 313 0172 F801      		movw r30,r16
+ 314 0174 808F      		std Z+24,r24
+ 315 0176 918F      		std Z+25,r25
+ 316 0178 A28F      		std Z+26,r26
+ 317 017a B38F      		std Z+27,r27
+ 178:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->MessageLength          = CPU_TO_LE32(sizeof(RNDIS_Initialize_Complete_t));
+ 318               		.loc 2 178 0
+ 319 017c 84E3      		ldi r24,lo8(52)
+ 320 017e 90E0      		ldi r25,hi8(52)
+ 321 0180 A0E0      		ldi r26,hlo8(52)
+ 322 0182 B0E0      		ldi r27,hhi8(52)
+ 323 0184 848F      		std Z+28,r24
+ 324 0186 958F      		std Z+29,r25
+ 325 0188 A68F      		std Z+30,r26
+ 326 018a B78F      		std Z+31,r27
+ 179:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->RequestId              = INITIALIZE_Message->RequestId;
+ 180:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->Status                 = CPU_TO_LE32(REMOTE_NDIS_STATUS_SUCCESS);
+ 327               		.loc 2 180 0
+ 328 018c 14A2      		std Z+36,__zero_reg__
+ 329 018e 15A2      		std Z+37,__zero_reg__
+ 330 0190 16A2      		std Z+38,__zero_reg__
+ 331 0192 17A2      		std Z+39,__zero_reg__
+ 181:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 182:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->MajorVersion           = CPU_TO_LE32(REMOTE_NDIS_VERSION_MAJOR);
+ 332               		.loc 2 182 0
+ 333 0194 81E0      		ldi r24,lo8(1)
+ 334 0196 90E0      		ldi r25,hi8(1)
+ 335 0198 A0E0      		ldi r26,hlo8(1)
+ 336 019a B0E0      		ldi r27,hhi8(1)
+ 337 019c 80A7      		std Z+40,r24
+ 338 019e 91A7      		std Z+41,r25
+ 339 01a0 A2A7      		std Z+42,r26
+ 340 01a2 B3A7      		std Z+43,r27
+ 183:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->MinorVersion           = CPU_TO_LE32(REMOTE_NDIS_VERSION_MINOR);
+ 341               		.loc 2 183 0
+ 342 01a4 14A6      		std Z+44,__zero_reg__
+ 343 01a6 15A6      		std Z+45,__zero_reg__
+ 344 01a8 16A6      		std Z+46,__zero_reg__
+ 345 01aa 17A6      		std Z+47,__zero_reg__
+ 184:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->DeviceFlags            = CPU_TO_LE32(REMOTE_NDIS_DF_CONNECTIONLESS);
+ 346               		.loc 2 184 0
+ 347 01ac 80AB      		std Z+48,r24
+ 348 01ae 91AB      		std Z+49,r25
+ 349 01b0 A2AB      		std Z+50,r26
+ 350 01b2 B3AB      		std Z+51,r27
+ 185:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->Medium                 = CPU_TO_LE32(REMOTE_NDIS_MEDIUM_802_3);
+ 351               		.loc 2 185 0
+ 352 01b4 14AA      		std Z+52,__zero_reg__
+ 353 01b6 15AA      		std Z+53,__zero_reg__
+ 354 01b8 16AA      		std Z+54,__zero_reg__
+ 355 01ba 17AA      		std Z+55,__zero_reg__
+ 186:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->MaxPacketsPerTransfer  = CPU_TO_LE32(1);
+ 356               		.loc 2 186 0
+ 357 01bc 80AF      		std Z+56,r24
+ 358 01be 91AF      		std Z+57,r25
+ 359 01c0 A2AF      		std Z+58,r26
+ 360 01c2 B3AF      		std Z+59,r27
+ 187:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->MaxTransferSize        = CPU_TO_LE32(sizeof(RNDIS_Packet_Message_t) + ETHER
+ 361               		.loc 2 187 0
+ 362 01c4 88E0      		ldi r24,lo8(1544)
+ 363 01c6 96E0      		ldi r25,hi8(1544)
+ 364 01c8 A0E0      		ldi r26,hlo8(1544)
+ 365 01ca B0E0      		ldi r27,hhi8(1544)
+ 366 01cc 84AF      		std Z+60,r24
+ 367 01ce 95AF      		std Z+61,r25
+ 368 01d0 A6AF      		std Z+62,r26
+ 369 01d2 B7AF      		std Z+63,r27
+ 188:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->PacketAlignmentFactor  = CPU_TO_LE32(0);
+ 370               		.loc 2 188 0
+ 371 01d4 E05C      		subi r30,lo8(-(64))
+ 372 01d6 FF4F      		sbci r31,hi8(-(64))
+ 373 01d8 1082      		st Z,__zero_reg__
+ 374 01da 1182      		std Z+1,__zero_reg__
+ 375 01dc 1282      		std Z+2,__zero_reg__
+ 376 01de 1382      		std Z+3,__zero_reg__
+ 189:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->AFListOffset           = CPU_TO_LE32(0);
+ 377               		.loc 2 189 0
+ 378 01e0 F801      		movw r30,r16
+ 379 01e2 EC5B      		subi r30,lo8(-(68))
+ 380 01e4 FF4F      		sbci r31,hi8(-(68))
+ 381 01e6 1082      		st Z,__zero_reg__
+ 382 01e8 1182      		std Z+1,__zero_reg__
+ 383 01ea 1282      		std Z+2,__zero_reg__
+ 384 01ec 1382      		std Z+3,__zero_reg__
+ 190:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			INITIALIZE_Response->AFListSize             = CPU_TO_LE32(0);
+ 385               		.loc 2 190 0
+ 386 01ee F801      		movw r30,r16
+ 387 01f0 E85B      		subi r30,lo8(-(72))
+ 388 01f2 FF4F      		sbci r31,hi8(-(72))
+ 389 01f4 1082      		st Z,__zero_reg__
+ 390 01f6 1182      		std Z+1,__zero_reg__
+ 391 01f8 1282      		std Z+2,__zero_reg__
+ 392 01fa 1382      		std Z+3,__zero_reg__
+ 191:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 192:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.CurrRNDISState    = RNDIS_Initialized;
+ 393               		.loc 2 192 0
+ 394 01fc F801      		movw r30,r16
+ 395 01fe E756      		subi r30,lo8(-(153))
+ 396 0200 FF4F      		sbci r31,hi8(-(153))
+ 397 0202 2083      		st Z,r18
+ 398 0204 00C0      		rjmp .L5
+ 399               	.LVL10:
+ 400               	.L55:
+ 193:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			break;
+ 194:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case REMOTE_NDIS_HALT_MSG:
+ 195:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.ResponseReady     = false;
+ 401               		.loc 2 195 0
+ 402 0206 F801      		movw r30,r16
+ 403 0208 E856      		subi r30,lo8(-(152))
+ 404 020a FF4F      		sbci r31,hi8(-(152))
+ 405 020c 1082      		st Z,__zero_reg__
+ 196:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 197:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			MessageHeader->MessageLength                = CPU_TO_LE32(0);
+ 406               		.loc 2 197 0
+ 407 020e F801      		movw r30,r16
+ 408 0210 148E      		std Z+28,__zero_reg__
+ 409 0212 158E      		std Z+29,__zero_reg__
+ 410 0214 168E      		std Z+30,__zero_reg__
+ 411 0216 178E      		std Z+31,__zero_reg__
+ 198:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 199:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.CurrRNDISState    = RNDIS_Uninitialized;
+ 412               		.loc 2 199 0
+ 413 0218 E756      		subi r30,lo8(-(153))
+ 414 021a FF4F      		sbci r31,hi8(-(153))
+ 415 021c 1082      		st Z,__zero_reg__
+ 416 021e 00C0      		rjmp .L5
+ 417               	.L11:
+ 200:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			break;
+ 201:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case REMOTE_NDIS_QUERY_MSG:
+ 202:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.ResponseReady     = true;
+ 418               		.loc 2 202 0
+ 419 0220 F801      		movw r30,r16
+ 420 0222 E856      		subi r30,lo8(-(152))
+ 421 0224 FF4F      		sbci r31,hi8(-(152))
+ 422 0226 81E0      		ldi r24,lo8(1)
+ 423 0228 8083      		st Z,r24
+ 424               	.LVL11:
+ 203:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 204:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDIS_Query_Message_t*  QUERY_Message       = (RNDIS_Query_Message_t*)&RNDISInterfaceInfo->State
+ 205:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDIS_Query_Complete_t* QUERY_Response      = (RNDIS_Query_Complete_t*)&RNDISInterfaceInfo->Stat
+ 206:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			uint32_t                Query_Oid           = CPU_TO_LE32(QUERY_Message->Oid);
+ 425               		.loc 2 206 0
+ 426 022a F801      		movw r30,r16
+ 427 022c 84A1      		ldd r24,Z+36
+ 428 022e 95A1      		ldd r25,Z+37
+ 429 0230 A6A1      		ldd r26,Z+38
+ 430 0232 B7A1      		ldd r27,Z+39
+ 431               	.LVL12:
+ 207:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 208:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			void*    QueryData    = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Heade
+ 209:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			                                                                      le32_to_cpu(QUERY_Message-
+ 210:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			void*    ResponseData = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Query_Complet
+ 432               		.loc 2 210 0
+ 433 0234 9801      		movw r18,r16
+ 434 0236 205D      		subi r18,lo8(-(48))
+ 435 0238 3F4F      		sbci r19,hi8(-(48))
+ 436               	.LVL13:
+ 211:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			uint16_t ResponseSize;
+ 212:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 213:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			QUERY_Response->MessageType                 = CPU_TO_LE32(REMOTE_NDIS_QUERY_CMPLT);
+ 437               		.loc 2 213 0
+ 438 023a 44E0      		ldi r20,lo8(-2147483644)
+ 439 023c 50E0      		ldi r21,hi8(-2147483644)
+ 440 023e 60E0      		ldi r22,hlo8(-2147483644)
+ 441 0240 70E8      		ldi r23,hhi8(-2147483644)
+ 442 0242 408F      		std Z+24,r20
+ 443 0244 518F      		std Z+25,r21
+ 444 0246 628F      		std Z+26,r22
+ 445 0248 738F      		std Z+27,r23
+ 446               	.LVL14:
+ 447               	.LBB55:
+ 448               	.LBB56:
+ 214:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 215:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			if (RNDIS_Device_ProcessNDISQuery(RNDISInterfaceInfo, Query_Oid, QueryData, le32_to_cpu(QUERY_Me
+ 216:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			                                  ResponseData, &ResponseSize))
+ 217:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			{
+ 218:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->Status                  = CPU_TO_LE32(REMOTE_NDIS_STATUS_SUCCESS);
+ 219:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->MessageLength           = cpu_to_le32(sizeof(RNDIS_Query_Complete_t) + Response
+ 220:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 221:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->InformationBufferLength = CPU_TO_LE32(ResponseSize);
+ 222:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->InformationBufferOffset = CPU_TO_LE32(sizeof(RNDIS_Query_Complete_t) - sizeof(R
+ 223:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			}
+ 224:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			else
+ 225:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			{
+ 226:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->Status                  = CPU_TO_LE32(REMOTE_NDIS_STATUS_NOT_SUPPORTED);
+ 227:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->MessageLength           = CPU_TO_LE32(sizeof(RNDIS_Query_Complete_t));
+ 228:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 229:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->InformationBufferLength = CPU_TO_LE32(0);
+ 230:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->InformationBufferOffset = CPU_TO_LE32(0);
+ 231:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			}
+ 232:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 233:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			break;
+ 234:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case REMOTE_NDIS_SET_MSG:
+ 235:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.ResponseReady     = true;
+ 236:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 237:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDIS_Set_Message_t*  SET_Message           = (RNDIS_Set_Message_t*)&RNDISInterfaceInfo->State.R
+ 238:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDIS_Set_Complete_t* SET_Response          = (RNDIS_Set_Complete_t*)&RNDISInterfaceInfo->State.
+ 239:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			uint32_t              SET_Oid               = le32_to_cpu(SET_Message->Oid);
+ 240:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 241:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			SET_Response->MessageType                   = CPU_TO_LE32(REMOTE_NDIS_SET_CMPLT);
+ 242:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			SET_Response->MessageLength                 = CPU_TO_LE32(sizeof(RNDIS_Set_Complete_t));
+ 243:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			SET_Response->RequestId                     = SET_Message->RequestId;
+ 244:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 245:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			void* SetData = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
+ 246:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			                                                              le32_to_cpu(SET_Message->Informati
+ 247:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 248:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			SET_Response->Status = RNDIS_Device_ProcessNDISSet(RNDISInterfaceInfo, SET_Oid, SetData,
+ 249:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			                                                   le32_to_cpu(SET_Message->InformationBufferLen
+ 250:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			                                                   REMOTE_NDIS_STATUS_SUCCESS : REMOTE_NDIS_STAT
+ 251:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			break;
+ 252:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case REMOTE_NDIS_RESET_MSG:
+ 253:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.ResponseReady     = true;
+ 254:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 255:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDIS_Reset_Complete_t* RESET_Response      = (RNDIS_Reset_Complete_t*)&RNDISInterfaceInfo->Stat
+ 256:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 257:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RESET_Response->MessageType                 = CPU_TO_LE32(REMOTE_NDIS_RESET_CMPLT);
+ 258:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RESET_Response->MessageLength               = CPU_TO_LE32(sizeof(RNDIS_Reset_Complete_t));
+ 259:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RESET_Response->Status                      = CPU_TO_LE32(REMOTE_NDIS_STATUS_SUCCESS);
+ 260:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RESET_Response->AddressingReset             = CPU_TO_LE32(0);
+ 261:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 262:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			break;
+ 263:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case REMOTE_NDIS_KEEPALIVE_MSG:
+ 264:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.ResponseReady     = true;
+ 265:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 266:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDIS_KeepAlive_Message_t*  KEEPALIVE_Message  =
+ 267:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			                (RNDIS_KeepAlive_Message_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
+ 268:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDIS_KeepAlive_Complete_t* KEEPALIVE_Response =
+ 269:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			                (RNDIS_KeepAlive_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
+ 270:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 271:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			KEEPALIVE_Response->MessageType             = CPU_TO_LE32(REMOTE_NDIS_KEEPALIVE_CMPLT);
+ 272:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			KEEPALIVE_Response->MessageLength           = CPU_TO_LE32(sizeof(RNDIS_KeepAlive_Complete_t));
+ 273:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			KEEPALIVE_Response->RequestId               = KEEPALIVE_Message->RequestId;
+ 274:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			KEEPALIVE_Response->Status                  = CPU_TO_LE32(REMOTE_NDIS_STATUS_SUCCESS);
+ 275:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 276:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			break;
+ 277:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	}
+ 278:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 279:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 280:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+ 281:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                           const uint32_t OId,
+ 282:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                           void* const QueryData,
+ 283:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                           const uint16_t QuerySize,
+ 284:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                           void* ResponseData,
+ 285:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                           uint16_t* const ResponseSize)
+ 286:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 287:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	(void)QueryData;
+ 288:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	(void)QuerySize;
+ 289:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 290:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	switch (OId)
+ 449               		.loc 2 290 0
+ 450 024a 8E30      		cpi r24,lo8(65806)
+ 451 024c F1E0      		ldi r31,hi8(65806)
+ 452 024e 9F07      		cpc r25,r31
+ 453 0250 F1E0      		ldi r31,hlo8(65806)
+ 454 0252 AF07      		cpc r26,r31
+ 455 0254 F0E0      		ldi r31,hhi8(65806)
+ 456 0256 BF07      		cpc r27,r31
+ 457 0258 01F4      		brne .+2
+ 458 025a 00C0      		rjmp .L24
+ 459 025c 8F30      		cpi r24,lo8(65807)
+ 460 025e 41E0      		ldi r20,hi8(65807)
+ 461 0260 9407      		cpc r25,r20
+ 462 0262 41E0      		ldi r20,hlo8(65807)
+ 463 0264 A407      		cpc r26,r20
+ 464 0266 40E0      		ldi r20,hhi8(65807)
+ 465 0268 B407      		cpc r27,r20
+ 466 026a 00F0      		brlo .+2
+ 467 026c 00C0      		rjmp .L31
+ 468 026e 8630      		cpi r24,lo8(65798)
+ 469 0270 E1E0      		ldi r30,hi8(65798)
+ 470 0272 9E07      		cpc r25,r30
+ 471 0274 E1E0      		ldi r30,hlo8(65798)
+ 472 0276 AE07      		cpc r26,r30
+ 473 0278 E0E0      		ldi r30,hhi8(65798)
+ 474 027a BE07      		cpc r27,r30
+ 475 027c 01F4      		brne .+2
+ 476 027e 00C0      		rjmp .L20
+ 477 0280 8730      		cpi r24,lo8(65799)
+ 478 0282 F1E0      		ldi r31,hi8(65799)
+ 479 0284 9F07      		cpc r25,r31
+ 480 0286 F1E0      		ldi r31,hlo8(65799)
+ 481 0288 AF07      		cpc r26,r31
+ 482 028a F0E0      		ldi r31,hhi8(65799)
+ 483 028c BF07      		cpc r27,r31
+ 484 028e 00F4      		brsh .L32
+ 485 0290 8230      		cpi r24,lo8(65794)
+ 486 0292 41E0      		ldi r20,hi8(65794)
+ 487 0294 9407      		cpc r25,r20
+ 488 0296 41E0      		ldi r20,hlo8(65794)
+ 489 0298 A407      		cpc r26,r20
+ 490 029a 40E0      		ldi r20,hhi8(65794)
+ 491 029c B407      		cpc r27,r20
+ 492 029e 01F4      		brne .+2
+ 493 02a0 00C0      		rjmp .L28
+ 494 02a2 8330      		cpi r24,lo8(65795)
+ 495 02a4 E1E0      		ldi r30,hi8(65795)
+ 496 02a6 9E07      		cpc r25,r30
+ 497 02a8 E1E0      		ldi r30,hlo8(65795)
+ 498 02aa AE07      		cpc r26,r30
+ 499 02ac E0E0      		ldi r30,hhi8(65795)
+ 500 02ae BE07      		cpc r27,r30
+ 501 02b0 00F4      		brsh .L33
+ 502 02b2 8130      		cpi r24,lo8(65793)
+ 503 02b4 F1E0      		ldi r31,hi8(65793)
+ 504 02b6 9F07      		cpc r25,r31
+ 505 02b8 F1E0      		ldi r31,hlo8(65793)
+ 506 02ba AF07      		cpc r26,r31
+ 507 02bc F0E0      		ldi r31,hhi8(65793)
+ 508 02be BF07      		cpc r27,r31
+ 509 02c0 01F0      		breq .+2
+ 510 02c2 00C0      		rjmp .L16
+ 511 02c4 00C0      		rjmp .L57
+ 512               	.L33:
+ 513 02c6 8530      		cpi r24,lo8(65797)
+ 514 02c8 21E0      		ldi r18,hi8(65797)
+ 515 02ca 9207      		cpc r25,r18
+ 516 02cc 21E0      		ldi r18,hlo8(65797)
+ 517 02ce A207      		cpc r26,r18
+ 518 02d0 20E0      		ldi r18,hhi8(65797)
+ 519 02d2 B207      		cpc r27,r18
+ 520               	.LVL15:
+ 521 02d4 00F0      		brlo .+2
+ 522 02d6 00C0      		rjmp .L16
+ 523 02d8 00C0      		rjmp .L28
+ 524               	.LVL16:
+ 525               	.L32:
+ 526 02da 8C30      		cpi r24,lo8(65804)
+ 527 02dc 41E0      		ldi r20,hi8(65804)
+ 528 02de 9407      		cpc r25,r20
+ 529 02e0 41E0      		ldi r20,hlo8(65804)
+ 530 02e2 A407      		cpc r26,r20
+ 531 02e4 40E0      		ldi r20,hhi8(65804)
+ 532 02e6 B407      		cpc r27,r20
+ 533 02e8 00F4      		brsh .L34
+ 534 02ea 8A30      		cpi r24,lo8(65802)
+ 535 02ec E1E0      		ldi r30,hi8(65802)
+ 536 02ee 9E07      		cpc r25,r30
+ 537 02f0 E1E0      		ldi r30,hlo8(65802)
+ 538 02f2 AE07      		cpc r26,r30
+ 539 02f4 E0E0      		ldi r30,hhi8(65802)
+ 540 02f6 BE07      		cpc r27,r30
+ 541 02f8 00F0      		brlo .+2
+ 542 02fa 00C0      		rjmp .L20
+ 543 02fc 8730      		cpi r24,lo8(65799)
+ 544 02fe F1E0      		ldi r31,hi8(65799)
+ 545 0300 9F07      		cpc r25,r31
+ 546 0302 F1E0      		ldi r31,hlo8(65799)
+ 547 0304 AF07      		cpc r26,r31
+ 548 0306 F0E0      		ldi r31,hhi8(65799)
+ 549 0308 BF07      		cpc r27,r31
+ 550 030a 01F0      		breq .+2
+ 551 030c 00C0      		rjmp .L16
+ 552 030e 00C0      		rjmp .L58
+ 553               	.L34:
+ 554 0310 8C30      		cpi r24,lo8(65804)
+ 555 0312 41E0      		ldi r20,hi8(65804)
+ 556 0314 9407      		cpc r25,r20
+ 557 0316 41E0      		ldi r20,hlo8(65804)
+ 558 0318 A407      		cpc r26,r20
+ 559 031a 40E0      		ldi r20,hhi8(65804)
+ 560 031c B407      		cpc r27,r20
+ 561 031e 01F4      		brne .+2
+ 562 0320 00C0      		rjmp .L22
+ 563 0322 8D30      		cpi r24,lo8(65805)
+ 564 0324 E1E0      		ldi r30,hi8(65805)
+ 565 0326 9E07      		cpc r25,r30
+ 566 0328 E1E0      		ldi r30,hlo8(65805)
+ 567 032a AE07      		cpc r26,r30
+ 568 032c E0E0      		ldi r30,hhi8(65805)
+ 569 032e BE07      		cpc r27,r30
+ 570 0330 01F0      		breq .+2
+ 571 0332 00C0      		rjmp .L16
+ 572 0334 00C0      		rjmp .L59
+ 573               	.L31:
+ 574 0336 8630      		cpi r24,lo8(131334)
+ 575 0338 F1E0      		ldi r31,hi8(131334)
+ 576 033a 9F07      		cpc r25,r31
+ 577 033c F2E0      		ldi r31,hlo8(131334)
+ 578 033e AF07      		cpc r26,r31
+ 579 0340 F0E0      		ldi r31,hhi8(131334)
+ 580 0342 BF07      		cpc r27,r31
+ 581 0344 00F4      		brsh .L35
+ 582 0346 8130      		cpi r24,lo8(131329)
+ 583 0348 21E0      		ldi r18,hi8(131329)
+ 584 034a 9207      		cpc r25,r18
+ 585 034c 22E0      		ldi r18,hlo8(131329)
+ 586 034e A207      		cpc r26,r18
+ 587 0350 20E0      		ldi r18,hhi8(131329)
+ 588 0352 B207      		cpc r27,r18
+ 589               	.LVL17:
+ 590 0354 00F0      		brlo .+2
+ 591 0356 00C0      		rjmp .L28
+ 592 0358 8431      		cpi r24,lo8(65812)
+ 593 035a 41E0      		ldi r20,hi8(65812)
+ 594 035c 9407      		cpc r25,r20
+ 595 035e 41E0      		ldi r20,hlo8(65812)
+ 596 0360 A407      		cpc r26,r20
+ 597 0362 40E0      		ldi r20,hhi8(65812)
+ 598 0364 B407      		cpc r27,r20
+ 599 0366 01F4      		brne .+2
+ 600 0368 00C0      		rjmp .L28
+ 601 036a 8230      		cpi r24,lo8(66050)
+ 602 036c E2E0      		ldi r30,hi8(66050)
+ 603 036e 9E07      		cpc r25,r30
+ 604 0370 E1E0      		ldi r30,hlo8(66050)
+ 605 0372 AE07      		cpc r26,r30
+ 606 0374 E0E0      		ldi r30,hhi8(66050)
+ 607 0376 BE07      		cpc r27,r30
+ 608 0378 01F4      		brne .+2
+ 609 037a 00C0      		rjmp .L28
+ 610 037c 8131      		cpi r24,lo8(65809)
+ 611 037e F1E0      		ldi r31,hi8(65809)
+ 612 0380 9F07      		cpc r25,r31
+ 613 0382 F1E0      		ldi r31,hlo8(65809)
+ 614 0384 AF07      		cpc r26,r31
+ 615 0386 F0E0      		ldi r31,hhi8(65809)
+ 616 0388 BF07      		cpc r27,r31
+ 617 038a 01F0      		breq .+2
+ 618 038c 00C0      		rjmp .L16
+ 619 038e 00C0      		rjmp .L60
+ 620               	.LVL18:
+ 621               	.L35:
+ 622 0390 8430      		cpi r24,lo8(16843012)
+ 623 0392 41E0      		ldi r20,hi8(16843012)
+ 624 0394 9407      		cpc r25,r20
+ 625 0396 41E0      		ldi r20,hlo8(16843012)
+ 626 0398 A407      		cpc r26,r20
+ 627 039a 41E0      		ldi r20,hhi8(16843012)
+ 628 039c B407      		cpc r27,r20
+ 629 039e 01F4      		brne .+2
+ 630 03a0 00C0      		rjmp .L30
+ 631 03a2 8530      		cpi r24,lo8(16843013)
+ 632 03a4 E1E0      		ldi r30,hi8(16843013)
+ 633 03a6 9E07      		cpc r25,r30
+ 634 03a8 E1E0      		ldi r30,hlo8(16843013)
+ 635 03aa AE07      		cpc r26,r30
+ 636 03ac E1E0      		ldi r30,hhi8(16843013)
+ 637 03ae BE07      		cpc r27,r30
+ 638 03b0 00F4      		brsh .L36
+ 639 03b2 8150      		subi r24,lo8(-(-16843009))
+ 640 03b4 9140      		sbci r25,hi8(-(-16843009))
+ 641 03b6 A140      		sbci r26,hlo8(-(-16843009))
+ 642 03b8 B140      		sbci r27,hhi8(-(-16843009))
+ 643 03ba 8230      		cpi r24,lo8(2)
+ 644 03bc 9105      		cpc r25,__zero_reg__
+ 645 03be A105      		cpc r26,__zero_reg__
+ 646 03c0 B105      		cpc r27,__zero_reg__
+ 647 03c2 00F0      		brlo .+2
+ 648 03c4 00C0      		rjmp .L16
+ 649 03c6 00C0      		rjmp .L61
+ 650               	.L36:
+ 651 03c8 8150      		subi r24,lo8(-(-16908545))
+ 652 03ca 9140      		sbci r25,hi8(-(-16908545))
+ 653 03cc A240      		sbci r26,hlo8(-(-16908545))
+ 654 03ce B140      		sbci r27,hhi8(-(-16908545))
+ 655 03d0 8330      		cpi r24,lo8(3)
+ 656 03d2 9105      		cpc r25,__zero_reg__
+ 657 03d4 A105      		cpc r26,__zero_reg__
+ 658 03d6 B105      		cpc r27,__zero_reg__
+ 659 03d8 00F0      		brlo .+2
+ 660 03da 00C0      		rjmp .L16
+ 661 03dc 00C0      		rjmp .L28
+ 662               	.L57:
+ 663               	.LVL19:
+ 291:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	{
+ 292:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_SUPPORTED_LIST:
+ 293:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(AdapterSupportedOIDList);
+ 294:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 295:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			memcpy_P(ResponseData, AdapterSupportedOIDList, sizeof(AdapterSupportedOIDList));
+ 664               		.loc 2 295 0
+ 665 03de C901      		movw r24,r18
+ 666 03e0 60E0      		ldi r22,lo8(AdapterSupportedOIDList)
+ 667 03e2 70E0      		ldi r23,hi8(AdapterSupportedOIDList)
+ 668 03e4 4CE6      		ldi r20,lo8(108)
+ 669 03e6 50E0      		ldi r21,hi8(108)
+ 670 03e8 0E94 0000 		call memcpy_P
+ 671               	.LVL20:
+ 293:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(AdapterSupportedOIDList);
+ 672               		.loc 2 293 0
+ 673 03ec CCE6      		ldi r28,lo8(108)
+ 674 03ee D0E0      		ldi r29,hi8(108)
+ 675 03f0 00C0      		rjmp .L37
+ 676               	.LVL21:
+ 677               	.L22:
+ 296:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 297:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 298:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_PHYSICAL_MEDIUM:
+ 299:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 300:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 301:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			/* Indicate that the device is a true ethernet link */
+ 302:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = CPU_TO_LE32(0);
+ 303:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 304:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 305:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_HARDWARE_STATUS:
+ 306:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 307:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 308:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = CPU_TO_LE32(NDIS_HardwareStatus_Ready);
+ 309:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 310:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 311:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_MEDIA_SUPPORTED:
+ 312:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_MEDIA_IN_USE:
+ 313:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 314:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 315:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = CPU_TO_LE32(REMOTE_NDIS_MEDIUM_802_3);
+ 316:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 317:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 318:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_VENDOR_ID:
+ 319:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 320:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 321:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			/* Vendor ID 0x0xFFFFFF is reserved for vendors who have not purchased a NDIS VID */
+ 322:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = CPU_TO_LE32(0x00FFFFFF);
+ 678               		.loc 2 322 0
+ 679 03f2 8FEF      		ldi r24,lo8(16777215)
+ 680 03f4 9FEF      		ldi r25,hi8(16777215)
+ 681 03f6 AFEF      		ldi r26,hlo8(16777215)
+ 682 03f8 B0E0      		ldi r27,hhi8(16777215)
+ 683               	.LVL22:
+ 684 03fa 00C0      		rjmp .L53
+ 685               	.LVL23:
+ 686               	.L20:
+ 323:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 324:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 325:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_MAXIMUM_FRAME_SIZE:
+ 326:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_TRANSMIT_BLOCK_SIZE:
+ 327:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_RECEIVE_BLOCK_SIZE:
+ 328:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 329:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 330:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = CPU_TO_LE32(ETHERNET_FRAME_SIZE_MAX);
+ 687               		.loc 2 330 0
+ 688 03fc 8CED      		ldi r24,lo8(1500)
+ 689 03fe 95E0      		ldi r25,hi8(1500)
+ 690 0400 A0E0      		ldi r26,hlo8(1500)
+ 691 0402 B0E0      		ldi r27,hhi8(1500)
+ 692 0404 00C0      		rjmp .L53
+ 693               	.LVL24:
+ 694               	.L59:
+ 331:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 332:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 333:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_VENDOR_DESCRIPTION:
+ 334:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = (strlen(RNDISInterfaceInfo->Config.AdapterVendorDescription) + 1);
+ 695               		.loc 2 334 0
+ 696 0406 F801      		movw r30,r16
+ 697 0408 6089      		ldd r22,Z+16
+ 698 040a 7189      		ldd r23,Z+17
+ 699 040c FB01      		movw r30,r22
+ 700 040e EF01      		movw r28,r30
+ 701 0410 0990      		ld __tmp_reg__,Y+
+ 702 0412 0020      		tst __tmp_reg__
+ 703 0414 01F4      		brne .-6
+ 704 0416 CE1B      		sub r28,r30
+ 705 0418 DF0B      		sbc r29,r31
+ 706               	.LVL25:
+ 335:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 336:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			memcpy(ResponseData, RNDISInterfaceInfo->Config.AdapterVendorDescription, *ResponseSize);
+ 707               		.loc 2 336 0
+ 708 041a C901      		movw r24,r18
+ 709 041c AE01      		movw r20,r28
+ 710 041e 0E94 0000 		call memcpy
+ 711               	.LVL26:
+ 712 0422 00C0      		rjmp .L37
+ 713               	.LVL27:
+ 714               	.L58:
+ 337:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 338:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 339:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_MEDIA_CONNECT_STATUS:
+ 340:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 341:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 342:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = CPU_TO_LE32(REMOTE_NDIS_MEDIA_STATE_CONNECTED);
+ 343:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 344:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 345:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_LINK_SPEED:
+ 346:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 347:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 348:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			/* Indicate 10Mb/s link speed */
+ 349:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = CPU_TO_LE32(100000);
+ 715               		.loc 2 349 0
+ 716 0424 80EA      		ldi r24,lo8(100000)
+ 717 0426 96E8      		ldi r25,hi8(100000)
+ 718 0428 A1E0      		ldi r26,hlo8(100000)
+ 719 042a B0E0      		ldi r27,hhi8(100000)
+ 720               	.LVL28:
+ 721 042c 00C0      		rjmp .L53
+ 722               	.LVL29:
+ 723               	.L61:
+ 350:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 351:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 352:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_802_3_PERMANENT_ADDRESS:
+ 353:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_802_3_CURRENT_ADDRESS:
+ 354:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(MAC_Address_t);
+ 355:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 356:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			memcpy(ResponseData, &RNDISInterfaceInfo->Config.AdapterMACAddress, sizeof(MAC_Address_t));
+ 724               		.loc 2 356 0
+ 725 042e D901      		movw r26,r18
+ 726 0430 F801      		movw r30,r16
+ 727 0432 7296      		adiw r30,18
+ 728 0434 86E0      		ldi r24,lo8(6)
+ 729               	.L39:
+ 730 0436 0190      		ld r0,Z+
+ 731 0438 0D92      		st X+,r0
+ 732 043a 8150      		subi r24,lo8(-(-1))
+ 733 043c 01F4      		brne .L39
+ 354:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(MAC_Address_t);
+ 734               		.loc 2 354 0
+ 735 043e C6E0      		ldi r28,lo8(6)
+ 736 0440 D0E0      		ldi r29,hi8(6)
+ 737 0442 00C0      		rjmp .L37
+ 738               	.LVL30:
+ 739               	.L30:
+ 357:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 358:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 359:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_802_3_MAXIMUM_LIST_SIZE:
+ 360:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 361:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 362:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			/* Indicate only one multicast address supported */
+ 363:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = CPU_TO_LE32(1);
+ 740               		.loc 2 363 0
+ 741 0444 81E0      		ldi r24,lo8(1)
+ 742 0446 90E0      		ldi r25,hi8(1)
+ 743 0448 A0E0      		ldi r26,hlo8(1)
+ 744 044a B0E0      		ldi r27,hhi8(1)
+ 745 044c 00C0      		rjmp .L53
+ 746               	.LVL31:
+ 747               	.L24:
+ 364:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 365:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 366:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_CURRENT_PACKET_FILTER:
+ 367:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 368:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 369:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = cpu_to_le32(RNDISInterfaceInfo->State.CurrPacketFilter);
+ 748               		.loc 2 369 0
+ 749 044e F801      		movw r30,r16
+ 750 0450 E656      		subi r30,lo8(-(154))
+ 751 0452 FF4F      		sbci r31,hi8(-(154))
+ 752 0454 8081      		ld r24,Z
+ 753 0456 9181      		ldd r25,Z+1
+ 754 0458 A281      		ldd r26,Z+2
+ 755 045a B381      		ldd r27,Z+3
+ 756 045c 00C0      		rjmp .L53
+ 757               	.LVL32:
+ 758               	.L28:
+ 370:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 371:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 372:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_XMIT_OK:
+ 373:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_RCV_OK:
+ 374:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_XMIT_ERROR:
+ 375:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_RCV_ERROR:
+ 376:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_RCV_NO_BUFFER:
+ 377:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_802_3_RCV_ERROR_ALIGNMENT:
+ 378:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_802_3_XMIT_ONE_COLLISION:
+ 379:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_802_3_XMIT_MORE_COLLISIONS:
+ 380:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 381:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 382:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			/* Unused statistic OIDs - always return 0 for each */
+ 383:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = CPU_TO_LE32(0);
+ 759               		.loc 2 383 0
+ 760 045e F801      		movw r30,r16
+ 761 0460 10AA      		std Z+48,__zero_reg__
+ 762 0462 11AA      		std Z+49,__zero_reg__
+ 763 0464 12AA      		std Z+50,__zero_reg__
+ 764 0466 13AA      		std Z+51,__zero_reg__
+ 765 0468 00C0      		rjmp .L51
+ 766               	.LVL33:
+ 767               	.L60:
+ 384:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 385:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 386:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_MAXIMUM_TOTAL_SIZE:
+ 387:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 388:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 389:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			/* Indicate maximum overall buffer (Ethernet frame and RNDIS header) the adapter can handle */
+ 390:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*((uint32_t*)ResponseData) = CPU_TO_LE32(RNDIS_MESSAGE_BUFFER_SIZE + ETHERNET_FRAME_SIZE_MAX);
+ 768               		.loc 2 390 0
+ 769 046a 8CE5      		ldi r24,lo8(1628)
+ 770 046c 96E0      		ldi r25,hi8(1628)
+ 771 046e A0E0      		ldi r26,hlo8(1628)
+ 772 0470 B0E0      		ldi r27,hhi8(1628)
+ 773               	.L53:
+ 774 0472 F801      		movw r30,r16
+ 775 0474 80AB      		std Z+48,r24
+ 776 0476 91AB      		std Z+49,r25
+ 777 0478 A2AB      		std Z+50,r26
+ 778 047a B3AB      		std Z+51,r27
+ 779               	.L51:
+ 387:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			*ResponseSize = sizeof(uint32_t);
+ 780               		.loc 2 387 0
+ 781 047c C4E0      		ldi r28,lo8(4)
+ 782 047e D0E0      		ldi r29,hi8(4)
+ 783 0480 00C0      		rjmp .L37
+ 784               	.LVL34:
+ 785               	.L16:
+ 786               	.LBE56:
+ 787               	.LBE55:
+ 226:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->Status                  = CPU_TO_LE32(REMOTE_NDIS_STATUS_NOT_SUPPORTED);
+ 788               		.loc 2 226 0
+ 789 0482 8BEB      		ldi r24,lo8(-1073741637)
+ 790 0484 90E0      		ldi r25,hi8(-1073741637)
+ 791 0486 A0E0      		ldi r26,hlo8(-1073741637)
+ 792 0488 B0EC      		ldi r27,hhi8(-1073741637)
+ 793 048a F801      		movw r30,r16
+ 794 048c 84A3      		std Z+36,r24
+ 795 048e 95A3      		std Z+37,r25
+ 796 0490 A6A3      		std Z+38,r26
+ 797 0492 B7A3      		std Z+39,r27
+ 227:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->MessageLength           = CPU_TO_LE32(sizeof(RNDIS_Query_Complete_t));
+ 798               		.loc 2 227 0
+ 799 0494 88E1      		ldi r24,lo8(24)
+ 800 0496 90E0      		ldi r25,hi8(24)
+ 801 0498 A0E0      		ldi r26,hlo8(24)
+ 802 049a B0E0      		ldi r27,hhi8(24)
+ 803 049c 848F      		std Z+28,r24
+ 804 049e 958F      		std Z+29,r25
+ 805 04a0 A68F      		std Z+30,r26
+ 806 04a2 B78F      		std Z+31,r27
+ 229:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->InformationBufferLength = CPU_TO_LE32(0);
+ 807               		.loc 2 229 0
+ 808 04a4 10A6      		std Z+40,__zero_reg__
+ 809 04a6 11A6      		std Z+41,__zero_reg__
+ 810 04a8 12A6      		std Z+42,__zero_reg__
+ 811 04aa 13A6      		std Z+43,__zero_reg__
+ 230:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->InformationBufferOffset = CPU_TO_LE32(0);
+ 812               		.loc 2 230 0
+ 813 04ac 14A6      		std Z+44,__zero_reg__
+ 814 04ae 15A6      		std Z+45,__zero_reg__
+ 815 04b0 16A6      		std Z+46,__zero_reg__
+ 816 04b2 17A6      		std Z+47,__zero_reg__
+ 817 04b4 00C0      		rjmp .L5
+ 818               	.LVL35:
+ 819               	.L12:
+ 235:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.ResponseReady     = true;
+ 820               		.loc 2 235 0
+ 821 04b6 F801      		movw r30,r16
+ 822 04b8 E856      		subi r30,lo8(-(152))
+ 823 04ba FF4F      		sbci r31,hi8(-(152))
+ 824 04bc 81E0      		ldi r24,lo8(1)
+ 825 04be 8083      		st Z,r24
+ 826               	.LVL36:
+ 239:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			uint32_t              SET_Oid               = le32_to_cpu(SET_Message->Oid);
+ 827               		.loc 2 239 0
+ 828 04c0 F801      		movw r30,r16
+ 829 04c2 84A1      		ldd r24,Z+36
+ 830 04c4 95A1      		ldd r25,Z+37
+ 831 04c6 A6A1      		ldd r26,Z+38
+ 832 04c8 B7A1      		ldd r27,Z+39
+ 833               	.LVL37:
+ 241:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			SET_Response->MessageType                   = CPU_TO_LE32(REMOTE_NDIS_SET_CMPLT);
+ 834               		.loc 2 241 0
+ 835 04ca 45E0      		ldi r20,lo8(-2147483643)
+ 836 04cc 50E0      		ldi r21,hi8(-2147483643)
+ 837 04ce 60E0      		ldi r22,hlo8(-2147483643)
+ 838 04d0 70E8      		ldi r23,hhi8(-2147483643)
+ 839 04d2 408F      		std Z+24,r20
+ 840 04d4 518F      		std Z+25,r21
+ 841 04d6 628F      		std Z+26,r22
+ 842 04d8 738F      		std Z+27,r23
+ 242:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			SET_Response->MessageLength                 = CPU_TO_LE32(sizeof(RNDIS_Set_Complete_t));
+ 843               		.loc 2 242 0
+ 844 04da 40E1      		ldi r20,lo8(16)
+ 845 04dc 50E0      		ldi r21,hi8(16)
+ 846 04de 60E0      		ldi r22,hlo8(16)
+ 847 04e0 70E0      		ldi r23,hhi8(16)
+ 848 04e2 448F      		std Z+28,r20
+ 849 04e4 558F      		std Z+29,r21
+ 850 04e6 668F      		std Z+30,r22
+ 851 04e8 778F      		std Z+31,r23
+ 246:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			                                                              le32_to_cpu(SET_Message->Informati
+ 852               		.loc 2 246 0
+ 853 04ea 44A5      		ldd r20,Z+44
+ 854 04ec 55A5      		ldd r21,Z+45
+ 855 04ee 66A5      		ldd r22,Z+46
+ 856 04f0 77A5      		ldd r23,Z+47
+ 857               	.LVL38:
+ 858               	.LBB57:
+ 859               	.LBB58:
+ 391:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 392:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 393:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		default:
+ 394:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return false;
+ 395:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	}
+ 396:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 397:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 398:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+ 399:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                         const uint32_t OId,
+ 400:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                         const void* SetData,
+ 401:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                         const uint16_t SetSize)
+ 402:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 403:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	(void)SetSize;
+ 404:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 405:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	switch (OId)
+ 860               		.loc 2 405 0
+ 861 04f2 8E30      		cpi r24,lo8(65806)
+ 862 04f4 F1E0      		ldi r31,hi8(65806)
+ 863 04f6 9F07      		cpc r25,r31
+ 864 04f8 F1E0      		ldi r31,hlo8(65806)
+ 865 04fa AF07      		cpc r26,r31
+ 866 04fc F0E0      		ldi r31,hhi8(65806)
+ 867 04fe BF07      		cpc r27,r31
+ 868 0500 01F0      		breq .L41
+ 869 0502 8330      		cpi r24,lo8(16843011)
+ 870 0504 21E0      		ldi r18,hi8(16843011)
+ 871 0506 9207      		cpc r25,r18
+ 872 0508 21E0      		ldi r18,hlo8(16843011)
+ 873 050a A207      		cpc r26,r18
+ 874 050c 21E0      		ldi r18,hhi8(16843011)
+ 875 050e B207      		cpc r27,r18
+ 876 0510 01F4      		brne .L50
+ 877 0512 00C0      		rjmp .L42
+ 878               	.L41:
+ 406:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	{
+ 407:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_GEN_CURRENT_PACKET_FILTER:
+ 408:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.CurrPacketFilter = le32_to_cpu(*((uint32_t*)SetData));
+ 879               		.loc 2 408 0
+ 880 0514 400F      		add r20,r16
+ 881 0516 511F      		adc r21,r17
+ 882 0518 FA01      		movw r30,r20
+ 883 051a 80A1      		ldd r24,Z+32
+ 884 051c 91A1      		ldd r25,Z+33
+ 885 051e A2A1      		ldd r26,Z+34
+ 886 0520 B3A1      		ldd r27,Z+35
+ 887 0522 F801      		movw r30,r16
+ 888 0524 E656      		subi r30,lo8(-(154))
+ 889 0526 FF4F      		sbci r31,hi8(-(154))
+ 890 0528 8083      		st Z,r24
+ 891 052a 9183      		std Z+1,r25
+ 892 052c A283      		std Z+2,r26
+ 893 052e B383      		std Z+3,r27
+ 409:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.CurrRNDISState   = (RNDISInterfaceInfo->State.CurrPacketFilter) ? RNDI
+ 894               		.loc 2 409 0
+ 895 0530 0097      		sbiw r24,0
+ 896 0532 A105      		cpc r26,__zero_reg__
+ 897 0534 B105      		cpc r27,__zero_reg__
+ 898 0536 01F0      		breq .L46
+ 899 0538 82E0      		ldi r24,lo8(2)
+ 900 053a 00C0      		rjmp .L43
+ 901               	.L46:
+ 902 053c 81E0      		ldi r24,lo8(1)
+ 903               	.L43:
+ 904 053e F801      		movw r30,r16
+ 905 0540 E756      		subi r30,lo8(-(153))
+ 906 0542 FF4F      		sbci r31,hi8(-(153))
+ 907 0544 8083      		st Z,r24
+ 908               	.L42:
+ 909               	.LBE58:
+ 250:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			                                                   REMOTE_NDIS_STATUS_SUCCESS : REMOTE_NDIS_STAT
+ 910               		.loc 2 250 0
+ 911 0546 80E0      		ldi r24,lo8(0)
+ 912 0548 90E0      		ldi r25,hi8(0)
+ 913 054a DC01      		movw r26,r24
+ 914 054c 00C0      		rjmp .L40
+ 915               	.L50:
+ 916               	.LBB59:
+ 917 054e 8BEB      		ldi r24,lo8(-1073741637)
+ 918 0550 90E0      		ldi r25,hi8(-1073741637)
+ 919 0552 A0E0      		ldi r26,hlo8(-1073741637)
+ 920 0554 B0EC      		ldi r27,hhi8(-1073741637)
+ 921               	.L40:
+ 922               	.LBE59:
+ 923               	.LBE57:
+ 248:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			SET_Response->Status = RNDIS_Device_ProcessNDISSet(RNDISInterfaceInfo, SET_Oid, SetData,
+ 924               		.loc 2 248 0
+ 925 0556 F801      		movw r30,r16
+ 926 0558 84A3      		std Z+36,r24
+ 927 055a 95A3      		std Z+37,r25
+ 928 055c A6A3      		std Z+38,r26
+ 929 055e B7A3      		std Z+39,r27
+ 930 0560 00C0      		rjmp .L5
+ 931               	.LVL39:
+ 932               	.L13:
+ 253:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.ResponseReady     = true;
+ 933               		.loc 2 253 0
+ 934 0562 F801      		movw r30,r16
+ 935 0564 E856      		subi r30,lo8(-(152))
+ 936 0566 FF4F      		sbci r31,hi8(-(152))
+ 937 0568 81E0      		ldi r24,lo8(1)
+ 938 056a 8083      		st Z,r24
+ 939               	.LVL40:
+ 257:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RESET_Response->MessageType                 = CPU_TO_LE32(REMOTE_NDIS_RESET_CMPLT);
+ 940               		.loc 2 257 0
+ 941 056c 86E0      		ldi r24,lo8(-2147483642)
+ 942 056e 90E0      		ldi r25,hi8(-2147483642)
+ 943 0570 A0E0      		ldi r26,hlo8(-2147483642)
+ 944 0572 B0E8      		ldi r27,hhi8(-2147483642)
+ 945 0574 F801      		movw r30,r16
+ 946 0576 808F      		std Z+24,r24
+ 947 0578 918F      		std Z+25,r25
+ 948 057a A28F      		std Z+26,r26
+ 949 057c B38F      		std Z+27,r27
+ 258:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RESET_Response->MessageLength               = CPU_TO_LE32(sizeof(RNDIS_Reset_Complete_t));
+ 950               		.loc 2 258 0
+ 951 057e 80E1      		ldi r24,lo8(16)
+ 952 0580 90E0      		ldi r25,hi8(16)
+ 953 0582 A0E0      		ldi r26,hlo8(16)
+ 954 0584 B0E0      		ldi r27,hhi8(16)
+ 955 0586 848F      		std Z+28,r24
+ 956 0588 958F      		std Z+29,r25
+ 957 058a A68F      		std Z+30,r26
+ 958 058c B78F      		std Z+31,r27
+ 259:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RESET_Response->Status                      = CPU_TO_LE32(REMOTE_NDIS_STATUS_SUCCESS);
+ 959               		.loc 2 259 0
+ 960 058e 10A2      		std Z+32,__zero_reg__
+ 961 0590 11A2      		std Z+33,__zero_reg__
+ 962 0592 12A2      		std Z+34,__zero_reg__
+ 963 0594 13A2      		std Z+35,__zero_reg__
+ 964 0596 00C0      		rjmp .L52
+ 965               	.LVL41:
+ 966               	.L56:
+ 264:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			RNDISInterfaceInfo->State.ResponseReady     = true;
+ 967               		.loc 2 264 0
+ 968 0598 F801      		movw r30,r16
+ 969 059a E856      		subi r30,lo8(-(152))
+ 970 059c FF4F      		sbci r31,hi8(-(152))
+ 971 059e 81E0      		ldi r24,lo8(1)
+ 972 05a0 8083      		st Z,r24
+ 973               	.LVL42:
+ 271:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			KEEPALIVE_Response->MessageType             = CPU_TO_LE32(REMOTE_NDIS_KEEPALIVE_CMPLT);
+ 974               		.loc 2 271 0
+ 975 05a2 88E0      		ldi r24,lo8(-2147483640)
+ 976 05a4 90E0      		ldi r25,hi8(-2147483640)
+ 977 05a6 A0E0      		ldi r26,hlo8(-2147483640)
+ 978 05a8 B0E8      		ldi r27,hhi8(-2147483640)
+ 979 05aa F801      		movw r30,r16
+ 980 05ac 808F      		std Z+24,r24
+ 981 05ae 918F      		std Z+25,r25
+ 982 05b0 A28F      		std Z+26,r26
+ 983 05b2 B38F      		std Z+27,r27
+ 272:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			KEEPALIVE_Response->MessageLength           = CPU_TO_LE32(sizeof(RNDIS_KeepAlive_Complete_t));
+ 984               		.loc 2 272 0
+ 985 05b4 80E1      		ldi r24,lo8(16)
+ 986 05b6 90E0      		ldi r25,hi8(16)
+ 987 05b8 A0E0      		ldi r26,hlo8(16)
+ 988 05ba B0E0      		ldi r27,hhi8(16)
+ 989 05bc 848F      		std Z+28,r24
+ 990 05be 958F      		std Z+29,r25
+ 991 05c0 A68F      		std Z+30,r26
+ 992 05c2 B78F      		std Z+31,r27
+ 993               	.LVL43:
+ 994               	.L52:
+ 274:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			KEEPALIVE_Response->Status                  = CPU_TO_LE32(REMOTE_NDIS_STATUS_SUCCESS);
+ 995               		.loc 2 274 0
+ 996 05c4 14A2      		std Z+36,__zero_reg__
+ 997 05c6 15A2      		std Z+37,__zero_reg__
+ 998 05c8 16A2      		std Z+38,__zero_reg__
+ 999 05ca 17A2      		std Z+39,__zero_reg__
+ 1000 05cc 00C0      		rjmp .L5
+ 1001               	.LVL44:
+ 1002               	.L54:
+ 1003               	.LBE54:
+ 1004               	.LBE53:
+ 1005               	.LBE52:
+  93:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE)
+ 1006               		.loc 2 93 0
+ 1007 05ce 8091 0000 		lds r24,USB_ControlRequest
+ 1008 05d2 813A      		cpi r24,lo8(-95)
+ 1009 05d4 01F0      		breq .+2
+ 1010 05d6 00C0      		rjmp .L5
+ 1011               	.LVL45:
+ 1012               	.LBB62:
+  97:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				if (!(MessageHeader->MessageLength))
+ 1013               		.loc 2 97 0
+ 1014 05d8 F801      		movw r30,r16
+ 1015 05da 848D      		ldd r24,Z+28
+ 1016 05dc 958D      		ldd r25,Z+29
+ 1017 05de A68D      		ldd r26,Z+30
+ 1018 05e0 B78D      		ldd r27,Z+31
+ 1019 05e2 0097      		sbiw r24,0
+ 1020 05e4 A105      		cpc r26,__zero_reg__
+ 1021 05e6 B105      		cpc r27,__zero_reg__
+ 1022 05e8 01F4      		brne .L44
+  99:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 					RNDISInterfaceInfo->State.RNDISMessageBuffer[0] = 0;
+ 1023               		.loc 2 99 0
+ 1024 05ea 108E      		std Z+24,__zero_reg__
+ 100:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 					MessageHeader->MessageLength                    = CPU_TO_LE32(1);
+ 1025               		.loc 2 100 0
+ 1026 05ec 81E0      		ldi r24,lo8(1)
+ 1027 05ee 90E0      		ldi r25,hi8(1)
+ 1028 05f0 A0E0      		ldi r26,hlo8(1)
+ 1029 05f2 B0E0      		ldi r27,hhi8(1)
+ 1030 05f4 848F      		std Z+28,r24
+ 1031 05f6 958F      		std Z+29,r25
+ 1032 05f8 A68F      		std Z+30,r26
+ 1033 05fa B78F      		std Z+31,r27
+ 1034               	.L44:
+ 1035               	.LBB63:
+ 1036               	.LBB64:
+ 430:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+ 1037               		.loc 1 430 0
+ 1038 05fc 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 1039 0600 8F77      		andi r24,lo8(127)
+ 1040 0602 0E94 0000 		call Endpoint_SelectEndpoint
+ 431:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_SETUP_bm | USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK
+ 1041               		.loc 1 431 0
+ 1042 0606 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1043 060a F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1044 060e 8081      		ld r24,Z
+ 1045 0610 8D78      		andi r24,lo8(-115)
+ 1046 0612 8083      		st Z,r24
+ 432:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
+ 1047               		.loc 1 432 0
+ 1048 0614 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1049 0618 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1050 061c 8081      		ld r24,Z
+ 1051 061e 8160      		ori r24,lo8(1)
+ 1052 0620 8083      		st Z,r24
+ 433:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 1053               		.loc 1 433 0
+ 1054 0622 E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 1055 0626 F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 1056 062a EF5B      		subi r30,lo8(-(65))
+ 1057 062c FF4F      		sbci r31,hi8(-(65))
+ 1058 062e 1082      		st Z,__zero_reg__
+ 435:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
+ 1059               		.loc 1 435 0
+ 1060 0630 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 1061 0634 8068      		ori r24,lo8(-128)
+ 1062 0636 0E94 0000 		call Endpoint_SelectEndpoint
+ 436:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
+ 1063               		.loc 1 436 0
+ 1064 063a E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1065 063e F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1066 0642 8081      		ld r24,Z
+ 1067 0644 8160      		ori r24,lo8(1)
+ 1068 0646 8083      		st Z,r24
+ 437:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 1069               		.loc 1 437 0
+ 1070 0648 E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 1071 064c F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 1072 0650 EF5B      		subi r30,lo8(-(65))
+ 1073 0652 FF4F      		sbci r31,hi8(-(65))
+ 1074 0654 1082      		st Z,__zero_reg__
+ 1075               	.LBE64:
+ 1076               	.LBE63:
+ 104:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				Endpoint_Write_Control_Stream_LE(RNDISInterfaceInfo->State.RNDISMessageBuffer, le32_to_cpu(Mess
+ 1077               		.loc 2 104 0
+ 1078 0656 F801      		movw r30,r16
+ 1079 0658 648D      		ldd r22,Z+28
+ 1080 065a 758D      		ldd r23,Z+29
+ 1081 065c C801      		movw r24,r16
+ 1082 065e 4896      		adiw r24,24
+ 1083 0660 0E94 0000 		call Endpoint_Write_Control_Stream_LE
+ 1084               	.LBB65:
+ 1085               	.LBB66:
+ 451:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 452:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 453:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Acknowledges an OUT packet to the host on the currently selected endpoint, freeing up the en
+ 454:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  for the next packet and switching to the alternative endpoint bank if double banked.
+ 455:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 456:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 457:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 458:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearOUT(void) ATTR_ALWAYS_INLINE;
+ 459:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearOUT(void)
+ 460:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 461:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_
+ 1086               		.loc 1 461 0
+ 1087 0664 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1088 0668 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1089 066c 8081      		ld r24,Z
+ 1090 066e 8D79      		andi r24,lo8(-99)
+ 1091 0670 8083      		st Z,r24
+ 462:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 1092               		.loc 1 462 0
+ 1093 0672 E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 1094 0676 F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 1095 067a EF5B      		subi r30,lo8(-(65))
+ 1096 067c FF4F      		sbci r31,hi8(-(65))
+ 1097 067e 1082      		st Z,__zero_reg__
+ 1098               	.LBE66:
+ 1099               	.LBE65:
+ 107:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				MessageHeader->MessageLength = CPU_TO_LE32(0);
+ 1100               		.loc 2 107 0
+ 1101 0680 F801      		movw r30,r16
+ 1102 0682 148E      		std Z+28,__zero_reg__
+ 1103 0684 158E      		std Z+29,__zero_reg__
+ 1104 0686 168E      		std Z+30,__zero_reg__
+ 1105 0688 178E      		std Z+31,__zero_reg__
+ 1106 068a 00C0      		rjmp .L5
+ 1107               	.LVL46:
+ 1108               	.L37:
+ 1109               	.LBE62:
+ 1110               	.LBB67:
+ 1111               	.LBB61:
+ 1112               	.LBB60:
+ 218:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->Status                  = CPU_TO_LE32(REMOTE_NDIS_STATUS_SUCCESS);
+ 1113               		.loc 2 218 0
+ 1114 068c F801      		movw r30,r16
+ 1115 068e 14A2      		std Z+36,__zero_reg__
+ 1116 0690 15A2      		std Z+37,__zero_reg__
+ 1117 0692 16A2      		std Z+38,__zero_reg__
+ 1118 0694 17A2      		std Z+39,__zero_reg__
+ 219:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->MessageLength           = cpu_to_le32(sizeof(RNDIS_Query_Complete_t) + Response
+ 1119               		.loc 2 219 0
+ 1120 0696 CE01      		movw r24,r28
+ 1121 0698 4896      		adiw r24,24
+ 1122 069a A0E0      		ldi r26,lo8(0)
+ 1123 069c B0E0      		ldi r27,hi8(0)
+ 1124 069e 848F      		std Z+28,r24
+ 1125 06a0 958F      		std Z+29,r25
+ 1126 06a2 A68F      		std Z+30,r26
+ 1127 06a4 B78F      		std Z+31,r27
+ 221:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->InformationBufferLength = CPU_TO_LE32(ResponseSize);
+ 1128               		.loc 2 221 0
+ 1129 06a6 CE01      		movw r24,r28
+ 1130 06a8 A0E0      		ldi r26,lo8(0)
+ 1131 06aa B0E0      		ldi r27,hi8(0)
+ 1132 06ac 80A7      		std Z+40,r24
+ 1133 06ae 91A7      		std Z+41,r25
+ 1134 06b0 A2A7      		std Z+42,r26
+ 1135 06b2 B3A7      		std Z+43,r27
+ 222:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 				QUERY_Response->InformationBufferOffset = CPU_TO_LE32(sizeof(RNDIS_Query_Complete_t) - sizeof(R
+ 1136               		.loc 2 222 0
+ 1137 06b4 80E1      		ldi r24,lo8(16)
+ 1138 06b6 90E0      		ldi r25,hi8(16)
+ 1139 06b8 A0E0      		ldi r26,hlo8(16)
+ 1140 06ba B0E0      		ldi r27,hhi8(16)
+ 1141 06bc 84A7      		std Z+44,r24
+ 1142 06be 95A7      		std Z+45,r25
+ 1143 06c0 A6A7      		std Z+46,r26
+ 1144 06c2 B7A7      		std Z+47,r27
+ 1145               	.LVL47:
+ 1146               	.L5:
+ 1147               	/* epilogue start */
+ 1148               	.LBE60:
+ 1149               	.LBE61:
+ 1150               	.LBE67:
+ 112:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 1151               		.loc 2 112 0
+ 1152 06c4 DF91      		pop r29
+ 1153 06c6 CF91      		pop r28
+ 1154 06c8 1F91      		pop r17
+ 1155 06ca 0F91      		pop r16
+ 1156               	.LVL48:
+ 1157 06cc 0895      		ret
+ 1158               		.cfi_endproc
+ 1159               	.LFE83:
+ 1161               		.section	.text.RNDIS_Device_ConfigureEndpoints,"ax",@progbits
+ 1162               	.global	RNDIS_Device_ConfigureEndpoints
+ 1164               	RNDIS_Device_ConfigureEndpoints:
+ 1165               	.LFB84:
+ 115:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 1166               		.loc 2 115 0
+ 1167               		.cfi_startproc
+ 1168               	.LVL49:
+ 1169 0000 CF93      		push r28
+ 1170               	.LCFI4:
+ 1171               		.cfi_def_cfa_offset 3
+ 1172               		.cfi_offset 28, -2
+ 1173 0002 DF93      		push r29
+ 1174               	.LCFI5:
+ 1175               		.cfi_def_cfa_offset 4
+ 1176               		.cfi_offset 29, -3
+ 1177               	/* prologue: function */
+ 1178               	/* frame size = 0 */
+ 1179               	/* stack size = 2 */
+ 1180               	.L__stack_usage = 2
+ 1181 0004 EC01      		movw r28,r24
+ 116:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	memset(&RNDISInterfaceInfo->State, 0x00, sizeof(RNDISInterfaceInfo->State));
+ 1182               		.loc 2 116 0
+ 1183 0006 4896      		adiw r24,24
+ 1184               	.LVL50:
+ 1185 0008 FC01      		movw r30,r24
+ 1186 000a 86E8      		ldi r24,lo8(-122)
+ 1187 000c DF01      		movw r26,r30
+ 1188 000e 1D92      		st X+,__zero_reg__
+ 1189 0010 8A95      	        dec r24
+ 1190 0012 01F4      		brne .-6
+ 118:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDISInterfaceInfo->Config.DataINEndpoint.Type       = EP_TYPE_BULK;
+ 1191               		.loc 2 118 0
+ 1192 0014 82E0      		ldi r24,lo8(2)
+ 1193 0016 8C83      		std Y+4,r24
+ 119:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDISInterfaceInfo->Config.DataOUTEndpoint.Type      = EP_TYPE_BULK;
+ 1194               		.loc 2 119 0
+ 1195 0018 8987      		std Y+9,r24
+ 120:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDISInterfaceInfo->Config.NotificationEndpoint.Type = EP_TYPE_INTERRUPT;
+ 1196               		.loc 2 120 0
+ 1197 001a 83E0      		ldi r24,lo8(3)
+ 1198 001c 8E87      		std Y+14,r24
+ 122:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (!(Endpoint_ConfigureEndpointTable(&RNDISInterfaceInfo->Config.DataINEndpoint, 1)))
+ 1199               		.loc 2 122 0
+ 1200 001e CE01      		movw r24,r28
+ 1201 0020 0196      		adiw r24,1
+ 1202 0022 61E0      		ldi r22,lo8(1)
+ 1203 0024 0E94 0000 		call Endpoint_ConfigureEndpointTable
+ 1204 0028 8823      		tst r24
+ 1205 002a 01F0      		breq .L65
+ 125:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (!(Endpoint_ConfigureEndpointTable(&RNDISInterfaceInfo->Config.DataOUTEndpoint, 1)))
+ 1206               		.loc 2 125 0
+ 1207 002c CE01      		movw r24,r28
+ 1208 002e 0696      		adiw r24,6
+ 1209 0030 61E0      		ldi r22,lo8(1)
+ 1210 0032 0E94 0000 		call Endpoint_ConfigureEndpointTable
+ 1211 0036 8823      		tst r24
+ 1212 0038 01F0      		breq .L65
+ 128:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (!(Endpoint_ConfigureEndpointTable(&RNDISInterfaceInfo->Config.NotificationEndpoint, 1)))
+ 1213               		.loc 2 128 0
+ 1214 003a CE01      		movw r24,r28
+ 1215 003c 0B96      		adiw r24,11
+ 1216 003e 61E0      		ldi r22,lo8(1)
+ 1217 0040 0E94 0000 		call Endpoint_ConfigureEndpointTable
+ 1218 0044 00C0      		rjmp .L63
+ 1219               	.L65:
+ 126:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	  return false;
+ 1220               		.loc 2 126 0
+ 1221 0046 80E0      		ldi r24,lo8(0)
+ 1222               	.L63:
+ 1223               	/* epilogue start */
+ 132:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 1224               		.loc 2 132 0
+ 1225 0048 DF91      		pop r29
+ 1226 004a CF91      		pop r28
+ 1227               	.LVL51:
+ 1228 004c 0895      		ret
+ 1229               		.cfi_endproc
+ 1230               	.LFE84:
+ 1232               		.data
+ 1233               	.LC0:
+ 1234 0000 A1        		.byte	-95
+ 1235 0001 01        		.byte	1
+ 1236 0002 0000      		.word	0
+ 1237 0004 0000      		.word	0
+ 1238 0006 0000      		.word	0
+ 1239               		.section	.text.RNDIS_Device_USBTask,"ax",@progbits
+ 1240               	.global	RNDIS_Device_USBTask
+ 1242               	RNDIS_Device_USBTask:
+ 1243               	.LFB85:
+ 135:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 1244               		.loc 2 135 0
+ 1245               		.cfi_startproc
+ 1246               	.LVL52:
+ 1247 0000 0F93      		push r16
+ 1248               	.LCFI6:
+ 1249               		.cfi_def_cfa_offset 3
+ 1250               		.cfi_offset 16, -2
+ 1251 0002 1F93      		push r17
+ 1252               	.LCFI7:
+ 1253               		.cfi_def_cfa_offset 4
+ 1254               		.cfi_offset 17, -3
+ 1255 0004 CF93      		push r28
+ 1256               	.LCFI8:
+ 1257               		.cfi_def_cfa_offset 5
+ 1258               		.cfi_offset 28, -4
+ 1259 0006 DF93      		push r29
+ 1260               	.LCFI9:
+ 1261               		.cfi_def_cfa_offset 6
+ 1262               		.cfi_offset 29, -5
+ 1263 0008 CDB7      		in r28,__SP_L__
+ 1264 000a DEB7      		in r29,__SP_H__
+ 1265 000c 2897      		sbiw r28,8
+ 1266               	.LCFI10:
+ 1267               		.cfi_def_cfa 28, 14
+ 1268 000e CDBF      		out __SP_L__,r28
+ 1269 0010 DEBF      		out __SP_H__,r29
+ 1270               	/* prologue: function */
+ 1271               	/* frame size = 8 */
+ 1272               	/* stack size = 12 */
+ 1273               	.L__stack_usage = 12
+ 1274 0012 8C01      		movw r16,r24
+ 136:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (USB_DeviceState != DEVICE_STATE_Configured)
+ 1275               		.loc 2 136 0
+ 1276 0014 8091 0000 		lds r24,USB_DeviceState
+ 1277               	.LVL53:
+ 1278 0018 8430      		cpi r24,lo8(4)
+ 1279 001a 01F0      		breq .+2
+ 1280 001c 00C0      		rjmp .L66
+ 139:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.NotificationEndpoint.Address);
+ 1281               		.loc 2 139 0
+ 1282 001e F801      		movw r30,r16
+ 1283 0020 8385      		ldd r24,Z+11
+ 1284 0022 0E94 0000 		call Endpoint_SelectEndpoint
+ 1285               	.LBB68:
+ 1286               	.LBB69:
+ 375:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
+ 1287               		.loc 1 375 0
+ 1288 0026 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 1289 002a 8068      		ori r24,lo8(-128)
+ 1290 002c 0E94 0000 		call Endpoint_SelectEndpoint
+ 377:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return ((USB_Endpoint_SelectedHandle->STATUS & USB_EP_BUSNACK0_bm) ? true : false);
+ 1291               		.loc 1 377 0
+ 1292 0030 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1293 0034 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1294 0038 8081      		ld r24,Z
+ 1295               	.LBE69:
+ 1296               	.LBE68:
+ 141:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (Endpoint_IsINReady() && RNDISInterfaceInfo->State.ResponseReady)
+ 1297               		.loc 2 141 0
+ 1298 003a 81FF      		sbrs r24,1
+ 1299 003c 00C0      		rjmp .L66
+ 141:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (Endpoint_IsINReady() && RNDISInterfaceInfo->State.ResponseReady)
+ 1300               		.loc 2 141 0 is_stmt 0 discriminator 1
+ 1301 003e F801      		movw r30,r16
+ 1302 0040 E856      		subi r30,lo8(-(152))
+ 1303 0042 FF4F      		sbci r31,hi8(-(152))
+ 1304 0044 8081      		ld r24,Z
+ 1305 0046 8823      		tst r24
+ 1306 0048 01F0      		breq .L66
+ 1307               	.LBB70:
+ 143:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		USB_Request_Header_t Notification = (USB_Request_Header_t)
+ 1308               		.loc 2 143 0 is_stmt 1
+ 1309 004a DE01      		movw r26,r28
+ 1310 004c 1196      		adiw r26,1
+ 1311 004e E0E0      		ldi r30,lo8(.LC0)
+ 1312 0050 F0E0      		ldi r31,hi8(.LC0)
+ 1313 0052 88E0      		ldi r24,lo8(8)
+ 1314               	.L68:
+ 1315 0054 0190      		ld r0,Z+
+ 1316 0056 0D92      		st X+,r0
+ 1317 0058 8150      		subi r24,lo8(-(-1))
+ 1318 005a 01F4      		brne .L68
+ 152:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		Endpoint_Write_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NULL);
+ 1319               		.loc 2 152 0
+ 1320 005c CE01      		movw r24,r28
+ 1321 005e 0196      		adiw r24,1
+ 1322 0060 68E0      		ldi r22,lo8(8)
+ 1323 0062 70E0      		ldi r23,hi8(8)
+ 1324 0064 40E0      		ldi r20,lo8(0)
+ 1325 0066 50E0      		ldi r21,hi8(0)
+ 1326 0068 0E94 0000 		call Endpoint_Write_Stream_LE
+ 1327               	.LBB71:
+ 1328               	.LBB72:
+ 448:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->CNT     = USB_Endpoint_SelectedFIFO->Position;
+ 1329               		.loc 1 448 0
+ 1330 006c E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1331 0070 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1332 0074 A091 0000 		lds r26,USB_Endpoint_SelectedFIFO
+ 1333 0078 B091 0000 		lds r27,USB_Endpoint_SelectedFIFO+1
+ 1334 007c AF5B      		subi r26,lo8(-(65))
+ 1335 007e BF4F      		sbci r27,hi8(-(65))
+ 1336 0080 8C91      		ld r24,X
+ 1337 0082 90E0      		ldi r25,lo8(0)
+ 1338 0084 8283      		std Z+2,r24
+ 1339 0086 9383      		std Z+3,r25
+ 449:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_
+ 1340               		.loc 1 449 0
+ 1341 0088 8081      		ld r24,Z
+ 1342 008a 8D79      		andi r24,lo8(-99)
+ 1343 008c 8083      		st Z,r24
+ 450:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 1344               		.loc 1 450 0
+ 1345 008e E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 1346 0092 F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 1347 0096 EF5B      		subi r30,lo8(-(65))
+ 1348 0098 FF4F      		sbci r31,hi8(-(65))
+ 1349 009a 1082      		st Z,__zero_reg__
+ 1350               	.LBE72:
+ 1351               	.LBE71:
+ 156:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		RNDISInterfaceInfo->State.ResponseReady = false;
+ 1352               		.loc 2 156 0
+ 1353 009c F801      		movw r30,r16
+ 1354 009e E856      		subi r30,lo8(-(152))
+ 1355 00a0 FF4F      		sbci r31,hi8(-(152))
+ 1356 00a2 1082      		st Z,__zero_reg__
+ 1357               	.L66:
+ 1358               	/* epilogue start */
+ 1359               	.LBE70:
+ 158:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 1360               		.loc 2 158 0
+ 1361 00a4 2896      		adiw r28,8
+ 1362 00a6 CDBF      		out __SP_L__,r28
+ 1363 00a8 DEBF      		out __SP_H__,r29
+ 1364 00aa DF91      		pop r29
+ 1365 00ac CF91      		pop r28
+ 1366 00ae 1F91      		pop r17
+ 1367 00b0 0F91      		pop r16
+ 1368               	.LVL54:
+ 1369 00b2 0895      		ret
+ 1370               		.cfi_endproc
+ 1371               	.LFE85:
+ 1373               		.section	.text.RNDIS_Device_IsPacketReceived,"ax",@progbits
+ 1374               	.global	RNDIS_Device_IsPacketReceived
+ 1376               	RNDIS_Device_IsPacketReceived:
+ 1377               	.LFB89:
+ 410:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 411:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 412:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		case OID_802_3_MULTICAST_LIST:
+ 413:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			/* Do nothing - throw away the value from the host as it is unused */
+ 414:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 415:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return true;
+ 416:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		default:
+ 417:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 			return false;
+ 418:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	}
+ 419:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 420:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 421:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** bool RNDIS_Device_IsPacketReceived(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
+ 422:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 1378               		.loc 2 422 0
+ 1379               		.cfi_startproc
+ 1380               	.LVL55:
+ 1381               	/* prologue: function */
+ 1382               	/* frame size = 0 */
+ 1383               	/* stack size = 0 */
+ 1384               	.L__stack_usage = 0
+ 423:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if ((USB_DeviceState != DEVICE_STATE_Configured) ||
+ 1385               		.loc 2 423 0
+ 1386 0000 2091 0000 		lds r18,USB_DeviceState
+ 1387 0004 2430      		cpi r18,lo8(4)
+ 1388 0006 01F4      		brne .L73
+ 424:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	    (RNDISInterfaceInfo->State.CurrRNDISState != RNDIS_Data_Initialized))
+ 1389               		.loc 2 424 0 discriminator 1
+ 1390 0008 FC01      		movw r30,r24
+ 1391 000a E756      		subi r30,lo8(-(153))
+ 1392 000c FF4F      		sbci r31,hi8(-(153))
+ 423:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if ((USB_DeviceState != DEVICE_STATE_Configured) ||
+ 1393               		.loc 2 423 0 discriminator 1
+ 1394 000e 2081      		ld r18,Z
+ 1395 0010 2230      		cpi r18,lo8(2)
+ 1396 0012 01F4      		brne .L73
+ 425:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	{
+ 426:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		return false;
+ 427:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	}
+ 428:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 429:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpoint.Address);
+ 1397               		.loc 2 429 0
+ 1398 0014 FC01      		movw r30,r24
+ 1399 0016 8681      		ldd r24,Z+6
+ 1400               	.LVL56:
+ 1401 0018 0E94 0000 		call Endpoint_SelectEndpoint
+ 1402               	.LVL57:
+ 1403               	.LBB73:
+ 1404               	.LBB74:
+ 389:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+ 1405               		.loc 1 389 0
+ 1406 001c 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 1407 0020 8F77      		andi r24,lo8(127)
+ 1408 0022 0E94 0000 		call Endpoint_SelectEndpoint
+ 391:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_TRNCOMPL0_bm)
+ 1409               		.loc 1 391 0
+ 1410 0026 A091 0000 		lds r26,USB_Endpoint_SelectedHandle
+ 1411 002a B091 0000 		lds r27,USB_Endpoint_SelectedHandle+1
+ 1412 002e 8C91      		ld r24,X
+ 1413 0030 85FF      		sbrs r24,5
+ 1414 0032 00C0      		rjmp .L74
+ 393:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
+ 1415               		.loc 1 393 0
+ 1416 0034 E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 1417 0038 F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 1418 003c 1296      		adiw r26,2
+ 1419 003e 8D91      		ld r24,X+
+ 1420 0040 9C91      		ld r25,X
+ 1421 0042 1397      		sbiw r26,2+1
+ 1422 0044 E05C      		subi r30,lo8(-(64))
+ 1423 0046 FF4F      		sbci r31,hi8(-(64))
+ 1424 0048 8083      		st Z,r24
+ 394:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					return true;
+ 1425               		.loc 1 394 0
+ 1426 004a 81E0      		ldi r24,lo8(1)
+ 1427 004c 0895      		ret
+ 1428               	.LVL58:
+ 1429               	.L73:
+ 1430               	.LBE74:
+ 1431               	.LBE73:
+ 426:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		return false;
+ 1432               		.loc 2 426 0
+ 1433 004e 80E0      		ldi r24,lo8(0)
+ 1434               	.LVL59:
+ 1435 0050 0895      		ret
+ 1436               	.L74:
+ 1437               	.LBB76:
+ 1438               	.LBB75:
+ 397:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return false;
+ 1439               		.loc 1 397 0
+ 1440 0052 80E0      		ldi r24,lo8(0)
+ 1441               	.LBE75:
+ 1442               	.LBE76:
+ 430:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	return Endpoint_IsOUTReceived();
+ 431:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 1443               		.loc 2 431 0
+ 1444 0054 0895      		ret
+ 1445               		.cfi_endproc
+ 1446               	.LFE89:
+ 1448               		.section	.text.RNDIS_Device_ReadPacket,"ax",@progbits
+ 1449               	.global	RNDIS_Device_ReadPacket
+ 1451               	RNDIS_Device_ReadPacket:
+ 1452               	.LFB90:
+ 432:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 433:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** uint8_t RNDIS_Device_ReadPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+ 434:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                 void* Buffer,
+ 435:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                 uint16_t* const PacketLength)
+ 436:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 1453               		.loc 2 436 0
+ 1454               		.cfi_startproc
+ 1455               	.LVL60:
+ 1456 0000 EF92      		push r14
+ 1457               	.LCFI11:
+ 1458               		.cfi_def_cfa_offset 3
+ 1459               		.cfi_offset 14, -2
+ 1460 0002 FF92      		push r15
+ 1461               	.LCFI12:
+ 1462               		.cfi_def_cfa_offset 4
+ 1463               		.cfi_offset 15, -3
+ 1464 0004 0F93      		push r16
+ 1465               	.LCFI13:
+ 1466               		.cfi_def_cfa_offset 5
+ 1467               		.cfi_offset 16, -4
+ 1468 0006 1F93      		push r17
+ 1469               	.LCFI14:
+ 1470               		.cfi_def_cfa_offset 6
+ 1471               		.cfi_offset 17, -5
+ 1472 0008 CF93      		push r28
+ 1473               	.LCFI15:
+ 1474               		.cfi_def_cfa_offset 7
+ 1475               		.cfi_offset 28, -6
+ 1476 000a DF93      		push r29
+ 1477               	.LCFI16:
+ 1478               		.cfi_def_cfa_offset 8
+ 1479               		.cfi_offset 29, -7
+ 1480 000c CDB7      		in r28,__SP_L__
+ 1481 000e DEB7      		in r29,__SP_H__
+ 1482 0010 AC97      		sbiw r28,44
+ 1483               	.LCFI17:
+ 1484               		.cfi_def_cfa 28, 52
+ 1485 0012 CDBF      		out __SP_L__,r28
+ 1486 0014 DEBF      		out __SP_H__,r29
+ 1487               	/* prologue: function */
+ 1488               	/* frame size = 44 */
+ 1489               	/* stack size = 50 */
+ 1490               	.L__stack_usage = 50
+ 1491 0016 7B01      		movw r14,r22
+ 1492 0018 8A01      		movw r16,r20
+ 437:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if ((USB_DeviceState != DEVICE_STATE_Configured) ||
+ 1493               		.loc 2 437 0
+ 1494 001a 2091 0000 		lds r18,USB_DeviceState
+ 1495 001e 2430      		cpi r18,lo8(4)
+ 1496 0020 01F0      		breq .+2
+ 1497 0022 00C0      		rjmp .L79
+ 1498               	.LVL61:
+ 438:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	    (RNDISInterfaceInfo->State.CurrRNDISState != RNDIS_Data_Initialized))
+ 1499               		.loc 2 438 0 discriminator 1
+ 1500 0024 FC01      		movw r30,r24
+ 1501 0026 E756      		subi r30,lo8(-(153))
+ 1502 0028 FF4F      		sbci r31,hi8(-(153))
+ 437:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if ((USB_DeviceState != DEVICE_STATE_Configured) ||
+ 1503               		.loc 2 437 0 discriminator 1
+ 1504 002a 2081      		ld r18,Z
+ 1505 002c 2230      		cpi r18,lo8(2)
+ 1506 002e 01F0      		breq .+2
+ 1507 0030 00C0      		rjmp .L79
+ 439:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	{
+ 440:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		return ENDPOINT_RWSTREAM_DeviceDisconnected;
+ 441:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	}
+ 442:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 443:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpoint.Address);
+ 1508               		.loc 2 443 0
+ 1509 0032 FC01      		movw r30,r24
+ 1510 0034 8681      		ldd r24,Z+6
+ 1511               	.LVL62:
+ 1512 0036 0E94 0000 		call Endpoint_SelectEndpoint
+ 1513               	.LVL63:
+ 444:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 445:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	*PacketLength = 0;
+ 1514               		.loc 2 445 0
+ 1515 003a F801      		movw r30,r16
+ 1516 003c 1082      		st Z,__zero_reg__
+ 1517 003e 1182      		std Z+1,__zero_reg__
+ 1518               	.LBB77:
+ 1519               	.LBB78:
+ 389:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+ 1520               		.loc 1 389 0
+ 1521 0040 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 1522 0044 8F77      		andi r24,lo8(127)
+ 1523 0046 0E94 0000 		call Endpoint_SelectEndpoint
+ 391:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_TRNCOMPL0_bm)
+ 1524               		.loc 1 391 0
+ 1525 004a A091 0000 		lds r26,USB_Endpoint_SelectedHandle
+ 1526 004e B091 0000 		lds r27,USB_Endpoint_SelectedHandle+1
+ 1527 0052 8C91      		ld r24,X
+ 1528 0054 85FF      		sbrs r24,5
+ 1529 0056 00C0      		rjmp .L80
+ 393:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
+ 1530               		.loc 1 393 0
+ 1531 0058 E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 1532 005c F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 1533 0060 1296      		adiw r26,2
+ 1534 0062 8D91      		ld r24,X+
+ 1535 0064 9C91      		ld r25,X
+ 1536 0066 1397      		sbiw r26,2+1
+ 1537 0068 E05C      		subi r30,lo8(-(64))
+ 1538 006a FF4F      		sbci r31,hi8(-(64))
+ 1539 006c 8083      		st Z,r24
+ 1540               	.LBE78:
+ 1541               	.LBE77:
+ 446:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 447:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (!(Endpoint_IsOUTReceived()))
+ 448:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		return ENDPOINT_RWSTREAM_NoError;
+ 449:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 450:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDIS_Packet_Message_t RNDISPacketHeader;
+ 451:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
+ 1542               		.loc 2 451 0
+ 1543 006e CE01      		movw r24,r28
+ 1544 0070 0196      		adiw r24,1
+ 1545 0072 6CE2      		ldi r22,lo8(44)
+ 1546 0074 70E0      		ldi r23,hi8(44)
+ 1547 0076 40E0      		ldi r20,lo8(0)
+ 1548 0078 50E0      		ldi r21,hi8(0)
+ 1549 007a 0E94 0000 		call Endpoint_Read_Stream_LE
+ 452:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 453:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if (le32_to_cpu(RNDISPacketHeader.DataLength) > ETHERNET_FRAME_SIZE_MAX)
+ 1550               		.loc 2 453 0
+ 1551 007e 4D85      		ldd r20,Y+13
+ 1552 0080 5E85      		ldd r21,Y+14
+ 1553 0082 6F85      		ldd r22,Y+15
+ 1554 0084 7889      		ldd r23,Y+16
+ 1555 0086 4D3D      		cpi r20,lo8(1501)
+ 1556 0088 F5E0      		ldi r31,hi8(1501)
+ 1557 008a 5F07      		cpc r21,r31
+ 1558 008c F0E0      		ldi r31,hlo8(1501)
+ 1559 008e 6F07      		cpc r22,r31
+ 1560 0090 F0E0      		ldi r31,hhi8(1501)
+ 1561 0092 7F07      		cpc r23,r31
+ 1562 0094 00F0      		brlo .L77
+ 1563               	.LBB80:
+ 1564               	.LBB81:
+ 463:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 464:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 465:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Stalls the current endpoint, indicating to the host that a logical problem occurred with the
+ 466:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  indicated endpoint and that the current transfer sequence should be aborted. This provides a
+ 467:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  way for devices to indicate invalid commands to the host so that the current transfer can be
+ 468:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  aborted and the host can begin its own recovery sequence.
+ 469:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 470:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  The currently selected endpoint remains stalled until either the \ref Endpoint_ClearStall() 
+ 471:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  is called, or the host issues a CLEAR FEATURE request to the device for the currently select
+ 472:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  endpoint.
+ 473:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 474:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 475:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 476:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_StallTransaction(void) ATTR_ALWAYS_INLINE;
+ 477:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_StallTransaction(void)
+ 478:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 479:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->CTRL |= USB_EP_STALL_bm;
+ 1565               		.loc 1 479 0
+ 1566 0096 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1567 009a F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1568 009e 8181      		ldd r24,Z+1
+ 1569 00a0 8460      		ori r24,lo8(4)
+ 1570 00a2 8183      		std Z+1,r24
+ 480:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 481:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_TYPE_gm) == USB_EP_TYPE_CONTROL_gc)
+ 1571               		.loc 1 481 0
+ 1572 00a4 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1573 00a8 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1574 00ac 8181      		ldd r24,Z+1
+ 1575 00ae 807C      		andi r24,lo8(-64)
+ 1576 00b0 8034      		cpi r24,lo8(64)
+ 1577 00b2 01F4      		brne .L81
+ 482:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 483:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint ^ ENDPOINT_DIR_IN);
+ 1578               		.loc 1 483 0
+ 1579 00b4 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 1580 00b8 8058      		subi r24,lo8(-(-128))
+ 1581 00ba 0E94 0000 		call Endpoint_SelectEndpoint
+ 484:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedHandle->CTRL |= USB_EP_STALL_bm;
+ 1582               		.loc 1 484 0
+ 1583 00be E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1584 00c2 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1585 00c6 8181      		ldd r24,Z+1
+ 1586 00c8 8460      		ori r24,lo8(4)
+ 1587 00ca 8183      		std Z+1,r24
+ 1588 00cc 00C0      		rjmp .L81
+ 1589               	.L77:
+ 1590               	.LBE81:
+ 1591               	.LBE80:
+ 454:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	{
+ 455:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		Endpoint_StallTransaction();
+ 456:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 457:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		return RNDIS_ERROR_LOGICAL_CMD_FAILED;
+ 458:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	}
+ 459:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 460:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	*PacketLength = (uint16_t)le32_to_cpu(RNDISPacketHeader.DataLength);
+ 1592               		.loc 2 460 0
+ 1593 00ce F801      		movw r30,r16
+ 1594 00d0 4083      		st Z,r20
+ 1595 00d2 5183      		std Z+1,r21
+ 461:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 462:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_Read_Stream_LE(Buffer, *PacketLength, NULL);
+ 1596               		.loc 2 462 0
+ 1597 00d4 C701      		movw r24,r14
+ 1598 00d6 BA01      		movw r22,r20
+ 1599 00d8 40E0      		ldi r20,lo8(0)
+ 1600 00da 50E0      		ldi r21,hi8(0)
+ 1601 00dc 0E94 0000 		call Endpoint_Read_Stream_LE
+ 1602               	.LBB83:
+ 1603               	.LBB84:
+ 461:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_
+ 1604               		.loc 1 461 0
+ 1605 00e0 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1606 00e4 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1607 00e8 8081      		ld r24,Z
+ 1608 00ea 8D79      		andi r24,lo8(-99)
+ 1609 00ec 8083      		st Z,r24
+ 462:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 1610               		.loc 1 462 0
+ 1611 00ee E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 1612 00f2 F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 1613 00f6 EF5B      		subi r30,lo8(-(65))
+ 1614 00f8 FF4F      		sbci r31,hi8(-(65))
+ 1615 00fa 1082      		st Z,__zero_reg__
+ 1616 00fc 00C0      		rjmp .L80
+ 1617               	.LVL64:
+ 1618               	.L79:
+ 1619               	.LBE84:
+ 1620               	.LBE83:
+ 440:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		return ENDPOINT_RWSTREAM_DeviceDisconnected;
+ 1621               		.loc 2 440 0
+ 1622 00fe 82E0      		ldi r24,lo8(2)
+ 1623               	.LVL65:
+ 1624 0100 00C0      		rjmp .L76
+ 1625               	.L80:
+ 1626               	.LBB85:
+ 1627               	.LBB79:
+ 448:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		return ENDPOINT_RWSTREAM_NoError;
+ 1628               		.loc 2 448 0
+ 1629 0102 80E0      		ldi r24,lo8(0)
+ 1630 0104 00C0      		rjmp .L76
+ 1631               	.L81:
+ 1632               	.LBE79:
+ 1633               	.LBE85:
+ 1634               	.LBB86:
+ 1635               	.LBB82:
+ 457:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		return RNDIS_ERROR_LOGICAL_CMD_FAILED;
+ 1636               		.loc 2 457 0
+ 1637 0106 80E8      		ldi r24,lo8(-128)
+ 1638               	.L76:
+ 1639               	/* epilogue start */
+ 1640               	.LBE82:
+ 1641               	.LBE86:
+ 463:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_ClearOUT();
+ 464:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 465:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	return ENDPOINT_RWSTREAM_NoError;
+ 466:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 1642               		.loc 2 466 0
+ 1643 0108 AC96      		adiw r28,44
+ 1644 010a CDBF      		out __SP_L__,r28
+ 1645 010c DEBF      		out __SP_H__,r29
+ 1646 010e DF91      		pop r29
+ 1647 0110 CF91      		pop r28
+ 1648 0112 1F91      		pop r17
+ 1649 0114 0F91      		pop r16
+ 1650               	.LVL66:
+ 1651 0116 FF90      		pop r15
+ 1652 0118 EF90      		pop r14
+ 1653               	.LVL67:
+ 1654 011a 0895      		ret
+ 1655               		.cfi_endproc
+ 1656               	.LFE90:
+ 1658               		.section	.text.RNDIS_Device_SendPacket,"ax",@progbits
+ 1659               	.global	RNDIS_Device_SendPacket
+ 1661               	RNDIS_Device_SendPacket:
+ 1662               	.LFB91:
+ 467:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 468:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** uint8_t RNDIS_Device_SendPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+ 469:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                 void* Buffer,
+ 470:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c ****                                 const uint16_t PacketLength)
+ 471:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** {
+ 1663               		.loc 2 471 0
+ 1664               		.cfi_startproc
+ 1665               	.LVL68:
+ 1666 0000 CF92      		push r12
+ 1667               	.LCFI18:
+ 1668               		.cfi_def_cfa_offset 3
+ 1669               		.cfi_offset 12, -2
+ 1670 0002 DF92      		push r13
+ 1671               	.LCFI19:
+ 1672               		.cfi_def_cfa_offset 4
+ 1673               		.cfi_offset 13, -3
+ 1674 0004 EF92      		push r14
+ 1675               	.LCFI20:
+ 1676               		.cfi_def_cfa_offset 5
+ 1677               		.cfi_offset 14, -4
+ 1678 0006 FF92      		push r15
+ 1679               	.LCFI21:
+ 1680               		.cfi_def_cfa_offset 6
+ 1681               		.cfi_offset 15, -5
+ 1682 0008 1F93      		push r17
+ 1683               	.LCFI22:
+ 1684               		.cfi_def_cfa_offset 7
+ 1685               		.cfi_offset 17, -6
+ 1686 000a CF93      		push r28
+ 1687               	.LCFI23:
+ 1688               		.cfi_def_cfa_offset 8
+ 1689               		.cfi_offset 28, -7
+ 1690 000c DF93      		push r29
+ 1691               	.LCFI24:
+ 1692               		.cfi_def_cfa_offset 9
+ 1693               		.cfi_offset 29, -8
+ 1694 000e CDB7      		in r28,__SP_L__
+ 1695 0010 DEB7      		in r29,__SP_H__
+ 1696 0012 AC97      		sbiw r28,44
+ 1697               	.LCFI25:
+ 1698               		.cfi_def_cfa 28, 53
+ 1699 0014 CDBF      		out __SP_L__,r28
+ 1700 0016 DEBF      		out __SP_H__,r29
+ 1701               	/* prologue: function */
+ 1702               	/* frame size = 44 */
+ 1703               	/* stack size = 51 */
+ 1704               	.L__stack_usage = 51
+ 1705 0018 6B01      		movw r12,r22
+ 1706 001a 7A01      		movw r14,r20
+ 472:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	uint8_t ErrorCode;
+ 473:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 474:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if ((USB_DeviceState != DEVICE_STATE_Configured) ||
+ 1707               		.loc 2 474 0
+ 1708 001c 2091 0000 		lds r18,USB_DeviceState
+ 1709 0020 2430      		cpi r18,lo8(4)
+ 1710 0022 01F0      		breq .+2
+ 1711 0024 00C0      		rjmp .L85
+ 1712               	.LVL69:
+ 475:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	    (RNDISInterfaceInfo->State.CurrRNDISState != RNDIS_Data_Initialized))
+ 1713               		.loc 2 475 0 discriminator 1
+ 1714 0026 FC01      		movw r30,r24
+ 1715 0028 E756      		subi r30,lo8(-(153))
+ 1716 002a FF4F      		sbci r31,hi8(-(153))
+ 474:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if ((USB_DeviceState != DEVICE_STATE_Configured) ||
+ 1717               		.loc 2 474 0 discriminator 1
+ 1718 002c 2081      		ld r18,Z
+ 1719 002e 2230      		cpi r18,lo8(2)
+ 1720 0030 01F0      		breq .+2
+ 1721 0032 00C0      		rjmp .L85
+ 476:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	{
+ 477:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		return ENDPOINT_RWSTREAM_DeviceDisconnected;
+ 478:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	}
+ 479:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 480:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataINEndpoint.Address);
+ 1722               		.loc 2 480 0
+ 1723 0034 DC01      		movw r26,r24
+ 1724 0036 1196      		adiw r26,1
+ 1725 0038 8C91      		ld r24,X
+ 1726               	.LVL70:
+ 1727 003a 0E94 0000 		call Endpoint_SelectEndpoint
+ 1728               	.LVL71:
+ 481:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 482:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	if ((ErrorCode = Endpoint_WaitUntilReady()) != ENDPOINT_READYWAIT_NoError)
+ 1729               		.loc 2 482 0
+ 1730 003e 0E94 0000 		call Endpoint_WaitUntilReady
+ 1731 0042 182F      		mov r17,r24
+ 1732               	.LVL72:
+ 1733 0044 8823      		tst r24
+ 1734 0046 01F0      		breq .+2
+ 1735 0048 00C0      		rjmp .L83
+ 483:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	  return ErrorCode;
+ 484:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 485:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDIS_Packet_Message_t RNDISPacketHeader;
+ 486:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 487:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	memset(&RNDISPacketHeader, 0, sizeof(RNDIS_Packet_Message_t));
+ 1736               		.loc 2 487 0
+ 1737 004a FE01      		movw r30,r28
+ 1738 004c 3196      		adiw r30,1
+ 1739 004e 8CE2      		ldi r24,lo8(44)
+ 1740               	.LVL73:
+ 1741 0050 DF01      		movw r26,r30
+ 1742 0052 1D92      		st X+,__zero_reg__
+ 1743 0054 8A95      	        dec r24
+ 1744 0056 01F4      		brne .-6
+ 488:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 489:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDISPacketHeader.MessageType   = CPU_TO_LE32(REMOTE_NDIS_PACKET_MSG);
+ 1745               		.loc 2 489 0
+ 1746 0058 81E0      		ldi r24,lo8(1)
+ 1747 005a 90E0      		ldi r25,hi8(1)
+ 1748 005c A0E0      		ldi r26,hlo8(1)
+ 1749 005e B0E0      		ldi r27,hhi8(1)
+ 1750 0060 8983      		std Y+1,r24
+ 1751 0062 9A83      		std Y+2,r25
+ 1752 0064 AB83      		std Y+3,r26
+ 1753 0066 BC83      		std Y+4,r27
+ 490:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDISPacketHeader.MessageLength = cpu_to_le32(sizeof(RNDIS_Packet_Message_t) + PacketLength);
+ 1754               		.loc 2 490 0
+ 1755 0068 C701      		movw r24,r14
+ 1756 006a 8C96      		adiw r24,44
+ 1757 006c A0E0      		ldi r26,lo8(0)
+ 1758 006e B0E0      		ldi r27,hi8(0)
+ 1759 0070 8D83      		std Y+5,r24
+ 1760 0072 9E83      		std Y+6,r25
+ 1761 0074 AF83      		std Y+7,r26
+ 1762 0076 B887      		std Y+8,r27
+ 491:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDISPacketHeader.DataOffset    = CPU_TO_LE32(sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Messag
+ 1763               		.loc 2 491 0
+ 1764 0078 84E2      		ldi r24,lo8(36)
+ 1765 007a 90E0      		ldi r25,hi8(36)
+ 1766 007c A0E0      		ldi r26,hlo8(36)
+ 1767 007e B0E0      		ldi r27,hhi8(36)
+ 1768 0080 8987      		std Y+9,r24
+ 1769 0082 9A87      		std Y+10,r25
+ 1770 0084 AB87      		std Y+11,r26
+ 1771 0086 BC87      		std Y+12,r27
+ 492:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	RNDISPacketHeader.DataLength    = cpu_to_le32(PacketLength);
+ 1772               		.loc 2 492 0
+ 1773 0088 C701      		movw r24,r14
+ 1774 008a A0E0      		ldi r26,lo8(0)
+ 1775 008c B0E0      		ldi r27,hi8(0)
+ 1776 008e 8D87      		std Y+13,r24
+ 1777 0090 9E87      		std Y+14,r25
+ 1778 0092 AF87      		std Y+15,r26
+ 1779 0094 B88B      		std Y+16,r27
+ 493:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 494:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
+ 1780               		.loc 2 494 0
+ 1781 0096 CF01      		movw r24,r30
+ 1782 0098 6CE2      		ldi r22,lo8(44)
+ 1783 009a 70E0      		ldi r23,hi8(44)
+ 1784 009c 40E0      		ldi r20,lo8(0)
+ 1785 009e 50E0      		ldi r21,hi8(0)
+ 1786 00a0 0E94 0000 		call Endpoint_Write_Stream_LE
+ 495:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_Write_Stream_LE(Buffer, PacketLength, NULL);
+ 1787               		.loc 2 495 0
+ 1788 00a4 C601      		movw r24,r12
+ 1789 00a6 B701      		movw r22,r14
+ 1790 00a8 40E0      		ldi r20,lo8(0)
+ 1791 00aa 50E0      		ldi r21,hi8(0)
+ 1792 00ac 0E94 0000 		call Endpoint_Write_Stream_LE
+ 1793               	.LBB87:
+ 1794               	.LBB88:
+ 448:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->CNT     = USB_Endpoint_SelectedFIFO->Position;
+ 1795               		.loc 1 448 0
+ 1796 00b0 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 1797 00b4 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 1798 00b8 A091 0000 		lds r26,USB_Endpoint_SelectedFIFO
+ 1799 00bc B091 0000 		lds r27,USB_Endpoint_SelectedFIFO+1
+ 1800 00c0 AF5B      		subi r26,lo8(-(65))
+ 1801 00c2 BF4F      		sbci r27,hi8(-(65))
+ 1802 00c4 8C91      		ld r24,X
+ 1803 00c6 90E0      		ldi r25,lo8(0)
+ 1804 00c8 8283      		std Z+2,r24
+ 1805 00ca 9383      		std Z+3,r25
+ 449:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_
+ 1806               		.loc 1 449 0
+ 1807 00cc 8081      		ld r24,Z
+ 1808 00ce 8D79      		andi r24,lo8(-99)
+ 1809 00d0 8083      		st Z,r24
+ 450:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 1810               		.loc 1 450 0
+ 1811 00d2 E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 1812 00d6 F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 1813 00da EF5B      		subi r30,lo8(-(65))
+ 1814 00dc FF4F      		sbci r31,hi8(-(65))
+ 1815 00de 1082      		st Z,__zero_reg__
+ 1816               	.LBE88:
+ 1817               	.LBE87:
+ 496:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	Endpoint_ClearIN();
+ 497:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 
+ 498:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 	return ENDPOINT_RWSTREAM_NoError;
+ 1818               		.loc 2 498 0
+ 1819 00e0 00C0      		rjmp .L83
+ 1820               	.LVL74:
+ 1821               	.L85:
+ 477:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** 		return ENDPOINT_RWSTREAM_DeviceDisconnected;
+ 1822               		.loc 2 477 0
+ 1823 00e2 12E0      		ldi r17,lo8(2)
+ 1824               	.LVL75:
+ 1825               	.L83:
+ 499:LUFA//Drivers/USB/Class/Device/RNDISClassDevice.c **** }
+ 1826               		.loc 2 499 0
+ 1827 00e4 812F      		mov r24,r17
+ 1828               	/* epilogue start */
+ 1829 00e6 AC96      		adiw r28,44
+ 1830 00e8 CDBF      		out __SP_L__,r28
+ 1831 00ea DEBF      		out __SP_H__,r29
+ 1832 00ec DF91      		pop r29
+ 1833 00ee CF91      		pop r28
+ 1834 00f0 1F91      		pop r17
+ 1835 00f2 FF90      		pop r15
+ 1836 00f4 EF90      		pop r14
+ 1837               	.LVL76:
+ 1838 00f6 DF90      		pop r13
+ 1839 00f8 CF90      		pop r12
+ 1840               	.LVL77:
+ 1841 00fa 0895      		ret
+ 1842               		.cfi_endproc
+ 1843               	.LFE91:
+ 1845               		.section	.progmem.data,"a",@progbits
+ 1848               	AdapterSupportedOIDList:
+ 1849 0000 01        		.byte	1
+ 1850 0001 01        		.byte	1
+ 1851 0002 01        		.byte	1
+ 1852 0003 00        		.byte	0
+ 1853 0004 02        		.byte	2
+ 1854 0005 02        		.byte	2
+ 1855 0006 01        		.byte	1
+ 1856 0007 00        		.byte	0
+ 1857 0008 02        		.byte	2
+ 1858 0009 01        		.byte	1
+ 1859 000a 01        		.byte	1
+ 1860 000b 00        		.byte	0
+ 1861 000c 03        		.byte	3
+ 1862 000d 01        		.byte	1
+ 1863 000e 01        		.byte	1
+ 1864 000f 00        		.byte	0
+ 1865 0010 04        		.byte	4
+ 1866 0011 01        		.byte	1
+ 1867 0012 01        		.byte	1
+ 1868 0013 00        		.byte	0
+ 1869 0014 06        		.byte	6
+ 1870 0015 01        		.byte	1
+ 1871 0016 01        		.byte	1
+ 1872 0017 00        		.byte	0
+ 1873 0018 11        		.byte	17
+ 1874 0019 01        		.byte	1
+ 1875 001a 01        		.byte	1
+ 1876 001b 00        		.byte	0
+ 1877 001c 07        		.byte	7
+ 1878 001d 01        		.byte	1
+ 1879 001e 01        		.byte	1
+ 1880 001f 00        		.byte	0
+ 1881 0020 0A        		.byte	10
+ 1882 0021 01        		.byte	1
+ 1883 0022 01        		.byte	1
+ 1884 0023 00        		.byte	0
+ 1885 0024 0B        		.byte	11
+ 1886 0025 01        		.byte	1
+ 1887 0026 01        		.byte	1
+ 1888 0027 00        		.byte	0
+ 1889 0028 0C        		.byte	12
+ 1890 0029 01        		.byte	1
+ 1891 002a 01        		.byte	1
+ 1892 002b 00        		.byte	0
+ 1893 002c 0D        		.byte	13
+ 1894 002d 01        		.byte	1
+ 1895 002e 01        		.byte	1
+ 1896 002f 00        		.byte	0
+ 1897 0030 0E        		.byte	14
+ 1898 0031 01        		.byte	1
+ 1899 0032 01        		.byte	1
+ 1900 0033 00        		.byte	0
+ 1901 0034 11        		.byte	17
+ 1902 0035 01        		.byte	1
+ 1903 0036 01        		.byte	1
+ 1904 0037 00        		.byte	0
+ 1905 0038 14        		.byte	20
+ 1906 0039 01        		.byte	1
+ 1907 003a 01        		.byte	1
+ 1908 003b 00        		.byte	0
+ 1909 003c 01        		.byte	1
+ 1910 003d 01        		.byte	1
+ 1911 003e 02        		.byte	2
+ 1912 003f 00        		.byte	0
+ 1913 0040 02        		.byte	2
+ 1914 0041 01        		.byte	1
+ 1915 0042 02        		.byte	2
+ 1916 0043 00        		.byte	0
+ 1917 0044 03        		.byte	3
+ 1918 0045 01        		.byte	1
+ 1919 0046 02        		.byte	2
+ 1920 0047 00        		.byte	0
+ 1921 0048 04        		.byte	4
+ 1922 0049 01        		.byte	1
+ 1923 004a 02        		.byte	2
+ 1924 004b 00        		.byte	0
+ 1925 004c 05        		.byte	5
+ 1926 004d 01        		.byte	1
+ 1927 004e 02        		.byte	2
+ 1928 004f 00        		.byte	0
+ 1929 0050 01        		.byte	1
+ 1930 0051 01        		.byte	1
+ 1931 0052 01        		.byte	1
+ 1932 0053 01        		.byte	1
+ 1933 0054 02        		.byte	2
+ 1934 0055 01        		.byte	1
+ 1935 0056 01        		.byte	1
+ 1936 0057 01        		.byte	1
+ 1937 0058 03        		.byte	3
+ 1938 0059 01        		.byte	1
+ 1939 005a 01        		.byte	1
+ 1940 005b 01        		.byte	1
+ 1941 005c 04        		.byte	4
+ 1942 005d 01        		.byte	1
+ 1943 005e 01        		.byte	1
+ 1944 005f 01        		.byte	1
+ 1945 0060 01        		.byte	1
+ 1946 0061 01        		.byte	1
+ 1947 0062 02        		.byte	2
+ 1948 0063 01        		.byte	1
+ 1949 0064 02        		.byte	2
+ 1950 0065 01        		.byte	1
+ 1951 0066 02        		.byte	2
+ 1952 0067 01        		.byte	1
+ 1953 0068 03        		.byte	3
+ 1954 0069 01        		.byte	1
+ 1955 006a 02        		.byte	2
+ 1956 006b 01        		.byte	1
+ 1957               		.text
+ 1958               	.Letext0:
+ 1959               		.file 3 "/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.
+ 1960               		.file 4 "/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.
+ 1961               		.file 5 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/USBController_XMEGA.h"
+ 1962               		.file 6 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../Endpoint.h"
+ 1963               		.file 7 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../Device.h"
+ 1964               		.file 8 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../StdRequestType.h"
+ 1965               		.file 9 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../EndpointStream.h"
+ 1966               		.file 10 "LUFA//Drivers/USB/Class/Device/../Common/RNDISClassCommon.h"
+ 1967               		.file 11 "LUFA//Drivers/USB/Class/Device/RNDISClassDevice.h"
+ 1968               		.file 12 "LUFA//Drivers/USB/Class/Device/../../Core/USBTask.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 RNDISClassDevice.c
+     /tmp/cc1y1G5K.s:2      *ABS*:0000003f __SREG__
+     /tmp/cc1y1G5K.s:3      *ABS*:0000003e __SP_H__
+     /tmp/cc1y1G5K.s:4      *ABS*:0000003d __SP_L__
+     /tmp/cc1y1G5K.s:5      *ABS*:00000034 __CCP__
+     /tmp/cc1y1G5K.s:6      *ABS*:00000000 __tmp_reg__
+     /tmp/cc1y1G5K.s:7      *ABS*:00000001 __zero_reg__
+     /tmp/cc1y1G5K.s:15     .text.Endpoint_SelectEndpoint:00000000 Endpoint_SelectEndpoint
+     /tmp/cc1y1G5K.s:98     .text.RNDIS_Device_ProcessControlRequest:00000000 RNDIS_Device_ProcessControlRequest
+     /tmp/cc1y1G5K.s:1848   .progmem.data:00000000 AdapterSupportedOIDList
+     /tmp/cc1y1G5K.s:1164   .text.RNDIS_Device_ConfigureEndpoints:00000000 RNDIS_Device_ConfigureEndpoints
+     /tmp/cc1y1G5K.s:1242   .text.RNDIS_Device_USBTask:00000000 RNDIS_Device_USBTask
+     /tmp/cc1y1G5K.s:1376   .text.RNDIS_Device_IsPacketReceived:00000000 RNDIS_Device_IsPacketReceived
+     /tmp/cc1y1G5K.s:1451   .text.RNDIS_Device_ReadPacket:00000000 RNDIS_Device_ReadPacket
+     /tmp/cc1y1G5K.s:1661   .text.RNDIS_Device_SendPacket:00000000 RNDIS_Device_SendPacket
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+USB_Endpoint_SelectedEndpoint
+USB_Endpoint_FIFOs
+USB_Endpoint_SelectedFIFO
+USB_Endpoint_SelectedHandle
+USB_ControlRequest
+Endpoint_Read_Control_Stream_LE
+memcpy_P
+memcpy
+Endpoint_Write_Control_Stream_LE
+Endpoint_ConfigureEndpointTable
+USB_DeviceState
+Endpoint_Write_Stream_LE
+Endpoint_Read_Stream_LE
+Endpoint_WaitUntilReady

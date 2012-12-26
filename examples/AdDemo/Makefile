@@ -1,4 +1,3 @@
-
 #########  AVR Project Makefile Template   #########
 ######                                        ######
 ######    Copyright (C) 2003-2005,Pat Deegan, ######

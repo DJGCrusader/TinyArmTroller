@@ -27,8 +27,9 @@
 #define MOTOR_4 Right_Wrist
 #define MOTOR_5 Left_Wrist
 #define MOTOR_6 Gripper
-#define MAXSPEED 48
+#define MAXSPEED 40
 
+#include <stdio.h> 
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -57,6 +58,12 @@ int goal[6]={0,0,0,0,0,0};
 int pose[6]={0,0,0,0,0,0};
 volatile unsigned long elapsedMillis = 0;
 
+static int uart_putchar(char c, FILE *stream); 
+static void uart_init (void); 
+
+
+static FILE mystdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
+//static FILE mystdin = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_READ);
 
 ISR(TCC0_OVF_vect){
 	elapsedMillis++;
@@ -105,6 +112,13 @@ void blink(int myVal){
         delay_ms(myVal);
         PORTE.OUTCLR = _BV(0);
         delay_ms(myVal);
+}
+
+void blinkN(int n){
+    int i;
+	for (i=0;i<n;i++){
+		blink(50);
+	}
 }
 
 // Set selected pin to 1/HIGH 
@@ -259,7 +273,7 @@ struct Stepper Base = {
 	.direction = 1,
 	.speed = 40,
 	.step_delay = 10,
-	.number_of_steps = 200,
+	.number_of_steps = 100,
 	.pin_count = 4,
 	.step_number = 0,
 	.minSteps = -850,
@@ -279,7 +293,7 @@ struct Stepper Shoulder = {
 	.direction = 1,
 	.speed = 40,
 	.step_delay = 10,
-	.number_of_steps = 200,
+	.number_of_steps = 100,
 	.pin_count = 4,
 	.step_number = 0, 
 	.minSteps = 0,
@@ -298,7 +312,7 @@ struct Stepper Elbow = {
 	.direction = 1,
 	.speed = 40,
 	.step_delay = 10,
-	.number_of_steps = 200,
+	.number_of_steps = 100,
 	.pin_count = 4,
 	.step_number = 0, 
 	.minSteps = 0,
@@ -317,7 +331,7 @@ struct Stepper Right_Wrist = {
 	.direction = 1,
 	.speed = 40,
 	.step_delay = 10,
-	.number_of_steps = 200,
+	.number_of_steps = 100,
 	.pin_count = 4,
 	.step_number = 0, 
 	.minSteps = 200,
@@ -336,7 +350,7 @@ struct Stepper Left_Wrist = {
 	.direction = 1,
 	.speed = 40,
 	.step_delay = 10,
-	.number_of_steps = 200,
+	.number_of_steps = 100,
 	.pin_count = 4,
 	.step_number = 0, 
 	.minSteps = -200,
@@ -356,7 +370,7 @@ struct Stepper Gripper = {
 	.direction = 1,
 	.speed = 40,
 	.step_delay = 10,
-	.number_of_steps = 200,
+	.number_of_steps = 100,
 	.pin_count = 4,
 	.step_number = 0, 
 	.minSteps = 0,
@@ -567,6 +581,8 @@ void changeGoal(int val0, int val1, int val2, int val3, int val4, int val5){
 	goal[3] = val3;
 	goal[4] = val4;
 	goal[5] = val5;
+    printf("-----------------GOAL------------------\n");
+    printf(val0);
 }
 
 void moveToGoal(void){
@@ -599,7 +615,7 @@ void moveToGoal(void){
 	setSpeed(&MOTOR_6,abs((int)(MAXSPEED*(error[5]/(double)maxError))));
 	
 	//Step
-	while(!compareArray(pose,goal)){
+	//while(!compareArray(pose,goal)){
 		
 		for(i = 0; i < 6 ; i++){
 			error[i] = goal[i]-pose[i];
@@ -629,7 +645,7 @@ void moveToGoal(void){
 			MOTOR_6.last_step_time = millis();
 			stepOne(&MOTOR_6,signum(error[5]));
 		}
-	}
+	//}
 	
 }
 
@@ -648,15 +664,7 @@ void moveToGoal(void){
 	if(debugFlag == 2) changeGoal(0,-1200,250,0,0,0);
  * 
  */
-void usbUpdate(void){
-	
-	if(debugFlag == 0) changeGoal(0,-800,250,0,0,0);
-	if(debugFlag == 1) changeGoal(0,-800,250,0,0,0);
-	if(debugFlag == 2) changeGoal(0,-800,250,0,0,0);
-	if(debugFlag == 3) changeGoal(0,-800,250,-250,250,0);
-	if(debugFlag == 4) changeGoal(0,-800,250,0,0,0);
-	return;
-}
+
 
 // Main Loop, called after init() in main()
 void mainLoop(void){
@@ -692,7 +700,7 @@ void mainLoop(void){
 				}
 				if(!(PORTD.IN & _BV(4))){
 					int i;
-					for (i=0;i<50;i++){
+					for (i=0;i<30;i++){
 						delay_ms(MOTOR_6.step_delay);
 						stepOne(&MOTOR_6,1);
 					}
@@ -716,22 +724,22 @@ void mainLoop(void){
 			pose[3]=0;
 			pose[4]=0;
 			
+            printf("ready\n");	
 			state = IDLE;
-		} else if(state == IDLE){			
-			usbUpdate();
-			if(pose!=goal){
+		} else if(state == IDLE){
+            //printf("idle\n");	
+			update();
+			if(!compareArray(pose,goal)){
 				state = MOVING;
+                printf("moving\n");
 			}
 		} else if(state == MOVING){
 			//If we're not there yet
 			if(!compareArray(pose,goal)){
-				
 				moveToGoal();
-
 			} else if(compareArray(pose,goal)){ //If we got there
-					//Send a signal to USB that we got there
+					printf("gotThere\n");
 					state = IDLE;
-					debugFlag++;
 			}
 		} else if(state == LOST){
 			
@@ -739,8 +747,30 @@ void mainLoop(void){
 	}
 }
 
-int main (void)
-{
+void update(void){
+    printf("gimme\n");
+    int vals[6] = {0,0,0,0,0,0};
+    int c;
+    int i;
+    for(i = 0; i < 6; i++){
+        while(1){
+            c = uart_getchar();
+            if(c == ','){
+                break;
+            }else if(c == '\n'){
+                break;
+            }else{
+                vals[i] = vals[i]*10+(c - '0');
+            }
+        }
+    }
+    printf("-----------------newVals------------------\n");
+    changeGoal(vals[0],vals[1],vals[2],vals[3],vals[4],vals[5]);
+    return 0;
+}
+
+void init(void){
+        
 	Config32MHzClock();// Set Clock Speed to 32MHz	
 	
 	/* Timer for keeping track of milliseconds:
@@ -753,7 +783,6 @@ int main (void)
 	PMIC.CTRL |= PMIC_HILVLEN_bm;
 	sei();
 
-
 	/* Set I/O */
 	PORTA.DIRSET |= 0XFF;// Set PortA 0-7 to output
 	PORTB.DIRSET |= 0xFF;// Set PortB 0-7 to output
@@ -762,11 +791,68 @@ int main (void)
 
 	PORTD.PIN4CTRL = PORT_OPC_PULLUP_gc; //Set pin D4 as INPUT and as a pullup (Detect when pulled LOW)
 	PORTD.PIN5CTRL = PORT_OPC_PULLUP_gc; //Set pin D5 as INPUT and as a pullup (Detect when pulled LOW)
-	PORTE.PIN0CTRL = PORT_OPC_PULLUP_gc; //Set pin E0 as INPUT and as a pullup (Detect when pulled LOW)
+	//PORTE.PIN0CTRL = PORT_OPC_PULLUP_gc; //Set pin E0 as INPUT and as a pullup (Detect when pulled LOW)
 	PORTE.PIN1CTRL = PORT_OPC_PULLUP_gc; //Set pin E1 as INPUT and as a pullup (Detect when pulled LOW)
 	PORTE.PIN2CTRL = PORT_OPC_PULLUP_gc; //Set pin E2 as INPUT and as a pullup (Detect when pulled LOW)
 	PORTE.PIN3CTRL = PORT_OPC_PULLUP_gc; //Set pin E3 as INPUT and as a pullup (Detect when pulled LOW)
-	
+	uart_init(); 
+}
+
+int main (void){
+    init();
+    
+    //PORTE.DIRSET |= _BV(0); //Set pin E0 as OUTPUT
+    
+    stdout = &mystdout; 
+    printf("LETSDOTHIS\n");	
+    
 	mainLoop();
 	return 0;
 }
+
+static int uart_putchar (char c, FILE *stream) { 
+    if (c == '\n') 
+        uart_putchar('\r', stream); 
+
+    // Wait for the transmit buffer to be empty 
+    while ( !( USARTD1.STATUS & USART_DREIF_bm) ); 
+
+    // Put our character into the transmit buffer 
+    USARTD1.DATA = c; 
+
+    return 0; 
+} 
+
+int uart_getchar (void) { 
+    while( !(USARTD1_STATUS & USART_RXCIF_bm) ){
+    //    PORTE.OUTSET = _BV(0);
+    }
+    PORTE.OUTCLR = _BV(0);
+    return USARTD1.DATA;
+} 
+
+// Init USART.  Transmit only (we're not receiving anything) 
+// We use USARTD1, transmit pin on PC7. 
+// Want 115200 baud. Have a 32 MHz clock. BSCALE = 0 
+// BSEL = ( 32000000 / (2^0 * 16*115200)) -1 = 16.361111111
+// Fbaud = 32000000 / (2^0 * 16 * (16+1))  = 117647 bits/sec 
+static void uart_init (void) { 
+    // Set the TxD pin high - set PORTD DIR register bit 7 to 1 
+    PORTD.OUTSET = PIN7_bm; 
+
+    // Set the TxD pin as an output - set PORTC OUT register bit 3 to 1 
+    PORTD.DIRSET = PIN7_bm; 
+
+    // Set baud rate & frame format 
+    
+    USARTD1.BAUDCTRLB = 0;                      // BSCALE = 0 as well 
+    USARTD1.BAUDCTRLA = 51; //16 for 32MHz at 115200, 12 for 2MHz at 9600, 51 for  38400 at 32MHz
+
+    // Set mode of operation 
+    USARTD1.CTRLA = 0;                          // no interrupts please 
+    USARTD1.CTRLC = 0x03;                       // async, no parity, 8 bit data, 1 stop bit 
+
+    // Enable transmitter only 
+    USARTD1.CTRLB =USART_RXEN_bm|USART_TXEN_bm; 
+     
+} 

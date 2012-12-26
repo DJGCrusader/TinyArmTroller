@@ -608,7 +608,8 @@ void moveToGoal(void){
 }
 
 void usbUpdate(void){
-	if(debugFlag > 3) debugFlag = 0;
+	
+  	if(debugFlag > 3) debugFlag = 0;
 	if(debugFlag == 0) changeGoal(-850,-200,-200,-200,-200,0);
 	if(debugFlag == 1) changeGoal(-1700,-400,-400,-400,-400,0);
 	if(debugFlag == 2) changeGoal(-850,-200,-200,-200,-200,0);
@@ -624,7 +625,7 @@ void mainLoop(void){
 			while((PORTD.IN & _BV(4))){ //Localize Base
 				break;
 			}
-			pose[0]=0;
+			pose[0]=-850;
 			while((PORTD.IN & _BV(5))){ //Localize Shoulder
 			
 				break;
@@ -669,6 +670,7 @@ void mainLoop(void){
 		}	
 	}
 }
+
 
 int main (void)
 {

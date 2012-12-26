@@ -1,0 +1,2883 @@
+GAS LISTING /tmp/ccZ4yJy6.s 			page 1
+
+
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  10               		.text
+  11               	.Ltext0:
+  12               		.cfi_sections	.debug_frame
+  13               	.global	main_vbus_action
+  14               		.type	main_vbus_action, @function
+  15               	main_vbus_action:
+  16               	.LFB97:
+  17               		.file 1 "main.c"
+   1:main.c        **** /**
+   2:main.c        ****  * \file
+   3:main.c        ****  *
+   4:main.c        ****  * \brief CDC Application Main functions
+   5:main.c        ****  *
+   6:main.c        ****  * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+   7:main.c        ****  *
+   8:main.c        ****  * \asf_license_start
+   9:main.c        ****  *
+  10:main.c        ****  * Redistribution and use in source and binary forms, with or without
+  11:main.c        ****  * modification, are permitted provided that the following conditions are met:
+  12:main.c        ****  *
+  13:main.c        ****  * 1. Redistributions of source code must retain the above copyright notice,
+  14:main.c        ****  *    this list of conditions and the following disclaimer.
+  15:main.c        ****  *
+  16:main.c        ****  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  17:main.c        ****  *    this list of conditions and the following disclaimer in the documentation
+  18:main.c        ****  *    and/or other materials provided with the distribution.
+  19:main.c        ****  *
+  20:main.c        ****  * 3. The name of Atmel may not be used to endorse or promote products derived
+  21:main.c        ****  *    from this software without specific prior written permission.
+  22:main.c        ****  *
+  23:main.c        ****  * 4. This software may only be redistributed and used in connection with an
+  24:main.c        ****  *    Atmel microcontroller product.
+  25:main.c        ****  *
+  26:main.c        ****  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+  27:main.c        ****  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  28:main.c        ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  29:main.c        ****  * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+  30:main.c        ****  * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  31:main.c        ****  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+  32:main.c        ****  * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  33:main.c        ****  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  34:main.c        ****  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  35:main.c        ****  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  36:main.c        ****  * POSSIBILITY OF SUCH DAMAGE.
+  37:main.c        ****  *
+  38:main.c        ****  * \asf_license_stop
+  39:main.c        ****  *
+  40:main.c        ****  */
+GAS LISTING /tmp/ccZ4yJy6.s 			page 2
+
+
+  41:main.c        **** 
+  42:main.c        **** 
+  43:main.c        **** #define BOARD USER_BOARD
+  44:main.c        **** #include "compiler.h"
+  45:main.c        **** #include "preprocessor.h"
+  46:main.c        **** #include "board.h"
+  47:main.c        **** #include "gpio.h"
+  48:main.c        **** #include "sysclk.h"
+  49:main.c        **** #include "sleepmgr.h"
+  50:main.c        **** #include "conf_usb.h"
+  51:main.c        **** #include "udd.h"
+  52:main.c        **** #include "udc.h"
+  53:main.c        **** #include "udi_cdc.h"
+  54:main.c        **** #include "ui.h"
+  55:main.c        **** #include "uart.h"
+  56:main.c        **** 
+  57:main.c        **** 
+  58:main.c        **** 
+  59:main.c        **** static volatile bool main_b_cdc_enable = false;
+  60:main.c        **** 
+  61:main.c        **** /*! \brief Main function. Execution starts here.
+  62:main.c        ****  */
+  63:main.c        **** int main(void)
+  64:main.c        **** {
+  65:main.c        **** 	irq_initialize_vectors();
+  66:main.c        **** 	cpu_irq_enable();
+  67:main.c        **** 
+  68:main.c        **** 	// Initialize the sleep manager
+  69:main.c        **** 	sleepmgr_init();
+  70:main.c        **** 
+  71:main.c        **** 	sysclk_init();
+  72:main.c        **** 	board_init();
+  73:main.c        **** 	ui_init();
+  74:main.c        **** 	ui_powerdown();
+  75:main.c        **** 
+  76:main.c        **** 	// Start USB stack to authorize VBus monitoring
+  77:main.c        **** 	udc_start();
+  78:main.c        **** 
+  79:main.c        **** 	if (!udc_include_vbus_monitoring()) {
+  80:main.c        **** 		// VBUS monitoring is not available on this product
+  81:main.c        **** 		// thereby VBUS has to be considered as present
+  82:main.c        **** 		main_vbus_action(true);
+  83:main.c        **** 	}
+  84:main.c        **** 	// The main loop manages only the power mode
+  85:main.c        **** 	// because the USB management is done by interrupt
+  86:main.c        **** 	while (true) {
+  87:main.c        **** 		sleepmgr_enter_sleep();
+  88:main.c        **** 	}
+  89:main.c        **** }
+  90:main.c        **** 
+  91:main.c        **** void main_vbus_action(bool b_high)
+  92:main.c        **** {
+  18               		.loc 1 92 0
+  19               		.cfi_startproc
+  20               	.LVL0:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+GAS LISTING /tmp/ccZ4yJy6.s 			page 3
+
+
+  23               	/* stack size = 0 */
+  24               	.L__stack_usage = 0
+  93:main.c        **** 	if (b_high) {
+  25               		.loc 1 93 0
+  26 0000 8823      		tst r24
+  27 0002 01F0      		breq .L2
+  28               	.LBB29:
+  29               	.LBB30:
+  30               		.file 2 "asf/common/services/usb/udc/udc.h"
+   1:asf/common/services/usb/udc/udc.h **** /**
+   2:asf/common/services/usb/udc/udc.h ****  * \file
+   3:asf/common/services/usb/udc/udc.h ****  *
+   4:asf/common/services/usb/udc/udc.h ****  * \brief Interface of the USB Device Controller (UDC)
+   5:asf/common/services/usb/udc/udc.h ****  *
+   6:asf/common/services/usb/udc/udc.h ****  * Copyright (c) 2009 - 2012 Atmel Corporation. All rights reserved.
+   7:asf/common/services/usb/udc/udc.h ****  *
+   8:asf/common/services/usb/udc/udc.h ****  * \asf_license_start
+   9:asf/common/services/usb/udc/udc.h ****  *
+  10:asf/common/services/usb/udc/udc.h ****  * Redistribution and use in source and binary forms, with or without
+  11:asf/common/services/usb/udc/udc.h ****  * modification, are permitted provided that the following conditions are met:
+  12:asf/common/services/usb/udc/udc.h ****  *
+  13:asf/common/services/usb/udc/udc.h ****  * 1. Redistributions of source code must retain the above copyright notice,
+  14:asf/common/services/usb/udc/udc.h ****  *    this list of conditions and the following disclaimer.
+  15:asf/common/services/usb/udc/udc.h ****  *
+  16:asf/common/services/usb/udc/udc.h ****  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  17:asf/common/services/usb/udc/udc.h ****  *    this list of conditions and the following disclaimer in the documentation
+  18:asf/common/services/usb/udc/udc.h ****  *    and/or other materials provided with the distribution.
+  19:asf/common/services/usb/udc/udc.h ****  *
+  20:asf/common/services/usb/udc/udc.h ****  * 3. The name of Atmel may not be used to endorse or promote products derived
+  21:asf/common/services/usb/udc/udc.h ****  *    from this software without specific prior written permission.
+  22:asf/common/services/usb/udc/udc.h ****  *
+  23:asf/common/services/usb/udc/udc.h ****  * 4. This software may only be redistributed and used in connection with an
+  24:asf/common/services/usb/udc/udc.h ****  *    Atmel microcontroller product.
+  25:asf/common/services/usb/udc/udc.h ****  *
+  26:asf/common/services/usb/udc/udc.h ****  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+  27:asf/common/services/usb/udc/udc.h ****  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  28:asf/common/services/usb/udc/udc.h ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  29:asf/common/services/usb/udc/udc.h ****  * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+  30:asf/common/services/usb/udc/udc.h ****  * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  31:asf/common/services/usb/udc/udc.h ****  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+  32:asf/common/services/usb/udc/udc.h ****  * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  33:asf/common/services/usb/udc/udc.h ****  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  34:asf/common/services/usb/udc/udc.h ****  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  35:asf/common/services/usb/udc/udc.h ****  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  36:asf/common/services/usb/udc/udc.h ****  * POSSIBILITY OF SUCH DAMAGE.
+  37:asf/common/services/usb/udc/udc.h ****  *
+  38:asf/common/services/usb/udc/udc.h ****  * \asf_license_stop
+  39:asf/common/services/usb/udc/udc.h ****  *
+  40:asf/common/services/usb/udc/udc.h ****  */
+  41:asf/common/services/usb/udc/udc.h **** 
+  42:asf/common/services/usb/udc/udc.h **** #ifndef _UDC_H_
+  43:asf/common/services/usb/udc/udc.h **** #define _UDC_H_
+  44:asf/common/services/usb/udc/udc.h **** 
+  45:asf/common/services/usb/udc/udc.h **** #include "conf_usb.h"
+  46:asf/common/services/usb/udc/udc.h **** #include "usb_protocol.h"
+  47:asf/common/services/usb/udc/udc.h **** #include "udc_desc.h"
+  48:asf/common/services/usb/udc/udc.h **** #include "udd.h"
+GAS LISTING /tmp/ccZ4yJy6.s 			page 4
+
+
+  49:asf/common/services/usb/udc/udc.h **** 
+  50:asf/common/services/usb/udc/udc.h **** #ifdef __cplusplus
+  51:asf/common/services/usb/udc/udc.h **** extern "C" {
+  52:asf/common/services/usb/udc/udc.h **** #endif
+  53:asf/common/services/usb/udc/udc.h **** 
+  54:asf/common/services/usb/udc/udc.h **** /**
+  55:asf/common/services/usb/udc/udc.h ****  * \ingroup usb_device_group
+  56:asf/common/services/usb/udc/udc.h ****  * \defgroup udc_group USB Device Controller (UDC)
+  57:asf/common/services/usb/udc/udc.h ****  *
+  58:asf/common/services/usb/udc/udc.h ****  * The UDC provides a high-level abstraction of the usb device.
+  59:asf/common/services/usb/udc/udc.h ****  * You can use these functions to control the main device state
+  60:asf/common/services/usb/udc/udc.h ****  * (start/attach/wakeup).
+  61:asf/common/services/usb/udc/udc.h ****  *
+  62:asf/common/services/usb/udc/udc.h ****  * \section USB_DEVICE_CONF USB Device Custom configuration
+  63:asf/common/services/usb/udc/udc.h ****  * The following USB Device configuration must be included in the conf_usb.h
+  64:asf/common/services/usb/udc/udc.h ****  * file of the application.
+  65:asf/common/services/usb/udc/udc.h ****  *
+  66:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_VENDOR_ID (Word)<br>
+  67:asf/common/services/usb/udc/udc.h ****  * Vendor ID provided by USB org (ATMEL 0x03EB).
+  68:asf/common/services/usb/udc/udc.h ****  *
+  69:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_PRODUCT_ID (Word)<br>
+  70:asf/common/services/usb/udc/udc.h ****  * Product ID (Referenced in usb_atmel.h).
+  71:asf/common/services/usb/udc/udc.h ****  *
+  72:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_MAJOR_VERSION (Byte)<br>
+  73:asf/common/services/usb/udc/udc.h ****  * Major version of the device
+  74:asf/common/services/usb/udc/udc.h ****  *
+  75:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_MINOR_VERSION (Byte)<br>
+  76:asf/common/services/usb/udc/udc.h ****  * Minor version of the device
+  77:asf/common/services/usb/udc/udc.h ****  *
+  78:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_MANUFACTURE_NAME (string)<br>
+  79:asf/common/services/usb/udc/udc.h ****  * ASCII name for the manufacture
+  80:asf/common/services/usb/udc/udc.h ****  *
+  81:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_PRODUCT_NAME (string)<br>
+  82:asf/common/services/usb/udc/udc.h ****  * ASCII name for the product
+  83:asf/common/services/usb/udc/udc.h ****  *
+  84:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_SERIAL_NAME (string)<br>
+  85:asf/common/services/usb/udc/udc.h ****  * ASCII name to enable and set a serial number
+  86:asf/common/services/usb/udc/udc.h ****  *
+  87:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_POWER (Numeric)<br>
+  88:asf/common/services/usb/udc/udc.h ****  * (unit mA) Maximum device power
+  89:asf/common/services/usb/udc/udc.h ****  *
+  90:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_ATTR (Byte)<br>
+  91:asf/common/services/usb/udc/udc.h ****  * USB attributes available:
+  92:asf/common/services/usb/udc/udc.h ****  *  - USB_CONFIG_ATTR_SELF_POWERED
+  93:asf/common/services/usb/udc/udc.h ****  *  - USB_CONFIG_ATTR_REMOTE_WAKEUP
+  94:asf/common/services/usb/udc/udc.h ****  *  Note: if remote wake enabled then defines remotewakeup callbacks,
+  95:asf/common/services/usb/udc/udc.h ****  * see Table 5-2. External API from UDC - Callback
+  96:asf/common/services/usb/udc/udc.h ****  *
+  97:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_LOW_SPEED (Only defined)<br>
+  98:asf/common/services/usb/udc/udc.h ****  * Force the USB Device to run in low speed
+  99:asf/common/services/usb/udc/udc.h ****  *
+ 100:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_HS_SUPPORT (Only defined)<br>
+ 101:asf/common/services/usb/udc/udc.h ****  * Authorize the USB Device to run in high speed
+ 102:asf/common/services/usb/udc/udc.h ****  *
+ 103:asf/common/services/usb/udc/udc.h ****  * USB_DEVICE_MAX_EP (Byte)<br>
+ 104:asf/common/services/usb/udc/udc.h ****  * Define the maximum endpoint number used by the USB Device.<br>
+ 105:asf/common/services/usb/udc/udc.h ****  * This one is already defined in UDI default configuration.
+GAS LISTING /tmp/ccZ4yJy6.s 			page 5
+
+
+ 106:asf/common/services/usb/udc/udc.h ****  * Ex:
+ 107:asf/common/services/usb/udc/udc.h ****  * - When endpoint control 0x00, endpoint 0x01 and
+ 108:asf/common/services/usb/udc/udc.h ****  *   endpoint 0x82 is used then USB_DEVICE_MAX_EP=2
+ 109:asf/common/services/usb/udc/udc.h ****  * - When only endpoint control 0x00 is used then USB_DEVICE_MAX_EP=0
+ 110:asf/common/services/usb/udc/udc.h ****  * - When endpoint 0x01 and endpoint 0x81 is used then USB_DEVICE_MAX_EP=1<br>
+ 111:asf/common/services/usb/udc/udc.h ****  *   (configuration not possible on USBB interface)
+ 112:asf/common/services/usb/udc/udc.h ****  * @{
+ 113:asf/common/services/usb/udc/udc.h ****  */
+ 114:asf/common/services/usb/udc/udc.h **** 
+ 115:asf/common/services/usb/udc/udc.h **** /**
+ 116:asf/common/services/usb/udc/udc.h ****  * \brief Authorizes the VBUS event
+ 117:asf/common/services/usb/udc/udc.h ****  *
+ 118:asf/common/services/usb/udc/udc.h ****  * \return true, if the VBUS monitoring is possible.
+ 119:asf/common/services/usb/udc/udc.h ****  *
+ 120:asf/common/services/usb/udc/udc.h ****  * \section udc_vbus_monitoring VBus monitoring used cases
+ 121:asf/common/services/usb/udc/udc.h ****  *
+ 122:asf/common/services/usb/udc/udc.h ****  * The VBus monitoring is used only for USB SELF Power application.
+ 123:asf/common/services/usb/udc/udc.h ****  *
+ 124:asf/common/services/usb/udc/udc.h ****  *  -  No custom implementation \n
+ 125:asf/common/services/usb/udc/udc.h ****  *     // Authorize VBUS monitoring \n
+ 126:asf/common/services/usb/udc/udc.h ****  *     if (!udc_include_vbus_monitoring()) { \n
+ 127:asf/common/services/usb/udc/udc.h ****  *       // VBUS monitoring is not available on this product \n
+ 128:asf/common/services/usb/udc/udc.h ****  *       // thereby VBUS has to be considered as present \n
+ 129:asf/common/services/usb/udc/udc.h ****  *       // Attach USB Device \n
+ 130:asf/common/services/usb/udc/udc.h ****  *       udc_attach(); \n
+ 131:asf/common/services/usb/udc/udc.h ****  *     } \n
+ 132:asf/common/services/usb/udc/udc.h ****  *
+ 133:asf/common/services/usb/udc/udc.h ****  *  -  Add custom VBUS monitoring \n
+ 134:asf/common/services/usb/udc/udc.h ****  *     // Authorize VBUS monitoring \n
+ 135:asf/common/services/usb/udc/udc.h ****  *     if (!udc_include_vbus_monitoring()) { \n
+ 136:asf/common/services/usb/udc/udc.h ****  *       // Implement custom VBUS monitoring via GPIO or other \n
+ 137:asf/common/services/usb/udc/udc.h ****  *     } \n
+ 138:asf/common/services/usb/udc/udc.h ****  *     Event_VBUS_present() // VBUS interrupt or GPIO interrupt or other \n
+ 139:asf/common/services/usb/udc/udc.h ****  *     { \n
+ 140:asf/common/services/usb/udc/udc.h ****  *        // Attach USB Device \n
+ 141:asf/common/services/usb/udc/udc.h ****  *        udc_attach(); \n
+ 142:asf/common/services/usb/udc/udc.h ****  *     } \n
+ 143:asf/common/services/usb/udc/udc.h ****  *
+ 144:asf/common/services/usb/udc/udc.h ****  *  -  Case of battery charging \n
+ 145:asf/common/services/usb/udc/udc.h ****  *     Event VBUS present() // VBUS interrupt or GPIO interrupt or .. \n
+ 146:asf/common/services/usb/udc/udc.h ****  *     { \n
+ 147:asf/common/services/usb/udc/udc.h ****  *        // Authorize battery charging, but wait key press to start USB. \n
+ 148:asf/common/services/usb/udc/udc.h ****  *     } \n
+ 149:asf/common/services/usb/udc/udc.h ****  *     Event Key press() \n
+ 150:asf/common/services/usb/udc/udc.h ****  *     { \n
+ 151:asf/common/services/usb/udc/udc.h ****  *        // Stop batteries charging \n
+ 152:asf/common/services/usb/udc/udc.h ****  *        // Start USB \n
+ 153:asf/common/services/usb/udc/udc.h ****  *        udc_attach(); \n
+ 154:asf/common/services/usb/udc/udc.h ****  *     }  \n
+ 155:asf/common/services/usb/udc/udc.h ****  */
+ 156:asf/common/services/usb/udc/udc.h **** static inline bool udc_include_vbus_monitoring(void)
+ 157:asf/common/services/usb/udc/udc.h **** {
+ 158:asf/common/services/usb/udc/udc.h **** 	return udd_include_vbus_monitoring();
+ 159:asf/common/services/usb/udc/udc.h **** }
+ 160:asf/common/services/usb/udc/udc.h **** 
+ 161:asf/common/services/usb/udc/udc.h **** /*! \brief Start the USB Device stack
+ 162:asf/common/services/usb/udc/udc.h ****  */
+GAS LISTING /tmp/ccZ4yJy6.s 			page 6
+
+
+ 163:asf/common/services/usb/udc/udc.h **** void udc_start(void);
+ 164:asf/common/services/usb/udc/udc.h **** 
+ 165:asf/common/services/usb/udc/udc.h **** /*! \brief Stop the USB Device stack
+ 166:asf/common/services/usb/udc/udc.h ****  */
+ 167:asf/common/services/usb/udc/udc.h **** void udc_stop(void);
+ 168:asf/common/services/usb/udc/udc.h **** 
+ 169:asf/common/services/usb/udc/udc.h **** /**
+ 170:asf/common/services/usb/udc/udc.h ****  * \brief Attach device to the bus when possible
+ 171:asf/common/services/usb/udc/udc.h ****  *
+ 172:asf/common/services/usb/udc/udc.h ****  * \warning If a VBus control is included in driver,
+ 173:asf/common/services/usb/udc/udc.h ****  * then it will attach device when an acceptable Vbus
+ 174:asf/common/services/usb/udc/udc.h ****  * level from the host is detected.
+ 175:asf/common/services/usb/udc/udc.h ****  */
+ 176:asf/common/services/usb/udc/udc.h **** static inline void udc_attach(void)
+ 177:asf/common/services/usb/udc/udc.h **** {
+ 178:asf/common/services/usb/udc/udc.h **** 	udd_attach();
+  31               		.loc 2 178 0
+  32 0004 0E94 0000 		call udd_attach
+  33               	.LVL1:
+  34 0008 0895      		ret
+  35               	.LVL2:
+  36               	.L2:
+  37               	.LBE30:
+  38               	.LBE29:
+  39               	.LBB31:
+  40               	.LBB32:
+ 179:asf/common/services/usb/udc/udc.h **** }
+ 180:asf/common/services/usb/udc/udc.h **** 
+ 181:asf/common/services/usb/udc/udc.h **** 
+ 182:asf/common/services/usb/udc/udc.h **** /**
+ 183:asf/common/services/usb/udc/udc.h ****  * \brief Detaches the device from the bus
+ 184:asf/common/services/usb/udc/udc.h ****  *
+ 185:asf/common/services/usb/udc/udc.h ****  * The driver must remove pull-up on USB line D- or D+.
+ 186:asf/common/services/usb/udc/udc.h ****  */
+ 187:asf/common/services/usb/udc/udc.h **** static inline void udc_detach(void)
+ 188:asf/common/services/usb/udc/udc.h **** {
+ 189:asf/common/services/usb/udc/udc.h **** 	udd_detach();
+  41               		.loc 2 189 0
+  42 000a 0E94 0000 		call udd_detach
+  43               	.LVL3:
+  44 000e 0895      		ret
+  45               	.LBE32:
+  46               	.LBE31:
+  47               		.cfi_endproc
+  48               	.LFE97:
+  49               		.size	main_vbus_action, .-main_vbus_action
+  50               		.section	.text.startup,"ax",@progbits
+  51               	.global	main
+  52               		.type	main, @function
+  53               	main:
+  54               	.LFB96:
+  64:main.c        **** {
+  55               		.loc 1 64 0
+  56               		.cfi_startproc
+  57               	/* prologue: function */
+  58               	/* frame size = 0 */
+  59               	/* stack size = 0 */
+GAS LISTING /tmp/ccZ4yJy6.s 			page 7
+
+
+  60               	.L__stack_usage = 0
+  65:main.c        **** 	irq_initialize_vectors();
+  61               		.loc 1 65 0
+  62 0000 87E0      		ldi r24,lo8(7)
+  63 0002 E0EA      		ldi r30,lo8(160)
+  64 0004 F0E0      		ldi r31,hi8(160)
+  65 0006 8283      		std Z+2,r24
+  66:main.c        **** 	cpu_irq_enable();
+  66               		.loc 1 66 0
+  67               	/* #APP */
+  68               	 ;  66 "main.c" 1
+  69 0008 7894      		sei
+  70               	 ;  0 "" 2
+  71               	.LVL4:
+  72               	/* #NOAPP */
+  73               	.LBB33:
+  74               	.LBB34:
+  75               		.file 3 "asf/common/services/sleepmgr/sleepmgr.h"
+   1:asf/common/services/sleepmgr/sleepmgr.h **** /**
+   2:asf/common/services/sleepmgr/sleepmgr.h ****  * \file
+   3:asf/common/services/sleepmgr/sleepmgr.h ****  *
+   4:asf/common/services/sleepmgr/sleepmgr.h ****  * \brief Sleep manager
+   5:asf/common/services/sleepmgr/sleepmgr.h ****  *
+   6:asf/common/services/sleepmgr/sleepmgr.h ****  * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+   7:asf/common/services/sleepmgr/sleepmgr.h ****  *
+   8:asf/common/services/sleepmgr/sleepmgr.h ****  * \asf_license_start
+   9:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  10:asf/common/services/sleepmgr/sleepmgr.h ****  * Redistribution and use in source and binary forms, with or without
+  11:asf/common/services/sleepmgr/sleepmgr.h ****  * modification, are permitted provided that the following conditions are met:
+  12:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  13:asf/common/services/sleepmgr/sleepmgr.h ****  * 1. Redistributions of source code must retain the above copyright notice,
+  14:asf/common/services/sleepmgr/sleepmgr.h ****  *    this list of conditions and the following disclaimer.
+  15:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  16:asf/common/services/sleepmgr/sleepmgr.h ****  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  17:asf/common/services/sleepmgr/sleepmgr.h ****  *    this list of conditions and the following disclaimer in the documentation
+  18:asf/common/services/sleepmgr/sleepmgr.h ****  *    and/or other materials provided with the distribution.
+  19:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  20:asf/common/services/sleepmgr/sleepmgr.h ****  * 3. The name of Atmel may not be used to endorse or promote products derived
+  21:asf/common/services/sleepmgr/sleepmgr.h ****  *    from this software without specific prior written permission.
+  22:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  23:asf/common/services/sleepmgr/sleepmgr.h ****  * 4. This software may only be redistributed and used in connection with an
+  24:asf/common/services/sleepmgr/sleepmgr.h ****  *    Atmel microcontroller product.
+  25:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  26:asf/common/services/sleepmgr/sleepmgr.h ****  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+  27:asf/common/services/sleepmgr/sleepmgr.h ****  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  28:asf/common/services/sleepmgr/sleepmgr.h ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  29:asf/common/services/sleepmgr/sleepmgr.h ****  * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+  30:asf/common/services/sleepmgr/sleepmgr.h ****  * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  31:asf/common/services/sleepmgr/sleepmgr.h ****  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+  32:asf/common/services/sleepmgr/sleepmgr.h ****  * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  33:asf/common/services/sleepmgr/sleepmgr.h ****  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  34:asf/common/services/sleepmgr/sleepmgr.h ****  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  35:asf/common/services/sleepmgr/sleepmgr.h ****  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  36:asf/common/services/sleepmgr/sleepmgr.h ****  * POSSIBILITY OF SUCH DAMAGE.
+  37:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  38:asf/common/services/sleepmgr/sleepmgr.h ****  * \asf_license_stop
+  39:asf/common/services/sleepmgr/sleepmgr.h ****  *
+GAS LISTING /tmp/ccZ4yJy6.s 			page 8
+
+
+  40:asf/common/services/sleepmgr/sleepmgr.h ****  */
+  41:asf/common/services/sleepmgr/sleepmgr.h **** #ifndef SLEEPMGR_H
+  42:asf/common/services/sleepmgr/sleepmgr.h **** #define SLEEPMGR_H
+  43:asf/common/services/sleepmgr/sleepmgr.h **** 
+  44:asf/common/services/sleepmgr/sleepmgr.h **** #include <compiler.h>
+  45:asf/common/services/sleepmgr/sleepmgr.h **** #include <sleep.h>
+  46:asf/common/services/sleepmgr/sleepmgr.h **** #include <parts.h>
+  47:asf/common/services/sleepmgr/sleepmgr.h **** 
+  48:asf/common/services/sleepmgr/sleepmgr.h **** #if (SAM3S || SAM3U || SAM3N || SAM3XA || SAM4S)
+  49:asf/common/services/sleepmgr/sleepmgr.h **** # include "sam/sleepmgr.h"
+  50:asf/common/services/sleepmgr/sleepmgr.h **** #elif defined(XMEGA)
+  51:asf/common/services/sleepmgr/sleepmgr.h **** # include "xmega/sleepmgr.h"
+  52:asf/common/services/sleepmgr/sleepmgr.h **** #elif (defined(__GNUC__) && defined(__AVR32__)) || (defined(__ICCAVR32__) || defined(__AAVR32__))
+  53:asf/common/services/sleepmgr/sleepmgr.h **** # include "uc3/sleepmgr.h"
+  54:asf/common/services/sleepmgr/sleepmgr.h **** #else
+  55:asf/common/services/sleepmgr/sleepmgr.h **** # error Unsupported device.
+  56:asf/common/services/sleepmgr/sleepmgr.h **** #endif
+  57:asf/common/services/sleepmgr/sleepmgr.h **** 
+  58:asf/common/services/sleepmgr/sleepmgr.h **** /**
+  59:asf/common/services/sleepmgr/sleepmgr.h ****  * \defgroup sleepmgr_group Sleep manager
+  60:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  61:asf/common/services/sleepmgr/sleepmgr.h ****  * The sleep manager is a service for ensuring that the device is not put to
+  62:asf/common/services/sleepmgr/sleepmgr.h ****  * sleep in deeper sleep modes than the system (e.g., peripheral drivers,
+  63:asf/common/services/sleepmgr/sleepmgr.h ****  * services or the application) allows at any given time.
+  64:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  65:asf/common/services/sleepmgr/sleepmgr.h ****  * It is based on the use of lock counting for the individual sleep modes, and
+  66:asf/common/services/sleepmgr/sleepmgr.h ****  * will put the device to sleep in the shallowest sleep mode that has a non-zero
+  67:asf/common/services/sleepmgr/sleepmgr.h ****  * lock count. The drivers/services/application can change these counts by use
+  68:asf/common/services/sleepmgr/sleepmgr.h ****  * of \ref sleepmgr_lock_mode and \ref sleepmgr_unlock_mode.
+  69:asf/common/services/sleepmgr/sleepmgr.h ****  * Refer to \ref sleepmgr_mode for a list of the sleep modes available for
+  70:asf/common/services/sleepmgr/sleepmgr.h ****  * locking, and the device datasheet for information on their effect.
+  71:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  72:asf/common/services/sleepmgr/sleepmgr.h ****  * The application must supply the file \ref conf_sleepmgr.h.
+  73:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  74:asf/common/services/sleepmgr/sleepmgr.h ****  * For the sleep manager to be enabled, the symbol \ref CONFIG_SLEEPMGR_ENABLE
+  75:asf/common/services/sleepmgr/sleepmgr.h ****  * must be defined, e.g., in \ref conf_sleepmgr.h. If this symbol is not
+  76:asf/common/services/sleepmgr/sleepmgr.h ****  * defined, the functions are replaced with dummy functions and no RAM is used.
+  77:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  78:asf/common/services/sleepmgr/sleepmgr.h ****  * @{
+  79:asf/common/services/sleepmgr/sleepmgr.h ****  */
+  80:asf/common/services/sleepmgr/sleepmgr.h **** 
+  81:asf/common/services/sleepmgr/sleepmgr.h **** /**
+  82:asf/common/services/sleepmgr/sleepmgr.h ****  * \def CONFIG_SLEEPMGR_ENABLE
+  83:asf/common/services/sleepmgr/sleepmgr.h ****  * \brief Configuration symbol for enabling the sleep manager
+  84:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  85:asf/common/services/sleepmgr/sleepmgr.h ****  * If this symbol is not defined, the functions of this service are replaced
+  86:asf/common/services/sleepmgr/sleepmgr.h ****  * with dummy functions. This is useful for reducing code size and execution
+  87:asf/common/services/sleepmgr/sleepmgr.h ****  * time if the sleep manager is not needed in the application.
+  88:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  89:asf/common/services/sleepmgr/sleepmgr.h ****  * This symbol may be defined in \ref conf_sleepmgr.h.
+  90:asf/common/services/sleepmgr/sleepmgr.h ****  */
+  91:asf/common/services/sleepmgr/sleepmgr.h **** #if defined(__DOXYGEN__) && !defined(CONFIG_SLEEPMGR_ENABLE)
+  92:asf/common/services/sleepmgr/sleepmgr.h **** #  define CONFIG_SLEEPMGR_ENABLE
+  93:asf/common/services/sleepmgr/sleepmgr.h **** #endif
+  94:asf/common/services/sleepmgr/sleepmgr.h **** 
+  95:asf/common/services/sleepmgr/sleepmgr.h **** /**
+  96:asf/common/services/sleepmgr/sleepmgr.h ****  * \enum sleepmgr_mode
+GAS LISTING /tmp/ccZ4yJy6.s 			page 9
+
+
+  97:asf/common/services/sleepmgr/sleepmgr.h ****  * \brief Sleep mode locks
+  98:asf/common/services/sleepmgr/sleepmgr.h ****  *
+  99:asf/common/services/sleepmgr/sleepmgr.h ****  * Identifiers for the different sleep mode locks.
+ 100:asf/common/services/sleepmgr/sleepmgr.h ****  */
+ 101:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 102:asf/common/services/sleepmgr/sleepmgr.h **** /**
+ 103:asf/common/services/sleepmgr/sleepmgr.h ****  * \brief Initialize the lock counts
+ 104:asf/common/services/sleepmgr/sleepmgr.h ****  *
+ 105:asf/common/services/sleepmgr/sleepmgr.h ****  * Sets all lock counts to 0, except the very last one, which is set to 1. This
+ 106:asf/common/services/sleepmgr/sleepmgr.h ****  * is done to simplify the algorithm for finding the deepest allowable sleep
+ 107:asf/common/services/sleepmgr/sleepmgr.h ****  * mode in \ref sleepmgr_enter_sleep.
+ 108:asf/common/services/sleepmgr/sleepmgr.h ****  */
+ 109:asf/common/services/sleepmgr/sleepmgr.h **** static inline void sleepmgr_init(void)
+ 110:asf/common/services/sleepmgr/sleepmgr.h **** {
+ 111:asf/common/services/sleepmgr/sleepmgr.h **** #ifdef CONFIG_SLEEPMGR_ENABLE
+ 112:asf/common/services/sleepmgr/sleepmgr.h **** 	uint8_t i;
+ 113:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 114:asf/common/services/sleepmgr/sleepmgr.h **** 	for (i = 0; i < SLEEPMGR_NR_OF_MODES - 1; i++) {
+ 115:asf/common/services/sleepmgr/sleepmgr.h **** 		sleepmgr_locks[i] = 0;
+  76               		.loc 3 115 0
+  77 000a 1092 0000 		sts sleepmgr_locks,__zero_reg__
+  78               	.LVL5:
+  79 000e 1092 0000 		sts sleepmgr_locks+1,__zero_reg__
+  80               	.LVL6:
+  81 0012 1092 0000 		sts sleepmgr_locks+2,__zero_reg__
+  82               	.LVL7:
+  83 0016 1092 0000 		sts sleepmgr_locks+3,__zero_reg__
+  84               	.LVL8:
+  85 001a 1092 0000 		sts sleepmgr_locks+4,__zero_reg__
+  86               	.LVL9:
+ 116:asf/common/services/sleepmgr/sleepmgr.h **** 	}
+ 117:asf/common/services/sleepmgr/sleepmgr.h **** 	sleepmgr_locks[SLEEPMGR_NR_OF_MODES - 1] = 1;
+  87               		.loc 3 117 0
+  88 001e 81E0      		ldi r24,lo8(1)
+  89 0020 8093 0000 		sts sleepmgr_locks+5,r24
+  90               	.LBE34:
+  91               	.LBE33:
+  71:main.c        **** 	sysclk_init();
+  92               		.loc 1 71 0
+  93 0024 0E94 0000 		call sysclk_init
+  72:main.c        **** 	board_init();
+  94               		.loc 1 72 0
+  95 0028 0E94 0000 		call board_init
+  73:main.c        **** 	ui_init();
+  96               		.loc 1 73 0
+  97 002c 0E94 0000 		call ui_init
+  74:main.c        **** 	ui_powerdown();
+  98               		.loc 1 74 0
+  99 0030 0E94 0000 		call ui_powerdown
+  77:main.c        **** 	udc_start();
+ 100               		.loc 1 77 0
+ 101 0034 0E94 0000 		call udc_start
+ 102               	.LBB35:
+ 103               	.LBB36:
+ 158:asf/common/services/usb/udc/udc.h **** 	return udd_include_vbus_monitoring();
+ 104               		.loc 2 158 0
+ 105 0038 0E94 0000 		call udd_include_vbus_monitoring
+GAS LISTING /tmp/ccZ4yJy6.s 			page 10
+
+
+ 106               	.LBE36:
+ 107               	.LBE35:
+  79:main.c        **** 	if (!udc_include_vbus_monitoring()) {
+ 108               		.loc 1 79 0
+ 109 003c 8823      		tst r24
+ 110 003e 01F4      		brne .L13
+  82:main.c        **** 		main_vbus_action(true);
+ 111               		.loc 1 82 0
+ 112 0040 81E0      		ldi r24,lo8(1)
+ 113 0042 0E94 0000 		call main_vbus_action
+ 114               	.L13:
+ 115               	.LBB37:
+ 116               	.LBB38:
+ 118:asf/common/services/sleepmgr/sleepmgr.h **** #endif /* CONFIG_SLEEPMGR_ENABLE */
+ 119:asf/common/services/sleepmgr/sleepmgr.h **** }
+ 120:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 121:asf/common/services/sleepmgr/sleepmgr.h **** /**
+ 122:asf/common/services/sleepmgr/sleepmgr.h ****  * \brief Increase lock count for a sleep mode
+ 123:asf/common/services/sleepmgr/sleepmgr.h ****  *
+ 124:asf/common/services/sleepmgr/sleepmgr.h ****  * Increases the lock count for \a mode to ensure that the sleep manager does
+ 125:asf/common/services/sleepmgr/sleepmgr.h ****  * not put the device to sleep in the deeper sleep modes.
+ 126:asf/common/services/sleepmgr/sleepmgr.h ****  *
+ 127:asf/common/services/sleepmgr/sleepmgr.h ****  * \param mode Sleep mode to lock.
+ 128:asf/common/services/sleepmgr/sleepmgr.h ****  */
+ 129:asf/common/services/sleepmgr/sleepmgr.h **** static inline void sleepmgr_lock_mode(enum sleepmgr_mode mode)
+ 130:asf/common/services/sleepmgr/sleepmgr.h **** {
+ 131:asf/common/services/sleepmgr/sleepmgr.h **** #ifdef CONFIG_SLEEPMGR_ENABLE
+ 132:asf/common/services/sleepmgr/sleepmgr.h **** 	irqflags_t flags;
+ 133:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 134:asf/common/services/sleepmgr/sleepmgr.h **** 	Assert(sleepmgr_locks[mode] < 0xff);
+ 135:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 136:asf/common/services/sleepmgr/sleepmgr.h **** 	// Enter a critical section
+ 137:asf/common/services/sleepmgr/sleepmgr.h **** 	flags = cpu_irq_save();
+ 138:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 139:asf/common/services/sleepmgr/sleepmgr.h **** 	++sleepmgr_locks[mode];
+ 140:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 141:asf/common/services/sleepmgr/sleepmgr.h **** 	// Leave the critical section
+ 142:asf/common/services/sleepmgr/sleepmgr.h **** 	cpu_irq_restore(flags);
+ 143:asf/common/services/sleepmgr/sleepmgr.h **** #endif /* CONFIG_SLEEPMGR_ENABLE */
+ 144:asf/common/services/sleepmgr/sleepmgr.h **** }
+ 145:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 146:asf/common/services/sleepmgr/sleepmgr.h **** /**
+ 147:asf/common/services/sleepmgr/sleepmgr.h ****  * \brief Decrease lock count for a sleep mode
+ 148:asf/common/services/sleepmgr/sleepmgr.h ****  *
+ 149:asf/common/services/sleepmgr/sleepmgr.h ****  * Decreases the lock count for \a mode. If the lock count reaches 0, the sleep
+ 150:asf/common/services/sleepmgr/sleepmgr.h ****  * manager can put the device to sleep in the deeper sleep modes.
+ 151:asf/common/services/sleepmgr/sleepmgr.h ****  *
+ 152:asf/common/services/sleepmgr/sleepmgr.h ****  * \param mode Sleep mode to unlock.
+ 153:asf/common/services/sleepmgr/sleepmgr.h ****  */
+ 154:asf/common/services/sleepmgr/sleepmgr.h **** static inline void sleepmgr_unlock_mode(enum sleepmgr_mode mode)
+ 155:asf/common/services/sleepmgr/sleepmgr.h **** {
+ 156:asf/common/services/sleepmgr/sleepmgr.h **** #ifdef CONFIG_SLEEPMGR_ENABLE
+ 157:asf/common/services/sleepmgr/sleepmgr.h **** 	irqflags_t flags;
+ 158:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 159:asf/common/services/sleepmgr/sleepmgr.h **** 	Assert(sleepmgr_locks[mode]);
+ 160:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 161:asf/common/services/sleepmgr/sleepmgr.h **** 	// Enter a critical section
+GAS LISTING /tmp/ccZ4yJy6.s 			page 11
+
+
+ 162:asf/common/services/sleepmgr/sleepmgr.h **** 	flags = cpu_irq_save();
+ 163:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 164:asf/common/services/sleepmgr/sleepmgr.h **** 	--sleepmgr_locks[mode];
+ 165:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 166:asf/common/services/sleepmgr/sleepmgr.h **** 	// Leave the critical section
+ 167:asf/common/services/sleepmgr/sleepmgr.h **** 	cpu_irq_restore(flags);
+ 168:asf/common/services/sleepmgr/sleepmgr.h **** #endif /* CONFIG_SLEEPMGR_ENABLE */
+ 169:asf/common/services/sleepmgr/sleepmgr.h **** }
+ 170:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 171:asf/common/services/sleepmgr/sleepmgr.h ****  /**
+ 172:asf/common/services/sleepmgr/sleepmgr.h ****  * \brief Retrieves the deepest allowable sleep mode
+ 173:asf/common/services/sleepmgr/sleepmgr.h ****  *
+ 174:asf/common/services/sleepmgr/sleepmgr.h ****  * Searches through the sleep mode lock counts, starting at the shallowest sleep
+ 175:asf/common/services/sleepmgr/sleepmgr.h ****  * mode, until the first non-zero lock count is found. The deepest allowable
+ 176:asf/common/services/sleepmgr/sleepmgr.h ****  * sleep mode is then returned.
+ 177:asf/common/services/sleepmgr/sleepmgr.h ****  */
+ 178:asf/common/services/sleepmgr/sleepmgr.h **** static inline enum sleepmgr_mode sleepmgr_get_sleep_mode(void)
+ 179:asf/common/services/sleepmgr/sleepmgr.h **** {
+ 180:asf/common/services/sleepmgr/sleepmgr.h **** 	enum sleepmgr_mode sleep_mode = SLEEPMGR_ACTIVE;
+ 181:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 182:asf/common/services/sleepmgr/sleepmgr.h **** #ifdef CONFIG_SLEEPMGR_ENABLE
+ 183:asf/common/services/sleepmgr/sleepmgr.h **** 	uint8_t *lock_ptr = sleepmgr_locks;
+ 184:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 185:asf/common/services/sleepmgr/sleepmgr.h **** 	// Find first non-zero lock count, starting with the shallowest modes.
+ 186:asf/common/services/sleepmgr/sleepmgr.h **** 	while (!(*lock_ptr)) {
+ 187:asf/common/services/sleepmgr/sleepmgr.h **** 		lock_ptr++;
+ 188:asf/common/services/sleepmgr/sleepmgr.h **** 		sleep_mode++;
+ 189:asf/common/services/sleepmgr/sleepmgr.h **** 	}
+ 190:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 191:asf/common/services/sleepmgr/sleepmgr.h **** 	// Catch the case where one too many sleepmgr_unlock_mode() call has been
+ 192:asf/common/services/sleepmgr/sleepmgr.h **** 	// performed on the deepest sleep mode.
+ 193:asf/common/services/sleepmgr/sleepmgr.h **** 	Assert((uintptr_t)(lock_ptr - sleepmgr_locks) < SLEEPMGR_NR_OF_MODES);
+ 194:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 195:asf/common/services/sleepmgr/sleepmgr.h **** #endif /* CONFIG_SLEEPMGR_ENABLE */
+ 196:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 197:asf/common/services/sleepmgr/sleepmgr.h **** 	return sleep_mode;
+ 198:asf/common/services/sleepmgr/sleepmgr.h **** }
+ 199:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 200:asf/common/services/sleepmgr/sleepmgr.h **** /**
+ 201:asf/common/services/sleepmgr/sleepmgr.h ****  * \fn sleepmgr_enter_sleep
+ 202:asf/common/services/sleepmgr/sleepmgr.h ****  * \brief Go to sleep in the deepest allowed mode
+ 203:asf/common/services/sleepmgr/sleepmgr.h ****  *
+ 204:asf/common/services/sleepmgr/sleepmgr.h ****  * Searches through the sleep mode lock counts, starting at the shallowest sleep
+ 205:asf/common/services/sleepmgr/sleepmgr.h ****  * mode, until the first non-zero lock count is found. The device is then put to
+ 206:asf/common/services/sleepmgr/sleepmgr.h ****  * sleep in the sleep mode that corresponds to the lock.
+ 207:asf/common/services/sleepmgr/sleepmgr.h ****  *
+ 208:asf/common/services/sleepmgr/sleepmgr.h ****  * \note This function enables interrupts before going to sleep, and will leave
+ 209:asf/common/services/sleepmgr/sleepmgr.h ****  * them enabled upon return. This also applies if sleep is skipped due to ACTIVE
+ 210:asf/common/services/sleepmgr/sleepmgr.h ****  * mode being locked.
+ 211:asf/common/services/sleepmgr/sleepmgr.h ****  */
+ 212:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 213:asf/common/services/sleepmgr/sleepmgr.h **** static inline void sleepmgr_enter_sleep(void)
+ 214:asf/common/services/sleepmgr/sleepmgr.h **** {
+ 215:asf/common/services/sleepmgr/sleepmgr.h **** #ifdef CONFIG_SLEEPMGR_ENABLE
+ 216:asf/common/services/sleepmgr/sleepmgr.h **** 	enum sleepmgr_mode sleep_mode;
+ 217:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 218:asf/common/services/sleepmgr/sleepmgr.h **** 	cpu_irq_disable();
+GAS LISTING /tmp/ccZ4yJy6.s 			page 12
+
+
+ 117               		.loc 3 218 0 discriminator 1
+ 118               	/* #APP */
+ 119               	 ;  218 "asf/common/services/sleepmgr/sleepmgr.h" 1
+ 120 0046 F894      		cli
+ 121               	 ;  0 "" 2
+ 122               	.LVL10:
+ 123               	/* #NOAPP */
+ 124 0048 A0E0      		ldi r26,lo8(sleepmgr_locks)
+ 125 004a B0E0      		ldi r27,hi8(sleepmgr_locks)
+ 180:asf/common/services/sleepmgr/sleepmgr.h **** 	enum sleepmgr_mode sleep_mode = SLEEPMGR_ACTIVE;
+ 126               		.loc 3 180 0 discriminator 1
+ 127 004c E0E0      		ldi r30,lo8(0)
+ 128 004e 00C0      		rjmp .L7
+ 129               	.LVL11:
+ 130               	.L8:
+ 131               	.LBB39:
+ 132               	.LBB40:
+ 188:asf/common/services/sleepmgr/sleepmgr.h **** 		sleep_mode++;
+ 133               		.loc 3 188 0
+ 134 0050 EF5F      		subi r30,lo8(-(1))
+ 135               	.LVL12:
+ 136               	.L7:
+ 186:asf/common/services/sleepmgr/sleepmgr.h **** 	while (!(*lock_ptr)) {
+ 137               		.loc 3 186 0
+ 138 0052 8D91      		ld r24,X+
+ 139 0054 8823      		tst r24
+ 140 0056 01F0      		breq .L8
+ 141               	.LBE40:
+ 142               	.LBE39:
+ 219:asf/common/services/sleepmgr/sleepmgr.h **** 
+ 220:asf/common/services/sleepmgr/sleepmgr.h **** 	// Find the deepest allowable sleep mode
+ 221:asf/common/services/sleepmgr/sleepmgr.h **** 	sleep_mode = sleepmgr_get_sleep_mode();
+ 222:asf/common/services/sleepmgr/sleepmgr.h **** 	// Return right away if first mode (ACTIVE) is locked.
+ 223:asf/common/services/sleepmgr/sleepmgr.h **** 	if (sleep_mode==SLEEPMGR_ACTIVE) {
+ 143               		.loc 3 223 0
+ 144 0058 EE23      		tst r30
+ 145 005a 01F4      		brne .L9
+ 224:asf/common/services/sleepmgr/sleepmgr.h **** 		cpu_irq_enable();
+ 146               		.loc 3 224 0
+ 147               	/* #APP */
+ 148               	 ;  224 "asf/common/services/sleepmgr/sleepmgr.h" 1
+ 149 005c 7894      		sei
+ 150               	 ;  0 "" 2
+ 151               	/* #NOAPP */
+ 152 005e 00C0      		rjmp .L13
+ 153               	.L9:
+ 154               	.LVL13:
+ 155               	.LBB41:
+ 156               	.LBB42:
+ 157               	.LBB43:
+ 158               		.file 4 "asf/common/services/sleepmgr/xmega/sleepmgr.h"
+   1:asf/common/services/sleepmgr/xmega/sleepmgr.h **** /**
+   2:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * \file
+   3:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+   4:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * \brief AVR XMEGA Sleep manager implementation
+   5:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+   6:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * Copyright (c) 2010 Atmel Corporation. All rights reserved.
+GAS LISTING /tmp/ccZ4yJy6.s 			page 13
+
+
+   7:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+   8:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * \asf_license_start
+   9:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+  10:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * Redistribution and use in source and binary forms, with or without
+  11:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * modification, are permitted provided that the following conditions are met:
+  12:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+  13:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * 1. Redistributions of source code must retain the above copyright notice,
+  14:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *    this list of conditions and the following disclaimer.
+  15:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+  16:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  17:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *    this list of conditions and the following disclaimer in the documentation
+  18:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *    and/or other materials provided with the distribution.
+  19:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+  20:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * 3. The name of Atmel may not be used to endorse or promote products derived
+  21:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *    from this software without specific prior written permission.
+  22:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+  23:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * 4. This software may only be redistributed and used in connection with an
+  24:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *    Atmel microcontroller product.
+  25:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+  26:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+  27:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  28:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  29:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+  30:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  31:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+  32:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  33:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  34:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  35:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  36:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * POSSIBILITY OF SUCH DAMAGE.
+  37:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+  38:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * \asf_license_stop
+  39:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  *
+  40:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  */
+  41:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #ifndef XMEGA_SLEEPMGR_H
+  42:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #define XMEGA_SLEEPMGR_H
+  43:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 
+  44:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #ifdef __cplusplus
+  45:asf/common/services/sleepmgr/xmega/sleepmgr.h **** extern "C" {
+  46:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #endif
+  47:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 
+  48:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #include <compiler.h>
+  49:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #include <conf_sleepmgr.h>
+  50:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #include <sleep.h>
+  51:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 
+  52:asf/common/services/sleepmgr/xmega/sleepmgr.h **** /**
+  53:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * \weakgroup sleepmgr_group
+  54:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * @{
+  55:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  */
+  56:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 
+  57:asf/common/services/sleepmgr/xmega/sleepmgr.h **** enum sleepmgr_mode {
+  58:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	//! Active mode.
+  59:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	SLEEPMGR_ACTIVE = 0,
+  60:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	//! Idle mode.
+  61:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	SLEEPMGR_IDLE,
+  62:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	//! Extended Standby mode.
+  63:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	SLEEPMGR_ESTDBY,
+GAS LISTING /tmp/ccZ4yJy6.s 			page 14
+
+
+  64:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	//! Power Save mode.
+  65:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	SLEEPMGR_PSAVE,
+  66:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	//! Standby mode.
+  67:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	SLEEPMGR_STDBY,
+  68:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	//! Power Down mode.
+  69:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	SLEEPMGR_PDOWN,
+  70:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	SLEEPMGR_NR_OF_MODES,
+  71:asf/common/services/sleepmgr/xmega/sleepmgr.h **** };
+  72:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 
+  73:asf/common/services/sleepmgr/xmega/sleepmgr.h **** /**
+  74:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * \internal
+  75:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * \name Internal arrays
+  76:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * @{
+  77:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  */
+  78:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #if defined(CONFIG_SLEEPMGR_ENABLE) || defined(__DOXYGEN__)
+  79:asf/common/services/sleepmgr/xmega/sleepmgr.h **** //! Sleep mode lock counters
+  80:asf/common/services/sleepmgr/xmega/sleepmgr.h **** extern uint8_t sleepmgr_locks[];
+  81:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #  ifndef __DOXYGEN__
+  82:asf/common/services/sleepmgr/xmega/sleepmgr.h **** PROGMEM_DECLARE(extern enum SLEEP_SMODE_enum, sleepmgr_configs[]);
+  83:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #  else
+  84:asf/common/services/sleepmgr/xmega/sleepmgr.h **** /**
+  85:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * \brief Look-up table with sleep mode configurations
+  86:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  * \note This is located in program memory (Flash) as it is constant.
+  87:asf/common/services/sleepmgr/xmega/sleepmgr.h ****  */
+  88:asf/common/services/sleepmgr/xmega/sleepmgr.h **** extern enum SLEEP_SMODE_enum sleepmgr_configs[];
+  89:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #  endif /* __DOXYGEN__ */
+  90:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #endif /* CONFIG_SLEEPMGR_ENABLE */
+  91:asf/common/services/sleepmgr/xmega/sleepmgr.h **** //! @}
+  92:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 
+  93:asf/common/services/sleepmgr/xmega/sleepmgr.h **** static inline void sleepmgr_sleep(const enum sleepmgr_mode sleep_mode)
+  94:asf/common/services/sleepmgr/xmega/sleepmgr.h **** {
+  95:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	Assert(sleep_mode != SLEEPMGR_ACTIVE);
+  96:asf/common/services/sleepmgr/xmega/sleepmgr.h **** #ifdef CONFIG_SLEEPMGR_ENABLE
+  97:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	sleep_set_mode(PROGMEM_READ_BYTE(&sleepmgr_configs[sleep_mode-1]));
+ 159               		.loc 4 97 0
+ 160 0060 F0E0      		ldi r31,lo8(0)
+ 161 0062 E050      		subi r30,lo8(-(sleepmgr_configs-1))
+ 162 0064 F040      		sbci r31,hi8(-(sleepmgr_configs-1))
+ 163               	.LVL14:
+ 164               	/* #APP */
+ 165               	 ;  97 "asf/common/services/sleepmgr/xmega/sleepmgr.h" 1
+ 166 0066 E491      		lpm r30, Z
+ 167               		
+ 168               	 ;  0 "" 2
+ 169               	.LVL15:
+ 170               	/* #NOAPP */
+ 171               	.LBE43:
+ 172               	.LBB44:
+ 173               	.LBB45:
+ 174               		.file 5 "asf/xmega/drivers/sleep/sleep.h"
+   1:asf/xmega/drivers/sleep/sleep.h **** /**
+   2:asf/xmega/drivers/sleep/sleep.h ****  * \file
+   3:asf/xmega/drivers/sleep/sleep.h ****  *
+   4:asf/xmega/drivers/sleep/sleep.h ****  * \brief Sleep controller driver
+   5:asf/xmega/drivers/sleep/sleep.h ****  *
+   6:asf/xmega/drivers/sleep/sleep.h ****  * Copyright (c) 2010 Atmel Corporation. All rights reserved.
+   7:asf/xmega/drivers/sleep/sleep.h ****  *
+GAS LISTING /tmp/ccZ4yJy6.s 			page 15
+
+
+   8:asf/xmega/drivers/sleep/sleep.h ****  * \asf_license_start
+   9:asf/xmega/drivers/sleep/sleep.h ****  *
+  10:asf/xmega/drivers/sleep/sleep.h ****  * Redistribution and use in source and binary forms, with or without
+  11:asf/xmega/drivers/sleep/sleep.h ****  * modification, are permitted provided that the following conditions are met:
+  12:asf/xmega/drivers/sleep/sleep.h ****  *
+  13:asf/xmega/drivers/sleep/sleep.h ****  * 1. Redistributions of source code must retain the above copyright notice,
+  14:asf/xmega/drivers/sleep/sleep.h ****  *    this list of conditions and the following disclaimer.
+  15:asf/xmega/drivers/sleep/sleep.h ****  *
+  16:asf/xmega/drivers/sleep/sleep.h ****  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  17:asf/xmega/drivers/sleep/sleep.h ****  *    this list of conditions and the following disclaimer in the documentation
+  18:asf/xmega/drivers/sleep/sleep.h ****  *    and/or other materials provided with the distribution.
+  19:asf/xmega/drivers/sleep/sleep.h ****  *
+  20:asf/xmega/drivers/sleep/sleep.h ****  * 3. The name of Atmel may not be used to endorse or promote products derived
+  21:asf/xmega/drivers/sleep/sleep.h ****  *    from this software without specific prior written permission.
+  22:asf/xmega/drivers/sleep/sleep.h ****  *
+  23:asf/xmega/drivers/sleep/sleep.h ****  * 4. This software may only be redistributed and used in connection with an
+  24:asf/xmega/drivers/sleep/sleep.h ****  *    Atmel microcontroller product.
+  25:asf/xmega/drivers/sleep/sleep.h ****  *
+  26:asf/xmega/drivers/sleep/sleep.h ****  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+  27:asf/xmega/drivers/sleep/sleep.h ****  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  28:asf/xmega/drivers/sleep/sleep.h ****  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  29:asf/xmega/drivers/sleep/sleep.h ****  * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+  30:asf/xmega/drivers/sleep/sleep.h ****  * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  31:asf/xmega/drivers/sleep/sleep.h ****  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+  32:asf/xmega/drivers/sleep/sleep.h ****  * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  33:asf/xmega/drivers/sleep/sleep.h ****  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  34:asf/xmega/drivers/sleep/sleep.h ****  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  35:asf/xmega/drivers/sleep/sleep.h ****  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  36:asf/xmega/drivers/sleep/sleep.h ****  * POSSIBILITY OF SUCH DAMAGE.
+  37:asf/xmega/drivers/sleep/sleep.h ****  *
+  38:asf/xmega/drivers/sleep/sleep.h ****  * \asf_license_stop
+  39:asf/xmega/drivers/sleep/sleep.h ****  *
+  40:asf/xmega/drivers/sleep/sleep.h ****  */
+  41:asf/xmega/drivers/sleep/sleep.h **** #ifndef SLEEP_H
+  42:asf/xmega/drivers/sleep/sleep.h **** #define SLEEP_H
+  43:asf/xmega/drivers/sleep/sleep.h **** 
+  44:asf/xmega/drivers/sleep/sleep.h **** #include <compiler.h>
+  45:asf/xmega/drivers/sleep/sleep.h **** 
+  46:asf/xmega/drivers/sleep/sleep.h **** /**
+  47:asf/xmega/drivers/sleep/sleep.h ****  * \defgroup sleep_group Sleep controller driver
+  48:asf/xmega/drivers/sleep/sleep.h ****  *
+  49:asf/xmega/drivers/sleep/sleep.h ****  * This is a low-level driver implementation for the AVR XMEGA sleep controller.
+  50:asf/xmega/drivers/sleep/sleep.h ****  *
+  51:asf/xmega/drivers/sleep/sleep.h ****  * \note To minimize the code overhead, these functions do not feature
+  52:asf/xmega/drivers/sleep/sleep.h ****  * interrupt-protected access since they are likely to be called inside
+  53:asf/xmega/drivers/sleep/sleep.h ****  * interrupt handlers or in applications where such protection is not
+  54:asf/xmega/drivers/sleep/sleep.h ****  * necessary. If such protection is needed, it must be ensured by the calling
+  55:asf/xmega/drivers/sleep/sleep.h ****  * code.
+  56:asf/xmega/drivers/sleep/sleep.h ****  *
+  57:asf/xmega/drivers/sleep/sleep.h ****  * \section xmega_sleep_quickstart_section Quick Start Guide
+  58:asf/xmega/drivers/sleep/sleep.h ****  * See \ref xmega_sleep_quickstart
+  59:asf/xmega/drivers/sleep/sleep.h ****  * @{
+  60:asf/xmega/drivers/sleep/sleep.h ****  */
+  61:asf/xmega/drivers/sleep/sleep.h **** 
+  62:asf/xmega/drivers/sleep/sleep.h **** #if defined(__ICCAVR__) || defined(__DOXYGEN__)
+  63:asf/xmega/drivers/sleep/sleep.h **** # include <intrinsics.h>
+  64:asf/xmega/drivers/sleep/sleep.h **** //! Macro for issuing the sleep instruction.
+GAS LISTING /tmp/ccZ4yJy6.s 			page 16
+
+
+  65:asf/xmega/drivers/sleep/sleep.h **** # define sleep_enter() __sleep()
+  66:asf/xmega/drivers/sleep/sleep.h **** 
+  67:asf/xmega/drivers/sleep/sleep.h **** /**
+  68:asf/xmega/drivers/sleep/sleep.h ****  * \brief Enable sleep
+  69:asf/xmega/drivers/sleep/sleep.h ****  */
+  70:asf/xmega/drivers/sleep/sleep.h **** static inline void sleep_enable(void)
+  71:asf/xmega/drivers/sleep/sleep.h **** {
+  72:asf/xmega/drivers/sleep/sleep.h **** 	SLEEP.CTRL |= SLEEP_SEN_bm;
+  73:asf/xmega/drivers/sleep/sleep.h **** }
+  74:asf/xmega/drivers/sleep/sleep.h **** 
+  75:asf/xmega/drivers/sleep/sleep.h **** /**
+  76:asf/xmega/drivers/sleep/sleep.h ****  * \brief Disable sleep
+  77:asf/xmega/drivers/sleep/sleep.h ****  */
+  78:asf/xmega/drivers/sleep/sleep.h **** static inline void sleep_disable(void)
+  79:asf/xmega/drivers/sleep/sleep.h **** {
+  80:asf/xmega/drivers/sleep/sleep.h **** 	SLEEP.CTRL &= ~SLEEP_SEN_bm;
+  81:asf/xmega/drivers/sleep/sleep.h **** }
+  82:asf/xmega/drivers/sleep/sleep.h **** 
+  83:asf/xmega/drivers/sleep/sleep.h **** #elif defined(__GNUC__)
+  84:asf/xmega/drivers/sleep/sleep.h **** # include <avr/sleep.h>
+  85:asf/xmega/drivers/sleep/sleep.h **** # define sleep_enter() sleep_cpu()
+  86:asf/xmega/drivers/sleep/sleep.h **** 
+  87:asf/xmega/drivers/sleep/sleep.h **** #else
+  88:asf/xmega/drivers/sleep/sleep.h **** # error Unsupported compiler.
+  89:asf/xmega/drivers/sleep/sleep.h **** #endif
+  90:asf/xmega/drivers/sleep/sleep.h **** 
+  91:asf/xmega/drivers/sleep/sleep.h **** /**
+  92:asf/xmega/drivers/sleep/sleep.h ****  * \brief Set new sleep mode
+  93:asf/xmega/drivers/sleep/sleep.h ****  *
+  94:asf/xmega/drivers/sleep/sleep.h ****  * \param mode Sleep mode, from the device IO header file.
+  95:asf/xmega/drivers/sleep/sleep.h ****  */
+  96:asf/xmega/drivers/sleep/sleep.h **** static inline void sleep_set_mode(enum SLEEP_SMODE_enum mode)
+  97:asf/xmega/drivers/sleep/sleep.h **** {
+  98:asf/xmega/drivers/sleep/sleep.h **** 	SLEEP.CTRL = mode | (SLEEP.CTRL & ~SLEEP_SMODE_gm);
+ 175               		.loc 5 98 0
+ 176 0068 8091 4800 		lds r24,72
+ 177 006c 817F      		andi r24,lo8(-15)
+ 178 006e E82B      		or r30,r24
+ 179               	.LVL16:
+ 180 0070 E093 4800 		sts 72,r30
+ 181               	.LBE45:
+ 182               	.LBE44:
+  98:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	sleep_enable();
+ 183               		.loc 4 98 0
+ 184 0074 8091 4800 		lds r24,72
+ 185 0078 8160      		ori r24,lo8(1)
+ 186 007a 8093 4800 		sts 72,r24
+  99:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 
+ 100:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	cpu_irq_enable();
+ 187               		.loc 4 100 0
+ 188               	/* #APP */
+ 189               	 ;  100 "asf/common/services/sleepmgr/xmega/sleepmgr.h" 1
+ 190 007e 7894      		sei
+ 191               	 ;  0 "" 2
+ 101:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	sleep_enter();
+ 192               		.loc 4 101 0
+ 193               	 ;  101 "asf/common/services/sleepmgr/xmega/sleepmgr.h" 1
+GAS LISTING /tmp/ccZ4yJy6.s 			page 17
+
+
+ 194 0080 8895      		sleep
+ 195               		
+ 196               	 ;  0 "" 2
+ 102:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 
+ 103:asf/common/services/sleepmgr/xmega/sleepmgr.h **** 	sleep_disable();
+ 197               		.loc 4 103 0
+ 198               	/* #NOAPP */
+ 199 0082 8091 4800 		lds r24,72
+ 200 0086 8E7F      		andi r24,lo8(-2)
+ 201 0088 8093 4800 		sts 72,r24
+ 202 008c 00C0      		rjmp .L13
+ 203               	.LBE42:
+ 204               	.LBE41:
+ 205               	.LBE38:
+ 206               	.LBE37:
+ 207               		.cfi_endproc
+ 208               	.LFE96:
+ 209               		.size	main, .-main
+ 210               		.text
+ 211               	.global	main_suspend_action
+ 212               		.type	main_suspend_action, @function
+ 213               	main_suspend_action:
+ 214               	.LFB98:
+  94:main.c        **** 		// Attach USB Device
+  95:main.c        **** 		udc_attach();
+  96:main.c        **** 	} else {
+  97:main.c        **** 		// VBUS not present
+  98:main.c        **** 		udc_detach();
+  99:main.c        **** 	}
+ 100:main.c        **** }
+ 101:main.c        **** 
+ 102:main.c        **** void main_suspend_action(void)
+ 103:main.c        **** {
+ 215               		.loc 1 103 0
+ 216               		.cfi_startproc
+ 217               	/* prologue: function */
+ 218               	/* frame size = 0 */
+ 219               	/* stack size = 0 */
+ 220               	.L__stack_usage = 0
+ 104:main.c        **** 	ui_powerdown();
+ 221               		.loc 1 104 0
+ 222 0010 0E94 0000 		call ui_powerdown
+ 223               	/* epilogue start */
+ 105:main.c        **** }
+ 224               		.loc 1 105 0
+ 225 0014 0895      		ret
+ 226               		.cfi_endproc
+ 227               	.LFE98:
+ 228               		.size	main_suspend_action, .-main_suspend_action
+ 229               	.global	main_resume_action
+ 230               		.type	main_resume_action, @function
+ 231               	main_resume_action:
+ 232               	.LFB99:
+ 106:main.c        **** 
+ 107:main.c        **** void main_resume_action(void)
+ 108:main.c        **** {
+ 233               		.loc 1 108 0
+GAS LISTING /tmp/ccZ4yJy6.s 			page 18
+
+
+ 234               		.cfi_startproc
+ 235               	/* prologue: function */
+ 236               	/* frame size = 0 */
+ 237               	/* stack size = 0 */
+ 238               	.L__stack_usage = 0
+ 109:main.c        **** 	ui_wakeup();
+ 239               		.loc 1 109 0
+ 240 0016 0E94 0000 		call ui_wakeup
+ 241               	/* epilogue start */
+ 110:main.c        **** }
+ 242               		.loc 1 110 0
+ 243 001a 0895      		ret
+ 244               		.cfi_endproc
+ 245               	.LFE99:
+ 246               		.size	main_resume_action, .-main_resume_action
+ 247               	.global	main_sof_action
+ 248               		.type	main_sof_action, @function
+ 249               	main_sof_action:
+ 250               	.LFB100:
+ 111:main.c        **** 
+ 112:main.c        **** void main_sof_action(void)
+ 113:main.c        **** {
+ 251               		.loc 1 113 0
+ 252               		.cfi_startproc
+ 253               	/* prologue: function */
+ 254               	/* frame size = 0 */
+ 255               	/* stack size = 0 */
+ 256               	.L__stack_usage = 0
+ 114:main.c        **** 	if (!main_b_cdc_enable)
+ 257               		.loc 1 114 0
+ 258 001c 8091 0000 		lds r24,main_b_cdc_enable
+ 259 0020 8823      		tst r24
+ 260 0022 01F0      		breq .L16
+ 115:main.c        **** 		return;
+ 116:main.c        **** 	ui_process(udd_get_frame_number());
+ 261               		.loc 1 116 0
+ 262 0024 0E94 0000 		call udd_get_frame_number
+ 263 0028 0E94 0000 		call ui_process
+ 264               	.L16:
+ 265 002c 0895      		ret
+ 266               		.cfi_endproc
+ 267               	.LFE100:
+ 268               		.size	main_sof_action, .-main_sof_action
+ 269               	.global	main_cdc_enable
+ 270               		.type	main_cdc_enable, @function
+ 271               	main_cdc_enable:
+ 272               	.LFB101:
+ 117:main.c        **** }
+ 118:main.c        **** 
+ 119:main.c        **** bool main_cdc_enable(void)
+ 120:main.c        **** {
+ 273               		.loc 1 120 0
+ 274               		.cfi_startproc
+ 275               	/* prologue: function */
+ 276               	/* frame size = 0 */
+ 277               	/* stack size = 0 */
+ 278               	.L__stack_usage = 0
+GAS LISTING /tmp/ccZ4yJy6.s 			page 19
+
+
+ 121:main.c        **** 	main_b_cdc_enable = true;
+ 279               		.loc 1 121 0
+ 280 002e 81E0      		ldi r24,lo8(1)
+ 281 0030 8093 0000 		sts main_b_cdc_enable,r24
+ 122:main.c        **** 	// Open communication
+ 123:main.c        **** 	uart_open();
+ 282               		.loc 1 123 0
+ 283 0034 0E94 0000 		call uart_open
+ 124:main.c        **** 	return true;
+ 125:main.c        **** }
+ 284               		.loc 1 125 0
+ 285 0038 81E0      		ldi r24,lo8(1)
+ 286               	/* epilogue start */
+ 287 003a 0895      		ret
+ 288               		.cfi_endproc
+ 289               	.LFE101:
+ 290               		.size	main_cdc_enable, .-main_cdc_enable
+ 291               	.global	main_cdc_disable
+ 292               		.type	main_cdc_disable, @function
+ 293               	main_cdc_disable:
+ 294               	.LFB102:
+ 126:main.c        **** 
+ 127:main.c        **** void main_cdc_disable(void)
+ 128:main.c        **** {
+ 295               		.loc 1 128 0
+ 296               		.cfi_startproc
+ 297               	/* prologue: function */
+ 298               	/* frame size = 0 */
+ 299               	/* stack size = 0 */
+ 300               	.L__stack_usage = 0
+ 129:main.c        **** 	main_b_cdc_enable = false;
+ 301               		.loc 1 129 0
+ 302 003c 1092 0000 		sts main_b_cdc_enable,__zero_reg__
+ 130:main.c        **** 	// Close communication
+ 131:main.c        **** 	uart_close();
+ 303               		.loc 1 131 0
+ 304 0040 0E94 0000 		call uart_close
+ 305               	/* epilogue start */
+ 132:main.c        **** }
+ 306               		.loc 1 132 0
+ 307 0044 0895      		ret
+ 308               		.cfi_endproc
+ 309               	.LFE102:
+ 310               		.size	main_cdc_disable, .-main_cdc_disable
+ 311               	.global	main_cdc_set_dtr
+ 312               		.type	main_cdc_set_dtr, @function
+ 313               	main_cdc_set_dtr:
+ 314               	.LFB103:
+ 133:main.c        **** 
+ 134:main.c        **** void main_cdc_set_dtr(bool b_enable)
+ 135:main.c        **** {
+ 315               		.loc 1 135 0
+ 316               		.cfi_startproc
+ 317               	.LVL17:
+ 318               	/* prologue: function */
+ 319               	/* frame size = 0 */
+ 320               	/* stack size = 0 */
+GAS LISTING /tmp/ccZ4yJy6.s 			page 20
+
+
+ 321               	.L__stack_usage = 0
+ 136:main.c        **** 	if (b_enable) {
+ 322               		.loc 1 136 0
+ 323 0046 8823      		tst r24
+ 324 0048 01F0      		breq .L21
+ 137:main.c        **** 		// Host terminal has open COM
+ 138:main.c        **** 		ui_com_open();
+ 325               		.loc 1 138 0
+ 326 004a 0E94 0000 		call ui_com_open
+ 327               	.LVL18:
+ 328 004e 0895      		ret
+ 329               	.LVL19:
+ 330               	.L21:
+ 139:main.c        **** 	}else{
+ 140:main.c        **** 		// Host terminal has close COM
+ 141:main.c        **** 		ui_com_close();
+ 331               		.loc 1 141 0
+ 332 0050 0E94 0000 		call ui_com_close
+ 333               	.LVL20:
+ 334 0054 0895      		ret
+ 335               		.cfi_endproc
+ 336               	.LFE103:
+ 337               		.size	main_cdc_set_dtr, .-main_cdc_set_dtr
+ 338               		.lcomm main_b_cdc_enable,1
+ 339               	.Letext0:
+ 340               		.file 6 "/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.
+ 341               		.file 7 "/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.
+ 342               		.section	.debug_info,"",@progbits
+ 343               	.Ldebug_info0:
+ 344 0000 9504 0000 		.long	0x495
+ 345 0004 0200      		.word	0x2
+ 346 0006 0000 0000 		.long	.Ldebug_abbrev0
+ 347 000a 04        		.byte	0x4
+ 348 000b 01        		.uleb128 0x1
+ 349 000c 0000 0000 		.long	.LASF60
+ 350 0010 01        		.byte	0x1
+ 351 0011 0000 0000 		.long	.LASF61
+ 352 0015 0000 0000 		.long	.LASF62
+ 353 0019 0000 0000 		.long	0
+ 354 001d 0000 0000 		.long	0
+ 355 0021 0000 0000 		.long	.Ldebug_ranges0+0
+ 356 0025 0000 0000 		.long	.Ldebug_line0
+ 357 0029 02        		.uleb128 0x2
+ 358 002a 01        		.byte	0x1
+ 359 002b 06        		.byte	0x6
+ 360 002c 0000 0000 		.long	.LASF0
+ 361 0030 03        		.uleb128 0x3
+ 362 0031 0000 0000 		.long	.LASF2
+ 363 0035 06        		.byte	0x6
+ 364 0036 7A        		.byte	0x7a
+ 365 0037 3B00 0000 		.long	0x3b
+ 366 003b 02        		.uleb128 0x2
+ 367 003c 01        		.byte	0x1
+ 368 003d 08        		.byte	0x8
+ 369 003e 0000 0000 		.long	.LASF1
+ 370 0042 04        		.uleb128 0x4
+ 371 0043 02        		.byte	0x2
+GAS LISTING /tmp/ccZ4yJy6.s 			page 21
+
+
+ 372 0044 05        		.byte	0x5
+ 373 0045 696E 7400 		.string	"int"
+ 374 0049 03        		.uleb128 0x3
+ 375 004a 0000 0000 		.long	.LASF3
+ 376 004e 06        		.byte	0x6
+ 377 004f 7C        		.byte	0x7c
+ 378 0050 5400 0000 		.long	0x54
+ 379 0054 02        		.uleb128 0x2
+ 380 0055 02        		.byte	0x2
+ 381 0056 07        		.byte	0x7
+ 382 0057 0000 0000 		.long	.LASF4
+ 383 005b 02        		.uleb128 0x2
+ 384 005c 04        		.byte	0x4
+ 385 005d 05        		.byte	0x5
+ 386 005e 0000 0000 		.long	.LASF5
+ 387 0062 02        		.uleb128 0x2
+ 388 0063 04        		.byte	0x4
+ 389 0064 07        		.byte	0x7
+ 390 0065 0000 0000 		.long	.LASF6
+ 391 0069 02        		.uleb128 0x2
+ 392 006a 08        		.byte	0x8
+ 393 006b 05        		.byte	0x5
+ 394 006c 0000 0000 		.long	.LASF7
+ 395 0070 02        		.uleb128 0x2
+ 396 0071 08        		.byte	0x8
+ 397 0072 07        		.byte	0x7
+ 398 0073 0000 0000 		.long	.LASF8
+ 399 0077 05        		.uleb128 0x5
+ 400 0078 3B00 0000 		.long	0x3b
+ 401 007c 06        		.uleb128 0x6
+ 402 007d 0000 0000 		.long	.LASF20
+ 403 0081 01        		.byte	0x1
+ 404 0082 07        		.byte	0x7
+ 405 0083 FD        		.byte	0xfd
+ 406 0084 9700 0000 		.long	0x97
+ 407 0088 07        		.uleb128 0x7
+ 408 0089 0000 0000 		.long	.LASF22
+ 409 008d 07        		.byte	0x7
+ 410 008e FF        		.byte	0xff
+ 411 008f 7700 0000 		.long	0x77
+ 412 0093 02        		.byte	0x2
+ 413 0094 23        		.byte	0x23
+ 414 0095 00        		.uleb128 0
+ 415 0096 00        		.byte	0
+ 416 0097 08        		.uleb128 0x8
+ 417 0098 0000 0000 		.long	.LASF9
+ 418 009c 07        		.byte	0x7
+ 419 009d 0001      		.word	0x100
+ 420 009f 7C00 0000 		.long	0x7c
+ 421 00a3 09        		.uleb128 0x9
+ 422 00a4 0000 0000 		.long	.LASF15
+ 423 00a8 01        		.byte	0x1
+ 424 00a9 07        		.byte	0x7
+ 425 00aa 0301      		.word	0x103
+ 426 00ac CF00 0000 		.long	0xcf
+ 427 00b0 0A        		.uleb128 0xa
+ 428 00b1 0000 0000 		.long	.LASF10
+GAS LISTING /tmp/ccZ4yJy6.s 			page 22
+
+
+ 429 00b5 00        		.sleb128 0
+ 430 00b6 0A        		.uleb128 0xa
+ 431 00b7 0000 0000 		.long	.LASF11
+ 432 00bb 04        		.sleb128 4
+ 433 00bc 0A        		.uleb128 0xa
+ 434 00bd 0000 0000 		.long	.LASF12
+ 435 00c1 06        		.sleb128 6
+ 436 00c2 0A        		.uleb128 0xa
+ 437 00c3 0000 0000 		.long	.LASF13
+ 438 00c7 0C        		.sleb128 12
+ 439 00c8 0A        		.uleb128 0xa
+ 440 00c9 0000 0000 		.long	.LASF14
+ 441 00cd 0E        		.sleb128 14
+ 442 00ce 00        		.byte	0
+ 443 00cf 09        		.uleb128 0x9
+ 444 00d0 0000 0000 		.long	.LASF16
+ 445 00d4 01        		.byte	0x1
+ 446 00d5 07        		.byte	0x7
+ 447 00d6 3301      		.word	0x133
+ 448 00d8 F100 0000 		.long	0xf1
+ 449 00dc 0A        		.uleb128 0xa
+ 450 00dd 0000 0000 		.long	.LASF17
+ 451 00e1 00        		.sleb128 0
+ 452 00e2 0A        		.uleb128 0xa
+ 453 00e3 0000 0000 		.long	.LASF18
+ 454 00e7 8001      		.sleb128 128
+ 455 00e9 0A        		.uleb128 0xa
+ 456 00ea 0000 0000 		.long	.LASF19
+ 457 00ee C001      		.sleb128 192
+ 458 00f0 00        		.byte	0
+ 459 00f1 0B        		.uleb128 0xb
+ 460 00f2 0000 0000 		.long	.LASF21
+ 461 00f6 03        		.byte	0x3
+ 462 00f7 07        		.byte	0x7
+ 463 00f8 AB01      		.word	0x1ab
+ 464 00fa 2C01 0000 		.long	0x12c
+ 465 00fe 0C        		.uleb128 0xc
+ 466 00ff 0000 0000 		.long	.LASF23
+ 467 0103 07        		.byte	0x7
+ 468 0104 AD01      		.word	0x1ad
+ 469 0106 7700 0000 		.long	0x77
+ 470 010a 02        		.byte	0x2
+ 471 010b 23        		.byte	0x23
+ 472 010c 00        		.uleb128 0
+ 473 010d 0C        		.uleb128 0xc
+ 474 010e 0000 0000 		.long	.LASF24
+ 475 0112 07        		.byte	0x7
+ 476 0113 AE01      		.word	0x1ae
+ 477 0115 7700 0000 		.long	0x77
+ 478 0119 02        		.byte	0x2
+ 479 011a 23        		.byte	0x23
+ 480 011b 01        		.uleb128 0x1
+ 481 011c 0C        		.uleb128 0xc
+ 482 011d 0000 0000 		.long	.LASF22
+ 483 0121 07        		.byte	0x7
+ 484 0122 AF01      		.word	0x1af
+ 485 0124 7700 0000 		.long	0x77
+GAS LISTING /tmp/ccZ4yJy6.s 			page 23
+
+
+ 486 0128 02        		.byte	0x2
+ 487 0129 23        		.byte	0x23
+ 488 012a 02        		.uleb128 0x2
+ 489 012b 00        		.byte	0
+ 490 012c 08        		.uleb128 0x8
+ 491 012d 0000 0000 		.long	.LASF25
+ 492 0131 07        		.byte	0x7
+ 493 0132 B001      		.word	0x1b0
+ 494 0134 F100 0000 		.long	0xf1
+ 495 0138 02        		.uleb128 0x2
+ 496 0139 02        		.byte	0x2
+ 497 013a 05        		.byte	0x5
+ 498 013b 0000 0000 		.long	.LASF26
+ 499 013f 02        		.uleb128 0x2
+ 500 0140 02        		.byte	0x2
+ 501 0141 07        		.byte	0x7
+ 502 0142 0000 0000 		.long	.LASF27
+ 503 0146 02        		.uleb128 0x2
+ 504 0147 04        		.byte	0x4
+ 505 0148 04        		.byte	0x4
+ 506 0149 0000 0000 		.long	.LASF28
+ 507 014d 02        		.uleb128 0x2
+ 508 014e 04        		.byte	0x4
+ 509 014f 04        		.byte	0x4
+ 510 0150 0000 0000 		.long	.LASF29
+ 511 0154 0D        		.uleb128 0xd
+ 512 0155 0000 0000 		.long	.LASF30
+ 513 0159 01        		.byte	0x1
+ 514 015a 04        		.byte	0x4
+ 515 015b 39        		.byte	0x39
+ 516 015c 8B01 0000 		.long	0x18b
+ 517 0160 0A        		.uleb128 0xa
+ 518 0161 0000 0000 		.long	.LASF31
+ 519 0165 00        		.sleb128 0
+ 520 0166 0A        		.uleb128 0xa
+ 521 0167 0000 0000 		.long	.LASF32
+ 522 016b 01        		.sleb128 1
+ 523 016c 0A        		.uleb128 0xa
+ 524 016d 0000 0000 		.long	.LASF33
+ 525 0171 02        		.sleb128 2
+ 526 0172 0A        		.uleb128 0xa
+ 527 0173 0000 0000 		.long	.LASF34
+ 528 0177 03        		.sleb128 3
+ 529 0178 0A        		.uleb128 0xa
+ 530 0179 0000 0000 		.long	.LASF35
+ 531 017d 04        		.sleb128 4
+ 532 017e 0A        		.uleb128 0xa
+ 533 017f 0000 0000 		.long	.LASF36
+ 534 0183 05        		.sleb128 5
+ 535 0184 0A        		.uleb128 0xa
+ 536 0185 0000 0000 		.long	.LASF37
+ 537 0189 06        		.sleb128 6
+ 538 018a 00        		.byte	0
+ 539 018b 02        		.uleb128 0x2
+ 540 018c 01        		.byte	0x1
+ 541 018d 02        		.byte	0x2
+ 542 018e 0000 0000 		.long	.LASF38
+GAS LISTING /tmp/ccZ4yJy6.s 			page 24
+
+
+ 543 0192 0E        		.uleb128 0xe
+ 544 0193 02        		.byte	0x2
+ 545 0194 3000 0000 		.long	0x30
+ 546 0198 0F        		.uleb128 0xf
+ 547 0199 0000 0000 		.long	.LASF41
+ 548 019d 05        		.byte	0x5
+ 549 019e 60        		.byte	0x60
+ 550 019f 01        		.byte	0x1
+ 551 01a0 03        		.byte	0x3
+ 552 01a1 B101 0000 		.long	0x1b1
+ 553 01a5 10        		.uleb128 0x10
+ 554 01a6 0000 0000 		.long	.LASF43
+ 555 01aa 05        		.byte	0x5
+ 556 01ab 60        		.byte	0x60
+ 557 01ac A300 0000 		.long	0xa3
+ 558 01b0 00        		.byte	0
+ 559 01b1 11        		.uleb128 0x11
+ 560 01b2 0000 0000 		.long	.LASF63
+ 561 01b6 03        		.byte	0x3
+ 562 01b7 B2        		.byte	0xb2
+ 563 01b8 01        		.byte	0x1
+ 564 01b9 5401 0000 		.long	0x154
+ 565 01bd 03        		.byte	0x3
+ 566 01be D901 0000 		.long	0x1d9
+ 567 01c2 12        		.uleb128 0x12
+ 568 01c3 0000 0000 		.long	.LASF39
+ 569 01c7 03        		.byte	0x3
+ 570 01c8 B4        		.byte	0xb4
+ 571 01c9 5401 0000 		.long	0x154
+ 572 01cd 12        		.uleb128 0x12
+ 573 01ce 0000 0000 		.long	.LASF40
+ 574 01d2 03        		.byte	0x3
+ 575 01d3 B7        		.byte	0xb7
+ 576 01d4 9201 0000 		.long	0x192
+ 577 01d8 00        		.byte	0
+ 578 01d9 0F        		.uleb128 0xf
+ 579 01da 0000 0000 		.long	.LASF42
+ 580 01de 04        		.byte	0x4
+ 581 01df 5D        		.byte	0x5d
+ 582 01e0 01        		.byte	0x1
+ 583 01e1 03        		.byte	0x3
+ 584 01e2 0A02 0000 		.long	0x20a
+ 585 01e6 10        		.uleb128 0x10
+ 586 01e7 0000 0000 		.long	.LASF39
+ 587 01eb 04        		.byte	0x4
+ 588 01ec 5D        		.byte	0x5d
+ 589 01ed 0A02 0000 		.long	0x20a
+ 590 01f1 13        		.uleb128 0x13
+ 591 01f2 12        		.uleb128 0x12
+ 592 01f3 0000 0000 		.long	.LASF44
+ 593 01f7 04        		.byte	0x4
+ 594 01f8 61        		.byte	0x61
+ 595 01f9 4900 0000 		.long	0x49
+ 596 01fd 12        		.uleb128 0x12
+ 597 01fe 0000 0000 		.long	.LASF45
+ 598 0202 04        		.byte	0x4
+ 599 0203 61        		.byte	0x61
+GAS LISTING /tmp/ccZ4yJy6.s 			page 25
+
+
+ 600 0204 3000 0000 		.long	0x30
+ 601 0208 00        		.byte	0
+ 602 0209 00        		.byte	0
+ 603 020a 14        		.uleb128 0x14
+ 604 020b 5401 0000 		.long	0x154
+ 605 020f 15        		.uleb128 0x15
+ 606 0210 0000 0000 		.long	.LASF46
+ 607 0214 02        		.byte	0x2
+ 608 0215 B0        		.byte	0xb0
+ 609 0216 01        		.byte	0x1
+ 610 0217 03        		.byte	0x3
+ 611 0218 15        		.uleb128 0x15
+ 612 0219 0000 0000 		.long	.LASF47
+ 613 021d 02        		.byte	0x2
+ 614 021e BB        		.byte	0xbb
+ 615 021f 01        		.byte	0x1
+ 616 0220 03        		.byte	0x3
+ 617 0221 0F        		.uleb128 0xf
+ 618 0222 0000 0000 		.long	.LASF48
+ 619 0226 03        		.byte	0x3
+ 620 0227 6D        		.byte	0x6d
+ 621 0228 01        		.byte	0x1
+ 622 0229 03        		.byte	0x3
+ 623 022a 3802 0000 		.long	0x238
+ 624 022e 16        		.uleb128 0x16
+ 625 022f 6900      		.string	"i"
+ 626 0231 03        		.byte	0x3
+ 627 0232 70        		.byte	0x70
+ 628 0233 3000 0000 		.long	0x30
+ 629 0237 00        		.byte	0
+ 630 0238 17        		.uleb128 0x17
+ 631 0239 0000 0000 		.long	.LASF64
+ 632 023d 02        		.byte	0x2
+ 633 023e 9C        		.byte	0x9c
+ 634 023f 01        		.byte	0x1
+ 635 0240 8B01 0000 		.long	0x18b
+ 636 0244 03        		.byte	0x3
+ 637 0245 0F        		.uleb128 0xf
+ 638 0246 0000 0000 		.long	.LASF49
+ 639 024a 03        		.byte	0x3
+ 640 024b D5        		.byte	0xd5
+ 641 024c 01        		.byte	0x1
+ 642 024d 03        		.byte	0x3
+ 643 024e 5E02 0000 		.long	0x25e
+ 644 0252 12        		.uleb128 0x12
+ 645 0253 0000 0000 		.long	.LASF39
+ 646 0257 03        		.byte	0x3
+ 647 0258 D8        		.byte	0xd8
+ 648 0259 5401 0000 		.long	0x154
+ 649 025d 00        		.byte	0
+ 650 025e 18        		.uleb128 0x18
+ 651 025f 01        		.byte	0x1
+ 652 0260 0000 0000 		.long	.LASF54
+ 653 0264 01        		.byte	0x1
+ 654 0265 5B        		.byte	0x5b
+ 655 0266 01        		.byte	0x1
+ 656 0267 0000 0000 		.long	.LFB97
+GAS LISTING /tmp/ccZ4yJy6.s 			page 26
+
+
+ 657 026b 0000 0000 		.long	.LFE97
+ 658 026f 03        		.byte	0x3
+ 659 0270 92        		.byte	0x92
+ 660 0271 20        		.uleb128 0x20
+ 661 0272 02        		.sleb128 2
+ 662 0273 A502 0000 		.long	0x2a5
+ 663 0277 19        		.uleb128 0x19
+ 664 0278 0000 0000 		.long	.LASF56
+ 665 027c 01        		.byte	0x1
+ 666 027d 5B        		.byte	0x5b
+ 667 027e 8B01 0000 		.long	0x18b
+ 668 0282 0000 0000 		.long	.LLST0
+ 669 0286 1A        		.uleb128 0x1a
+ 670 0287 0F02 0000 		.long	0x20f
+ 671 028b 0000 0000 		.long	.LBB29
+ 672 028f 0000 0000 		.long	.LBE29
+ 673 0293 01        		.byte	0x1
+ 674 0294 5F        		.byte	0x5f
+ 675 0295 1A        		.uleb128 0x1a
+ 676 0296 1802 0000 		.long	0x218
+ 677 029a 0000 0000 		.long	.LBB31
+ 678 029e 0000 0000 		.long	.LBE31
+ 679 02a2 01        		.byte	0x1
+ 680 02a3 62        		.byte	0x62
+ 681 02a4 00        		.byte	0
+ 682 02a5 1B        		.uleb128 0x1b
+ 683 02a6 01        		.byte	0x1
+ 684 02a7 0000 0000 		.long	.LASF65
+ 685 02ab 01        		.byte	0x1
+ 686 02ac 3F        		.byte	0x3f
+ 687 02ad 01        		.byte	0x1
+ 688 02ae 4200 0000 		.long	0x42
+ 689 02b2 0000 0000 		.long	.LFB96
+ 690 02b6 0000 0000 		.long	.LFE96
+ 691 02ba 03        		.byte	0x3
+ 692 02bb 92        		.byte	0x92
+ 693 02bc 20        		.uleb128 0x20
+ 694 02bd 02        		.sleb128 2
+ 695 02be 9803 0000 		.long	0x398
+ 696 02c2 1C        		.uleb128 0x1c
+ 697 02c3 2102 0000 		.long	0x221
+ 698 02c7 0000 0000 		.long	.LBB33
+ 699 02cb 0000 0000 		.long	.LBE33
+ 700 02cf 01        		.byte	0x1
+ 701 02d0 45        		.byte	0x45
+ 702 02d1 E902 0000 		.long	0x2e9
+ 703 02d5 1D        		.uleb128 0x1d
+ 704 02d6 0000 0000 		.long	.LBB34
+ 705 02da 0000 0000 		.long	.LBE34
+ 706 02de 1E        		.uleb128 0x1e
+ 707 02df 2E02 0000 		.long	0x22e
+ 708 02e3 0000 0000 		.long	.LLST1
+ 709 02e7 00        		.byte	0
+ 710 02e8 00        		.byte	0
+ 711 02e9 1A        		.uleb128 0x1a
+ 712 02ea 3802 0000 		.long	0x238
+ 713 02ee 0000 0000 		.long	.LBB35
+GAS LISTING /tmp/ccZ4yJy6.s 			page 27
+
+
+ 714 02f2 0000 0000 		.long	.LBE35
+ 715 02f6 01        		.byte	0x1
+ 716 02f7 4F        		.byte	0x4f
+ 717 02f8 1F        		.uleb128 0x1f
+ 718 02f9 4502 0000 		.long	0x245
+ 719 02fd 0000 0000 		.long	.LBB37
+ 720 0301 0000 0000 		.long	.LBE37
+ 721 0305 01        		.byte	0x1
+ 722 0306 57        		.byte	0x57
+ 723 0307 1D        		.uleb128 0x1d
+ 724 0308 0000 0000 		.long	.LBB38
+ 725 030c 0000 0000 		.long	.LBE38
+ 726 0310 20        		.uleb128 0x20
+ 727 0311 5202 0000 		.long	0x252
+ 728 0315 01        		.byte	0x1
+ 729 0316 6E        		.byte	0x6e
+ 730 0317 1C        		.uleb128 0x1c
+ 731 0318 B101 0000 		.long	0x1b1
+ 732 031c 0000 0000 		.long	.LBB39
+ 733 0320 0000 0000 		.long	.LBE39
+ 734 0324 03        		.byte	0x3
+ 735 0325 DD        		.byte	0xdd
+ 736 0326 4303 0000 		.long	0x343
+ 737 032a 1D        		.uleb128 0x1d
+ 738 032b 0000 0000 		.long	.LBB40
+ 739 032f 0000 0000 		.long	.LBE40
+ 740 0333 21        		.uleb128 0x21
+ 741 0334 CD01 0000 		.long	0x1cd
+ 742 0338 1E        		.uleb128 0x1e
+ 743 0339 C201 0000 		.long	0x1c2
+ 744 033d 0000 0000 		.long	.LLST2
+ 745 0341 00        		.byte	0
+ 746 0342 00        		.byte	0
+ 747 0343 1F        		.uleb128 0x1f
+ 748 0344 D901 0000 		.long	0x1d9
+ 749 0348 0000 0000 		.long	.LBB41
+ 750 034c 0000 0000 		.long	.LBE41
+ 751 0350 03        		.byte	0x3
+ 752 0351 E4        		.byte	0xe4
+ 753 0352 22        		.uleb128 0x22
+ 754 0353 E601 0000 		.long	0x1e6
+ 755 0357 0000 0000 		.long	.LLST3
+ 756 035b 23        		.uleb128 0x23
+ 757 035c 0000 0000 		.long	.LBB43
+ 758 0360 0000 0000 		.long	.LBE43
+ 759 0364 7B03 0000 		.long	0x37b
+ 760 0368 1E        		.uleb128 0x1e
+ 761 0369 F201 0000 		.long	0x1f2
+ 762 036d 0000 0000 		.long	.LLST4
+ 763 0371 1E        		.uleb128 0x1e
+ 764 0372 FD01 0000 		.long	0x1fd
+ 765 0376 0000 0000 		.long	.LLST5
+ 766 037a 00        		.byte	0
+ 767 037b 1F        		.uleb128 0x1f
+ 768 037c 9801 0000 		.long	0x198
+ 769 0380 0000 0000 		.long	.LBB44
+ 770 0384 0000 0000 		.long	.LBE44
+GAS LISTING /tmp/ccZ4yJy6.s 			page 28
+
+
+ 771 0388 04        		.byte	0x4
+ 772 0389 61        		.byte	0x61
+ 773 038a 22        		.uleb128 0x22
+ 774 038b A501 0000 		.long	0x1a5
+ 775 038f 0000 0000 		.long	.LLST5
+ 776 0393 00        		.byte	0
+ 777 0394 00        		.byte	0
+ 778 0395 00        		.byte	0
+ 779 0396 00        		.byte	0
+ 780 0397 00        		.byte	0
+ 781 0398 24        		.uleb128 0x24
+ 782 0399 01        		.byte	0x1
+ 783 039a 0000 0000 		.long	.LASF50
+ 784 039e 01        		.byte	0x1
+ 785 039f 66        		.byte	0x66
+ 786 03a0 01        		.byte	0x1
+ 787 03a1 0000 0000 		.long	.LFB98
+ 788 03a5 0000 0000 		.long	.LFE98
+ 789 03a9 03        		.byte	0x3
+ 790 03aa 92        		.byte	0x92
+ 791 03ab 20        		.uleb128 0x20
+ 792 03ac 02        		.sleb128 2
+ 793 03ad 24        		.uleb128 0x24
+ 794 03ae 01        		.byte	0x1
+ 795 03af 0000 0000 		.long	.LASF51
+ 796 03b3 01        		.byte	0x1
+ 797 03b4 6B        		.byte	0x6b
+ 798 03b5 01        		.byte	0x1
+ 799 03b6 0000 0000 		.long	.LFB99
+ 800 03ba 0000 0000 		.long	.LFE99
+ 801 03be 03        		.byte	0x3
+ 802 03bf 92        		.byte	0x92
+ 803 03c0 20        		.uleb128 0x20
+ 804 03c1 02        		.sleb128 2
+ 805 03c2 24        		.uleb128 0x24
+ 806 03c3 01        		.byte	0x1
+ 807 03c4 0000 0000 		.long	.LASF52
+ 808 03c8 01        		.byte	0x1
+ 809 03c9 70        		.byte	0x70
+ 810 03ca 01        		.byte	0x1
+ 811 03cb 0000 0000 		.long	.LFB100
+ 812 03cf 0000 0000 		.long	.LFE100
+ 813 03d3 03        		.byte	0x3
+ 814 03d4 92        		.byte	0x92
+ 815 03d5 20        		.uleb128 0x20
+ 816 03d6 02        		.sleb128 2
+ 817 03d7 25        		.uleb128 0x25
+ 818 03d8 01        		.byte	0x1
+ 819 03d9 0000 0000 		.long	.LASF66
+ 820 03dd 01        		.byte	0x1
+ 821 03de 77        		.byte	0x77
+ 822 03df 01        		.byte	0x1
+ 823 03e0 8B01 0000 		.long	0x18b
+ 824 03e4 0000 0000 		.long	.LFB101
+ 825 03e8 0000 0000 		.long	.LFE101
+ 826 03ec 03        		.byte	0x3
+ 827 03ed 92        		.byte	0x92
+GAS LISTING /tmp/ccZ4yJy6.s 			page 29
+
+
+ 828 03ee 20        		.uleb128 0x20
+ 829 03ef 02        		.sleb128 2
+ 830 03f0 24        		.uleb128 0x24
+ 831 03f1 01        		.byte	0x1
+ 832 03f2 0000 0000 		.long	.LASF53
+ 833 03f6 01        		.byte	0x1
+ 834 03f7 7F        		.byte	0x7f
+ 835 03f8 01        		.byte	0x1
+ 836 03f9 0000 0000 		.long	.LFB102
+ 837 03fd 0000 0000 		.long	.LFE102
+ 838 0401 03        		.byte	0x3
+ 839 0402 92        		.byte	0x92
+ 840 0403 20        		.uleb128 0x20
+ 841 0404 02        		.sleb128 2
+ 842 0405 18        		.uleb128 0x18
+ 843 0406 01        		.byte	0x1
+ 844 0407 0000 0000 		.long	.LASF55
+ 845 040b 01        		.byte	0x1
+ 846 040c 86        		.byte	0x86
+ 847 040d 01        		.byte	0x1
+ 848 040e 0000 0000 		.long	.LFB103
+ 849 0412 0000 0000 		.long	.LFE103
+ 850 0416 03        		.byte	0x3
+ 851 0417 92        		.byte	0x92
+ 852 0418 20        		.uleb128 0x20
+ 853 0419 02        		.sleb128 2
+ 854 041a 2E04 0000 		.long	0x42e
+ 855 041e 19        		.uleb128 0x19
+ 856 041f 0000 0000 		.long	.LASF57
+ 857 0423 01        		.byte	0x1
+ 858 0424 86        		.byte	0x86
+ 859 0425 8B01 0000 		.long	0x18b
+ 860 0429 0000 0000 		.long	.LLST7
+ 861 042d 00        		.byte	0
+ 862 042e 26        		.uleb128 0x26
+ 863 042f 3000 0000 		.long	0x30
+ 864 0433 3904 0000 		.long	0x439
+ 865 0437 27        		.uleb128 0x27
+ 866 0438 00        		.byte	0
+ 867 0439 28        		.uleb128 0x28
+ 868 043a 0000 0000 		.long	.LASF58
+ 869 043e 04        		.byte	0x4
+ 870 043f 50        		.byte	0x50
+ 871 0440 2E04 0000 		.long	0x42e
+ 872 0444 01        		.byte	0x1
+ 873 0445 01        		.byte	0x1
+ 874 0446 26        		.uleb128 0x26
+ 875 0447 A300 0000 		.long	0xa3
+ 876 044b 5104 0000 		.long	0x451
+ 877 044f 27        		.uleb128 0x27
+ 878 0450 00        		.byte	0
+ 879 0451 28        		.uleb128 0x28
+ 880 0452 0000 0000 		.long	.LASF59
+ 881 0456 04        		.byte	0x4
+ 882 0457 52        		.byte	0x52
+ 883 0458 5E04 0000 		.long	0x45e
+ 884 045c 01        		.byte	0x1
+GAS LISTING /tmp/ccZ4yJy6.s 			page 30
+
+
+ 885 045d 01        		.byte	0x1
+ 886 045e 14        		.uleb128 0x14
+ 887 045f 4604 0000 		.long	0x446
+ 888 0463 29        		.uleb128 0x29
+ 889 0464 0000 0000 		.long	.LASF67
+ 890 0468 01        		.byte	0x1
+ 891 0469 3B        		.byte	0x3b
+ 892 046a 7404 0000 		.long	0x474
+ 893 046e 05        		.byte	0x5
+ 894 046f 03        		.byte	0x3
+ 895 0470 0000 0000 		.long	main_b_cdc_enable
+ 896 0474 05        		.uleb128 0x5
+ 897 0475 8B01 0000 		.long	0x18b
+ 898 0479 28        		.uleb128 0x28
+ 899 047a 0000 0000 		.long	.LASF58
+ 900 047e 04        		.byte	0x4
+ 901 047f 50        		.byte	0x50
+ 902 0480 2E04 0000 		.long	0x42e
+ 903 0484 01        		.byte	0x1
+ 904 0485 01        		.byte	0x1
+ 905 0486 28        		.uleb128 0x28
+ 906 0487 0000 0000 		.long	.LASF59
+ 907 048b 04        		.byte	0x4
+ 908 048c 52        		.byte	0x52
+ 909 048d 9304 0000 		.long	0x493
+ 910 0491 01        		.byte	0x1
+ 911 0492 01        		.byte	0x1
+ 912 0493 14        		.uleb128 0x14
+ 913 0494 4604 0000 		.long	0x446
+ 914 0498 00        		.byte	0
+ 915               		.section	.debug_abbrev,"",@progbits
+ 916               	.Ldebug_abbrev0:
+ 917 0000 01        		.uleb128 0x1
+ 918 0001 11        		.uleb128 0x11
+ 919 0002 01        		.byte	0x1
+ 920 0003 25        		.uleb128 0x25
+ 921 0004 0E        		.uleb128 0xe
+ 922 0005 13        		.uleb128 0x13
+ 923 0006 0B        		.uleb128 0xb
+ 924 0007 03        		.uleb128 0x3
+ 925 0008 0E        		.uleb128 0xe
+ 926 0009 1B        		.uleb128 0x1b
+ 927 000a 0E        		.uleb128 0xe
+ 928 000b 11        		.uleb128 0x11
+ 929 000c 01        		.uleb128 0x1
+ 930 000d 52        		.uleb128 0x52
+ 931 000e 01        		.uleb128 0x1
+ 932 000f 55        		.uleb128 0x55
+ 933 0010 06        		.uleb128 0x6
+ 934 0011 10        		.uleb128 0x10
+ 935 0012 06        		.uleb128 0x6
+ 936 0013 00        		.byte	0
+ 937 0014 00        		.byte	0
+ 938 0015 02        		.uleb128 0x2
+ 939 0016 24        		.uleb128 0x24
+ 940 0017 00        		.byte	0
+ 941 0018 0B        		.uleb128 0xb
+GAS LISTING /tmp/ccZ4yJy6.s 			page 31
+
+
+ 942 0019 0B        		.uleb128 0xb
+ 943 001a 3E        		.uleb128 0x3e
+ 944 001b 0B        		.uleb128 0xb
+ 945 001c 03        		.uleb128 0x3
+ 946 001d 0E        		.uleb128 0xe
+ 947 001e 00        		.byte	0
+ 948 001f 00        		.byte	0
+ 949 0020 03        		.uleb128 0x3
+ 950 0021 16        		.uleb128 0x16
+ 951 0022 00        		.byte	0
+ 952 0023 03        		.uleb128 0x3
+ 953 0024 0E        		.uleb128 0xe
+ 954 0025 3A        		.uleb128 0x3a
+ 955 0026 0B        		.uleb128 0xb
+ 956 0027 3B        		.uleb128 0x3b
+ 957 0028 0B        		.uleb128 0xb
+ 958 0029 49        		.uleb128 0x49
+ 959 002a 13        		.uleb128 0x13
+ 960 002b 00        		.byte	0
+ 961 002c 00        		.byte	0
+ 962 002d 04        		.uleb128 0x4
+ 963 002e 24        		.uleb128 0x24
+ 964 002f 00        		.byte	0
+ 965 0030 0B        		.uleb128 0xb
+ 966 0031 0B        		.uleb128 0xb
+ 967 0032 3E        		.uleb128 0x3e
+ 968 0033 0B        		.uleb128 0xb
+ 969 0034 03        		.uleb128 0x3
+ 970 0035 08        		.uleb128 0x8
+ 971 0036 00        		.byte	0
+ 972 0037 00        		.byte	0
+ 973 0038 05        		.uleb128 0x5
+ 974 0039 35        		.uleb128 0x35
+ 975 003a 00        		.byte	0
+ 976 003b 49        		.uleb128 0x49
+ 977 003c 13        		.uleb128 0x13
+ 978 003d 00        		.byte	0
+ 979 003e 00        		.byte	0
+ 980 003f 06        		.uleb128 0x6
+ 981 0040 13        		.uleb128 0x13
+ 982 0041 01        		.byte	0x1
+ 983 0042 03        		.uleb128 0x3
+ 984 0043 0E        		.uleb128 0xe
+ 985 0044 0B        		.uleb128 0xb
+ 986 0045 0B        		.uleb128 0xb
+ 987 0046 3A        		.uleb128 0x3a
+ 988 0047 0B        		.uleb128 0xb
+ 989 0048 3B        		.uleb128 0x3b
+ 990 0049 0B        		.uleb128 0xb
+ 991 004a 01        		.uleb128 0x1
+ 992 004b 13        		.uleb128 0x13
+ 993 004c 00        		.byte	0
+ 994 004d 00        		.byte	0
+ 995 004e 07        		.uleb128 0x7
+ 996 004f 0D        		.uleb128 0xd
+ 997 0050 00        		.byte	0
+ 998 0051 03        		.uleb128 0x3
+GAS LISTING /tmp/ccZ4yJy6.s 			page 32
+
+
+ 999 0052 0E        		.uleb128 0xe
+ 1000 0053 3A        		.uleb128 0x3a
+ 1001 0054 0B        		.uleb128 0xb
+ 1002 0055 3B        		.uleb128 0x3b
+ 1003 0056 0B        		.uleb128 0xb
+ 1004 0057 49        		.uleb128 0x49
+ 1005 0058 13        		.uleb128 0x13
+ 1006 0059 38        		.uleb128 0x38
+ 1007 005a 0A        		.uleb128 0xa
+ 1008 005b 00        		.byte	0
+ 1009 005c 00        		.byte	0
+ 1010 005d 08        		.uleb128 0x8
+ 1011 005e 16        		.uleb128 0x16
+ 1012 005f 00        		.byte	0
+ 1013 0060 03        		.uleb128 0x3
+ 1014 0061 0E        		.uleb128 0xe
+ 1015 0062 3A        		.uleb128 0x3a
+ 1016 0063 0B        		.uleb128 0xb
+ 1017 0064 3B        		.uleb128 0x3b
+ 1018 0065 05        		.uleb128 0x5
+ 1019 0066 49        		.uleb128 0x49
+ 1020 0067 13        		.uleb128 0x13
+ 1021 0068 00        		.byte	0
+ 1022 0069 00        		.byte	0
+ 1023 006a 09        		.uleb128 0x9
+ 1024 006b 04        		.uleb128 0x4
+ 1025 006c 01        		.byte	0x1
+ 1026 006d 03        		.uleb128 0x3
+ 1027 006e 0E        		.uleb128 0xe
+ 1028 006f 0B        		.uleb128 0xb
+ 1029 0070 0B        		.uleb128 0xb
+ 1030 0071 3A        		.uleb128 0x3a
+ 1031 0072 0B        		.uleb128 0xb
+ 1032 0073 3B        		.uleb128 0x3b
+ 1033 0074 05        		.uleb128 0x5
+ 1034 0075 01        		.uleb128 0x1
+ 1035 0076 13        		.uleb128 0x13
+ 1036 0077 00        		.byte	0
+ 1037 0078 00        		.byte	0
+ 1038 0079 0A        		.uleb128 0xa
+ 1039 007a 28        		.uleb128 0x28
+ 1040 007b 00        		.byte	0
+ 1041 007c 03        		.uleb128 0x3
+ 1042 007d 0E        		.uleb128 0xe
+ 1043 007e 1C        		.uleb128 0x1c
+ 1044 007f 0D        		.uleb128 0xd
+ 1045 0080 00        		.byte	0
+ 1046 0081 00        		.byte	0
+ 1047 0082 0B        		.uleb128 0xb
+ 1048 0083 13        		.uleb128 0x13
+ 1049 0084 01        		.byte	0x1
+ 1050 0085 03        		.uleb128 0x3
+ 1051 0086 0E        		.uleb128 0xe
+ 1052 0087 0B        		.uleb128 0xb
+ 1053 0088 0B        		.uleb128 0xb
+ 1054 0089 3A        		.uleb128 0x3a
+ 1055 008a 0B        		.uleb128 0xb
+GAS LISTING /tmp/ccZ4yJy6.s 			page 33
+
+
+ 1056 008b 3B        		.uleb128 0x3b
+ 1057 008c 05        		.uleb128 0x5
+ 1058 008d 01        		.uleb128 0x1
+ 1059 008e 13        		.uleb128 0x13
+ 1060 008f 00        		.byte	0
+ 1061 0090 00        		.byte	0
+ 1062 0091 0C        		.uleb128 0xc
+ 1063 0092 0D        		.uleb128 0xd
+ 1064 0093 00        		.byte	0
+ 1065 0094 03        		.uleb128 0x3
+ 1066 0095 0E        		.uleb128 0xe
+ 1067 0096 3A        		.uleb128 0x3a
+ 1068 0097 0B        		.uleb128 0xb
+ 1069 0098 3B        		.uleb128 0x3b
+ 1070 0099 05        		.uleb128 0x5
+ 1071 009a 49        		.uleb128 0x49
+ 1072 009b 13        		.uleb128 0x13
+ 1073 009c 38        		.uleb128 0x38
+ 1074 009d 0A        		.uleb128 0xa
+ 1075 009e 00        		.byte	0
+ 1076 009f 00        		.byte	0
+ 1077 00a0 0D        		.uleb128 0xd
+ 1078 00a1 04        		.uleb128 0x4
+ 1079 00a2 01        		.byte	0x1
+ 1080 00a3 03        		.uleb128 0x3
+ 1081 00a4 0E        		.uleb128 0xe
+ 1082 00a5 0B        		.uleb128 0xb
+ 1083 00a6 0B        		.uleb128 0xb
+ 1084 00a7 3A        		.uleb128 0x3a
+ 1085 00a8 0B        		.uleb128 0xb
+ 1086 00a9 3B        		.uleb128 0x3b
+ 1087 00aa 0B        		.uleb128 0xb
+ 1088 00ab 01        		.uleb128 0x1
+ 1089 00ac 13        		.uleb128 0x13
+ 1090 00ad 00        		.byte	0
+ 1091 00ae 00        		.byte	0
+ 1092 00af 0E        		.uleb128 0xe
+ 1093 00b0 0F        		.uleb128 0xf
+ 1094 00b1 00        		.byte	0
+ 1095 00b2 0B        		.uleb128 0xb
+ 1096 00b3 0B        		.uleb128 0xb
+ 1097 00b4 49        		.uleb128 0x49
+ 1098 00b5 13        		.uleb128 0x13
+ 1099 00b6 00        		.byte	0
+ 1100 00b7 00        		.byte	0
+ 1101 00b8 0F        		.uleb128 0xf
+ 1102 00b9 2E        		.uleb128 0x2e
+ 1103 00ba 01        		.byte	0x1
+ 1104 00bb 03        		.uleb128 0x3
+ 1105 00bc 0E        		.uleb128 0xe
+ 1106 00bd 3A        		.uleb128 0x3a
+ 1107 00be 0B        		.uleb128 0xb
+ 1108 00bf 3B        		.uleb128 0x3b
+ 1109 00c0 0B        		.uleb128 0xb
+ 1110 00c1 27        		.uleb128 0x27
+ 1111 00c2 0C        		.uleb128 0xc
+ 1112 00c3 20        		.uleb128 0x20
+GAS LISTING /tmp/ccZ4yJy6.s 			page 34
+
+
+ 1113 00c4 0B        		.uleb128 0xb
+ 1114 00c5 01        		.uleb128 0x1
+ 1115 00c6 13        		.uleb128 0x13
+ 1116 00c7 00        		.byte	0
+ 1117 00c8 00        		.byte	0
+ 1118 00c9 10        		.uleb128 0x10
+ 1119 00ca 05        		.uleb128 0x5
+ 1120 00cb 00        		.byte	0
+ 1121 00cc 03        		.uleb128 0x3
+ 1122 00cd 0E        		.uleb128 0xe
+ 1123 00ce 3A        		.uleb128 0x3a
+ 1124 00cf 0B        		.uleb128 0xb
+ 1125 00d0 3B        		.uleb128 0x3b
+ 1126 00d1 0B        		.uleb128 0xb
+ 1127 00d2 49        		.uleb128 0x49
+ 1128 00d3 13        		.uleb128 0x13
+ 1129 00d4 00        		.byte	0
+ 1130 00d5 00        		.byte	0
+ 1131 00d6 11        		.uleb128 0x11
+ 1132 00d7 2E        		.uleb128 0x2e
+ 1133 00d8 01        		.byte	0x1
+ 1134 00d9 03        		.uleb128 0x3
+ 1135 00da 0E        		.uleb128 0xe
+ 1136 00db 3A        		.uleb128 0x3a
+ 1137 00dc 0B        		.uleb128 0xb
+ 1138 00dd 3B        		.uleb128 0x3b
+ 1139 00de 0B        		.uleb128 0xb
+ 1140 00df 27        		.uleb128 0x27
+ 1141 00e0 0C        		.uleb128 0xc
+ 1142 00e1 49        		.uleb128 0x49
+ 1143 00e2 13        		.uleb128 0x13
+ 1144 00e3 20        		.uleb128 0x20
+ 1145 00e4 0B        		.uleb128 0xb
+ 1146 00e5 01        		.uleb128 0x1
+ 1147 00e6 13        		.uleb128 0x13
+ 1148 00e7 00        		.byte	0
+ 1149 00e8 00        		.byte	0
+ 1150 00e9 12        		.uleb128 0x12
+ 1151 00ea 34        		.uleb128 0x34
+ 1152 00eb 00        		.byte	0
+ 1153 00ec 03        		.uleb128 0x3
+ 1154 00ed 0E        		.uleb128 0xe
+ 1155 00ee 3A        		.uleb128 0x3a
+ 1156 00ef 0B        		.uleb128 0xb
+ 1157 00f0 3B        		.uleb128 0x3b
+ 1158 00f1 0B        		.uleb128 0xb
+ 1159 00f2 49        		.uleb128 0x49
+ 1160 00f3 13        		.uleb128 0x13
+ 1161 00f4 00        		.byte	0
+ 1162 00f5 00        		.byte	0
+ 1163 00f6 13        		.uleb128 0x13
+ 1164 00f7 0B        		.uleb128 0xb
+ 1165 00f8 01        		.byte	0x1
+ 1166 00f9 00        		.byte	0
+ 1167 00fa 00        		.byte	0
+ 1168 00fb 14        		.uleb128 0x14
+ 1169 00fc 26        		.uleb128 0x26
+GAS LISTING /tmp/ccZ4yJy6.s 			page 35
+
+
+ 1170 00fd 00        		.byte	0
+ 1171 00fe 49        		.uleb128 0x49
+ 1172 00ff 13        		.uleb128 0x13
+ 1173 0100 00        		.byte	0
+ 1174 0101 00        		.byte	0
+ 1175 0102 15        		.uleb128 0x15
+ 1176 0103 2E        		.uleb128 0x2e
+ 1177 0104 00        		.byte	0
+ 1178 0105 03        		.uleb128 0x3
+ 1179 0106 0E        		.uleb128 0xe
+ 1180 0107 3A        		.uleb128 0x3a
+ 1181 0108 0B        		.uleb128 0xb
+ 1182 0109 3B        		.uleb128 0x3b
+ 1183 010a 0B        		.uleb128 0xb
+ 1184 010b 27        		.uleb128 0x27
+ 1185 010c 0C        		.uleb128 0xc
+ 1186 010d 20        		.uleb128 0x20
+ 1187 010e 0B        		.uleb128 0xb
+ 1188 010f 00        		.byte	0
+ 1189 0110 00        		.byte	0
+ 1190 0111 16        		.uleb128 0x16
+ 1191 0112 34        		.uleb128 0x34
+ 1192 0113 00        		.byte	0
+ 1193 0114 03        		.uleb128 0x3
+ 1194 0115 08        		.uleb128 0x8
+ 1195 0116 3A        		.uleb128 0x3a
+ 1196 0117 0B        		.uleb128 0xb
+ 1197 0118 3B        		.uleb128 0x3b
+ 1198 0119 0B        		.uleb128 0xb
+ 1199 011a 49        		.uleb128 0x49
+ 1200 011b 13        		.uleb128 0x13
+ 1201 011c 00        		.byte	0
+ 1202 011d 00        		.byte	0
+ 1203 011e 17        		.uleb128 0x17
+ 1204 011f 2E        		.uleb128 0x2e
+ 1205 0120 00        		.byte	0
+ 1206 0121 03        		.uleb128 0x3
+ 1207 0122 0E        		.uleb128 0xe
+ 1208 0123 3A        		.uleb128 0x3a
+ 1209 0124 0B        		.uleb128 0xb
+ 1210 0125 3B        		.uleb128 0x3b
+ 1211 0126 0B        		.uleb128 0xb
+ 1212 0127 27        		.uleb128 0x27
+ 1213 0128 0C        		.uleb128 0xc
+ 1214 0129 49        		.uleb128 0x49
+ 1215 012a 13        		.uleb128 0x13
+ 1216 012b 20        		.uleb128 0x20
+ 1217 012c 0B        		.uleb128 0xb
+ 1218 012d 00        		.byte	0
+ 1219 012e 00        		.byte	0
+ 1220 012f 18        		.uleb128 0x18
+ 1221 0130 2E        		.uleb128 0x2e
+ 1222 0131 01        		.byte	0x1
+ 1223 0132 3F        		.uleb128 0x3f
+ 1224 0133 0C        		.uleb128 0xc
+ 1225 0134 03        		.uleb128 0x3
+ 1226 0135 0E        		.uleb128 0xe
+GAS LISTING /tmp/ccZ4yJy6.s 			page 36
+
+
+ 1227 0136 3A        		.uleb128 0x3a
+ 1228 0137 0B        		.uleb128 0xb
+ 1229 0138 3B        		.uleb128 0x3b
+ 1230 0139 0B        		.uleb128 0xb
+ 1231 013a 27        		.uleb128 0x27
+ 1232 013b 0C        		.uleb128 0xc
+ 1233 013c 11        		.uleb128 0x11
+ 1234 013d 01        		.uleb128 0x1
+ 1235 013e 12        		.uleb128 0x12
+ 1236 013f 01        		.uleb128 0x1
+ 1237 0140 40        		.uleb128 0x40
+ 1238 0141 0A        		.uleb128 0xa
+ 1239 0142 01        		.uleb128 0x1
+ 1240 0143 13        		.uleb128 0x13
+ 1241 0144 00        		.byte	0
+ 1242 0145 00        		.byte	0
+ 1243 0146 19        		.uleb128 0x19
+ 1244 0147 05        		.uleb128 0x5
+ 1245 0148 00        		.byte	0
+ 1246 0149 03        		.uleb128 0x3
+ 1247 014a 0E        		.uleb128 0xe
+ 1248 014b 3A        		.uleb128 0x3a
+ 1249 014c 0B        		.uleb128 0xb
+ 1250 014d 3B        		.uleb128 0x3b
+ 1251 014e 0B        		.uleb128 0xb
+ 1252 014f 49        		.uleb128 0x49
+ 1253 0150 13        		.uleb128 0x13
+ 1254 0151 02        		.uleb128 0x2
+ 1255 0152 06        		.uleb128 0x6
+ 1256 0153 00        		.byte	0
+ 1257 0154 00        		.byte	0
+ 1258 0155 1A        		.uleb128 0x1a
+ 1259 0156 1D        		.uleb128 0x1d
+ 1260 0157 00        		.byte	0
+ 1261 0158 31        		.uleb128 0x31
+ 1262 0159 13        		.uleb128 0x13
+ 1263 015a 11        		.uleb128 0x11
+ 1264 015b 01        		.uleb128 0x1
+ 1265 015c 12        		.uleb128 0x12
+ 1266 015d 01        		.uleb128 0x1
+ 1267 015e 58        		.uleb128 0x58
+ 1268 015f 0B        		.uleb128 0xb
+ 1269 0160 59        		.uleb128 0x59
+ 1270 0161 0B        		.uleb128 0xb
+ 1271 0162 00        		.byte	0
+ 1272 0163 00        		.byte	0
+ 1273 0164 1B        		.uleb128 0x1b
+ 1274 0165 2E        		.uleb128 0x2e
+ 1275 0166 01        		.byte	0x1
+ 1276 0167 3F        		.uleb128 0x3f
+ 1277 0168 0C        		.uleb128 0xc
+ 1278 0169 03        		.uleb128 0x3
+ 1279 016a 0E        		.uleb128 0xe
+ 1280 016b 3A        		.uleb128 0x3a
+ 1281 016c 0B        		.uleb128 0xb
+ 1282 016d 3B        		.uleb128 0x3b
+ 1283 016e 0B        		.uleb128 0xb
+GAS LISTING /tmp/ccZ4yJy6.s 			page 37
+
+
+ 1284 016f 27        		.uleb128 0x27
+ 1285 0170 0C        		.uleb128 0xc
+ 1286 0171 49        		.uleb128 0x49
+ 1287 0172 13        		.uleb128 0x13
+ 1288 0173 11        		.uleb128 0x11
+ 1289 0174 01        		.uleb128 0x1
+ 1290 0175 12        		.uleb128 0x12
+ 1291 0176 01        		.uleb128 0x1
+ 1292 0177 40        		.uleb128 0x40
+ 1293 0178 0A        		.uleb128 0xa
+ 1294 0179 01        		.uleb128 0x1
+ 1295 017a 13        		.uleb128 0x13
+ 1296 017b 00        		.byte	0
+ 1297 017c 00        		.byte	0
+ 1298 017d 1C        		.uleb128 0x1c
+ 1299 017e 1D        		.uleb128 0x1d
+ 1300 017f 01        		.byte	0x1
+ 1301 0180 31        		.uleb128 0x31
+ 1302 0181 13        		.uleb128 0x13
+ 1303 0182 11        		.uleb128 0x11
+ 1304 0183 01        		.uleb128 0x1
+ 1305 0184 12        		.uleb128 0x12
+ 1306 0185 01        		.uleb128 0x1
+ 1307 0186 58        		.uleb128 0x58
+ 1308 0187 0B        		.uleb128 0xb
+ 1309 0188 59        		.uleb128 0x59
+ 1310 0189 0B        		.uleb128 0xb
+ 1311 018a 01        		.uleb128 0x1
+ 1312 018b 13        		.uleb128 0x13
+ 1313 018c 00        		.byte	0
+ 1314 018d 00        		.byte	0
+ 1315 018e 1D        		.uleb128 0x1d
+ 1316 018f 0B        		.uleb128 0xb
+ 1317 0190 01        		.byte	0x1
+ 1318 0191 11        		.uleb128 0x11
+ 1319 0192 01        		.uleb128 0x1
+ 1320 0193 12        		.uleb128 0x12
+ 1321 0194 01        		.uleb128 0x1
+ 1322 0195 00        		.byte	0
+ 1323 0196 00        		.byte	0
+ 1324 0197 1E        		.uleb128 0x1e
+ 1325 0198 34        		.uleb128 0x34
+ 1326 0199 00        		.byte	0
+ 1327 019a 31        		.uleb128 0x31
+ 1328 019b 13        		.uleb128 0x13
+ 1329 019c 02        		.uleb128 0x2
+ 1330 019d 06        		.uleb128 0x6
+ 1331 019e 00        		.byte	0
+ 1332 019f 00        		.byte	0
+ 1333 01a0 1F        		.uleb128 0x1f
+ 1334 01a1 1D        		.uleb128 0x1d
+ 1335 01a2 01        		.byte	0x1
+ 1336 01a3 31        		.uleb128 0x31
+ 1337 01a4 13        		.uleb128 0x13
+ 1338 01a5 11        		.uleb128 0x11
+ 1339 01a6 01        		.uleb128 0x1
+ 1340 01a7 12        		.uleb128 0x12
+GAS LISTING /tmp/ccZ4yJy6.s 			page 38
+
+
+ 1341 01a8 01        		.uleb128 0x1
+ 1342 01a9 58        		.uleb128 0x58
+ 1343 01aa 0B        		.uleb128 0xb
+ 1344 01ab 59        		.uleb128 0x59
+ 1345 01ac 0B        		.uleb128 0xb
+ 1346 01ad 00        		.byte	0
+ 1347 01ae 00        		.byte	0
+ 1348 01af 20        		.uleb128 0x20
+ 1349 01b0 34        		.uleb128 0x34
+ 1350 01b1 00        		.byte	0
+ 1351 01b2 31        		.uleb128 0x31
+ 1352 01b3 13        		.uleb128 0x13
+ 1353 01b4 02        		.uleb128 0x2
+ 1354 01b5 0A        		.uleb128 0xa
+ 1355 01b6 00        		.byte	0
+ 1356 01b7 00        		.byte	0
+ 1357 01b8 21        		.uleb128 0x21
+ 1358 01b9 34        		.uleb128 0x34
+ 1359 01ba 00        		.byte	0
+ 1360 01bb 31        		.uleb128 0x31
+ 1361 01bc 13        		.uleb128 0x13
+ 1362 01bd 00        		.byte	0
+ 1363 01be 00        		.byte	0
+ 1364 01bf 22        		.uleb128 0x22
+ 1365 01c0 05        		.uleb128 0x5
+ 1366 01c1 00        		.byte	0
+ 1367 01c2 31        		.uleb128 0x31
+ 1368 01c3 13        		.uleb128 0x13
+ 1369 01c4 02        		.uleb128 0x2
+ 1370 01c5 06        		.uleb128 0x6
+ 1371 01c6 00        		.byte	0
+ 1372 01c7 00        		.byte	0
+ 1373 01c8 23        		.uleb128 0x23
+ 1374 01c9 0B        		.uleb128 0xb
+ 1375 01ca 01        		.byte	0x1
+ 1376 01cb 11        		.uleb128 0x11
+ 1377 01cc 01        		.uleb128 0x1
+ 1378 01cd 12        		.uleb128 0x12
+ 1379 01ce 01        		.uleb128 0x1
+ 1380 01cf 01        		.uleb128 0x1
+ 1381 01d0 13        		.uleb128 0x13
+ 1382 01d1 00        		.byte	0
+ 1383 01d2 00        		.byte	0
+ 1384 01d3 24        		.uleb128 0x24
+ 1385 01d4 2E        		.uleb128 0x2e
+ 1386 01d5 00        		.byte	0
+ 1387 01d6 3F        		.uleb128 0x3f
+ 1388 01d7 0C        		.uleb128 0xc
+ 1389 01d8 03        		.uleb128 0x3
+ 1390 01d9 0E        		.uleb128 0xe
+ 1391 01da 3A        		.uleb128 0x3a
+ 1392 01db 0B        		.uleb128 0xb
+ 1393 01dc 3B        		.uleb128 0x3b
+ 1394 01dd 0B        		.uleb128 0xb
+ 1395 01de 27        		.uleb128 0x27
+ 1396 01df 0C        		.uleb128 0xc
+ 1397 01e0 11        		.uleb128 0x11
+GAS LISTING /tmp/ccZ4yJy6.s 			page 39
+
+
+ 1398 01e1 01        		.uleb128 0x1
+ 1399 01e2 12        		.uleb128 0x12
+ 1400 01e3 01        		.uleb128 0x1
+ 1401 01e4 40        		.uleb128 0x40
+ 1402 01e5 0A        		.uleb128 0xa
+ 1403 01e6 00        		.byte	0
+ 1404 01e7 00        		.byte	0
+ 1405 01e8 25        		.uleb128 0x25
+ 1406 01e9 2E        		.uleb128 0x2e
+ 1407 01ea 00        		.byte	0
+ 1408 01eb 3F        		.uleb128 0x3f
+ 1409 01ec 0C        		.uleb128 0xc
+ 1410 01ed 03        		.uleb128 0x3
+ 1411 01ee 0E        		.uleb128 0xe
+ 1412 01ef 3A        		.uleb128 0x3a
+ 1413 01f0 0B        		.uleb128 0xb
+ 1414 01f1 3B        		.uleb128 0x3b
+ 1415 01f2 0B        		.uleb128 0xb
+ 1416 01f3 27        		.uleb128 0x27
+ 1417 01f4 0C        		.uleb128 0xc
+ 1418 01f5 49        		.uleb128 0x49
+ 1419 01f6 13        		.uleb128 0x13
+ 1420 01f7 11        		.uleb128 0x11
+ 1421 01f8 01        		.uleb128 0x1
+ 1422 01f9 12        		.uleb128 0x12
+ 1423 01fa 01        		.uleb128 0x1
+ 1424 01fb 40        		.uleb128 0x40
+ 1425 01fc 0A        		.uleb128 0xa
+ 1426 01fd 00        		.byte	0
+ 1427 01fe 00        		.byte	0
+ 1428 01ff 26        		.uleb128 0x26
+ 1429 0200 01        		.uleb128 0x1
+ 1430 0201 01        		.byte	0x1
+ 1431 0202 49        		.uleb128 0x49
+ 1432 0203 13        		.uleb128 0x13
+ 1433 0204 01        		.uleb128 0x1
+ 1434 0205 13        		.uleb128 0x13
+ 1435 0206 00        		.byte	0
+ 1436 0207 00        		.byte	0
+ 1437 0208 27        		.uleb128 0x27
+ 1438 0209 21        		.uleb128 0x21
+ 1439 020a 00        		.byte	0
+ 1440 020b 00        		.byte	0
+ 1441 020c 00        		.byte	0
+ 1442 020d 28        		.uleb128 0x28
+ 1443 020e 34        		.uleb128 0x34
+ 1444 020f 00        		.byte	0
+ 1445 0210 03        		.uleb128 0x3
+ 1446 0211 0E        		.uleb128 0xe
+ 1447 0212 3A        		.uleb128 0x3a
+ 1448 0213 0B        		.uleb128 0xb
+ 1449 0214 3B        		.uleb128 0x3b
+ 1450 0215 0B        		.uleb128 0xb
+ 1451 0216 49        		.uleb128 0x49
+ 1452 0217 13        		.uleb128 0x13
+ 1453 0218 3F        		.uleb128 0x3f
+ 1454 0219 0C        		.uleb128 0xc
+GAS LISTING /tmp/ccZ4yJy6.s 			page 40
+
+
+ 1455 021a 3C        		.uleb128 0x3c
+ 1456 021b 0C        		.uleb128 0xc
+ 1457 021c 00        		.byte	0
+ 1458 021d 00        		.byte	0
+ 1459 021e 29        		.uleb128 0x29
+ 1460 021f 34        		.uleb128 0x34
+ 1461 0220 00        		.byte	0
+ 1462 0221 03        		.uleb128 0x3
+ 1463 0222 0E        		.uleb128 0xe
+ 1464 0223 3A        		.uleb128 0x3a
+ 1465 0224 0B        		.uleb128 0xb
+ 1466 0225 3B        		.uleb128 0x3b
+ 1467 0226 0B        		.uleb128 0xb
+ 1468 0227 49        		.uleb128 0x49
+ 1469 0228 13        		.uleb128 0x13
+ 1470 0229 02        		.uleb128 0x2
+ 1471 022a 0A        		.uleb128 0xa
+ 1472 022b 00        		.byte	0
+ 1473 022c 00        		.byte	0
+ 1474 022d 00        		.byte	0
+ 1475               		.section	.debug_loc,"",@progbits
+ 1476               	.Ldebug_loc0:
+ 1477               	.LLST0:
+ 1478 0000 0000 0000 		.long	.LVL0
+ 1479 0004 0000 0000 		.long	.LVL1-1
+ 1480 0008 0100      		.word	0x1
+ 1481 000a 68        		.byte	0x68
+ 1482 000b 0000 0000 		.long	.LVL2
+ 1483 000f 0000 0000 		.long	.LVL3-1
+ 1484 0013 0100      		.word	0x1
+ 1485 0015 68        		.byte	0x68
+ 1486 0016 0000 0000 		.long	0
+ 1487 001a 0000 0000 		.long	0
+ 1488               	.LLST1:
+ 1489 001e 0000 0000 		.long	.LVL4
+ 1490 0022 0000 0000 		.long	.LVL5
+ 1491 0026 0200      		.word	0x2
+ 1492 0028 30        		.byte	0x30
+ 1493 0029 9F        		.byte	0x9f
+ 1494 002a 0000 0000 		.long	.LVL5
+ 1495 002e 0000 0000 		.long	.LVL6
+ 1496 0032 0200      		.word	0x2
+ 1497 0034 31        		.byte	0x31
+ 1498 0035 9F        		.byte	0x9f
+ 1499 0036 0000 0000 		.long	.LVL6
+ 1500 003a 0000 0000 		.long	.LVL7
+ 1501 003e 0200      		.word	0x2
+ 1502 0040 32        		.byte	0x32
+ 1503 0041 9F        		.byte	0x9f
+ 1504 0042 0000 0000 		.long	.LVL7
+ 1505 0046 0000 0000 		.long	.LVL8
+ 1506 004a 0200      		.word	0x2
+ 1507 004c 33        		.byte	0x33
+ 1508 004d 9F        		.byte	0x9f
+ 1509 004e 0000 0000 		.long	.LVL8
+ 1510 0052 0000 0000 		.long	.LVL9
+ 1511 0056 0200      		.word	0x2
+GAS LISTING /tmp/ccZ4yJy6.s 			page 41
+
+
+ 1512 0058 34        		.byte	0x34
+ 1513 0059 9F        		.byte	0x9f
+ 1514 005a 0000 0000 		.long	.LVL9
+ 1515 005e 0000 0000 		.long	.LFE96
+ 1516 0062 0200      		.word	0x2
+ 1517 0064 35        		.byte	0x35
+ 1518 0065 9F        		.byte	0x9f
+ 1519 0066 0000 0000 		.long	0
+ 1520 006a 0000 0000 		.long	0
+ 1521               	.LLST2:
+ 1522 006e 0000 0000 		.long	.LVL10
+ 1523 0072 0000 0000 		.long	.LVL11
+ 1524 0076 0200      		.word	0x2
+ 1525 0078 30        		.byte	0x30
+ 1526 0079 9F        		.byte	0x9f
+ 1527 007a 0000 0000 		.long	.LVL11
+ 1528 007e 0000 0000 		.long	.LVL14
+ 1529 0082 0100      		.word	0x1
+ 1530 0084 6E        		.byte	0x6e
+ 1531 0085 0000 0000 		.long	0
+ 1532 0089 0000 0000 		.long	0
+ 1533               	.LLST3:
+ 1534 008d 0000 0000 		.long	.LVL13
+ 1535 0091 0000 0000 		.long	.LVL14
+ 1536 0095 0100      		.word	0x1
+ 1537 0097 6E        		.byte	0x6e
+ 1538 0098 0000 0000 		.long	0
+ 1539 009c 0000 0000 		.long	0
+ 1540               	.LLST4:
+ 1541 00a0 0000 0000 		.long	.LVL13
+ 1542 00a4 0000 0000 		.long	.LVL14
+ 1543 00a8 0700      		.word	0x7
+ 1544 00aa 8E        		.byte	0x8e
+ 1545 00ab 00        		.sleb128 0
+ 1546 00ac 48        		.byte	0x48
+ 1547 00ad 24        		.byte	0x24
+ 1548 00ae 48        		.byte	0x48
+ 1549 00af 25        		.byte	0x25
+ 1550 00b0 9F        		.byte	0x9f
+ 1551 00b1 0000 0000 		.long	0
+ 1552 00b5 0000 0000 		.long	0
+ 1553               	.LLST5:
+ 1554 00b9 0000 0000 		.long	.LVL15
+ 1555 00bd 0000 0000 		.long	.LVL16
+ 1556 00c1 0100      		.word	0x1
+ 1557 00c3 6E        		.byte	0x6e
+ 1558 00c4 0000 0000 		.long	0
+ 1559 00c8 0000 0000 		.long	0
+ 1560               	.LLST7:
+ 1561 00cc 0000 0000 		.long	.LVL17
+ 1562 00d0 0000 0000 		.long	.LVL18-1
+ 1563 00d4 0100      		.word	0x1
+ 1564 00d6 68        		.byte	0x68
+ 1565 00d7 0000 0000 		.long	.LVL19
+ 1566 00db 0000 0000 		.long	.LVL20-1
+ 1567 00df 0100      		.word	0x1
+ 1568 00e1 68        		.byte	0x68
+GAS LISTING /tmp/ccZ4yJy6.s 			page 42
+
+
+ 1569 00e2 0000 0000 		.long	0
+ 1570 00e6 0000 0000 		.long	0
+ 1571               		.section	.debug_aranges,"",@progbits
+ 1572 0000 2400 0000 		.long	0x24
+ 1573 0004 0200      		.word	0x2
+ 1574 0006 0000 0000 		.long	.Ldebug_info0
+ 1575 000a 04        		.byte	0x4
+ 1576 000b 00        		.byte	0
+ 1577 000c 0000      		.word	0
+ 1578 000e 0000      		.word	0
+ 1579 0010 0000 0000 		.long	.Ltext0
+ 1580 0014 5600 0000 		.long	.Letext0-.Ltext0
+ 1581 0018 0000 0000 		.long	.LFB96
+ 1582 001c 8E00 0000 		.long	.LFE96-.LFB96
+ 1583 0020 0000 0000 		.long	0
+ 1584 0024 0000 0000 		.long	0
+ 1585               		.section	.debug_ranges,"",@progbits
+ 1586               	.Ldebug_ranges0:
+ 1587 0000 0000 0000 		.long	.Ltext0
+ 1588 0004 0000 0000 		.long	.Letext0
+ 1589 0008 0000 0000 		.long	.LFB96
+ 1590 000c 0000 0000 		.long	.LFE96
+ 1591 0010 0000 0000 		.long	0
+ 1592 0014 0000 0000 		.long	0
+ 1593               		.section	.debug_line,"",@progbits
+ 1594               	.Ldebug_line0:
+ 1595 0000 4E02 0000 		.section	.debug_str,"MS",@progbits,1
+ 1595      0200 C101 
+ 1595      0000 0201 
+ 1595      FB0E 0A00 
+ 1595      0101 0101 
+ 1596               	.LASF19:
+ 1597 0000 4F53 435F 		.string	"OSC_PLLSRC_XOSC_gc"
+ 1597      504C 4C53 
+ 1597      5243 5F58 
+ 1597      4F53 435F 
+ 1597      6763 00
+ 1598               	.LASF58:
+ 1599 0013 736C 6565 		.string	"sleepmgr_locks"
+ 1599      706D 6772 
+ 1599      5F6C 6F63 
+ 1599      6B73 00
+ 1600               	.LASF49:
+ 1601 0022 736C 6565 		.string	"sleepmgr_enter_sleep"
+ 1601      706D 6772 
+ 1601      5F65 6E74 
+ 1601      6572 5F73 
+ 1601      6C65 6570 
+ 1602               	.LASF46:
+ 1603 0037 7564 635F 		.string	"udc_attach"
+ 1603      6174 7461 
+ 1603      6368 00
+ 1604               	.LASF26:
+ 1605 0042 7368 6F72 		.string	"short int"
+ 1605      7420 696E 
+ 1605      7400 
+ 1606               	.LASF35:
+GAS LISTING /tmp/ccZ4yJy6.s 			page 43
+
+
+ 1607 004c 534C 4545 		.string	"SLEEPMGR_STDBY"
+ 1607      504D 4752 
+ 1607      5F53 5444 
+ 1607      4259 00
+ 1608               	.LASF32:
+ 1609 005b 534C 4545 		.string	"SLEEPMGR_IDLE"
+ 1609      504D 4752 
+ 1609      5F49 444C 
+ 1609      4500 
+ 1610               	.LASF33:
+ 1611 0069 534C 4545 		.string	"SLEEPMGR_ESTDBY"
+ 1611      504D 4752 
+ 1611      5F45 5354 
+ 1611      4442 5900 
+ 1612               	.LASF65:
+ 1613 0079 6D61 696E 		.string	"main"
+ 1613      00
+ 1614               	.LASF53:
+ 1615 007e 6D61 696E 		.string	"main_cdc_disable"
+ 1615      5F63 6463 
+ 1615      5F64 6973 
+ 1615      6162 6C65 
+ 1615      00
+ 1616               	.LASF43:
+ 1617 008f 6D6F 6465 		.string	"mode"
+ 1617      00
+ 1618               	.LASF11:
+ 1619 0094 534C 4545 		.string	"SLEEP_SMODE_PDOWN_gc"
+ 1619      505F 534D 
+ 1619      4F44 455F 
+ 1619      5044 4F57 
+ 1619      4E5F 6763 
+ 1620               	.LASF48:
+ 1621 00a9 736C 6565 		.string	"sleepmgr_init"
+ 1621      706D 6772 
+ 1621      5F69 6E69 
+ 1621      7400 
+ 1622               	.LASF63:
+ 1623 00b7 736C 6565 		.string	"sleepmgr_get_sleep_mode"
+ 1623      706D 6772 
+ 1623      5F67 6574 
+ 1623      5F73 6C65 
+ 1623      6570 5F6D 
+ 1624               	.LASF54:
+ 1625 00cf 6D61 696E 		.string	"main_vbus_action"
+ 1625      5F76 6275 
+ 1625      735F 6163 
+ 1625      7469 6F6E 
+ 1625      00
+ 1626               	.LASF51:
+ 1627 00e0 6D61 696E 		.string	"main_resume_action"
+ 1627      5F72 6573 
+ 1627      756D 655F 
+ 1627      6163 7469 
+ 1627      6F6E 00
+ 1628               	.LASF2:
+ 1629 00f3 7569 6E74 		.string	"uint8_t"
+GAS LISTING /tmp/ccZ4yJy6.s 			page 44
+
+
+ 1629      385F 7400 
+ 1630               	.LASF67:
+ 1631 00fb 6D61 696E 		.string	"main_b_cdc_enable"
+ 1631      5F62 5F63 
+ 1631      6463 5F65 
+ 1631      6E61 626C 
+ 1631      6500 
+ 1632               	.LASF50:
+ 1633 010d 6D61 696E 		.string	"main_suspend_action"
+ 1633      5F73 7573 
+ 1633      7065 6E64 
+ 1633      5F61 6374 
+ 1633      696F 6E00 
+ 1634               	.LASF44:
+ 1635 0121 5F5F 6164 		.string	"__addr16"
+ 1635      6472 3136 
+ 1635      00
+ 1636               	.LASF28:
+ 1637 012a 666C 6F61 		.string	"float"
+ 1637      7400 
+ 1638               	.LASF18:
+ 1639 0130 4F53 435F 		.string	"OSC_PLLSRC_RC32M_gc"
+ 1639      504C 4C53 
+ 1639      5243 5F52 
+ 1639      4333 324D 
+ 1639      5F67 6300 
+ 1640               	.LASF7:
+ 1641 0144 6C6F 6E67 		.string	"long long int"
+ 1641      206C 6F6E 
+ 1641      6720 696E 
+ 1641      7400 
+ 1642               	.LASF52:
+ 1643 0152 6D61 696E 		.string	"main_sof_action"
+ 1643      5F73 6F66 
+ 1643      5F61 6374 
+ 1643      696F 6E00 
+ 1644               	.LASF39:
+ 1645 0162 736C 6565 		.string	"sleep_mode"
+ 1645      705F 6D6F 
+ 1645      6465 00
+ 1646               	.LASF24:
+ 1647 016d 494E 5450 		.string	"INTPRI"
+ 1647      5249 00
+ 1648               	.LASF10:
+ 1649 0174 534C 4545 		.string	"SLEEP_SMODE_IDLE_gc"
+ 1649      505F 534D 
+ 1649      4F44 455F 
+ 1649      4944 4C45 
+ 1649      5F67 6300 
+ 1650               	.LASF17:
+ 1651 0188 4F53 435F 		.string	"OSC_PLLSRC_RC2M_gc"
+ 1651      504C 4C53 
+ 1651      5243 5F52 
+ 1651      4332 4D5F 
+ 1651      6763 00
+ 1652               	.LASF34:
+ 1653 019b 534C 4545 		.string	"SLEEPMGR_PSAVE"
+GAS LISTING /tmp/ccZ4yJy6.s 			page 45
+
+
+ 1653      504D 4752 
+ 1653      5F50 5341 
+ 1653      5645 00
+ 1654               	.LASF40:
+ 1655 01aa 6C6F 636B 		.string	"lock_ptr"
+ 1655      5F70 7472 
+ 1655      00
+ 1656               	.LASF36:
+ 1657 01b3 534C 4545 		.string	"SLEEPMGR_PDOWN"
+ 1657      504D 4752 
+ 1657      5F50 444F 
+ 1657      574E 00
+ 1658               	.LASF1:
+ 1659 01c2 756E 7369 		.string	"unsigned char"
+ 1659      676E 6564 
+ 1659      2063 6861 
+ 1659      7200 
+ 1660               	.LASF15:
+ 1661 01d0 534C 4545 		.string	"SLEEP_SMODE_enum"
+ 1661      505F 534D 
+ 1661      4F44 455F 
+ 1661      656E 756D 
+ 1661      00
+ 1662               	.LASF22:
+ 1663 01e1 4354 524C 		.string	"CTRL"
+ 1663      00
+ 1664               	.LASF0:
+ 1665 01e6 7369 676E 		.string	"signed char"
+ 1665      6564 2063 
+ 1665      6861 7200 
+ 1666               	.LASF8:
+ 1667 01f2 6C6F 6E67 		.string	"long long unsigned int"
+ 1667      206C 6F6E 
+ 1667      6720 756E 
+ 1667      7369 676E 
+ 1667      6564 2069 
+ 1668               	.LASF4:
+ 1669 0209 756E 7369 		.string	"unsigned int"
+ 1669      676E 6564 
+ 1669      2069 6E74 
+ 1669      00
+ 1670               	.LASF3:
+ 1671 0216 7569 6E74 		.string	"uint16_t"
+ 1671      3136 5F74 
+ 1671      00
+ 1672               	.LASF45:
+ 1673 021f 5F5F 7265 		.string	"__result"
+ 1673      7375 6C74 
+ 1673      00
+ 1674               	.LASF41:
+ 1675 0228 736C 6565 		.string	"sleep_set_mode"
+ 1675      705F 7365 
+ 1675      745F 6D6F 
+ 1675      6465 00
+ 1676               	.LASF55:
+ 1677 0237 6D61 696E 		.string	"main_cdc_set_dtr"
+ 1677      5F63 6463 
+GAS LISTING /tmp/ccZ4yJy6.s 			page 46
+
+
+ 1677      5F73 6574 
+ 1677      5F64 7472 
+ 1677      00
+ 1678               	.LASF20:
+ 1679 0248 534C 4545 		.string	"SLEEP_struct"
+ 1679      505F 7374 
+ 1679      7275 6374 
+ 1679      00
+ 1680               	.LASF5:
+ 1681 0255 6C6F 6E67 		.string	"long int"
+ 1681      2069 6E74 
+ 1681      00
+ 1682               	.LASF23:
+ 1683 025e 5354 4154 		.string	"STATUS"
+ 1683      5553 00
+ 1684               	.LASF27:
+ 1685 0265 7368 6F72 		.string	"short unsigned int"
+ 1685      7420 756E 
+ 1685      7369 676E 
+ 1685      6564 2069 
+ 1685      6E74 00
+ 1686               	.LASF9:
+ 1687 0278 534C 4545 		.string	"SLEEP_t"
+ 1687      505F 7400 
+ 1688               	.LASF56:
+ 1689 0280 625F 6869 		.string	"b_high"
+ 1689      6768 00
+ 1690               	.LASF60:
+ 1691 0287 474E 5520 		.string	"GNU C 4.6.2"
+ 1691      4320 342E 
+ 1691      362E 3200 
+ 1692               	.LASF38:
+ 1693 0293 5F42 6F6F 		.string	"_Bool"
+ 1693      6C00 
+ 1694               	.LASF14:
+ 1695 0299 534C 4545 		.string	"SLEEP_SMODE_ESTDBY_gc"
+ 1695      505F 534D 
+ 1695      4F44 455F 
+ 1695      4553 5444 
+ 1695      4259 5F67 
+ 1696               	.LASF12:
+ 1697 02af 534C 4545 		.string	"SLEEP_SMODE_PSAVE_gc"
+ 1697      505F 534D 
+ 1697      4F44 455F 
+ 1697      5053 4156 
+ 1697      455F 6763 
+ 1698               	.LASF30:
+ 1699 02c4 736C 6565 		.string	"sleepmgr_mode"
+ 1699      706D 6772 
+ 1699      5F6D 6F64 
+ 1699      6500 
+ 1700               	.LASF31:
+ 1701 02d2 534C 4545 		.string	"SLEEPMGR_ACTIVE"
+ 1701      504D 4752 
+ 1701      5F41 4354 
+ 1701      4956 4500 
+ 1702               	.LASF61:
+GAS LISTING /tmp/ccZ4yJy6.s 			page 47
+
+
+ 1703 02e2 6D61 696E 		.string	"main.c"
+ 1703      2E63 00
+ 1704               	.LASF6:
+ 1705 02e9 6C6F 6E67 		.string	"long unsigned int"
+ 1705      2075 6E73 
+ 1705      6967 6E65 
+ 1705      6420 696E 
+ 1705      7400 
+ 1706               	.LASF25:
+ 1707 02fb 504D 4943 		.string	"PMIC_t"
+ 1707      5F74 00
+ 1708               	.LASF29:
+ 1709 0302 646F 7562 		.string	"double"
+ 1709      6C65 00
+ 1710               	.LASF47:
+ 1711 0309 7564 635F 		.string	"udc_detach"
+ 1711      6465 7461 
+ 1711      6368 00
+ 1712               	.LASF57:
+ 1713 0314 625F 656E 		.string	"b_enable"
+ 1713      6162 6C65 
+ 1713      00
+ 1714               	.LASF21:
+ 1715 031d 504D 4943 		.string	"PMIC_struct"
+ 1715      5F73 7472 
+ 1715      7563 7400 
+ 1716               	.LASF66:
+ 1717 0329 6D61 696E 		.string	"main_cdc_enable"
+ 1717      5F63 6463 
+ 1717      5F65 6E61 
+ 1717      626C 6500 
+ 1718               	.LASF42:
+ 1719 0339 736C 6565 		.string	"sleepmgr_sleep"
+ 1719      706D 6772 
+ 1719      5F73 6C65 
+ 1719      6570 00
+ 1720               	.LASF59:
+ 1721 0348 736C 6565 		.string	"sleepmgr_configs"
+ 1721      706D 6772 
+ 1721      5F63 6F6E 
+ 1721      6669 6773 
+ 1721      00
+ 1722               	.LASF62:
+ 1723 0359 2F68 6F6D 		.ascii	"/home/dgonz/projects/git"
+ 1723      652F 6467 
+ 1723      6F6E 7A2F 
+ 1723      7072 6F6A 
+ 1723      6563 7473 
+ 1724 0371 486F 6D65 		.string	"Home/TinyArmTroller/examples/DEVICE_EXAMPLE1/DEVICE_EXAMPLE1/src"
+ 1724      2F54 696E 
+ 1724      7941 726D 
+ 1724      5472 6F6C 
+ 1724      6C65 722F 
+ 1725               	.LASF37:
+ 1726 03b2 534C 4545 		.string	"SLEEPMGR_NR_OF_MODES"
+ 1726      504D 4752 
+ 1726      5F4E 525F 
+GAS LISTING /tmp/ccZ4yJy6.s 			page 48
+
+
+ 1726      4F46 5F4D 
+ 1726      4F44 4553 
+ 1727               	.LASF13:
+ 1728 03c7 534C 4545 		.string	"SLEEP_SMODE_STDBY_gc"
+ 1728      505F 534D 
+ 1728      4F44 455F 
+ 1728      5354 4442 
+ 1728      595F 6763 
+ 1729               	.LASF64:
+ 1730 03dc 7564 635F 		.string	"udc_include_vbus_monitoring"
+ 1730      696E 636C 
+ 1730      7564 655F 
+ 1730      7662 7573 
+ 1730      5F6D 6F6E 
+ 1731               	.LASF16:
+ 1732 03f8 4F53 435F 		.string	"OSC_PLLSRC_enum"
+ 1732      504C 4C53 
+ 1732      5243 5F65 
+ 1732      6E75 6D00 
+GAS LISTING /tmp/ccZ4yJy6.s 			page 49
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+     /tmp/ccZ4yJy6.s:2      *ABS*:0000003f __SREG__
+     /tmp/ccZ4yJy6.s:3      *ABS*:0000003e __SP_H__
+     /tmp/ccZ4yJy6.s:4      *ABS*:0000003d __SP_L__
+     /tmp/ccZ4yJy6.s:5      *ABS*:00000034 __CCP__
+     /tmp/ccZ4yJy6.s:6      *ABS*:00000000 __tmp_reg__
+     /tmp/ccZ4yJy6.s:7      *ABS*:00000001 __zero_reg__
+     /tmp/ccZ4yJy6.s:15     .text:00000000 main_vbus_action
+     /tmp/ccZ4yJy6.s:53     .text.startup:00000000 main
+     /tmp/ccZ4yJy6.s:213    .text:00000010 main_suspend_action
+     /tmp/ccZ4yJy6.s:231    .text:00000016 main_resume_action
+     /tmp/ccZ4yJy6.s:249    .text:0000001c main_sof_action
+                             .bss:00000000 main_b_cdc_enable
+     /tmp/ccZ4yJy6.s:271    .text:0000002e main_cdc_enable
+     /tmp/ccZ4yJy6.s:293    .text:0000003c main_cdc_disable
+     /tmp/ccZ4yJy6.s:313    .text:00000046 main_cdc_set_dtr
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+udd_attach
+udd_detach
+sleepmgr_locks
+sysclk_init
+board_init
+ui_init
+ui_powerdown
+udc_start
+udd_include_vbus_monitoring
+sleepmgr_configs
+ui_wakeup
+udd_get_frame_number
+ui_process
+uart_open
+uart_close
+ui_com_open
+ui_com_close

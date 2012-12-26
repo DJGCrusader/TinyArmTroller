@@ -1,0 +1,1708 @@
+   1               		.file	"USBController_XMEGA.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  10               		.text
+  11               	.Ltext0:
+  12               		.cfi_sections	.debug_frame
+  13               		.section	.text.USB_Disable,"ax",@progbits
+  14               	.global	USB_Disable
+  16               	USB_Disable:
+  17               	.LFB69:
+  18               		.file 1 "LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c"
+   1:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** /*
+   2:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****              LUFA Library
+   3:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+   5:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** */
+   8:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+   9:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** /*
+  10:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  12:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  21:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****   this software.
+  29:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** */
+  30:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  31:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** #include "../../../../Common/Common.h"
+  32:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** #if (ARCH == ARCH_XMEGA)
+  33:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  34:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** #define  __INCLUDE_FROM_USB_DRIVER
+  35:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** #define  __INCLUDE_FROM_USB_CONTROLLER_C
+  36:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** #include "../USBController.h"
+  37:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  38:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** #if defined(USB_CAN_BE_BOTH)
+  39:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** volatile uint8_t USB_CurrentMode = USB_MODE_None;
+  40:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** #endif
+  41:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  42:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** #if !defined(USE_STATIC_OPTIONS)
+  43:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** volatile uint8_t USB_Options;
+  44:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** #endif
+  45:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  46:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** /* Ugly workaround to ensure an aligned table, since __BIGGEST_ALIGNMENT__ == 1 for the 8-bit AVR-G
+  47:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** uint8_t USB_EndpointTable[sizeof(USB_EndpointTable_t) + 1];
+  48:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  49:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** void USB_Init(
+  50:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                #if defined(USB_CAN_BE_BOTH)
+  51:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                const uint8_t Mode
+  52:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                #endif
+  53:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  54:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                #if (defined(USB_CAN_BE_BOTH) && !defined(USE_STATIC_OPTIONS))
+  55:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                ,
+  56:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                #elif (!defined(USB_CAN_BE_BOTH) && defined(USE_STATIC_OPTIONS))
+  57:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                void
+  58:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                #endif
+  59:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  60:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                #if !defined(USE_STATIC_OPTIONS)
+  61:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                const uint8_t Options
+  62:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                #endif
+  63:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c ****                )
+  64:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** {
+  65:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	#if !defined(USE_STATIC_OPTIONS)
+  66:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_Options = Options;
+  67:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	#endif
+  68:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  69:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
+  70:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	GlobalInterruptDisable();
+  71:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  72:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	NVM.CMD  = NVM_CMD_READ_CALIB_ROW_gc;
+  73:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB.CAL0 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL0));
+  74:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB.CAL1 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL1));
+  75:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	NVM.CMD  = 0;
+  76:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  77:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	/* Ugly workaround to ensure an aligned table, since __BIGGEST_ALIGNMENT__ == 1 for the 8-bit AVR-
+  78:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB.EPPTR = ((intptr_t)&USB_EndpointTable[1] & ~(1 << 0));
+  79:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB.CTRLA = (USB_STFRNUM_bm | ((ENDPOINT_TOTAL_ENDPOINTS - 1) << USB_MAXEP_gp));
+  80:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  81:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	if ((USB_Options & USB_OPT_BUSEVENT_PRIHIGH) == USB_OPT_BUSEVENT_PRIHIGH)
+  82:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	  USB.INTCTRLA = (3 << USB_INTLVL_gp);
+  83:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	else if ((USB_Options & USB_OPT_BUSEVENT_PRIMED) == USB_OPT_BUSEVENT_PRIMED)
+  84:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	  USB.INTCTRLA = (2 << USB_INTLVL_gp);
+  85:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	else
+  86:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	  USB.INTCTRLA = (1 << USB_INTLVL_gp);
+  87:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  88:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	SetGlobalInterruptMask(CurrentGlobalInt);
+  89:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  90:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	#if defined(USB_CAN_BE_BOTH)
+  91:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_CurrentMode = Mode;
+  92:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	#endif
+  93:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	
+  94:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_IsInitialized = true;
+  95:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	
+  96:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_ResetInterface();
+  97:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** }
+  98:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+  99:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** void USB_Disable(void)
+ 100:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** {
+  19               		.loc 1 100 0
+  20               		.cfi_startproc
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 0 */
+  24               	.L__stack_usage = 0
+ 101:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_INT_DisableAllInterrupts();
+  25               		.loc 1 101 0
+  26 0000 0E94 0000 		call USB_INT_DisableAllInterrupts
+ 102:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_INT_ClearAllInterrupts();
+  27               		.loc 1 102 0
+  28 0004 0E94 0000 		call USB_INT_ClearAllInterrupts
+  29               	.LBB30:
+  30               	.LBB31:
+  31               		.file 2 "LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h"
+   1:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** /*
+   2:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****              LUFA Library
+   3:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+   5:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** */
+   8:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+   9:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** /*
+  10:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  12:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  21:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****   this software.
+  29:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** */
+  30:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  31:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** /** \file
+  32:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *  \brief USB Controller definitions for the AVR XMEGA microcontrollers.
+  33:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *  \copydetails Group_USBManagement_XMEGA
+  34:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *
+  35:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *  \note This file should not be included directly. It is automatically included as needed by the 
+  36:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *        dispatch header located in LUFA/Drivers/USB/USB.h.
+  37:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  */
+  38:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  39:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** /** \ingroup Group_USBManagement
+  40:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *  \defgroup Group_USBManagement_XMEGA USB Interface Management (XMEGA)
+  41:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *  \brief USB Controller definitions for the AVR XMEGA microcontrollers.
+  42:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *
+  43:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *  Functions, macros, variables, enums and types related to the setup and management of the USB in
+  44:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *
+  45:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  *  @{
+  46:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h ****  */
+  47:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  48:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** #ifndef __USBCONTROLLER_XMEGA_H__
+  49:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** #define __USBCONTROLLER_XMEGA_H__
+  50:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  51:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 	/* Includes: */
+  52:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#include "../../../../Common/Common.h"
+  53:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#include "../USBMode.h"
+  54:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#include "../Events.h"
+  55:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#include "../USBTask.h"
+  56:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#include "../USBInterrupt.h"
+  57:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  58:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 	/* Private Interface - For use in library only: */
+  59:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 	#if !defined(__DOXYGEN__)
+  60:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		/* Type Defines: */
+  61:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			typedef struct
+  62:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			{
+  63:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				struct
+  64:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				{
+  65:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 					USB_EP_t OUT;
+  66:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 					USB_EP_t IN;
+  67:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				} Endpoints[16];
+  68:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				uint16_t FrameNum;
+  69:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			} ATTR_PACKED USB_EndpointTable_t;
+  70:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  71:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		/* External Variables: */
+  72:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			extern uint8_t USB_EndpointTable[];
+  73:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 	#endif
+  74:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  75:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 	/* Includes: */
+  76:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
+  77:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#include "../Device.h"
+  78:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#include "../Endpoint.h"
+  79:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#include "../DeviceStandardReq.h"
+  80:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#include "../EndpointStream.h"
+  81:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#endif
+  82:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  83:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 	/* Enable C linkage for C++ Compilers: */
+  84:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#if defined(__cplusplus)
+  85:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			extern "C" {
+  86:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#endif
+  87:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  88:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 	/* Preprocessor Checks and Defines: */
+  89:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+  90:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+  91:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#endif
+  92:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  93:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#if !defined(F_USB)
+  94:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#error F_USB is not defined. You must define F_USB to the frequency of the unprescaled USB contr
+  95:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#endif
+  96:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+  97:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#if ((F_USB % 6000000) || (F_USB < 6000000))
+  98:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#error Invalid F_USB specified. F_USB must be a multiple of 6MHz for USB Low Speed operation, an
+  99:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		#endif
+ 100:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 101:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 	/* Public Interface - May be used in end-application: */
+ 102:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		/* Macros: */
+ 103:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** \name USB Controller Option Masks */
+ 104:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			//@{
+ 105:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Sets the USB bus interrupt priority level to be low priority. The USB bus interrupt is used 
+ 106:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  and resume events, bus reset events and other events related to the management of the USB bu
+ 107:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 */
+ 108:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#define USB_OPT_BUSEVENT_PRILOW           ((0 << 2) | (0 << 1))
+ 109:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 110:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Sets the USB bus interrupt priority level to be medium priority. The USB bus interrupt is us
+ 111:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  and resume events, bus reset events and other events related to the management of the USB bu
+ 112:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 */
+ 113:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#define USB_OPT_BUSEVENT_PRIMED           ((0 << 2) | (1 << 1))
+ 114:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 115:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Sets the USB bus interrupt priority level to be high priority. The USB bus interrupt is used
+ 116:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  and resume events, bus reset events and other events related to the management of the USB bu
+ 117:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 */
+ 118:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#define USB_OPT_BUSEVENT_PRIHIGH          ((1 << 2) | (0 << 1))
+ 119:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 120:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Sets the USB controller to source its clock from the internal RC 32MHz clock, once it has be
+ 121:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#define USB_OPT_RC32MCLKSRC               (0 << 3)
+ 122:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 123:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Sets the USB controller to source its clock from the internal PLL. */
+ 124:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#define USB_OPT_PLLCLKSRC                 (1 << 3)
+ 125:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			//@}
+ 126:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 127:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#if !defined(USB_STREAM_TIMEOUT_MS) || defined(__DOXYGEN__)
+ 128:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				/** Constant for the maximum software timeout period of the USB data stream transfer functions
+ 129:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *  (both control and standard) when in either device or host mode. If the next packet of a str
+ 130:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *  is not received or acknowledged within this time period, the stream function will fail.
+ 131:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *
+ 132:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *  This value may be overridden in the user project makefile as the value of the
+ 133:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *  \ref USB_STREAM_TIMEOUT_MS token, and passed to the compiler using the -D switch.
+ 134:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 */
+ 135:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				#define USB_STREAM_TIMEOUT_MS       100
+ 136:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#endif
+ 137:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 138:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		/* Inline Functions: */
+ 139:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Detaches the device from the USB bus. This has the effect of removing the device from any
+ 140:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  attached host, ceasing USB communications. If no host is present, this prevents any host fro
+ 141:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  enumerating the device once attached until \ref USB_Attach() is called.
+ 142:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 */
+ 143:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			static inline void USB_Detach(void) ATTR_ALWAYS_INLINE;
+ 144:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			static inline void USB_Detach(void)
+ 145:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			{
+ 146:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				USB.CTRLB &= ~USB_ATTACH_bm;
+  32               		.loc 2 146 0
+  33 0008 E0EC      		ldi r30,lo8(1216)
+  34 000a F4E0      		ldi r31,hi8(1216)
+  35 000c 8181      		ldd r24,Z+1
+  36 000e 8E7F      		andi r24,lo8(-2)
+  37 0010 8183      		std Z+1,r24
+  38               	.LBE31:
+  39               	.LBE30:
+  40               	.LBB32:
+  41               	.LBB33:
+ 147:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			}
+ 148:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 149:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Attaches the device to the USB bus. This announces the device's presence to any attached
+ 150:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  USB host, starting the enumeration process. If no host is present, attaching the device
+ 151:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  will allow for enumeration once a host is connected to the device.
+ 152:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *
+ 153:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  This is inexplicably also required for proper operation while in host mode, to enable the
+ 154:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  attachment of a device to the host. This is despite the bit being located in the device-mode
+ 155:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  register and despite the datasheet making no mention of its requirement in host mode.
+ 156:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 */
+ 157:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			static inline void USB_Attach(void) ATTR_ALWAYS_INLINE;
+ 158:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			static inline void USB_Attach(void)
+ 159:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			{
+ 160:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				USB.CTRLB |= USB_ATTACH_bm;
+ 161:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			}
+ 162:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 163:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		/* Function Prototypes: */
+ 164:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Main function to initialize and start the USB interface. Once active, the USB interface will
+ 165:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  allow for device connection to a host when in device mode, or for device enumeration while i
+ 166:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  host mode.
+ 167:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *
+ 168:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  As the USB library relies on interrupts for the device and host mode enumeration processes,
+ 169:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  the user must enable global interrupts before or shortly after this function is called. In
+ 170:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  device mode, interrupts must be enabled within 500ms of this function being called to ensure
+ 171:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  that the host does not time out whilst enumerating the device. In host mode, interrupts may 
+ 172:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  enabled at the application's leisure however enumeration will not begin of an attached devic
+ 173:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  until after this has occurred.
+ 174:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *
+ 175:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  Calling this function when the USB interface is already initialized will cause a complete US
+ 176:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  interface reset and re-enumeration.
+ 177:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *
+ 178:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  \param[in] Mode     Mask indicating what mode the USB interface is to be initialized to, a v
+ 179:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *                      from the \ref USB_Modes_t enum.
+ 180:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *                      \note This parameter does not exist on devices with only one supported U
+ 181:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *                            mode (device or host).
+ 182:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *
+ 183:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  \param[in] Options  Mask indicating the options which should be used when initializing the U
+ 184:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *                      interface to control the USB interface's behavior. This should be compri
+ 185:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *                      a \c USB_OPT_REG_* mask to control the regulator, a \c USB_OPT_*_PLL mas
+ 186:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *                      PLL, and a \c USB_DEVICE_OPT_* mask (when the device mode is enabled) to
+ 187:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *                      mode speed.
+ 188:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *
+ 189:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  \note To reduce the FLASH requirements of the library if only device or host mode is require
+ 190:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        the mode can be statically set in the project makefile by defining the token \c USB_DE
+ 191:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        (for device mode) or \c USB_HOST_ONLY (for host mode), passing the token to the compil
+ 192:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        via the -D switch. If the mode is statically set, this parameter does not exist in the
+ 193:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        function prototype.
+ 194:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        \n\n
+ 195:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *
+ 196:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  \note To reduce the FLASH requirements of the library if only fixed settings are required,
+ 197:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        the options may be set statically in the same manner as the mode (see the Mode paramet
+ 198:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        this function). To statically set the USB options, pass in the \c USE_STATIC_OPTIONS t
+ 199:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        defined to the appropriate options masks. When the options are statically set, this
+ 200:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        parameter does not exist in the function prototype.
+ 201:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        \n\n
+ 202:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *
+ 203:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  \note The mode parameter does not exist on devices where only one mode is possible, such as 
+ 204:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *        AVR models which only implement the USB device mode in hardware.
+ 205:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *
+ 206:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  \see \ref Group_Device for the \c USB_DEVICE_OPT_* masks.
+ 207:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 */
+ 208:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			void USB_Init(
+ 209:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               #if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
+ 210:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               const uint8_t Mode
+ 211:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               #endif
+ 212:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 213:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               #if (defined(USB_CAN_BE_BOTH) && !defined(USE_STATIC_OPTIONS)) || defined(__DOXYG
+ 214:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               ,
+ 215:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               #elif (!defined(USB_CAN_BE_BOTH) && defined(USE_STATIC_OPTIONS))
+ 216:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               void
+ 217:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               #endif
+ 218:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 219:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               #if !defined(USE_STATIC_OPTIONS) || defined(__DOXYGEN__)
+ 220:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               const uint8_t Options
+ 221:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               #endif
+ 222:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			               );
+ 223:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 224:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Shuts down the USB interface. This turns off the USB interface after deallocating all USB FI
+ 225:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  memory, endpoints and pipes. When turned off, no USB functionality can be used until the int
+ 226:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  is restarted with the \ref USB_Init() function.
+ 227:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 */
+ 228:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			void USB_Disable(void);
+ 229:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 230:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Resets the interface, when already initialized. This will re-enumerate the device if already
+ 231:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  to a host, or re-enumerate an already attached device when in host mode.
+ 232:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 */
+ 233:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			void USB_ResetInterface(void);
+ 234:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 235:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		/* Global Variables: */
+ 236:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
+ 237:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				/** Indicates the mode that the USB interface is currently initialized to, a value from the
+ 238:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *  \ref USB_Modes_t enum.
+ 239:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *
+ 240:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *  \attention This variable should be treated as read-only in the user application, and never 
+ 241:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *             changed in value.
+ 242:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *
+ 243:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *  \note When the controller is initialized into UID auto-detection mode, this variable will h
+ 244:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *        currently selected USB mode (i.e. \ref USB_MODE_Device or \ref USB_MODE_Host). If the
+ 245:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *        is fixed into a specific mode (either through the \c USB_DEVICE_ONLY or \c USB_HOST_O
+ 246:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *        options, or a limitation of the USB controller in the chosen device model) this will 
+ 247:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *        a constant of the appropriate value and will never evaluate to \ref USB_MODE_None eve
+ 248:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *        USB interface is not initialized.
+ 249:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 */
+ 250:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				extern volatile uint8_t USB_CurrentMode;
+ 251:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#elif defined(USB_CAN_BE_HOST)
+ 252:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				#define USB_CurrentMode USB_MODE_Host
+ 253:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#elif defined(USB_CAN_BE_DEVICE)
+ 254:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				#define USB_CurrentMode USB_MODE_Device
+ 255:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#endif
+ 256:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 257:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#if !defined(USE_STATIC_OPTIONS) || defined(__DOXYGEN__)
+ 258:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				/** Indicates the current USB options that the USB interface was initialized with when \ref USB
+ 259:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *  was called. This value will be one of the \c USB_MODE_* masks defined elsewhere in this mod
+ 260:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *
+ 261:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *  \attention This variable should be treated as read-only in the user application, and never 
+ 262:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 *             changed in value.
+ 263:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				 */
+ 264:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				extern volatile uint8_t USB_Options;
+ 265:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#elif defined(USE_STATIC_OPTIONS)
+ 266:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				#define USB_Options USE_STATIC_OPTIONS
+ 267:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#endif
+ 268:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 269:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		/* Enums: */
+ 270:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			/** Enum for the possible USB controller modes, for initialization via \ref USB_Init() and indic
+ 271:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 *  user application via \ref USB_CurrentMode.
+ 272:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			 */
+ 273:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			enum USB_Modes_t
+ 274:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			{
+ 275:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				USB_MODE_None   = 0, /**< Indicates that the controller is currently not initialized in any spe
+ 276:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				USB_MODE_Device = 1, /**< Indicates that the controller is currently initialized in USB Device 
+ 277:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			};
+ 278:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 279:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 	/* Private Interface - For use in library only: */
+ 280:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 	#if !defined(__DOXYGEN__)
+ 281:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		/* Function Prototypes: */
+ 282:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#if defined(__INCLUDE_FROM_USB_CONTROLLER_C)
+ 283:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				static void USB_Init_Device(void);
+ 284:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			#endif
+ 285:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 286:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 		/* Inline Functions: */
+ 287:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			static inline void USB_Controller_Enable(void) ATTR_ALWAYS_INLINE;
+ 288:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			static inline void USB_Controller_Enable(void)
+ 289:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			{
+ 290:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				USB.CTRLA |=  USB_ENABLE_bm;
+ 291:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			}
+ 292:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 293:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			static inline void USB_Controller_Disable(void) ATTR_ALWAYS_INLINE;
+ 294:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			static inline void USB_Controller_Disable(void)
+ 295:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			{
+ 296:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				USB.CTRLA &= ~USB_ENABLE_bm;
+  42               		.loc 2 296 0
+  43 0012 8081      		ld r24,Z
+  44 0014 8F77      		andi r24,lo8(127)
+  45 0016 8083      		st Z,r24
+  46               	.LBE33:
+  47               	.LBE32:
+ 103:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+ 104:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_Detach();
+ 105:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_Controller_Disable();
+ 106:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+ 107:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_IsInitialized = false;
+  48               		.loc 1 107 0
+  49 0018 1092 0000 		sts USB_IsInitialized,__zero_reg__
+  50               	/* epilogue start */
+ 108:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** }
+  51               		.loc 1 108 0
+  52 001c 0895      		ret
+  53               		.cfi_endproc
+  54               	.LFE69:
+  56               		.section	.text.USB_ResetInterface,"ax",@progbits
+  57               	.global	USB_ResetInterface
+  59               	USB_ResetInterface:
+  60               	.LFB70:
+ 109:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+ 110:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** void USB_ResetInterface(void)
+ 111:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** {
+  61               		.loc 1 111 0
+  62               		.cfi_startproc
+  63 0000 CF93      		push r28
+  64               	.LCFI0:
+  65               		.cfi_def_cfa_offset 3
+  66               		.cfi_offset 28, -2
+  67 0002 DF93      		push r29
+  68               	.LCFI1:
+  69               		.cfi_def_cfa_offset 4
+  70               		.cfi_offset 29, -3
+  71               	/* prologue: function */
+  72               	/* frame size = 0 */
+  73               	/* stack size = 2 */
+  74               	.L__stack_usage = 2
+ 112:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	#if defined(USB_DEVICE_OPT_FULLSPEED)
+ 113:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	if (USB_Options & USB_DEVICE_OPT_LOWSPEED)
+ 114:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	  CLK.USBCTRL = (((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp);
+ 115:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	else
+ 116:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	  CLK.USBCTRL = (((F_USB / 48000000) - 1) << CLK_USBPSDIV_gp);
+  75               		.loc 1 116 0
+  76 0004 E0E4      		ldi r30,lo8(64)
+  77 0006 F0E0      		ldi r31,hi8(64)
+  78 0008 1482      		std Z+4,__zero_reg__
+ 117:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	#else
+ 118:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	CLK.USBCTRL = (((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp);
+ 119:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	#endif
+ 120:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	
+ 121:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	if (USB_Options & USB_OPT_PLLCLKSRC)
+ 122:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	  CLK.USBCTRL |= (CLK_USBSRC_PLL_gc   | CLK_USBSEN_bm);
+ 123:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	else
+ 124:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	  CLK.USBCTRL |= (CLK_USBSRC_RC32M_gc | CLK_USBSEN_bm);
+  79               		.loc 1 124 0
+  80 000a 8481      		ldd r24,Z+4
+  81 000c 8360      		ori r24,lo8(3)
+  82 000e 8483      		std Z+4,r24
+  83               	.LVL0:
+  84               	.LBB48:
+  85               	.LBB49:
+  86               		.file 3 "LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h"
+   1:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** /*
+   2:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****              LUFA Library
+   3:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+   5:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** */
+   8:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+   9:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** /*
+  10:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  12:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  21:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****   this software.
+  29:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** */
+  30:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  31:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** /** \file
+  32:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *  \brief USB Device definitions for the AVR XMEGA microcontrollers.
+  33:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *  \copydetails Group_Device_XMEGA
+  34:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *
+  35:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *  \note This file should not be included directly. It is automatically included as needed by the 
+  36:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *        dispatch header located in LUFA/Drivers/USB/USB.h.
+  37:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  */
+  38:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  39:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** /** \ingroup Group_Device
+  40:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *  \defgroup Group_Device_XMEGA Device Management (XMEGA)
+  41:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *  \brief USB Device definitions for the AVR XMEGA microcontrollers.
+  42:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *
+  43:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *  Architecture specific USB Device definitions for the Atmel AVR XMEGA microcontrollers.
+  44:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *
+  45:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  *  @{
+  46:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h ****  */
+  47:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  48:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** #ifndef __USBDEVICE_XMEGA_H__
+  49:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** #define __USBDEVICE_XMEGA_H__
+  50:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  51:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 	/* Includes: */
+  52:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#include "../../../../Common/Common.h"
+  53:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#include "../USBController.h"
+  54:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#include "../StdDescriptors.h"
+  55:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#include "../USBInterrupt.h"
+  56:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#include "../Endpoint.h"
+  57:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  58:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 	/* Enable C linkage for C++ Compilers: */
+  59:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#if defined(__cplusplus)
+  60:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			extern "C" {
+  61:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#endif
+  62:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  63:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 	/* Preprocessor Checks: */
+  64:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+  65:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+  66:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#endif
+  67:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  68:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#if (defined(USE_RAM_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS))
+  69:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#error USE_RAM_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
+  70:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#endif
+  71:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  72:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#if (defined(USE_FLASH_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS))
+  73:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#error USE_FLASH_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
+  74:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#endif
+  75:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  76:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#if (defined(USE_FLASH_DESCRIPTORS) && defined(USE_RAM_DESCRIPTORS))
+  77:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#error USE_FLASH_DESCRIPTORS and USE_RAM_DESCRIPTORS are mutually exclusive.
+  78:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		#endif
+  79:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  80:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 	/* Public Interface - May be used in end-application: */
+  81:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		/* Macros: */
+  82:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			/** \name USB Device Mode Option Masks */
+  83:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			//@{
+  84:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
+  85:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  USB interface should be initialized in low speed (1.5Mb/s) mode.
+  86:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *
+  87:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  \note Low Speed mode is not available on all USB AVR models.
+  88:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *        \n
+  89:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *
+  90:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  \note Restrictions apply on the number, size and type of endpoints which can be used
+  91:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *        when running in low speed mode - refer to the USB 2.0 specification.
+  92:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 */
+  93:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#define USB_DEVICE_OPT_LOWSPEED        (1 << 0)
+  94:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+  95:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#if (F_USB > 6000000)
+  96:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
+  97:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 *  USB interface should be initialized in full speed (12Mb/s) mode.
+  98:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 */
+  99:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				#define USB_DEVICE_OPT_FULLSPEED   (0 << 0)
+ 100:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#endif
+ 101:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			//@}
+ 102:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 103:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#if (!defined(NO_INTERNAL_SERIAL) || defined(__DOXYGEN__))
+ 104:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				/** String descriptor index for the device's unique serial number string descriptor within the 
+ 105:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 *  This unique serial number is used by the host to associate resources to the device (such as
+ 106:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 *  number allocations) to a device regardless of the port it is plugged in to on the host. Som
+ 107:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 *  a unique serial number internally, and setting the device descriptors serial number string 
+ 108:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 *  will cause it to use the internal serial number.
+ 109:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 *
+ 110:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 *  On unsupported devices, this will evaluate to \ref NO_DESCRIPTOR and so will force the host
+ 111:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 *  number for the device.
+ 112:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 */
+ 113:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				#define USE_INTERNAL_SERIAL            0xDC
+ 114:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 115:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				/** Length of the device's unique internal serial number, in bits, if present on the selected m
+ 116:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 *  model.
+ 117:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 */
+ 118:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				#define INTERNAL_SERIAL_LENGTH_BITS    (8 * (1 + (offsetof(NVM_PROD_SIGNATURES_t, COORDY1) - of
+ 119:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 120:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				/** Start address of the internal serial number, in the appropriate address space, if present o
+ 121:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 *  model.
+ 122:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				 */
+ 123:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				#define INTERNAL_SERIAL_START_ADDRESS  offsetof(NVM_PROD_SIGNATURES_t, LOTNUM0)
+ 124:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#else
+ 125:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				#define USE_INTERNAL_SERIAL            NO_DESCRIPTOR
+ 126:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 127:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				#define INTERNAL_SERIAL_LENGTH_BITS    0
+ 128:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				#define INTERNAL_SERIAL_START_ADDRESS  0
+ 129:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#endif
+ 130:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 131:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		/* Function Prototypes: */
+ 132:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
+ 133:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  be taken out of suspended mode, and communications should resume.
+ 134:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *
+ 135:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  Typically, this is implemented so that HID devices (mice, keyboards, etc.) can wake up the
+ 136:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  host computer when the host has suspended all USB devices to enter a low power state.
+ 137:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *
+ 138:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  \note This function should only be used if the device has indicated to the host that it
+ 139:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *        supports the Remote Wakeup feature in the device descriptors, and should only be
+ 140:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
+ 141:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *        the \ref USB_Device_RemoteWakeupEnabled flag is set). When the \c NO_DEVICE_REMOTE_WAK
+ 142:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *        compile time option is used, this function is unavailable.
+ 143:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *        \n\n
+ 144:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *
+ 145:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  \note The USB clock must be running for this function to operate. If the stack is initialize
+ 146:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *        the \ref USB_OPT_MANUAL_PLL option enabled, the user must ensure that the PLL is runni
+ 147:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *        before attempting to call this function.
+ 148:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *
+ 149:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  \see \ref Group_StdDescriptors for more information on the RMWAKEUP feature and device descr
+ 150:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 */
+ 151:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			void USB_Device_SendRemoteWakeup(void);
+ 152:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 153:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		/* Inline Functions: */
+ 154:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			/** Returns the current USB frame number, when in device mode. Every millisecond the USB bus is 
+ 155:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  the frame number is incremented by one.
+ 156:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *
+ 157:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  \return Current USB frame number from the USB controller.
+ 158:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 */
+ 159:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline uint16_t USB_Device_GetFrameNumber(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESUL
+ 160:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline uint16_t USB_Device_GetFrameNumber(void)
+ 161:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			{
+ 162:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				return ((USB_EndpointTable_t*)USB.EPPTR)->FrameNum;
+ 163:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			}
+ 164:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 165:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#if !defined(NO_SOF_EVENTS)
+ 166:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			/** Enables the device mode Start Of Frame events. When enabled, this causes the
+ 167:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the
+ 168:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  at the start of each USB frame when enumerated in device mode.
+ 169:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *
+ 170:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  \note This function is not available when the \c NO_SOF_EVENTS compile time token is defined
+ 171:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 */
+ 172:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
+ 173:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline void USB_Device_EnableSOFEvents(void)
+ 174:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			{
+ 175:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				USB.INTCTRLA |=  USB_SOFIE_bm;
+ 176:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			}
+ 177:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 178:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			/** Disables the device mode Start Of Frame events. When disabled, this stops the firing of the
+ 179:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
+ 180:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *
+ 181:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 *  \note This function is not available when the \c NO_SOF_EVENTS compile time token is defined
+ 182:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			 */
+ 183:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline void USB_Device_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
+ 184:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline void USB_Device_DisableSOFEvents(void)
+ 185:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			{
+ 186:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				USB.INTCTRLA &= ~USB_SOFIE_bm;
+ 187:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			}
+ 188:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			#endif
+ 189:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 190:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 	/* Private Interface - For use in library only: */
+ 191:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 	#if !defined(__DOXYGEN__)
+ 192:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 		/* Inline Functions: */
+ 193:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline void USB_Device_SetLowSpeed(void) ATTR_ALWAYS_INLINE;
+ 194:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline void USB_Device_SetLowSpeed(void)
+ 195:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			{
+ 196:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				USB.CTRLA &= ~USB_SPEED_bm;
+ 197:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			}
+ 198:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 199:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline void USB_Device_SetFullSpeed(void) ATTR_ALWAYS_INLINE;
+ 200:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline void USB_Device_SetFullSpeed(void)
+ 201:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			{
+ 202:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				USB.CTRLA |=  USB_SPEED_bm;
+ 203:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			}
+ 204:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 
+ 205:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
+ 206:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address)
+ 207:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 			{
+ 208:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				USB.ADDR = Address;
+  87               		.loc 3 208 0
+  88 0010 C0EC      		ldi r28,lo8(1216)
+  89 0012 D4E0      		ldi r29,hi8(1216)
+  90 0014 1B82      		std Y+3,__zero_reg__
+  91               	.LBE49:
+  92               	.LBE48:
+ 125:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+ 126:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_Device_SetDeviceAddress(0);
+ 127:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+ 128:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_INT_DisableAllInterrupts();
+  93               		.loc 1 128 0
+  94 0016 0E94 0000 		call USB_INT_DisableAllInterrupts
+ 129:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_INT_ClearAllInterrupts();
+  95               		.loc 1 129 0
+  96 001a 0E94 0000 		call USB_INT_ClearAllInterrupts
+  97               	.LBB50:
+  98               	.LBB51:
+ 297:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			}
+ 298:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 
+ 299:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			static inline void USB_Controller_Reset(void) ATTR_ALWAYS_INLINE;
+ 300:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			static inline void USB_Controller_Reset(void)
+ 301:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 			{
+ 302:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				USB.CTRLA &= ~USB_ENABLE_bm;
+  99               		.loc 2 302 0
+ 100 001e 8881      		ld r24,Y
+ 101 0020 8F77      		andi r24,lo8(127)
+ 102 0022 8883      		st Y,r24
+ 303:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				USB.CTRLA |=  USB_ENABLE_bm;
+ 103               		.loc 2 303 0
+ 104 0024 8881      		ld r24,Y
+ 105 0026 8068      		ori r24,lo8(-128)
+ 106 0028 8883      		st Y,r24
+ 107               	.LBE51:
+ 108               	.LBE50:
+ 109               	.LBB52:
+ 110               	.LBB53:
+ 130:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+ 131:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_Controller_Reset();
+ 132:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_Init_Device();
+ 133:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** }
+ 134:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+ 135:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** #if defined(USB_CAN_BE_DEVICE)
+ 136:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** static void USB_Init_Device(void)
+ 137:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** {
+ 138:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_DeviceState                 = DEVICE_STATE_Unattached;
+ 111               		.loc 1 138 0
+ 112 002a 1092 0000 		sts USB_DeviceState,__zero_reg__
+ 139:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_Device_ConfigurationNumber  = 0;
+ 113               		.loc 1 139 0
+ 114 002e 1092 0000 		sts USB_Device_ConfigurationNumber,__zero_reg__
+ 140:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+ 141:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	#if !defined(NO_DEVICE_REMOTE_WAKEUP)
+ 142:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_Device_RemoteWakeupEnabled  = false;
+ 115               		.loc 1 142 0
+ 116 0032 1092 0000 		sts USB_Device_RemoteWakeupEnabled,__zero_reg__
+ 143:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	#endif
+ 144:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 
+ 145:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	#if !defined(NO_DEVICE_SELF_POWER)
+ 146:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_Device_CurrentlySelfPowered = false;
+ 117               		.loc 1 146 0
+ 118 0036 1092 0000 		sts USB_Device_CurrentlySelfPowered,__zero_reg__
+ 119               	.LBB54:
+ 120               	.LBB55:
+ 202:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Device_XMEGA.h **** 				USB.CTRLA |=  USB_SPEED_bm;
+ 121               		.loc 3 202 0
+ 122 003a 8881      		ld r24,Y
+ 123 003c 8064      		ori r24,lo8(64)
+ 124 003e 8883      		st Y,r24
+ 125               	.LVL1:
+ 126               	.LBE55:
+ 127               	.LBE54:
+ 128               	.LBB56:
+ 129               	.LBB57:
+ 130               		.file 4 "LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h"
+   1:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** /*
+   2:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****              LUFA Library
+   3:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+   5:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** */
+   8:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+   9:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** /*
+  10:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  12:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  21:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****   this software.
+  29:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** */
+  30:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  31:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \file
+  32:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief USB Endpoint definitions for the AVR XMEGA microcontrollers.
+  33:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \copydetails Group_EndpointManagement_XMEGA
+  34:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  35:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \note This file should not be included directly. It is automatically included as needed by the 
+  36:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *        dispatch header located in LUFA/Drivers/USB/USB.h.
+  37:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  38:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  39:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointRW
+  40:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointRW_XMEGA Endpoint Data Reading and Writing (XMEGA)
+  41:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint data read/write definitions for the Atmel AVR XMEGA architecture.
+  42:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  43:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros, variables, enums and types related to data reading and writing from and to e
+  44:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  45:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  46:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointPrimitiveRW
+  47:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointPrimitiveRW_XMEGA Read/Write of Primitive Data Types (XMEGA)
+  48:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint primitive read/write definitions for the Atmel AVR XMEGA architecture.
+  49:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  50:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros, variables, enums and types related to data reading and writing of primitive 
+  51:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  from and to endpoints.
+  52:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  53:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  54:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointPacketManagement
+  55:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointPacketManagement_XMEGA Endpoint Packet Management (XMEGA)
+  56:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint packet management definitions for the Atmel AVR XMEGA architecture.
+  57:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  58:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros, variables, enums and types related to packet management of endpoints.
+  59:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  60:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  61:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointManagement
+  62:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointManagement_XMEGA Endpoint Management (XMEGA)
+  63:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint management definitions for the Atmel AVR XMEGA architecture.
+  64:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  65:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
+  66:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  module contains the endpoint management macros, as well as endpoint interrupt and data
+  67:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  send/receive functions for various data types.
+  68:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  69:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  @{
+  70:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  71:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  72:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** #ifndef __ENDPOINT_XMEGA_H__
+  73:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** #define __ENDPOINT_XMEGA_H__
+  74:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  75:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Includes: */
+  76:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../../../../Common/Common.h"
+  77:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../USBTask.h"
+  78:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../USBInterrupt.h"
+  79:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../USBController.h"
+  80:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  81:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Enable C linkage for C++ Compilers: */
+  82:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#if defined(__cplusplus)
+  83:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern "C" {
+  84:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#endif
+  85:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  86:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Preprocessor Checks: */
+  87:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+  88:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+  89:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#endif
+  90:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  91:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Public Interface - May be used in end-application: */
+  92:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Macros: */
+  93:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#if (!defined(MAX_ENDPOINT_INDEX) && !defined(CONTROL_ONLY_DEVICE)) || defined(__DOXYGEN__)
+  94:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				/** Total number of endpoints (including the default control endpoint at address 0) which may
+  95:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 *  be used in the device. Different USB AVR models support different amounts of endpoints,
+  96:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
+  97:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 */
+  98:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#define ENDPOINT_TOTAL_ENDPOINTS            16
+  99:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#else
+ 100:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#if defined(CONTROL_ONLY_DEVICE)
+ 101:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					#define ENDPOINT_TOTAL_ENDPOINTS        1
+ 102:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#else
+ 103:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					#define ENDPOINT_TOTAL_ENDPOINTS        (MAX_ENDPOINT_INDEX + 1)
+ 104:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#endif
+ 105:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#endif
+ 106:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 107:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Private Interface - For use in library only: */
+ 108:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	#if !defined(__DOXYGEN__)
+ 109:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Type Defines: */
+ 110:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			typedef struct
+ 111:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 112:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t Data[64];
+ 113:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 114:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t Length;
+ 115:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t Position;
+ 116:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			} Endpoint_FIFO_t;
+ 117:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 118:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			typedef struct
+ 119:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 120:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_FIFO_t OUT;
+ 121:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_FIFO_t IN;
+ 122:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			} Endpoint_FIFOPair_t;
+ 123:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 124:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* External Variables: */
+ 125:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern Endpoint_FIFOPair_t       USB_Endpoint_FIFOs[ENDPOINT_TOTAL_ENDPOINTS];
+ 126:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern volatile uint8_t          USB_Endpoint_SelectedEndpoint;
+ 127:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern volatile USB_EP_t*        USB_Endpoint_SelectedHandle;
+ 128:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern volatile Endpoint_FIFO_t* USB_Endpoint_SelectedFIFO;
+ 129:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 130:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Inline Functions: */
+ 131:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT A
+ 132:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                                                       ATTR_ALWAYS_INLINE;
+ 133:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
+ 134:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 135:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t  MaskVal    = 0;
+ 136:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint16_t CheckBytes = 8;
+ 137:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 138:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				while (CheckBytes < Bytes)
+ 139:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 140:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					MaskVal++;
+ 141:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					CheckBytes <<= 1;
+ 142:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 143:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 144:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return (MaskVal << USB_EP_BUFSIZE_gp);
+ 145:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 146:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 147:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Function Prototypes: */
+ 148:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Address,
+ 149:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                    const uint8_t Config,
+ 150:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                    const uint8_t Size);
+ 151:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			void Endpoint_ClearEndpoints(void);
+ 152:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	#endif
+ 153:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 154:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Public Interface - May be used in end-application: */
+ 155:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Macros: */
+ 156:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
+ 157:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				/** Default size of the default control endpoint's bank, until altered by the control endpoint 
+ 158:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 *  value in the device descriptor. Not available if the \c FIXED_CONTROL_ENDPOINT_SIZE token i
+ 159:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 */
+ 160:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE     8
+ 161:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#endif
+ 162:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 163:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Enums: */
+ 164:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Enum for the possible error return codes of the \ref Endpoint_WaitUntilReady() function.
+ 165:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 166:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointRW_XMEGA
+ 167:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 168:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			enum Endpoint_WaitUntilReady_ErrorCodes_t
+ 169:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 170:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_NoError                 = 0, /**< Endpoint is ready for next packet, no erro
+ 171:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_EndpointStalled         = 1, /**< The endpoint was stalled during the stream
+ 172:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   transfer by the host or device.
+ 173:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 174:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_DeviceDisconnected      = 2,	/**< Device was disconnected from the host whil
+ 175:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   waiting for the endpoint to become ready.
+ 176:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 177:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_BusSuspended            = 3, /**< The USB bus has been suspended by the host
+ 178:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   no USB endpoint traffic can occur until th
+ 179:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   has resumed.
+ 180:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 181:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_Timeout                 = 4, /**< The host failed to accept or send the next
+ 182:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   within the software timeout period set by 
+ 183:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   \ref USB_STREAM_TIMEOUT_MS macro.
+ 184:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 185:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			};
+ 186:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 187:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Inline Functions: */
+ 188:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Selects the given endpoint address.
+ 189:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 190:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  Any endpoint operations which do not require the endpoint address to be indicated will opera
+ 191:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  the currently selected endpoint.
+ 192:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 193:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Address  Endpoint address to select.
+ 194:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 195:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_SelectEndpoint(const uint8_t Address);
+ 196:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_SelectEndpoint(const uint8_t Address)
+ 197:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 198:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t EndpointNumber = (Address & ENDPOINT_EPNUM_MASK);
+ 199:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 200:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedEndpoint = Address;
+ 201:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 202:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Address & ENDPOINT_DIR_IN)
+ 203:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 204:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber].IN;
+ 205:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedHandle = &((USB_EndpointTable_t*)USB.EPPTR)->Endpoints[EndpointNumber].IN
+ 206:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 207:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				else
+ 208:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 209:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber].OUT;
+ 210:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedHandle = &((USB_EndpointTable_t*)USB.EPPTR)->Endpoints[EndpointNumber].OU
+ 211:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 212:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 213:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 214:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Configures the specified endpoint address with the given endpoint type, direction, bank size
+ 215:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  and banking mode. Once configured, the endpoint may be read from or written to, depending
+ 216:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  on its direction.
+ 217:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 218:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Address    Endpoint address to configure.
+ 219:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 220:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Type       Type of endpoint to configure, a \c EP_TYPE_* mask. Not all endpoint t
+ 221:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        are available on Low Speed USB devices - refer to the USB 2.0 specific
+ 222:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 223:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Size       Size of the endpoint's bank, where packets are stored before they are 
+ 224:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        to the USB host, or after they have been received from the USB host (d
+ 225:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        the endpoint's data direction). The bank size must indicate the maximu
+ 226:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        that the endpoint can handle.
+ 227:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 228:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Banks      Number of hardware banks to use for the endpoint being configured.
+ 229:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 230:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \note The default control endpoint should not be manually configured by the user application
+ 231:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *        it is automatically configured by the library internally.
+ 232:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *        \n\n
+ 233:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 234:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \note This routine will automatically select the specified endpoint.
+ 235:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 236:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the configuration succeeded, \c false otherwise.
+ 237:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 238:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Address,
+ 239:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Type,
+ 240:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint16_t Size,
+ 241:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Banks) ATTR_ALWAYS_INLINE;
+ 242:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Address,
+ 243:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Type,
+ 244:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint16_t Size,
+ 245:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Banks)
+ 246:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 247:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t EPConfigMask = (USB_EP_INTDSBL_bm | ((Banks > 1) ? USB_EP_PINGPONG_bm : 0) | Endpoint_B
+ 248:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 249:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if ((Address & ENDPOINT_EPNUM_MASK) >= ENDPOINT_TOTAL_ENDPOINTS)
+ 250:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return false;
+ 251:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 252:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				// TODO - Fix once limitations are lifted
+ 253:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				EPConfigMask &= ~USB_EP_PINGPONG_bm;
+ 254:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Size > 64)
+ 255:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return false;
+ 256:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 257:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				switch (Type)
+ 258:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 259:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					case EP_TYPE_CONTROL:
+ 260:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						EPConfigMask |= USB_EP_TYPE_CONTROL_gc;
+ 261:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						break;
+ 262:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					case EP_TYPE_ISOCHRONOUS:
+ 263:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						EPConfigMask |= USB_EP_TYPE_ISOCHRONOUS_gc;
+ 264:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						break;
+ 265:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					default:
+ 266:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						EPConfigMask |= USB_EP_TYPE_BULK_gc;
+ 267:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						break;
+ 268:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 269:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 270:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Type == EP_TYPE_CONTROL)
+ 271:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  Endpoint_ConfigureEndpoint_PRV(Address ^ ENDPOINT_DIR_IN, EPConfigMask, Size);
+ 131               		.loc 4 271 0
+ 132 0040 80E8      		ldi r24,lo8(-128)
+ 133 0042 68E4      		ldi r22,lo8(72)
+ 134 0044 48E0      		ldi r20,lo8(8)
+ 135 0046 0E94 0000 		call Endpoint_ConfigureEndpoint_PRV
+ 272:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 273:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return Endpoint_ConfigureEndpoint_PRV(Address, EPConfigMask, Size);
+ 136               		.loc 4 273 0
+ 137 004a 80E0      		ldi r24,lo8(0)
+ 138 004c 68E4      		ldi r22,lo8(72)
+ 139 004e 48E0      		ldi r20,lo8(8)
+ 140 0050 0E94 0000 		call Endpoint_ConfigureEndpoint_PRV
+ 141               	.LVL2:
+ 142               	.LBE57:
+ 143               	.LBE56:
+ 144               	.LBB58:
+ 145               	.LBB59:
+ 146               		.file 5 "LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h"
+   1:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** /*
+   2:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****              LUFA Library
+   3:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+   5:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** */
+   8:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+   9:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** /*
+  10:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+  12:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+  21:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****   this software.
+  29:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** */
+  30:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+  31:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** /** \file
+  32:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****  *  \brief USB Controller Interrupt definitions for the AVR XMEGA microcontrollers.
+  33:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****  *
+  34:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****  *  This file contains definitions required for the correct handling of low level USB service routi
+  35:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****  *  from the USB controller.
+  36:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****  *
+  37:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****  *  \note This file should not be included directly. It is automatically included as needed by the 
+  38:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****  *        dispatch header located in LUFA/Drivers/USB/USB.h.
+  39:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h ****  */
+  40:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+  41:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** #ifndef __USBINTERRUPT_XMEGA_H__
+  42:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** #define __USBINTERRUPT_XMEGA_H__
+  43:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+  44:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 	/* Includes: */
+  45:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 		#include "../../../../Common/Common.h"
+  46:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+  47:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 	/* Enable C linkage for C++ Compilers: */
+  48:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 		#if defined(__cplusplus)
+  49:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 			extern "C" {
+  50:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 		#endif
+  51:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+  52:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 	/* Preprocessor Checks: */
+  53:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+  54:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+  55:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 		#endif
+  56:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+  57:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 	/* Private Interface - For use in library only: */
+  58:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 	#if !defined(__DOXYGEN__)
+  59:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 		/* Enums: */
+  60:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 			enum USB_Interrupts_t
+  61:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 			{
+  62:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 				USB_INT_BUSEVENTI         = 1,
+  63:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 				USB_INT_BUSEVENTI_Suspend = 2,
+  64:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 				USB_INT_BUSEVENTI_Resume  = 3,
+  65:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 				USB_INT_BUSEVENTI_Reset   = 4,
+  66:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 				USB_INT_SOFI              = 5,
+  67:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 			};
+  68:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 
+  69:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 		/* Inline Functions: */
+  70:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 			static inline void USB_INT_Enable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
+  71:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 			static inline void USB_INT_Enable(const uint8_t Interrupt)
+  72:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 			{
+  73:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 				switch (Interrupt)
+  74:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 				{
+  75:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 					case USB_INT_BUSEVENTI:
+  76:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/USBInterrupt_XMEGA.h **** 						USB.INTCTRLA |= USB_BUSEVIE_bm;
+ 147               		.loc 5 76 0
+ 148 0054 8885      		ldd r24,Y+8
+ 149 0056 8064      		ori r24,lo8(64)
+ 150 0058 8887      		std Y+8,r24
+ 151               	.LBE59:
+ 152               	.LBE58:
+ 153               	.LBB60:
+ 154               	.LBB61:
+ 160:LUFA//Drivers/USB/Core/XMEGA/../XMEGA/USBController_XMEGA.h **** 				USB.CTRLB |= USB_ATTACH_bm;
+ 155               		.loc 2 160 0
+ 156 005a 8981      		ldd r24,Y+1
+ 157 005c 8160      		ori r24,lo8(1)
+ 158 005e 8983      		std Y+1,r24
+ 159               	/* epilogue start */
+ 160               	.LBE61:
+ 161               	.LBE60:
+ 162               	.LBE53:
+ 163               	.LBE52:
+ 133:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** }
+ 164               		.loc 1 133 0
+ 165 0060 DF91      		pop r29
+ 166 0062 CF91      		pop r28
+ 167 0064 0895      		ret
+ 168               		.cfi_endproc
+ 169               	.LFE70:
+ 171               		.section	.text.USB_Init,"ax",@progbits
+ 172               	.global	USB_Init
+ 174               	USB_Init:
+ 175               	.LFB68:
+  64:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** {
+ 176               		.loc 1 64 0
+ 177               		.cfi_startproc
+ 178 0000 CF93      		push r28
+ 179               	.LCFI2:
+ 180               		.cfi_def_cfa_offset 3
+ 181               		.cfi_offset 28, -2
+ 182 0002 DF93      		push r29
+ 183               	.LCFI3:
+ 184               		.cfi_def_cfa_offset 4
+ 185               		.cfi_offset 29, -3
+ 186               	/* prologue: function */
+ 187               	/* frame size = 0 */
+ 188               	/* stack size = 2 */
+ 189               	.L__stack_usage = 2
+ 190               	.LBB62:
+ 191               	.LBB63:
+ 192               		.file 6 "LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h"
+   1:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** /*
+   2:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****              LUFA Library
+   3:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+   5:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** */
+   8:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+   9:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** /*
+  10:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  12:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  21:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****   this software.
+  29:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** */
+  30:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  31:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** /** \dir
+  32:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  \brief Common library header files.
+  33:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *
+  34:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  This folder contains header files which are common to all parts of the LUFA library. They may b
+  35:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  user applications.
+  36:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  */
+  37:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  38:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** /** \file
+  39:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  \brief Common library convenience headers, macros and functions.
+  40:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *
+  41:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  \copydetails Group_Common
+  42:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  */
+  43:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  44:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** /** \defgroup Group_Common Common Utility Headers - LUFA/Drivers/Common/Common.h
+  45:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  \brief Common library convenience headers, macros and functions.
+  46:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *
+  47:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  Common utility headers containing macros, functions, enums and types which are common to all
+  48:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  aspects of the library.
+  49:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *
+  50:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  @{
+  51:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  */
+  52:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  53:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** /** \defgroup Group_GlobalInt Global Interrupt Macros
+  54:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  \brief Convenience macros for the management of interrupts globally within the device.
+  55:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *
+  56:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  *  Macros and functions to create and control global interrupts within the device.
+  57:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h ****  */
+  58:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  59:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** #ifndef __LUFA_COMMON_H__
+  60:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** #define __LUFA_COMMON_H__
+  61:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  62:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 	/* Macros: */
+  63:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#define __INCLUDE_FROM_COMMON_H
+  64:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  65:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 	/* Includes: */
+  66:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#include <stdint.h>
+  67:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#include <stdbool.h>
+  68:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#include <string.h>
+  69:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#include <stddef.h>
+  70:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  71:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#include "Architectures.h"
+  72:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#include "BoardTypes.h"
+  73:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#include "ArchitectureSpecific.h"
+  74:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#include "CompilerSpecific.h"
+  75:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#include "Attributes.h"
+  76:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  77:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#if defined(USE_LUFA_CONFIG_HEADER)
+  78:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include "LUFAConfig.h"
+  79:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#endif
+  80:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  81:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 	/* Enable C linkage for C++ Compilers: */
+  82:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#if defined(__cplusplus)
+  83:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			extern "C" {
+  84:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#endif
+  85:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+  86:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 	/* Architecture specific utility includes: */
+  87:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#if defined(__DOXYGEN__)
+  88:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Type define for an unsigned integer the same width as the selected architecture's machine re
+  89:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  This is distinct from the non-specific standard int data type, whose width is machine depend
+  90:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  which may not reflect the actual machine register width on some targets (e.g. AVR8).
+  91:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+  92:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			typedef MACHINE_REG_t uint_reg_t;
+  93:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#elif (ARCH == ARCH_AVR8)
+  94:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <avr/io.h>
+  95:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <avr/interrupt.h>
+  96:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <avr/pgmspace.h>
+  97:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <avr/eeprom.h>
+  98:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <avr/boot.h>
+  99:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <math.h>
+ 100:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <util/delay.h>
+ 101:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 102:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			typedef uint8_t uint_reg_t;
+ 103:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 104:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define ARCH_HAS_EEPROM_ADDRESS_SPACE
+ 105:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define ARCH_HAS_FLASH_ADDRESS_SPACE
+ 106:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define ARCH_HAS_MULTI_ADDRESS_SPACE
+ 107:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define ARCH_LITTLE_ENDIAN
+ 108:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 109:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include "Endianness.h"
+ 110:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#elif (ARCH == ARCH_UC3)
+ 111:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <avr32/io.h>
+ 112:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <math.h>
+ 113:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 114:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			// === TODO: Find abstracted way to handle these ===
+ 115:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define PROGMEM                  
+ 116:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define pgm_read_byte(x)         *x
+ 117:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define memcmp_P(...)            memcmp(__VA_ARGS__)
+ 118:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define memcpy_P(...)            memcpy(__VA_ARGS__)
+ 119:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			// =================================================
+ 120:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 121:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			typedef uint32_t uint_reg_t;
+ 122:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 123:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define ARCH_BIG_ENDIAN
+ 124:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 125:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include "Endianness.h"
+ 126:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#elif (ARCH == ARCH_XMEGA)
+ 127:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <avr/io.h>
+ 128:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <avr/interrupt.h>
+ 129:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <avr/pgmspace.h>
+ 130:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <avr/eeprom.h>
+ 131:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <math.h>
+ 132:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include <util/delay.h>
+ 133:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 134:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			typedef uint8_t uint_reg_t;
+ 135:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 136:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define ARCH_HAS_EEPROM_ADDRESS_SPACE
+ 137:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define ARCH_HAS_FLASH_ADDRESS_SPACE
+ 138:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define ARCH_HAS_MULTI_ADDRESS_SPACE
+ 139:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define ARCH_LITTLE_ENDIAN
+ 140:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 141:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#include "Endianness.h"
+ 142:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#else
+ 143:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#error Unknown device architecture specified.
+ 144:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		#endif
+ 145:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 146:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 	/* Public Interface - May be used in end-application: */
+ 147:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		/* Macros: */
+ 148:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Macro for encasing other multi-statement macros. This should be used along with an opening b
+ 149:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  before the start of any multi-statement macro, so that the macros contents as a whole are tr
+ 150:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  as a discrete block and not as a list of separate statements which may cause problems when u
+ 151:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  a block (such as inline \c if statements).
+ 152:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+ 153:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define MACROS                  do
+ 154:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 155:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Macro for encasing other multi-statement macros. This should be used along with a preceding 
+ 156:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  brace at the end of any multi-statement macro, so that the macros contents as a whole are tr
+ 157:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  as a discrete block and not as a list of separate statements which may cause problems when u
+ 158:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  a block (such as inline \c if statements).
+ 159:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+ 160:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#define MACROE                  while (0)
+ 161:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 162:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Convenience macro to determine the larger of two values.
+ 163:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 164:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \attention This macro should only be used with operands that do not have side effects from b
+ 165:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *             multiple times.
+ 166:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 167:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \param[in] x  First value to compare
+ 168:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \param[in] y  First value to compare
+ 169:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 170:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \return The larger of the two input parameters
+ 171:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+ 172:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#if !defined(MAX) || defined(__DOXYGEN__)
+ 173:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#define MAX(x, y)               (((x) > (y)) ? (x) : (y))
+ 174:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#endif
+ 175:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 176:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Convenience macro to determine the smaller of two values.
+ 177:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 178:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \attention This macro should only be used with operands that do not have side effects from b
+ 179:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *             multiple times.
+ 180:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 181:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \param[in] x  First value to compare
+ 182:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \param[in] y  First value to compare
+ 183:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 184:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \return The smaller of the two input parameters
+ 185:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+ 186:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#if !defined(MIN) || defined(__DOXYGEN__)
+ 187:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#define MIN(x, y)               (((x) < (y)) ? (x) : (y))
+ 188:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#endif
+ 189:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 190:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#if !defined(STRINGIFY) || defined(__DOXYGEN__)
+ 191:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				/** Converts the given input into a string, via the C Preprocessor. This macro puts literal quo
+ 192:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  marks around the input, converting the source into a string literal.
+ 193:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *
+ 194:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  \param[in] x  Input to convert into a string literal.
+ 195:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *
+ 196:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  \return String version of the input.
+ 197:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 */
+ 198:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#define STRINGIFY(x)            #x
+ 199:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 200:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				/** Converts the given input into a string after macro expansion, via the C Preprocessor. This 
+ 201:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  literal quotation marks around the expanded input, converting the source into a string lite
+ 202:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *
+ 203:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  \param[in] x  Input to expand and convert into a string literal.
+ 204:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *
+ 205:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  \return String version of the expanded input.
+ 206:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 */
+ 207:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#define STRINGIFY_EXPANDED(x)   STRINGIFY(x)
+ 208:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#endif
+ 209:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 210:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#if !defined(ISR) || defined(__DOXYGEN__)
+ 211:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				/** Macro for the definition of interrupt service routines, so that the compiler can insert the
+ 212:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  prologue and epilogue code to properly manage the interrupt routine without affecting the m
+ 213:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  state with unintentional side-effects.
+ 214:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *
+ 215:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  Interrupt handlers written using this macro may still need to be registered with the microc
+ 216:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  Interrupt Controller (if present) before they will properly handle incoming interrupt event
+ 217:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *
+ 218:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  \note This macro is only supplied on some architectures, where the standard library does no
+ 219:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *        definition. If an existing definition exists, the alternative definition here will be
+ 220:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *
+ 221:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  \ingroup Group_GlobalInt
+ 222:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *
+ 223:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 *  \param[in] Name  Unique name of the interrupt service routine.
+ 224:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				 */
+ 225:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#define ISR(Name, ...)          void Name (void) __attribute__((__interrupt__)) __VA_ARGS__; vo
+ 226:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			#endif
+ 227:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 228:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 		/* Inline Functions: */
+ 229:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Function to reverse the individual bits in a byte - i.e. bit 7 is moved to bit 0, bit 6 to b
+ 230:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  etc.
+ 231:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 232:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \param[in] Byte  Byte of data whose bits are to be reversed.
+ 233:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 234:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \return Input data with the individual bits reversed (mirrored).
+ 235:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+ 236:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline uint8_t BitReverse(uint8_t Byte) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
+ 237:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline uint8_t BitReverse(uint8_t Byte)
+ 238:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			{
+ 239:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				Byte = (((Byte & 0xF0) >> 4) | ((Byte & 0x0F) << 4));
+ 240:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				Byte = (((Byte & 0xCC) >> 2) | ((Byte & 0x33) << 2));
+ 241:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				Byte = (((Byte & 0xAA) >> 1) | ((Byte & 0x55) << 1));
+ 242:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 243:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				return Byte;
+ 244:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			}
+ 245:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 246:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Function to perform a blocking delay for a specified number of milliseconds. The actual dela
+ 247:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  at a minimum the specified number of milliseconds, however due to loop overhead and internal
+ 248:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  may be slightly higher.
+ 249:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 250:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \param[in] Milliseconds  Number of milliseconds to delay
+ 251:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+ 252:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline void Delay_MS(uint16_t Milliseconds) ATTR_ALWAYS_INLINE;
+ 253:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline void Delay_MS(uint16_t Milliseconds)
+ 254:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			{
+ 255:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#if (ARCH == ARCH_AVR8)
+ 256:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				if (GCC_IS_COMPILE_CONST(Milliseconds))
+ 257:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				{
+ 258:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 					_delay_ms(Milliseconds);
+ 259:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				}
+ 260:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				else
+ 261:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				{
+ 262:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 					while (Milliseconds--)
+ 263:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 					  _delay_ms(1);
+ 264:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				}
+ 265:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#elif (ARCH == ARCH_UC3)
+ 266:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				while (Milliseconds--)
+ 267:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				{
+ 268:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 					__builtin_mtsr(AVR32_COUNT, 0);
+ 269:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 					while ((uint32_t)__builtin_mfsr(AVR32_COUNT) < (F_CPU / 1000));
+ 270:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				}
+ 271:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#elif (ARCH == ARCH_XMEGA)
+ 272:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				if (GCC_IS_COMPILE_CONST(Milliseconds))
+ 273:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				{
+ 274:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 					_delay_ms(Milliseconds);
+ 275:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				}
+ 276:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				else
+ 277:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				{
+ 278:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 					while (Milliseconds--)
+ 279:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 					  _delay_ms(1);
+ 280:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				}
+ 281:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#endif
+ 282:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			}
+ 283:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 284:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Retrieves a mask which contains the current state of the global interrupts for the device. T
+ 285:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  value can be stored before altering the global interrupt enable state, before restoring the
+ 286:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  flag(s) back to their previous values after a critical section using \ref SetGlobalInterrupt
+ 287:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 288:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \ingroup Group_GlobalInt
+ 289:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 290:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \return  Mask containing the current Global Interrupt Enable Mask bit(s).
+ 291:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+ 292:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline uint_reg_t GetGlobalInterruptMask(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT
+ 293:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline uint_reg_t GetGlobalInterruptMask(void)
+ 294:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			{
+ 295:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				GCC_MEMORY_BARRIER();
+ 193               		.loc 6 295 0
+ 296:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 297:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#if (ARCH == ARCH_AVR8)
+ 298:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				return SREG;
+ 299:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#elif (ARCH == ARCH_UC3)
+ 300:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				return __builtin_mfsr(AVR32_SR);
+ 301:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#elif (ARCH == ARCH_XMEGA)
+ 302:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				return SREG;
+ 194               		.loc 6 302 0
+ 195 0004 2FB7      		in r18,__SREG__
+ 196               	.LBE63:
+ 197               	.LBE62:
+ 198               	.LBB64:
+ 199               	.LBB65:
+ 303:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#endif
+ 304:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			}
+ 305:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 306:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Sets the global interrupt enable state of the microcontroller to the mask passed into the fu
+ 307:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  This can be combined with \ref GetGlobalInterruptMask() to save and restore the Global Inter
+ 308:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  Mask bit(s) of the device after a critical section has completed.
+ 309:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 310:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \ingroup Group_GlobalInt
+ 311:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 312:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \param[in] GlobalIntState  Global Interrupt Enable Mask value to use
+ 313:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+ 314:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline void SetGlobalInterruptMask(const uint_reg_t GlobalIntState) ATTR_ALWAYS_INLINE;
+ 315:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline void SetGlobalInterruptMask(const uint_reg_t GlobalIntState)
+ 316:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			{
+ 317:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				GCC_MEMORY_BARRIER();
+ 318:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 319:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#if (ARCH == ARCH_AVR8)
+ 320:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				SREG = GlobalIntState;
+ 321:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#elif (ARCH == ARCH_UC3)
+ 322:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				if (GlobalIntState & AVR32_SR_GM)
+ 323:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				  __builtin_ssrf(AVR32_SR_GM_OFFSET);
+ 324:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				else
+ 325:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				  __builtin_csrf(AVR32_SR_GM_OFFSET);
+ 326:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#elif (ARCH == ARCH_XMEGA)
+ 327:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				SREG = GlobalIntState;
+ 328:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#endif
+ 329:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 330:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				GCC_MEMORY_BARRIER();
+ 331:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			}
+ 332:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 333:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Enables global interrupt handling for the device, allowing interrupts to be handled.
+ 334:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 335:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \ingroup Group_GlobalInt
+ 336:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+ 337:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline void GlobalInterruptEnable(void) ATTR_ALWAYS_INLINE;
+ 338:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline void GlobalInterruptEnable(void)
+ 339:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			{
+ 340:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				GCC_MEMORY_BARRIER();
+ 341:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 342:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#if (ARCH == ARCH_AVR8)
+ 343:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				sei();
+ 344:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#elif (ARCH == ARCH_UC3)
+ 345:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				__builtin_csrf(AVR32_SR_GM_OFFSET);
+ 346:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#elif (ARCH == ARCH_XMEGA)
+ 347:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				sei();
+ 348:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#endif
+ 349:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 350:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				GCC_MEMORY_BARRIER();
+ 351:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			}
+ 352:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 353:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			/** Disabled global interrupt handling for the device, preventing interrupts from being handled.
+ 354:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *
+ 355:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 *  \ingroup Group_GlobalInt
+ 356:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			 */
+ 357:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline void GlobalInterruptDisable(void) ATTR_ALWAYS_INLINE;
+ 358:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			static inline void GlobalInterruptDisable(void)
+ 359:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 			{
+ 360:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				GCC_MEMORY_BARRIER();
+ 200               		.loc 6 360 0
+ 361:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 362:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#if (ARCH == ARCH_AVR8)
+ 363:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				cli();
+ 364:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#elif (ARCH == ARCH_UC3)
+ 365:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				__builtin_ssrf(AVR32_SR_GM_OFFSET);
+ 366:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#elif (ARCH == ARCH_XMEGA)
+ 367:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				cli();
+ 201               		.loc 6 367 0
+ 202               	/* #APP */
+ 203               	 ;  367 "LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h" 1
+ 204 0006 F894      		cli
+ 205               	 ;  0 "" 2
+ 368:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				#endif
+ 369:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 
+ 370:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				GCC_MEMORY_BARRIER();
+ 206               		.loc 6 370 0
+ 207               	/* #NOAPP */
+ 208               	.LBE65:
+ 209               	.LBE64:
+  72:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	NVM.CMD  = NVM_CMD_READ_CALIB_ROW_gc;
+ 210               		.loc 1 72 0
+ 211 0008 C0EC      		ldi r28,lo8(448)
+ 212 000a D1E0      		ldi r29,hi8(448)
+ 213 000c 82E0      		ldi r24,lo8(2)
+ 214 000e 8A87      		std Y+10,r24
+ 215               	.LVL3:
+ 216               	.LBB66:
+  73:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB.CAL0 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL0));
+ 217               		.loc 1 73 0
+ 218 0010 EAE1      		ldi r30,lo8(26)
+ 219 0012 F0E0      		ldi r31,hi8(26)
+ 220               	/* #APP */
+ 221               	 ;  73 "LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c" 1
+ 222 0014 E491      		lpm r30, Z
+ 223               		
+ 224               	 ;  0 "" 2
+ 225               	.LVL4:
+ 226               	/* #NOAPP */
+ 227               	.LBE66:
+ 228 0016 A0EC      		ldi r26,lo8(1216)
+ 229 0018 B4E0      		ldi r27,hi8(1216)
+ 230 001a DA96      		adiw r26,58
+ 231 001c EC93      		st X,r30
+ 232 001e DA97      		sbiw r26,58
+ 233               	.LVL5:
+ 234               	.LBB67:
+  74:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB.CAL1 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL1));
+ 235               		.loc 1 74 0
+ 236 0020 EBE1      		ldi r30,lo8(27)
+ 237 0022 F0E0      		ldi r31,hi8(27)
+ 238               	.LVL6:
+ 239               	/* #APP */
+ 240               	 ;  74 "LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c" 1
+ 241 0024 E491      		lpm r30, Z
+ 242               		
+ 243               	 ;  0 "" 2
+ 244               	.LVL7:
+ 245               	/* #NOAPP */
+ 246               	.LBE67:
+ 247 0026 DB96      		adiw r26,59
+ 248 0028 EC93      		st X,r30
+ 249 002a DB97      		sbiw r26,59
+  75:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	NVM.CMD  = 0;
+ 250               		.loc 1 75 0
+ 251 002c 1A86      		std Y+10,__zero_reg__
+  78:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB.EPPTR = ((intptr_t)&USB_EndpointTable[1] & ~(1 << 0));
+ 252               		.loc 1 78 0
+ 253 002e 80E0      		ldi r24,lo8(USB_EndpointTable+1)
+ 254 0030 90E0      		ldi r25,hi8(USB_EndpointTable+1)
+ 255 0032 8E7F      		andi r24,lo8(-2)
+ 256 0034 1696      		adiw r26,6
+ 257 0036 8D93      		st X+,r24
+ 258 0038 9C93      		st X,r25
+ 259 003a 1797      		sbiw r26,6+1
+  79:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB.CTRLA = (USB_STFRNUM_bm | ((ENDPOINT_TOTAL_ENDPOINTS - 1) << USB_MAXEP_gp));
+ 260               		.loc 1 79 0
+ 261 003c 8FE1      		ldi r24,lo8(31)
+ 262 003e 8C93      		st X,r24
+  82:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	  USB.INTCTRLA = (3 << USB_INTLVL_gp);
+ 263               		.loc 1 82 0
+ 264 0040 83E0      		ldi r24,lo8(3)
+ 265 0042 1896      		adiw r26,8
+ 266 0044 8C93      		st X,r24
+ 267               	.LVL8:
+ 268               	.LBB68:
+ 269               	.LBB69:
+ 317:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				GCC_MEMORY_BARRIER();
+ 270               		.loc 6 317 0
+ 327:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				SREG = GlobalIntState;
+ 271               		.loc 6 327 0
+ 272 0046 2FBF      		out __SREG__,r18
+ 330:LUFA//Drivers/USB/Core/XMEGA/../../../../Common/Common.h **** 				GCC_MEMORY_BARRIER();
+ 273               		.loc 6 330 0
+ 274               	.LBE69:
+ 275               	.LBE68:
+  94:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_IsInitialized = true;
+ 276               		.loc 1 94 0
+ 277 0048 81E0      		ldi r24,lo8(1)
+ 278 004a 8093 0000 		sts USB_IsInitialized,r24
+  96:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** 	USB_ResetInterface();
+ 279               		.loc 1 96 0
+ 280 004e 0E94 0000 		call USB_ResetInterface
+ 281               	.LVL9:
+ 282               	/* epilogue start */
+  97:LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.c **** }
+ 283               		.loc 1 97 0
+ 284 0052 DF91      		pop r29
+ 285 0054 CF91      		pop r28
+ 286 0056 0895      		ret
+ 287               		.cfi_endproc
+ 288               	.LFE68:
+ 290               		.comm USB_EndpointTable,259,1
+ 291               		.text
+ 292               	.Letext0:
+ 293               		.file 7 "/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.
+ 294               		.file 8 "/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.
+ 295               		.file 9 "LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../Device.h"
+ 296               		.file 10 "LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../DeviceStandardReq.h"
+ 297               		.file 11 "LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../USBTask.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 USBController_XMEGA.c
+     /tmp/cc6eeIbZ.s:2      *ABS*:0000003f __SREG__
+     /tmp/cc6eeIbZ.s:3      *ABS*:0000003e __SP_H__
+     /tmp/cc6eeIbZ.s:4      *ABS*:0000003d __SP_L__
+     /tmp/cc6eeIbZ.s:5      *ABS*:00000034 __CCP__
+     /tmp/cc6eeIbZ.s:6      *ABS*:00000000 __tmp_reg__
+     /tmp/cc6eeIbZ.s:7      *ABS*:00000001 __zero_reg__
+     /tmp/cc6eeIbZ.s:16     .text.USB_Disable:00000000 USB_Disable
+     /tmp/cc6eeIbZ.s:59     .text.USB_ResetInterface:00000000 USB_ResetInterface
+     /tmp/cc6eeIbZ.s:174    .text.USB_Init:00000000 USB_Init
+                            *COM*:00000103 USB_EndpointTable
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+USB_INT_DisableAllInterrupts
+USB_INT_ClearAllInterrupts
+USB_IsInitialized
+USB_DeviceState
+USB_Device_ConfigurationNumber
+USB_Device_RemoteWakeupEnabled
+USB_Device_CurrentlySelfPowered
+Endpoint_ConfigureEndpoint_PRV

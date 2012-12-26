@@ -50,7 +50,7 @@ void blink(int myVal){
 }
 
 void blinkQuick(void){
-	blink(500);
+	blink(100);
 }
 
 void blinkTen(void){
@@ -82,6 +82,7 @@ int main (void)
 {
 	init();	
 	delay_ms(1000);
+    PORTE.OUTSET = _BV(0);
 	mainLoop();
 	return 0;
 }

@@ -147,7 +147,7 @@ LOAD /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1da8
+.text           0x00000000     0x1e54
  *(.vectors)
  .vectors       0x00000000      0x178 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
                 0x00000000                __vectors
@@ -296,84 +296,83 @@ LOAD /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a
                 0x000001b2                __vector_42
                 0x000001b2                __vector_87
                 0x000001b2                __vector_65
- .text          0x000001b6     0x1256 AdDemo.o
+ .text          0x000001b6     0x139a AdDemo.o
                 0x000001b6                CCPWrite
                 0x000001e0                CLKSYS_XOSC_Config
-                0x000001f4                CLKSYS_PLL_Config
-                0x00000200                CLKSYS_Disable
-                0x00000214                CLKSYS_Prescalers_Config
-                0x0000021e                CLKSYS_Main_ClockSource_Select
-                0x00000244                CLKSYS_RTC_ClockSource_Enable
-                0x00000254                CLKSYS_AutoCalibration_Enable
-                0x0000028c                CLKSYS_XOSC_FailureDetection_Enable
-                0x00000296                CLKSYS_Configuration_Lock
-                0x000002a0                __vector_14
-                0x000002ea                delay_ms
-                0x00000306                compareArray
-                0x00000380                signum
-                0x0000039c                Config32MHzClock
-                0x000003ba                millis
-                0x000003d8                blink
-                0x00000404                setPin
-                0x00000524                clearPin
-                0x00000644                setSpeed
-                0x00000690                stepMotor
-                0x000007cc                step
-                0x000009d4                stepOne
-                0x00000b40                changeGoal
-                0x00000b82                moveToGoal
-                0x000012ae                usbUpdate
-                0x00001356                mainLoop
- .text          0x0000140c        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodhi4.o)
- .text          0x0000140c        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodsi4.o)
- .text          0x0000140c        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
- .text          0x0000140c        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_copy_data.o)
- .text          0x0000140c        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_clear_bss.o)
- .text          0x0000140c      0x1f4 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_mul_sf.o)
-                0x0000140c                __mulsf3
- .text          0x00001600      0x15c /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_div_sf.o)
-                0x00001600                __divsf3
- .text          0x0000175c       0xc0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_si_to_sf.o)
-                0x0000175c                __floatsisf
- .text          0x0000181c       0xa4 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_sf_to_si.o)
-                0x0000181c                __fixsfsi
- .text          0x000018c0        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_thenan_sf.o)
- .text          0x000018c0        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_udivmodhi4.o)
- .text          0x000018c0        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_udivmodsi4.o)
- .text          0x000018c0        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_prologue.o)
- .text          0x000018c0        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_epilogue.o)
- .text          0x000018c0       0xb4 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_clzsi2.o)
-                0x000018c0                __clzsi2
- .text          0x00001974      0x19c /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_pack_sf.o)
-                0x00001974                __pack_f
- .text          0x00001b10       0xd2 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_unpack_sf.o)
-                0x00001b10                __unpack_f
- .text          0x00001be2        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_clz.o)
-                0x00001be2                . = ALIGN (0x2)
+                0x000001f6                CLKSYS_PLL_Config
+                0x00000202                CLKSYS_Disable
+                0x00000216                CLKSYS_Prescalers_Config
+                0x00000222                CLKSYS_Main_ClockSource_Select
+                0x00000248                CLKSYS_RTC_ClockSource_Enable
+                0x00000258                CLKSYS_AutoCalibration_Enable
+                0x00000292                CLKSYS_XOSC_FailureDetection_Enable
+                0x0000029e                CLKSYS_Configuration_Lock
+                0x000002aa                __vector_14
+                0x000002f4                delay_ms
+                0x00000310                compareArray
+                0x0000038a                signum
+                0x000003a6                Config32MHzClock
+                0x000003c4                millis
+                0x000003da                blink
+                0x0000040c                setPin
+                0x0000055a                clearPin
+                0x000006a8                setSpeed
+                0x000006f4                stepMotor
+                0x0000080e                step
+                0x00000a2a                stepOne
+                0x00000bb6                changeGoal
+                0x00000bf8                moveToGoal
+                0x00001334                usbUpdate
+                0x000013e6                mainLoop
+                0x000014b2                main
+ .text          0x00001550        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodhi4.o)
+ .text          0x00001550        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodsi4.o)
+ .text          0x00001550        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
+ .text          0x00001550        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_copy_data.o)
+ .text          0x00001550        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_clear_bss.o)
+ .text          0x00001550      0x1f4 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_mul_sf.o)
+                0x00001550                __mulsf3
+ .text          0x00001744      0x15c /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_div_sf.o)
+                0x00001744                __divsf3
+ .text          0x000018a0       0xc0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_si_to_sf.o)
+                0x000018a0                __floatsisf
+ .text          0x00001960       0xa4 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_sf_to_si.o)
+                0x00001960                __fixsfsi
+ .text          0x00001a04        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_thenan_sf.o)
+ .text          0x00001a04        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_udivmodhi4.o)
+ .text          0x00001a04        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_udivmodsi4.o)
+ .text          0x00001a04        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_prologue.o)
+ .text          0x00001a04        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_epilogue.o)
+ .text          0x00001a04       0xb4 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_clzsi2.o)
+                0x00001a04                __clzsi2
+ .text          0x00001ab8      0x19c /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_pack_sf.o)
+                0x00001ab8                __pack_f
+ .text          0x00001c54       0xd2 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_unpack_sf.o)
+                0x00001c54                __unpack_f
+ .text          0x00001d26        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_clz.o)
+                0x00001d26                . = ALIGN (0x2)
  *(.text.*)
- .text.startup  0x00001be2       0x98 AdDemo.o
-                0x00001be2                main
- .text.libgcc   0x00001c7a       0x26 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodhi4.o)
-                0x00001c7a                __divmodhi4
-                0x00001c7a                _div
- .text.libgcc   0x00001ca0       0x36 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodsi4.o)
-                0x00001ca0                __divmodsi4
- .text.libgcc   0x00001cd6        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
- .text.libgcc   0x00001cd6        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_copy_data.o)
- .text.libgcc   0x00001cd6        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_clear_bss.o)
- .text.libgcc   0x00001cd6       0x28 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_udivmodhi4.o)
-                0x00001cd6                __udivmodhi4
- .text.libgcc   0x00001cfe       0x44 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_udivmodsi4.o)
-                0x00001cfe                __udivmodsi4
- .text.libgcc   0x00001d42       0x32 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_prologue.o)
-                0x00001d42                __prologue_saves__
- .text.libgcc   0x00001d74       0x30 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_epilogue.o)
-                0x00001d74                __epilogue_restores__
-                0x00001da4                . = ALIGN (0x2)
+ .text.libgcc   0x00001d26       0x26 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodhi4.o)
+                0x00001d26                __divmodhi4
+                0x00001d26                _div
+ .text.libgcc   0x00001d4c       0x36 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodsi4.o)
+                0x00001d4c                __divmodsi4
+ .text.libgcc   0x00001d82        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
+ .text.libgcc   0x00001d82        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_copy_data.o)
+ .text.libgcc   0x00001d82        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00001d82       0x28 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_udivmodhi4.o)
+                0x00001d82                __udivmodhi4
+ .text.libgcc   0x00001daa       0x44 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_udivmodsi4.o)
+                0x00001daa                __udivmodsi4
+ .text.libgcc   0x00001dee       0x32 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_prologue.o)
+                0x00001dee                __prologue_saves__
+ .text.libgcc   0x00001e20       0x30 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_epilogue.o)
+                0x00001e20                __epilogue_restores__
+                0x00001e50                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001da4        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
-                0x00001da4                exit
-                0x00001da4                _exit
+ .fini9         0x00001e50        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
+                0x00001e50                exit
+                0x00001e50                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -392,22 +391,22 @@ LOAD /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001da4        0x4 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
+ .fini0         0x00001e50        0x4 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
  *(.fini0)
-                0x00001da8                _etext = .
+                0x00001e54                _etext = .
 
-.data           0x00802000      0x1e2 load address 0x00001da8
+.data           0x00802000      0x1e2 load address 0x00001e54
                 0x00802000                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00802000        0x0 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
  .data          0x00802000       0xda AdDemo.o
-                0x00802000                Gripper
-                0x00802024                Right_Wrist
-                0x00802048                Left_Wrist
-                0x0080206c                Elbow
-                0x00802090                Shoulder
-                0x008020b4                Base
-                0x008020d8                state
+                0x00802000                state
+                0x00802002                Base
+                0x00802026                Shoulder
+                0x0080204a                Elbow
+                0x0080206e                Right_Wrist
+                0x00802092                Left_Wrist
+                0x008020b6                Gripper
  .data          0x008020da        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodhi4.o)
  .data          0x008020da        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodsi4.o)
  .data          0x008020da        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
@@ -441,10 +440,10 @@ LOAD /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a
  *(.bss)
  .bss           0x008021e2        0x0 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avrxmega2/crtx16a4.o
  .bss           0x008021e2       0x1e AdDemo.o
-                0x008021e2                elapsedMillis
-                0x008021e6                pose
-                0x008021f2                goal
-                0x008021fe                debugFlag
+                0x008021e2                debugFlag
+                0x008021e4                goal
+                0x008021f0                pose
+                0x008021fc                elapsedMillis
  .bss           0x00802200        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodhi4.o)
  .bss           0x00802200        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_divmodsi4.o)
  .bss           0x00802200        0x0 /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a(_exit.o)
@@ -466,8 +465,8 @@ LOAD /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a
  *(.bss*)
  *(COMMON)
                 0x00802200                PROVIDE (__bss_end, .)
-                0x00001da8                __data_load_start = LOADADDR (.data)
-                0x00001f8a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00001e54                __data_load_start = LOADADDR (.data)
+                0x00002036                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00802200        0x0
                 0x00802200                PROVIDE (__noinit_start, .)
@@ -512,10 +511,8 @@ LOAD /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a
 .stab.indexstr
  *(.stab.indexstr)
 
-.comment        0x00000000       0x11
+.comment
  *(.comment)
- .comment       0x00000000       0x11 AdDemo.o
-                                 0x12 (size before relaxing)
 
 .debug
  *(.debug)
@@ -529,44 +526,52 @@ LOAD /usr/lib/gcc/avr/4.5.3/avrxmega2/libgcc.a
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0x28
+.debug_aranges  0x00000000       0x20
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x28 AdDemo.o
+                0x00000000       0x20 AdDemo.o
 
 .debug_pubnames
+                0x00000000      0x29d
  *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000      0x29d AdDemo.o
 
-.debug_info     0x00000000     0x1b24
+.debug_info     0x00000000     0x1868
  *(.debug_info)
- .debug_info    0x00000000     0x1b24 AdDemo.o
+ .debug_info    0x00000000     0x1868 AdDemo.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0x47c
+.debug_abbrev   0x00000000      0x3b1
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x47c AdDemo.o
+ .debug_abbrev  0x00000000      0x3b1 AdDemo.o
 
-.debug_line     0x00000000      0x462
+.debug_line     0x00000000      0xda7
  *(.debug_line)
- .debug_line    0x00000000      0x462 AdDemo.o
+ .debug_line    0x00000000      0xda7 AdDemo.o
 
-.debug_frame    0x00000000      0x394
+.debug_frame    0x00000000      0x1d0
  *(.debug_frame)
- .debug_frame   0x00000000      0x394 AdDemo.o
+ .debug_frame   0x00000000      0x1d0 AdDemo.o
 
-.debug_str      0x00000000      0xf17
+.debug_str      0x00000000      0xf02
  *(.debug_str)
- .debug_str     0x00000000      0xf17 AdDemo.o
-                                0xf68 (size before relaxing)
+ .debug_str     0x00000000      0xf02 AdDemo.o
+                                0xf53 (size before relaxing)
 
-.debug_loc      0x00000000     0x1a21
+.debug_loc      0x00000000      0x832
  *(.debug_loc)
- .debug_loc     0x00000000     0x1a21 AdDemo.o
+ .debug_loc     0x00000000      0x832 AdDemo.o
 
 .debug_macinfo
  *(.debug_macinfo)
 OUTPUT(tinyArmTroller.out elf32-avr)
 LOAD linker stubs
 
-.debug_ranges   0x00000000       0xa8
- .debug_ranges  0x00000000       0xa8 AdDemo.o
+.debug_pubtypes
+                0x00000000      0x228
+ .debug_pubtypes
+                0x00000000      0x228 AdDemo.o
+
+.debug_ranges   0x00000000       0x90
+ .debug_ranges  0x00000000       0x90 AdDemo.o

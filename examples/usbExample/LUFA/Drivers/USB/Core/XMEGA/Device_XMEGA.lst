@@ -1,0 +1,96 @@
+   1               		.file	"Device_XMEGA.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  10               		.text
+  11               	.Ltext0:
+  12               		.cfi_sections	.debug_frame
+  13               		.section	.text.USB_Device_SendRemoteWakeup,"ax",@progbits
+  14               	.global	USB_Device_SendRemoteWakeup
+  16               	USB_Device_SendRemoteWakeup:
+  17               	.LFB68:
+  18               		.file 1 "LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c"
+   1:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** /*
+   2:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****              LUFA Library
+   3:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** 
+   5:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** */
+   8:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** 
+   9:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** /*
+  10:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** 
+  12:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** 
+  21:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c ****   this software.
+  29:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** */
+  30:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** 
+  31:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** #include "../../../../Common/Common.h"
+  32:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** #if (ARCH == ARCH_XMEGA)
+  33:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** 
+  34:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** #define  __INCLUDE_FROM_USB_DRIVER
+  35:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** #include "../USBMode.h"
+  36:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** 
+  37:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** #if defined(USB_CAN_BE_DEVICE)
+  38:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** 
+  39:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** #include "../Device.h"
+  40:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** 
+  41:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** void USB_Device_SendRemoteWakeup(void)
+  42:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** {
+  19               		.loc 1 42 0
+  20               		.cfi_startproc
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 0 */
+  24               	.L__stack_usage = 0
+  43:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** 	USB.CTRLB |= USB_RWAKEUP_bm;
+  25               		.loc 1 43 0
+  26 0000 E0EC      		ldi r30,lo8(1216)
+  27 0002 F4E0      		ldi r31,hi8(1216)
+  28 0004 8181      		ldd r24,Z+1
+  29 0006 8460      		ori r24,lo8(4)
+  30 0008 8183      		std Z+1,r24
+  31               	/* epilogue start */
+  44:LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.c **** }
+  32               		.loc 1 44 0
+  33 000a 0895      		ret
+  34               		.cfi_endproc
+  35               	.LFE68:
+  37               		.text
+  38               	.Letext0:
+  39               		.file 2 "/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.
+  40               		.file 3 "/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.
+  41               		.file 4 "LUFA//Drivers/USB/Core/XMEGA/../XMEGA/../XMEGA/../XMEGA/Endpoint_XMEGA.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Device_XMEGA.c
+     /tmp/ccdhZPJL.s:2      *ABS*:0000003f __SREG__
+     /tmp/ccdhZPJL.s:3      *ABS*:0000003e __SP_H__
+     /tmp/ccdhZPJL.s:4      *ABS*:0000003d __SP_L__
+     /tmp/ccdhZPJL.s:5      *ABS*:00000034 __CCP__
+     /tmp/ccdhZPJL.s:6      *ABS*:00000000 __tmp_reg__
+     /tmp/ccdhZPJL.s:7      *ABS*:00000001 __zero_reg__
+     /tmp/ccdhZPJL.s:16     .text.USB_Device_SendRemoteWakeup:00000000 USB_Device_SendRemoteWakeup
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

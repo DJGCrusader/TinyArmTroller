@@ -1,0 +1,1143 @@
+   1               		.file	"MIDIClassDevice.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  10               		.text
+  11               	.Ltext0:
+  12               		.cfi_sections	.debug_frame
+  13               		.section	.text.Endpoint_SelectEndpoint,"ax",@progbits
+  15               	Endpoint_SelectEndpoint:
+  16               	.LFB22:
+  17               		.file 1 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h"
+   1:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /*
+   2:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****              LUFA Library
+   3:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+   5:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** */
+   8:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+   9:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /*
+  10:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  12:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  21:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****   this software.
+  29:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** */
+  30:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  31:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \file
+  32:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief USB Endpoint definitions for the AVR XMEGA microcontrollers.
+  33:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \copydetails Group_EndpointManagement_XMEGA
+  34:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  35:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \note This file should not be included directly. It is automatically included as needed by the 
+  36:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *        dispatch header located in LUFA/Drivers/USB/USB.h.
+  37:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  38:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  39:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointRW
+  40:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointRW_XMEGA Endpoint Data Reading and Writing (XMEGA)
+  41:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint data read/write definitions for the Atmel AVR XMEGA architecture.
+  42:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  43:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros, variables, enums and types related to data reading and writing from and to e
+  44:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  45:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  46:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointPrimitiveRW
+  47:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointPrimitiveRW_XMEGA Read/Write of Primitive Data Types (XMEGA)
+  48:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint primitive read/write definitions for the Atmel AVR XMEGA architecture.
+  49:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  50:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros, variables, enums and types related to data reading and writing of primitive 
+  51:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  from and to endpoints.
+  52:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  53:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  54:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointPacketManagement
+  55:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointPacketManagement_XMEGA Endpoint Packet Management (XMEGA)
+  56:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint packet management definitions for the Atmel AVR XMEGA architecture.
+  57:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  58:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros, variables, enums and types related to packet management of endpoints.
+  59:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  60:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  61:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** /** \ingroup Group_EndpointManagement
+  62:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \defgroup Group_EndpointManagement_XMEGA Endpoint Management (XMEGA)
+  63:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  \brief Endpoint management definitions for the Atmel AVR XMEGA architecture.
+  64:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  65:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
+  66:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  module contains the endpoint management macros, as well as endpoint interrupt and data
+  67:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  send/receive functions for various data types.
+  68:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *
+  69:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  *  @{
+  70:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h ****  */
+  71:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  72:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** #ifndef __ENDPOINT_XMEGA_H__
+  73:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** #define __ENDPOINT_XMEGA_H__
+  74:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  75:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Includes: */
+  76:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../../../../Common/Common.h"
+  77:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../USBTask.h"
+  78:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../USBInterrupt.h"
+  79:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#include "../USBController.h"
+  80:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  81:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Enable C linkage for C++ Compilers: */
+  82:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#if defined(__cplusplus)
+  83:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern "C" {
+  84:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#endif
+  85:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  86:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Preprocessor Checks: */
+  87:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+  88:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+  89:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		#endif
+  90:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+  91:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Public Interface - May be used in end-application: */
+  92:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Macros: */
+  93:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#if (!defined(MAX_ENDPOINT_INDEX) && !defined(CONTROL_ONLY_DEVICE)) || defined(__DOXYGEN__)
+  94:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				/** Total number of endpoints (including the default control endpoint at address 0) which may
+  95:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 *  be used in the device. Different USB AVR models support different amounts of endpoints,
+  96:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
+  97:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 */
+  98:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#define ENDPOINT_TOTAL_ENDPOINTS            16
+  99:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#else
+ 100:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#if defined(CONTROL_ONLY_DEVICE)
+ 101:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					#define ENDPOINT_TOTAL_ENDPOINTS        1
+ 102:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#else
+ 103:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					#define ENDPOINT_TOTAL_ENDPOINTS        (MAX_ENDPOINT_INDEX + 1)
+ 104:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#endif
+ 105:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#endif
+ 106:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 107:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Private Interface - For use in library only: */
+ 108:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	#if !defined(__DOXYGEN__)
+ 109:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Type Defines: */
+ 110:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			typedef struct
+ 111:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 112:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t Data[64];
+ 113:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 114:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t Length;
+ 115:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t Position;
+ 116:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			} Endpoint_FIFO_t;
+ 117:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 118:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			typedef struct
+ 119:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 120:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_FIFO_t OUT;
+ 121:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_FIFO_t IN;
+ 122:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			} Endpoint_FIFOPair_t;
+ 123:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 124:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* External Variables: */
+ 125:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern Endpoint_FIFOPair_t       USB_Endpoint_FIFOs[ENDPOINT_TOTAL_ENDPOINTS];
+ 126:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern volatile uint8_t          USB_Endpoint_SelectedEndpoint;
+ 127:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern volatile USB_EP_t*        USB_Endpoint_SelectedHandle;
+ 128:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			extern volatile Endpoint_FIFO_t* USB_Endpoint_SelectedFIFO;
+ 129:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 130:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Inline Functions: */
+ 131:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT A
+ 132:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                                                       ATTR_ALWAYS_INLINE;
+ 133:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
+ 134:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 135:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t  MaskVal    = 0;
+ 136:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint16_t CheckBytes = 8;
+ 137:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 138:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				while (CheckBytes < Bytes)
+ 139:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 140:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					MaskVal++;
+ 141:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					CheckBytes <<= 1;
+ 142:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 143:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 144:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return (MaskVal << USB_EP_BUFSIZE_gp);
+ 145:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 146:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 147:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Function Prototypes: */
+ 148:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Address,
+ 149:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                    const uint8_t Config,
+ 150:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                    const uint8_t Size);
+ 151:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			void Endpoint_ClearEndpoints(void);
+ 152:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	#endif
+ 153:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 154:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 	/* Public Interface - May be used in end-application: */
+ 155:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Macros: */
+ 156:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
+ 157:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				/** Default size of the default control endpoint's bank, until altered by the control endpoint 
+ 158:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 *  value in the device descriptor. Not available if the \c FIXED_CONTROL_ENDPOINT_SIZE token i
+ 159:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				 */
+ 160:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE     8
+ 161:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			#endif
+ 162:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 163:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Enums: */
+ 164:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Enum for the possible error return codes of the \ref Endpoint_WaitUntilReady() function.
+ 165:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 166:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointRW_XMEGA
+ 167:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 168:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			enum Endpoint_WaitUntilReady_ErrorCodes_t
+ 169:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 170:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_NoError                 = 0, /**< Endpoint is ready for next packet, no erro
+ 171:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_EndpointStalled         = 1, /**< The endpoint was stalled during the stream
+ 172:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   transfer by the host or device.
+ 173:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 174:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_DeviceDisconnected      = 2,	/**< Device was disconnected from the host whil
+ 175:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   waiting for the endpoint to become ready.
+ 176:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 177:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_BusSuspended            = 3, /**< The USB bus has been suspended by the host
+ 178:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   no USB endpoint traffic can occur until th
+ 179:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   has resumed.
+ 180:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 181:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				ENDPOINT_READYWAIT_Timeout                 = 4, /**< The host failed to accept or send the next
+ 182:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   within the software timeout period set by 
+ 183:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 *   \ref USB_STREAM_TIMEOUT_MS macro.
+ 184:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				                                                 */
+ 185:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			};
+ 186:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 187:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 		/* Inline Functions: */
+ 188:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Selects the given endpoint address.
+ 189:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 190:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  Any endpoint operations which do not require the endpoint address to be indicated will opera
+ 191:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  the currently selected endpoint.
+ 192:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 193:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Address  Endpoint address to select.
+ 194:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 195:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_SelectEndpoint(const uint8_t Address);
+ 196:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_SelectEndpoint(const uint8_t Address)
+ 197:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+  18               		.loc 1 197 0
+  19               		.cfi_startproc
+  20               	.LVL0:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 0 */
+  24               	.L__stack_usage = 0
+ 198:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t EndpointNumber = (Address & ENDPOINT_EPNUM_MASK);
+  25               		.loc 1 198 0
+  26 0000 282F      		mov r18,r24
+  27 0002 2F70      		andi r18,lo8(15)
+  28               	.LVL1:
+ 199:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 200:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedEndpoint = Address;
+  29               		.loc 1 200 0
+  30 0004 8093 0000 		sts USB_Endpoint_SelectedEndpoint,r24
+  31 0008 30E0      		ldi r19,lo8(0)
+ 201:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 202:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Address & ENDPOINT_DIR_IN)
+ 203:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 204:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber].IN;
+  32               		.loc 1 204 0
+  33 000a 44E8      		ldi r20,lo8(132)
+  34 000c 50E0      		ldi r21,hi8(132)
+ 202:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Address & ENDPOINT_DIR_IN)
+  35               		.loc 1 202 0
+  36 000e 87FF      		sbrs r24,7
+  37 0010 00C0      		rjmp .L2
+  38               		.loc 1 204 0
+  39 0012 249F      		mul r18,r20
+  40 0014 C001      		movw r24,r0
+  41 0016 259F      		mul r18,r21
+  42 0018 900D      		add r25,r0
+  43 001a 349F      		mul r19,r20
+  44 001c 900D      		add r25,r0
+  45 001e 1124      		clr r1
+  46               	.LVL2:
+  47 0020 8050      		subi r24,lo8(-(USB_Endpoint_FIFOs+66))
+  48 0022 9040      		sbci r25,hi8(-(USB_Endpoint_FIFOs+66))
+  49 0024 8093 0000 		sts USB_Endpoint_SelectedFIFO,r24
+  50 0028 9093 0000 		sts USB_Endpoint_SelectedFIFO+1,r25
+ 205:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedHandle = &((USB_EndpointTable_t*)USB.EPPTR)->Endpoints[EndpointNumber].IN
+  51               		.loc 1 205 0
+  52 002c 8091 C604 		lds r24,1222
+  53 0030 9091 C704 		lds r25,1222+1
+  54 0034 74E0      		ldi r23,4
+  55 0036 220F      	1:	lsl r18
+  56 0038 331F      		rol r19
+  57 003a 7A95      		dec r23
+  58 003c 01F4      		brne 1b
+  59               	.LVL3:
+  60 003e 285F      		subi r18,lo8(-(8))
+  61 0040 3F4F      		sbci r19,hi8(-(8))
+  62 0042 00C0      		rjmp .L4
+  63               	.LVL4:
+  64               	.L2:
+ 206:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 207:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				else
+ 208:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 209:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber].OUT;
+  65               		.loc 1 209 0
+  66 0044 249F      		mul r18,r20
+  67 0046 C001      		movw r24,r0
+  68 0048 259F      		mul r18,r21
+  69 004a 900D      		add r25,r0
+  70 004c 349F      		mul r19,r20
+  71 004e 900D      		add r25,r0
+  72 0050 1124      		clr r1
+  73 0052 8050      		subi r24,lo8(-(USB_Endpoint_FIFOs))
+  74 0054 9040      		sbci r25,hi8(-(USB_Endpoint_FIFOs))
+  75 0056 8093 0000 		sts USB_Endpoint_SelectedFIFO,r24
+  76 005a 9093 0000 		sts USB_Endpoint_SelectedFIFO+1,r25
+ 210:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedHandle = &((USB_EndpointTable_t*)USB.EPPTR)->Endpoints[EndpointNumber].OU
+  77               		.loc 1 210 0
+  78 005e 8091 C604 		lds r24,1222
+  79 0062 9091 C704 		lds r25,1222+1
+  80 0066 64E0      		ldi r22,4
+  81 0068 220F      	1:	lsl r18
+  82 006a 331F      		rol r19
+  83 006c 6A95      		dec r22
+  84 006e 01F4      		brne 1b
+  85               	.LVL5:
+  86               	.L4:
+  87 0070 820F      		add r24,r18
+  88 0072 931F      		adc r25,r19
+  89 0074 8093 0000 		sts USB_Endpoint_SelectedHandle,r24
+  90 0078 9093 0000 		sts USB_Endpoint_SelectedHandle+1,r25
+  91 007c 0895      		ret
+  92               		.cfi_endproc
+  93               	.LFE22:
+  95               		.section	.text.MIDI_Device_ConfigureEndpoints,"ax",@progbits
+  96               	.global	MIDI_Device_ConfigureEndpoints
+  98               	MIDI_Device_ConfigureEndpoints:
+  99               	.LFB83:
+ 100               		.file 2 "LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c"
+   1:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** /*
+   2:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****              LUFA Library
+   3:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****      Copyright (C) Dean Camera, 2012.
+   4:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+   5:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   dean [at] fourwalledcubicle [dot] com
+   6:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****            www.lufa-lib.org
+   7:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** */
+   8:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+   9:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** /*
+  10:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   Copyright 2012  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  11:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  12:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   Permission to use, copy, modify, distribute, and sell this
+  13:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   software and its documentation for any purpose is hereby granted
+  14:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   without fee, provided that the above copyright notice appear in
+  15:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   all copies and that both that the copyright notice and this
+  16:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   permission notice and warranty disclaimer appear in supporting
+  17:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   documentation, and that the name of the author not be used in
+  18:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   advertising or publicity pertaining to distribution of the
+  19:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   software without specific, written prior permission.
+  20:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  21:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   The author disclaim all warranties with regard to this
+  22:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   software, including all implied warranties of merchantability
+  23:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   and fitness.  In no event shall the author be liable for any
+  24:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   special, indirect or consequential damages or any damages
+  25:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   whatsoever resulting from loss of use, data or profits, whether
+  26:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   in an action of contract, negligence or other tortious action,
+  27:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   arising out of or in connection with the use or performance of
+  28:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****   this software.
+  29:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** */
+  30:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  31:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** #define  __INCLUDE_FROM_USB_DRIVER
+  32:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** #include "../../Core/USBMode.h"
+  33:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  34:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** #if defined(USB_CAN_BE_DEVICE)
+  35:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  36:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** #define  __INCLUDE_FROM_MIDI_DRIVER
+  37:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** #define  __INCLUDE_FROM_MIDI_DEVICE_C
+  38:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** #include "MIDIClassDevice.h"
+  39:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  40:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
+  41:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** {
+ 101               		.loc 2 41 0
+ 102               		.cfi_startproc
+ 103               	.LVL6:
+ 104 0000 CF93      		push r28
+ 105               	.LCFI0:
+ 106               		.cfi_def_cfa_offset 3
+ 107               		.cfi_offset 28, -2
+ 108 0002 DF93      		push r29
+ 109               	.LCFI1:
+ 110               		.cfi_def_cfa_offset 4
+ 111               		.cfi_offset 29, -3
+ 112               	/* prologue: function */
+ 113               	/* frame size = 0 */
+ 114               	/* stack size = 2 */
+ 115               	.L__stack_usage = 2
+ 116 0004 EC01      		movw r28,r24
+  42:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	memset(&MIDIInterfaceInfo->State, 0x00, sizeof(MIDIInterfaceInfo->State));
+ 117               		.loc 2 42 0
+ 118 0006 1B86      		std Y+11,__zero_reg__
+  43:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  44:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	MIDIInterfaceInfo->Config.DataINEndpoint.Type  = EP_TYPE_BULK;
+ 119               		.loc 2 44 0
+ 120 0008 82E0      		ldi r24,lo8(2)
+ 121               	.LVL7:
+ 122 000a 8C83      		std Y+4,r24
+  45:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	MIDIInterfaceInfo->Config.DataOUTEndpoint.Type = EP_TYPE_BULK;
+ 123               		.loc 2 45 0
+ 124 000c 8987      		std Y+9,r24
+  46:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  47:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (!(Endpoint_ConfigureEndpointTable(&MIDIInterfaceInfo->Config.DataINEndpoint, 1)))
+ 125               		.loc 2 47 0
+ 126 000e CE01      		movw r24,r28
+ 127 0010 0196      		adiw r24,1
+ 128 0012 61E0      		ldi r22,lo8(1)
+ 129 0014 0E94 0000 		call Endpoint_ConfigureEndpointTable
+ 130 0018 8823      		tst r24
+ 131 001a 01F0      		breq .L7
+  48:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return false;
+  49:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  50:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (!(Endpoint_ConfigureEndpointTable(&MIDIInterfaceInfo->Config.DataOUTEndpoint, 1)))
+ 132               		.loc 2 50 0
+ 133 001c CE01      		movw r24,r28
+ 134 001e 0696      		adiw r24,6
+ 135 0020 61E0      		ldi r22,lo8(1)
+ 136 0022 0E94 0000 		call Endpoint_ConfigureEndpointTable
+ 137 0026 00C0      		rjmp .L6
+ 138               	.L7:
+  48:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return false;
+ 139               		.loc 2 48 0
+ 140 0028 80E0      		ldi r24,lo8(0)
+ 141               	.L6:
+ 142               	/* epilogue start */
+  51:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return false;
+  52:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  53:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	return true;
+  54:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** }
+ 143               		.loc 2 54 0
+ 144 002a DF91      		pop r29
+ 145 002c CF91      		pop r28
+ 146               	.LVL8:
+ 147 002e 0895      		ret
+ 148               		.cfi_endproc
+ 149               	.LFE83:
+ 151               		.section	.text.MIDI_Device_SendEventPacket,"ax",@progbits
+ 152               	.global	MIDI_Device_SendEventPacket
+ 154               	MIDI_Device_SendEventPacket:
+ 155               	.LFB85:
+  55:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  56:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** void MIDI_Device_USBTask(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
+  57:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** {
+  58:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (USB_DeviceState != DEVICE_STATE_Configured)
+  59:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return;
+  60:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  61:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	#if !defined(NO_CLASS_DRIVER_AUTOFLUSH)
+  62:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpoint.Address);
+  63:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	
+  64:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (Endpoint_IsINReady())
+  65:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  MIDI_Device_Flush(MIDIInterfaceInfo);
+  66:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	#endif
+  67:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** }
+  68:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  69:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** uint8_t MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo,
+  70:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****                                     const MIDI_EventPacket_t* const Event)
+  71:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** {
+ 156               		.loc 2 71 0
+ 157               		.cfi_startproc
+ 158               	.LVL9:
+ 159 0000 CF93      		push r28
+ 160               	.LCFI2:
+ 161               		.cfi_def_cfa_offset 3
+ 162               		.cfi_offset 28, -2
+ 163 0002 DF93      		push r29
+ 164               	.LCFI3:
+ 165               		.cfi_def_cfa_offset 4
+ 166               		.cfi_offset 29, -3
+ 167               	/* prologue: function */
+ 168               	/* frame size = 0 */
+ 169               	/* stack size = 2 */
+ 170               	.L__stack_usage = 2
+ 171 0004 EB01      		movw r28,r22
+  72:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (USB_DeviceState != DEVICE_STATE_Configured)
+ 172               		.loc 2 72 0
+ 173 0006 2091 0000 		lds r18,USB_DeviceState
+ 174 000a 2430      		cpi r18,lo8(4)
+ 175 000c 01F4      		brne .L10
+  73:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return ENDPOINT_RWSTREAM_DeviceDisconnected;
+  74:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  75:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	uint8_t ErrorCode;
+  76:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  77:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpoint.Address);
+ 176               		.loc 2 77 0
+ 177 000e FC01      		movw r30,r24
+ 178 0010 8181      		ldd r24,Z+1
+ 179               	.LVL10:
+ 180 0012 0E94 0000 		call Endpoint_SelectEndpoint
+ 181               	.LVL11:
+  78:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  79:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if ((ErrorCode = Endpoint_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL)) != ENDPOINT_RW
+ 182               		.loc 2 79 0
+ 183 0016 CE01      		movw r24,r28
+ 184 0018 64E0      		ldi r22,lo8(4)
+ 185 001a 70E0      		ldi r23,hi8(4)
+ 186 001c 40E0      		ldi r20,lo8(0)
+ 187 001e 50E0      		ldi r21,hi8(0)
+ 188 0020 0E94 0000 		call Endpoint_Write_Stream_LE
+ 189               	.LVL12:
+ 190 0024 8823      		tst r24
+ 191 0026 01F4      		brne .L9
+ 192               	.LBB18:
+ 193               	.LBB19:
+ 211:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 212:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 213:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 214:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Configures the specified endpoint address with the given endpoint type, direction, bank size
+ 215:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  and banking mode. Once configured, the endpoint may be read from or written to, depending
+ 216:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  on its direction.
+ 217:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 218:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Address    Endpoint address to configure.
+ 219:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 220:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Type       Type of endpoint to configure, a \c EP_TYPE_* mask. Not all endpoint t
+ 221:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        are available on Low Speed USB devices - refer to the USB 2.0 specific
+ 222:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 223:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Size       Size of the endpoint's bank, where packets are stored before they are 
+ 224:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        to the USB host, or after they have been received from the USB host (d
+ 225:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        the endpoint's data direction). The bank size must indicate the maximu
+ 226:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *                        that the endpoint can handle.
+ 227:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 228:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Banks      Number of hardware banks to use for the endpoint being configured.
+ 229:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 230:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \note The default control endpoint should not be manually configured by the user application
+ 231:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *        it is automatically configured by the library internally.
+ 232:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *        \n\n
+ 233:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 234:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \note This routine will automatically select the specified endpoint.
+ 235:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 236:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the configuration succeeded, \c false otherwise.
+ 237:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 238:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Address,
+ 239:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Type,
+ 240:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint16_t Size,
+ 241:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Banks) ATTR_ALWAYS_INLINE;
+ 242:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Address,
+ 243:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Type,
+ 244:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint16_t Size,
+ 245:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			                                              const uint8_t Banks)
+ 246:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 247:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				uint8_t EPConfigMask = (USB_EP_INTDSBL_bm | ((Banks > 1) ? USB_EP_PINGPONG_bm : 0) | Endpoint_B
+ 248:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 249:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if ((Address & ENDPOINT_EPNUM_MASK) >= ENDPOINT_TOTAL_ENDPOINTS)
+ 250:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return false;
+ 251:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 252:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				// TODO - Fix once limitations are lifted
+ 253:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				EPConfigMask &= ~USB_EP_PINGPONG_bm;
+ 254:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Size > 64)
+ 255:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return false;
+ 256:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 257:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				switch (Type)
+ 258:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 259:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					case EP_TYPE_CONTROL:
+ 260:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						EPConfigMask |= USB_EP_TYPE_CONTROL_gc;
+ 261:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						break;
+ 262:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					case EP_TYPE_ISOCHRONOUS:
+ 263:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						EPConfigMask |= USB_EP_TYPE_ISOCHRONOUS_gc;
+ 264:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						break;
+ 265:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					default:
+ 266:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						EPConfigMask |= USB_EP_TYPE_BULK_gc;
+ 267:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 						break;
+ 268:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 269:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 270:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Type == EP_TYPE_CONTROL)
+ 271:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  Endpoint_ConfigureEndpoint_PRV(Address ^ ENDPOINT_DIR_IN, EPConfigMask, Size);
+ 272:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 273:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return Endpoint_ConfigureEndpoint_PRV(Address, EPConfigMask, Size);
+ 274:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 275:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 276:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Indicates the number of bytes currently stored in the current endpoint's selected bank.
+ 277:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 278:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointRW_XMEGA
+ 279:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 280:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Total number of bytes in the currently selected Endpoint's FIFO buffer.
+ 281:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 282:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint16_t Endpoint_BytesInEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE
+ 283:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint16_t Endpoint_BytesInEndpoint(void)
+ 284:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 285:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (USB_Endpoint_SelectedEndpoint & ENDPOINT_DIR_IN)
+ 286:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return USB_Endpoint_SelectedFIFO->Position;
+ 287:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				else
+ 288:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return (USB_Endpoint_SelectedFIFO->Length - USB_Endpoint_SelectedFIFO->Position);
+ 289:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 290:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 291:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Get the endpoint address of the currently selected endpoint. This is typically used to save
+ 292:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  the currently selected endpoint so that it can be restored after another endpoint has been
+ 293:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  manipulated.
+ 294:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 295:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Index of the currently selected endpoint.
+ 296:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 297:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint8_t Endpoint_GetCurrentEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLI
+ 298:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline uint8_t Endpoint_GetCurrentEndpoint(void)
+ 299:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 300:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return USB_Endpoint_SelectedEndpoint;
+ 301:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 302:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 303:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB control
+ 304:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  data In and Out pointers to the bank's contents.
+ 305:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 306:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \param[in] Address  Endpoint address whose FIFO buffers are to be reset.
+ 307:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 308:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ResetEndpoint(const uint8_t Address) ATTR_ALWAYS_INLINE;
+ 309:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ResetEndpoint(const uint8_t Address)
+ 310:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 311:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (Address & ENDPOINT_DIR_IN)
+ 312:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  USB_Endpoint_FIFOs[Address & ENDPOINT_EPNUM_MASK].IN.Position  = 0;
+ 313:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				else
+ 314:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  USB_Endpoint_FIFOs[Address & ENDPOINT_EPNUM_MASK].OUT.Position = 0;
+ 315:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 316:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 317:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
+ 318:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 319:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 * \return Boolean \c true if the currently selected endpoint is enabled, \c false otherwise.
+ 320:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 321:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsEnabled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 322:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsEnabled(void)
+ 323:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 324:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return true;
+ 325:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 326:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 327:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Aborts all pending IN transactions on the currently selected endpoint, once the bank
+ 328:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  has been queued for transmission to the host via \ref Endpoint_ClearIN(). This function
+ 329:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  will terminate all queued transactions, resetting the endpoint banks ready for a new
+ 330:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  packet.
+ 331:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 332:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 333:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 334:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_AbortPendingIN(void)
+ 335:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 336:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_BUSNACK0_bm;
+ 337:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 338:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 339:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the currently selected endpoint may be read from (if data is waiting in the en
+ 340:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  bank and the endpoint is an OUT direction, or if the bank is not yet full if the endpoint is
+ 341:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  direction). This function will return false if an error has occurred in the endpoint, if the
+ 342:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  is an OUT direction and no packet (or an empty packet) has been received, or if the endpoint
+ 343:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  direction and the endpoint bank is full.
+ 344:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 345:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 346:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 347:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the currently selected endpoint may be read from or written to, d
+ 348:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *          on its direction.
+ 349:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 350:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 351:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsReadWriteAllowed(void)
+ 352:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 353:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return (USB_Endpoint_SelectedFIFO->Position < USB_Endpoint_SelectedFIFO->Length);
+ 194               		.loc 1 353 0
+ 195 0028 2091 0000 		lds r18,USB_Endpoint_SelectedFIFO
+ 196 002c 3091 0000 		lds r19,USB_Endpoint_SelectedFIFO+1
+ 197 0030 D901      		movw r26,r18
+ 198 0032 AF5B      		subi r26,lo8(-(65))
+ 199 0034 BF4F      		sbci r27,hi8(-(65))
+ 200 0036 4C91      		ld r20,X
+ 201 0038 205C      		subi r18,lo8(-(64))
+ 202 003a 3F4F      		sbci r19,hi8(-(64))
+ 203 003c F901      		movw r30,r18
+ 204 003e 9081      		ld r25,Z
+ 205               	.LBE19:
+ 206               	.LBE18:
+  80:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return ErrorCode;
+  81:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  82:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (!(Endpoint_IsReadWriteAllowed()))
+ 207               		.loc 2 82 0
+ 208 0040 4917      		cp r20,r25
+ 209 0042 00F0      		brlo .L9
+ 210               	.LBB20:
+ 211               	.LBB21:
+ 354:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 355:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 356:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the currently selected endpoint is configured.
+ 357:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 358:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the currently selected endpoint has been configured, \c false oth
+ 359:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 360:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 361:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsConfigured(void)
+ 362:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 363:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_TYPE_gm) ? true : false);
+ 364:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 365:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 366:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the selected IN endpoint is ready for a new packet to be sent to the host.
+ 367:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 368:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 369:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 370:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the current endpoint is ready for an IN packet, \c false otherwis
+ 371:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 372:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 373:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsINReady(void)
+ 374:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 375:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
+ 376:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 377:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return ((USB_Endpoint_SelectedHandle->STATUS & USB_EP_BUSNACK0_bm) ? true : false);
+ 378:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 379:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 380:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the selected OUT endpoint has received new packet from the host.
+ 381:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 382:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 383:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 384:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if current endpoint is has received an OUT packet, \c false otherwis
+ 385:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 386:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsOUTReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 387:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsOUTReceived(void)
+ 388:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 389:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+ 390:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 391:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_TRNCOMPL0_bm)
+ 392:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 393:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
+ 394:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					return true;
+ 395:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 396:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 397:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return false;
+ 398:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 399:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 400:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Determines if the current CONTROL type endpoint has received a SETUP packet.
+ 401:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 402:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 403:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 404:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \return Boolean \c true if the selected endpoint has received a SETUP packet, \c false other
+ 405:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 406:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsSETUPReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+ 407:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline bool Endpoint_IsSETUPReceived(void)
+ 408:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 409:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+ 410:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 411:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_SETUP_bm)
+ 412:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				{
+ 413:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
+ 414:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 					return true;
+ 415:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				}
+ 416:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 417:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return false;
+ 418:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 419:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 420:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Clears a received SETUP packet on the currently selected CONTROL type endpoint, freeing up t
+ 421:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  endpoint for the next packet.
+ 422:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 423:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 424:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 425:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \note This is not applicable for non CONTROL type endpoints.
+ 426:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 427:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearSETUP(void) ATTR_ALWAYS_INLINE;
+ 428:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearSETUP(void)
+ 429:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 430:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+ 431:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_SETUP_bm | USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK
+ 432:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
+ 433:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 434:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 435:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
+ 436:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
+ 437:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 438:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 439:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 440:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Sends an IN packet to the host on the currently selected endpoint, freeing up the endpoint f
+ 441:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  next packet and switching to the alternative endpoint bank if double banked.
+ 442:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 443:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 444:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 445:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearIN(void) ATTR_ALWAYS_INLINE;
+ 446:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearIN(void)
+ 447:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 448:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->CNT     = USB_Endpoint_SelectedFIFO->Position;
+ 212               		.loc 1 448 0
+ 213 0044 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 214 0048 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 215 004c 2C91      		ld r18,X
+ 216 004e 30E0      		ldi r19,lo8(0)
+ 217 0050 2283      		std Z+2,r18
+ 218 0052 3383      		std Z+3,r19
+ 449:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_
+ 219               		.loc 1 449 0
+ 220 0054 9081      		ld r25,Z
+ 221 0056 9D79      		andi r25,lo8(-99)
+ 222 0058 9083      		st Z,r25
+ 450:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 223               		.loc 1 450 0
+ 224 005a E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 225 005e F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 226 0062 EF5B      		subi r30,lo8(-(65))
+ 227 0064 FF4F      		sbci r31,hi8(-(65))
+ 228 0066 1082      		st Z,__zero_reg__
+ 229 0068 00C0      		rjmp .L9
+ 230               	.LVL13:
+ 231               	.L10:
+ 232               	.LBE21:
+ 233               	.LBE20:
+  73:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return ENDPOINT_RWSTREAM_DeviceDisconnected;
+ 234               		.loc 2 73 0
+ 235 006a 82E0      		ldi r24,lo8(2)
+ 236               	.LVL14:
+ 237               	.L9:
+ 238               	/* epilogue start */
+  83:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  Endpoint_ClearIN();
+  84:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  85:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	return ENDPOINT_RWSTREAM_NoError;
+  86:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** }
+ 239               		.loc 2 86 0
+ 240 006c DF91      		pop r29
+ 241 006e CF91      		pop r28
+ 242               	.LVL15:
+ 243 0070 0895      		ret
+ 244               		.cfi_endproc
+ 245               	.LFE85:
+ 247               		.section	.text.MIDI_Device_Flush,"ax",@progbits
+ 248               	.global	MIDI_Device_Flush
+ 250               	MIDI_Device_Flush:
+ 251               	.LFB86:
+  87:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  88:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** uint8_t MIDI_Device_Flush(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
+  89:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** {
+ 252               		.loc 2 89 0
+ 253               		.cfi_startproc
+ 254               	.LVL16:
+ 255               	/* prologue: function */
+ 256               	/* frame size = 0 */
+ 257               	/* stack size = 0 */
+ 258               	.L__stack_usage = 0
+  90:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (USB_DeviceState != DEVICE_STATE_Configured)
+ 259               		.loc 2 90 0
+ 260 0000 2091 0000 		lds r18,USB_DeviceState
+ 261 0004 2430      		cpi r18,lo8(4)
+ 262 0006 01F4      		brne .L15
+  91:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return ENDPOINT_RWSTREAM_DeviceDisconnected;
+  92:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  93:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	uint8_t ErrorCode;
+  94:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  95:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpoint.Address);
+ 263               		.loc 2 95 0
+ 264 0008 FC01      		movw r30,r24
+ 265 000a 8181      		ldd r24,Z+1
+ 266               	.LVL17:
+ 267 000c 0E94 0000 		call Endpoint_SelectEndpoint
+ 268               	.LVL18:
+ 269               	.LBB22:
+ 270               	.LBB23:
+ 285:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				if (USB_Endpoint_SelectedEndpoint & ENDPOINT_DIR_IN)
+ 271               		.loc 1 285 0
+ 272 0010 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 273 0014 2091 0000 		lds r18,USB_Endpoint_SelectedFIFO
+ 274 0018 3091 0000 		lds r19,USB_Endpoint_SelectedFIFO+1
+ 275 001c 87FF      		sbrs r24,7
+ 276 001e 00C0      		rjmp .L13
+ 286:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return USB_Endpoint_SelectedFIFO->Position;
+ 277               		.loc 1 286 0
+ 278 0020 2F5B      		subi r18,lo8(-(65))
+ 279 0022 3F4F      		sbci r19,hi8(-(65))
+ 280 0024 F901      		movw r30,r18
+ 281 0026 8081      		ld r24,Z
+ 282 0028 90E0      		ldi r25,lo8(0)
+ 283 002a 00C0      		rjmp .L14
+ 284               	.L13:
+ 288:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				  return (USB_Endpoint_SelectedFIFO->Length - USB_Endpoint_SelectedFIFO->Position);
+ 285               		.loc 1 288 0
+ 286 002c F901      		movw r30,r18
+ 287 002e E05C      		subi r30,lo8(-(64))
+ 288 0030 FF4F      		sbci r31,hi8(-(64))
+ 289 0032 8081      		ld r24,Z
+ 290 0034 2F5B      		subi r18,lo8(-(65))
+ 291 0036 3F4F      		sbci r19,hi8(-(65))
+ 292 0038 F901      		movw r30,r18
+ 293 003a 2081      		ld r18,Z
+ 294 003c 90E0      		ldi r25,lo8(0)
+ 295 003e 821B      		sub r24,r18
+ 296 0040 9109      		sbc r25,__zero_reg__
+ 297               	.L14:
+ 298               	.LBE23:
+ 299               	.LBE22:
+  96:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+  97:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (Endpoint_BytesInEndpoint())
+ 300               		.loc 2 97 0
+ 301 0042 0097      		sbiw r24,0
+ 302 0044 01F0      		breq .L16
+ 303               	.LBB24:
+ 304               	.LBB25:
+ 448:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->CNT     = USB_Endpoint_SelectedFIFO->Position;
+ 305               		.loc 1 448 0
+ 306 0046 E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 307 004a F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 308 004e A091 0000 		lds r26,USB_Endpoint_SelectedFIFO
+ 309 0052 B091 0000 		lds r27,USB_Endpoint_SelectedFIFO+1
+ 310 0056 AF5B      		subi r26,lo8(-(65))
+ 311 0058 BF4F      		sbci r27,hi8(-(65))
+ 312 005a 8C91      		ld r24,X
+ 313 005c 90E0      		ldi r25,lo8(0)
+ 314 005e 8283      		std Z+2,r24
+ 315 0060 9383      		std Z+3,r25
+ 449:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_
+ 316               		.loc 1 449 0
+ 317 0062 8081      		ld r24,Z
+ 318 0064 8D79      		andi r24,lo8(-99)
+ 319 0066 8083      		st Z,r24
+ 320               		.loc 1 450 0
+ 321 0068 E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 322 006c F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 323 0070 EF5B      		subi r30,lo8(-(65))
+ 324 0072 FF4F      		sbci r31,hi8(-(65))
+ 325 0074 1082      		st Z,__zero_reg__
+ 326               	.LBE25:
+ 327               	.LBE24:
+  98:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	{
+  99:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 		Endpoint_ClearIN();
+ 100:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+ 101:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 		if ((ErrorCode = Endpoint_WaitUntilReady()) != ENDPOINT_READYWAIT_NoError)
+ 328               		.loc 2 101 0
+ 329 0076 0E94 0000 		call Endpoint_WaitUntilReady
+ 330               	.LVL19:
+ 331 007a 0895      		ret
+ 332               	.LVL20:
+ 333               	.L15:
+  91:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return ENDPOINT_RWSTREAM_DeviceDisconnected;
+ 334               		.loc 2 91 0
+ 335 007c 82E0      		ldi r24,lo8(2)
+ 336               	.LVL21:
+ 337 007e 0895      		ret
+ 338               	.L16:
+ 102:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 		  return ErrorCode;
+ 103:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	}
+ 104:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+ 105:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	return ENDPOINT_READYWAIT_NoError;
+ 339               		.loc 2 105 0
+ 340 0080 80E0      		ldi r24,lo8(0)
+ 106:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** }
+ 341               		.loc 2 106 0
+ 342 0082 0895      		ret
+ 343               		.cfi_endproc
+ 344               	.LFE86:
+ 346               		.section	.text.MIDI_Device_USBTask,"ax",@progbits
+ 347               	.global	MIDI_Device_USBTask
+ 349               	MIDI_Device_USBTask:
+ 350               	.LFB84:
+  57:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** {
+ 351               		.loc 2 57 0
+ 352               		.cfi_startproc
+ 353               	.LVL22:
+ 354 0000 CF93      		push r28
+ 355               	.LCFI4:
+ 356               		.cfi_def_cfa_offset 3
+ 357               		.cfi_offset 28, -2
+ 358 0002 DF93      		push r29
+ 359               	.LCFI5:
+ 360               		.cfi_def_cfa_offset 4
+ 361               		.cfi_offset 29, -3
+ 362               	/* prologue: function */
+ 363               	/* frame size = 0 */
+ 364               	/* stack size = 2 */
+ 365               	.L__stack_usage = 2
+ 366 0004 EC01      		movw r28,r24
+  58:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (USB_DeviceState != DEVICE_STATE_Configured)
+ 367               		.loc 2 58 0
+ 368 0006 8091 0000 		lds r24,USB_DeviceState
+ 369               	.LVL23:
+ 370 000a 8430      		cpi r24,lo8(4)
+ 371 000c 01F4      		brne .L17
+  62:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpoint.Address);
+ 372               		.loc 2 62 0
+ 373 000e 8981      		ldd r24,Y+1
+ 374 0010 0E94 0000 		call Endpoint_SelectEndpoint
+ 375               	.LBB26:
+ 376               	.LBB27:
+ 375:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
+ 377               		.loc 1 375 0
+ 378 0014 8091 0000 		lds r24,USB_Endpoint_SelectedEndpoint
+ 379 0018 8068      		ori r24,lo8(-128)
+ 380 001a 0E94 0000 		call Endpoint_SelectEndpoint
+ 377:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return ((USB_Endpoint_SelectedHandle->STATUS & USB_EP_BUSNACK0_bm) ? true : false);
+ 381               		.loc 1 377 0
+ 382 001e E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 383 0022 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 384 0026 8081      		ld r24,Z
+ 385               	.LBE27:
+ 386               	.LBE26:
+  64:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (Endpoint_IsINReady())
+ 387               		.loc 2 64 0
+ 388 0028 81FF      		sbrs r24,1
+ 389 002a 00C0      		rjmp .L17
+  65:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  MIDI_Device_Flush(MIDIInterfaceInfo);
+ 390               		.loc 2 65 0
+ 391 002c CE01      		movw r24,r28
+ 392 002e 0E94 0000 		call MIDI_Device_Flush
+ 393               	.L17:
+ 394               	/* epilogue start */
+  67:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** }
+ 395               		.loc 2 67 0
+ 396 0032 DF91      		pop r29
+ 397 0034 CF91      		pop r28
+ 398               	.LVL24:
+ 399 0036 0895      		ret
+ 400               		.cfi_endproc
+ 401               	.LFE84:
+ 403               		.section	.text.MIDI_Device_ReceiveEventPacket,"ax",@progbits
+ 404               	.global	MIDI_Device_ReceiveEventPacket
+ 406               	MIDI_Device_ReceiveEventPacket:
+ 407               	.LFB87:
+ 107:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+ 108:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo,
+ 109:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c ****                                     MIDI_EventPacket_t* const Event)
+ 110:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** {
+ 408               		.loc 2 110 0
+ 409               		.cfi_startproc
+ 410               	.LVL25:
+ 411 0000 CF93      		push r28
+ 412               	.LCFI6:
+ 413               		.cfi_def_cfa_offset 3
+ 414               		.cfi_offset 28, -2
+ 415 0002 DF93      		push r29
+ 416               	.LCFI7:
+ 417               		.cfi_def_cfa_offset 4
+ 418               		.cfi_offset 29, -3
+ 419               	/* prologue: function */
+ 420               	/* frame size = 0 */
+ 421               	/* stack size = 2 */
+ 422               	.L__stack_usage = 2
+ 423 0004 EB01      		movw r28,r22
+ 111:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (USB_DeviceState != DEVICE_STATE_Configured)
+ 424               		.loc 2 111 0
+ 425 0006 2091 0000 		lds r18,USB_DeviceState
+ 426 000a 2430      		cpi r18,lo8(4)
+ 427 000c 01F4      		brne .L22
+ 112:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return false;
+ 113:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+ 114:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataOUTEndpoint.Address);
+ 428               		.loc 2 114 0
+ 429 000e FC01      		movw r30,r24
+ 430 0010 8681      		ldd r24,Z+6
+ 431               	.LVL26:
+ 432 0012 0E94 0000 		call Endpoint_SelectEndpoint
+ 433               	.LVL27:
+ 434               	.LBB28:
+ 435               	.LBB29:
+ 353:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return (USB_Endpoint_SelectedFIFO->Position < USB_Endpoint_SelectedFIFO->Length);
+ 436               		.loc 1 353 0
+ 437 0016 8091 0000 		lds r24,USB_Endpoint_SelectedFIFO
+ 438 001a 9091 0000 		lds r25,USB_Endpoint_SelectedFIFO+1
+ 439 001e FC01      		movw r30,r24
+ 440 0020 EF5B      		subi r30,lo8(-(65))
+ 441 0022 FF4F      		sbci r31,hi8(-(65))
+ 442 0024 2081      		ld r18,Z
+ 443 0026 805C      		subi r24,lo8(-(64))
+ 444 0028 9F4F      		sbci r25,hi8(-(64))
+ 445 002a FC01      		movw r30,r24
+ 446 002c 8081      		ld r24,Z
+ 447               	.LBE29:
+ 448               	.LBE28:
+ 115:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+ 116:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (!(Endpoint_IsReadWriteAllowed()))
+ 449               		.loc 2 116 0
+ 450 002e 2817      		cp r18,r24
+ 451 0030 00F4      		brsh .L22
+ 117:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return false;
+ 118:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+ 119:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	Endpoint_Read_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL);
+ 452               		.loc 2 119 0
+ 453 0032 CE01      		movw r24,r28
+ 454 0034 64E0      		ldi r22,lo8(4)
+ 455 0036 70E0      		ldi r23,hi8(4)
+ 456 0038 40E0      		ldi r20,lo8(0)
+ 457 003a 50E0      		ldi r21,hi8(0)
+ 458 003c 0E94 0000 		call Endpoint_Read_Stream_LE
+ 459               	.LBB30:
+ 460               	.LBB31:
+ 353:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				return (USB_Endpoint_SelectedFIFO->Position < USB_Endpoint_SelectedFIFO->Length);
+ 461               		.loc 1 353 0
+ 462 0040 8091 0000 		lds r24,USB_Endpoint_SelectedFIFO
+ 463 0044 9091 0000 		lds r25,USB_Endpoint_SelectedFIFO+1
+ 464 0048 FC01      		movw r30,r24
+ 465 004a EF5B      		subi r30,lo8(-(65))
+ 466 004c FF4F      		sbci r31,hi8(-(65))
+ 467 004e 2081      		ld r18,Z
+ 468 0050 805C      		subi r24,lo8(-(64))
+ 469 0052 9F4F      		sbci r25,hi8(-(64))
+ 470 0054 FC01      		movw r30,r24
+ 471 0056 8081      		ld r24,Z
+ 472               	.LBE31:
+ 473               	.LBE30:
+ 120:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+ 121:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	if (!(Endpoint_IsReadWriteAllowed()))
+ 474               		.loc 2 121 0
+ 475 0058 2817      		cp r18,r24
+ 476 005a 00F0      		brlo .L23
+ 477               	.LBB32:
+ 478               	.LBB33:
+ 451:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			}
+ 452:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 
+ 453:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			/** Acknowledges an OUT packet to the host on the currently selected endpoint, freeing up the en
+ 454:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  for the next packet and switching to the alternative endpoint bank if double banked.
+ 455:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *
+ 456:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
+ 457:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			 */
+ 458:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearOUT(void) ATTR_ALWAYS_INLINE;
+ 459:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			static inline void Endpoint_ClearOUT(void)
+ 460:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 			{
+ 461:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_
+ 479               		.loc 1 461 0
+ 480 005c E091 0000 		lds r30,USB_Endpoint_SelectedHandle
+ 481 0060 F091 0000 		lds r31,USB_Endpoint_SelectedHandle+1
+ 482 0064 8081      		ld r24,Z
+ 483 0066 8D79      		andi r24,lo8(-99)
+ 484 0068 8083      		st Z,r24
+ 462:LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../XMEGA/Endpoint_XMEGA.h **** 				USB_Endpoint_SelectedFIFO->Position  = 0;
+ 485               		.loc 1 462 0
+ 486 006a E091 0000 		lds r30,USB_Endpoint_SelectedFIFO
+ 487 006e F091 0000 		lds r31,USB_Endpoint_SelectedFIFO+1
+ 488 0072 EF5B      		subi r30,lo8(-(65))
+ 489 0074 FF4F      		sbci r31,hi8(-(65))
+ 490 0076 1082      		st Z,__zero_reg__
+ 491 0078 00C0      		rjmp .L23
+ 492               	.L22:
+ 493               	.LBE33:
+ 494               	.LBE32:
+ 117:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  return false;
+ 495               		.loc 2 117 0
+ 496 007a 80E0      		ldi r24,lo8(0)
+ 497 007c 00C0      		rjmp .L20
+ 498               	.L23:
+ 122:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	  Endpoint_ClearOUT();
+ 123:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 
+ 124:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** 	return true;
+ 499               		.loc 2 124 0
+ 500 007e 81E0      		ldi r24,lo8(1)
+ 501               	.L20:
+ 502               	/* epilogue start */
+ 125:LUFA//Drivers/USB/Class/Device/MIDIClassDevice.c **** }
+ 503               		.loc 2 125 0
+ 504 0080 DF91      		pop r29
+ 505 0082 CF91      		pop r28
+ 506               	.LVL28:
+ 507 0084 0895      		ret
+ 508               		.cfi_endproc
+ 509               	.LFE87:
+ 511               		.text
+ 512               	.Letext0:
+ 513               		.file 3 "/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.
+ 514               		.file 4 "/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.
+ 515               		.file 5 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/USBController_XMEGA.h"
+ 516               		.file 6 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../Endpoint.h"
+ 517               		.file 7 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../Device.h"
+ 518               		.file 8 "LUFA//Drivers/USB/Class/Device/../../Core/XMEGA/../EndpointStream.h"
+ 519               		.file 9 "LUFA//Drivers/USB/Class/Device/../Common/MIDIClassCommon.h"
+ 520               		.file 10 "LUFA//Drivers/USB/Class/Device/MIDIClassDevice.h"
+ 521               		.file 11 "LUFA//Drivers/USB/Class/Device/../../Core/USBTask.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 MIDIClassDevice.c
+     /tmp/cc3HtMAE.s:2      *ABS*:0000003f __SREG__
+     /tmp/cc3HtMAE.s:3      *ABS*:0000003e __SP_H__
+     /tmp/cc3HtMAE.s:4      *ABS*:0000003d __SP_L__
+     /tmp/cc3HtMAE.s:5      *ABS*:00000034 __CCP__
+     /tmp/cc3HtMAE.s:6      *ABS*:00000000 __tmp_reg__
+     /tmp/cc3HtMAE.s:7      *ABS*:00000001 __zero_reg__
+     /tmp/cc3HtMAE.s:15     .text.Endpoint_SelectEndpoint:00000000 Endpoint_SelectEndpoint
+     /tmp/cc3HtMAE.s:98     .text.MIDI_Device_ConfigureEndpoints:00000000 MIDI_Device_ConfigureEndpoints
+     /tmp/cc3HtMAE.s:154    .text.MIDI_Device_SendEventPacket:00000000 MIDI_Device_SendEventPacket
+     /tmp/cc3HtMAE.s:250    .text.MIDI_Device_Flush:00000000 MIDI_Device_Flush
+     /tmp/cc3HtMAE.s:349    .text.MIDI_Device_USBTask:00000000 MIDI_Device_USBTask
+     /tmp/cc3HtMAE.s:406    .text.MIDI_Device_ReceiveEventPacket:00000000 MIDI_Device_ReceiveEventPacket
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+USB_Endpoint_SelectedEndpoint
+USB_Endpoint_FIFOs
+USB_Endpoint_SelectedFIFO
+USB_Endpoint_SelectedHandle
+Endpoint_ConfigureEndpointTable
+USB_DeviceState
+Endpoint_Write_Stream_LE
+Endpoint_WaitUntilReady
+Endpoint_Read_Stream_LE

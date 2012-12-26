@@ -85,18 +85,22 @@ static FILE USBSerialStream;
 /** Event handler for the library USB Connection event. */
 void EVENT_USB_Device_Connect(void)
 {
+	/*
 	int i;
 	for (i = 0; i < 10; i++){
 		blink(50);
 	}
+	*/
 
 }
 
 /** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Device_Disconnect(void)
 {
+	/*
 	blink(500);
 	blink(500);
+	*/
 }
 
 /** Event handler for the library USB Configuration Changed event. */
@@ -111,8 +115,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 void EVENT_USB_Device_ControlRequest(void)
 {
 	//blink(5000);
-//	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
-	
+	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
+	/*
 	if(((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_TYPE) == REQTYPE_CLASS) &&
 		((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_DEVICE)){
 		if((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_DIRECTION) == REQDIR_HOSTTODEVICE){
@@ -135,6 +139,7 @@ void EVENT_USB_Device_ControlRequest(void)
 			}
 		}
 	}
+	*/
 	
 }
 
@@ -242,19 +247,16 @@ int main(void)
 	SetupHardware();
 	setupIO();
 	interruptInit();
-
 	/* Create a regular character stream for the interface so that it can be used with the stdio.h functions */
 	CDC_Device_CreateStream(&VirtualSerial_CDC_Interface, &USBSerialStream);
 
 	sei();
-
 	
 	while (1)
 	{
 		
 		/* Must throw away unused bytes from the host, or it will lock up while waiting for the device */
 		CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
-
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
 	}

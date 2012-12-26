@@ -1,0 +1,2431 @@
+GAS LISTING /tmp/ccWPoaT8.s 			page 1
+
+
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.stabs	"/home/dgonz/projects/gitHome/TinyArmTroller/examples/USART Example/",100,0,2,.Ltext0
+   9               		.stabs	"main.c",100,0,2,.Ltext0
+  10               		.text
+  11               	.Ltext0:
+  12               		.stabs	"gcc2_compiled.",60,0,0,0
+  13               		.stabs	"int:t(0,1)=r(0,1);-32768;32767;",128,0,0,0
+  14               		.stabs	"char:t(0,2)=@s8;r(0,2);0;255;",128,0,0,0
+  15               		.stabs	"long int:t(0,3)=@s32;r(0,3);020000000000;017777777777;",128,0,0,0
+  16               		.stabs	"unsigned int:t(0,4)=r(0,4);0;0177777;",128,0,0,0
+  17               		.stabs	"long unsigned int:t(0,5)=@s32;r(0,5);0;037777777777;",128,0,0,0
+  18               		.stabs	"long long int:t(0,6)=@s64;r(0,6);01000000000000000000000;0777777777777777777777;",128,0,0,
+  19               		.stabs	"long long unsigned int:t(0,7)=@s64;r(0,7);0;01777777777777777777777;",128,0,0,0
+  20               		.stabs	"short int:t(0,8)=r(0,8);-32768;32767;",128,0,0,0
+  21               		.stabs	"short unsigned int:t(0,9)=r(0,9);0;0177777;",128,0,0,0
+  22               		.stabs	"signed char:t(0,10)=@s8;r(0,10);-128;127;",128,0,0,0
+  23               		.stabs	"unsigned char:t(0,11)=@s8;r(0,11);0;255;",128,0,0,0
+  24               		.stabs	"float:t(0,12)=r(0,1);4;0;",128,0,0,0
+  25               		.stabs	"double:t(0,13)=r(0,1);4;0;",128,0,0,0
+  26               		.stabs	"long double:t(0,14)=r(0,1);4;0;",128,0,0,0
+  27               		.stabs	"void:t(0,15)=(0,15)",128,0,0,0
+  28               		.stabs	"/usr/lib/gcc/avr/4.5.3/../../../avr/include/stdio.h",130,0,0,0
+  29               		.stabs	"/usr/lib/gcc/avr/4.5.3/../../../avr/include/inttypes.h",130,0,0,0
+  30               		.stabs	"/usr/lib/gcc/avr/4.5.3/include/stdint.h",130,0,0,0
+  31               		.stabs	"/usr/lib/gcc/avr/4.5.3/../../../avr/include/stdint.h",130,0,0,0
+  32               		.stabs	"int8_t:t(4,1)=(0,10)",128,0,121,0
+  33               		.stabs	"uint8_t:t(4,2)=(0,11)",128,0,122,0
+  34               		.stabs	"int16_t:t(4,3)=(0,1)",128,0,123,0
+  35               		.stabs	"uint16_t:t(4,4)=(0,4)",128,0,124,0
+  36               		.stabs	"int32_t:t(4,5)=(0,3)",128,0,125,0
+  37               		.stabs	"uint32_t:t(4,6)=(0,5)",128,0,126,0
+  38               		.stabs	"int64_t:t(4,7)=(0,6)",128,0,128,0
+  39               		.stabs	"uint64_t:t(4,8)=(0,7)",128,0,129,0
+  40               		.stabs	"intptr_t:t(4,9)=(4,3)",128,0,142,0
+  41               		.stabs	"uintptr_t:t(4,10)=(4,4)",128,0,147,0
+  42               		.stabs	"int_least8_t:t(4,11)=(4,1)",128,0,159,0
+  43               		.stabs	"uint_least8_t:t(4,12)=(4,2)",128,0,164,0
+  44               		.stabs	"int_least16_t:t(4,13)=(4,3)",128,0,169,0
+  45               		.stabs	"uint_least16_t:t(4,14)=(4,4)",128,0,174,0
+  46               		.stabs	"int_least32_t:t(4,15)=(4,5)",128,0,179,0
+  47               		.stabs	"uint_least32_t:t(4,16)=(4,6)",128,0,184,0
+  48               		.stabs	"int_least64_t:t(4,17)=(4,7)",128,0,192,0
+  49               		.stabs	"uint_least64_t:t(4,18)=(4,8)",128,0,199,0
+  50               		.stabs	"int_fast8_t:t(4,19)=(4,1)",128,0,213,0
+  51               		.stabs	"uint_fast8_t:t(4,20)=(4,2)",128,0,218,0
+  52               		.stabs	"int_fast16_t:t(4,21)=(4,3)",128,0,223,0
+  53               		.stabs	"uint_fast16_t:t(4,22)=(4,4)",128,0,228,0
+  54               		.stabs	"int_fast32_t:t(4,23)=(4,5)",128,0,233,0
+  55               		.stabs	"uint_fast32_t:t(4,24)=(4,6)",128,0,238,0
+  56               		.stabs	"int_fast64_t:t(4,25)=(4,7)",128,0,246,0
+  57               		.stabs	"uint_fast64_t:t(4,26)=(4,8)",128,0,253,0
+GAS LISTING /tmp/ccWPoaT8.s 			page 2
+
+
+  58               		.stabs	"intmax_t:t(4,27)=(4,7)",128,0,273,0
+  59               		.stabs	"uintmax_t:t(4,28)=(4,8)",128,0,278,0
+  60               		.stabn	162,0,0,0
+  61               		.stabn	162,0,0,0
+  62               		.stabs	"int_farptr_t:t(2,1)=(4,5)",128,0,77,0
+  63               		.stabs	"uint_farptr_t:t(2,2)=(4,6)",128,0,81,0
+  64               		.stabn	162,0,0,0
+  65               		.stabs	"/usr/lib/gcc/avr/4.5.3/include/stdarg.h",130,0,0,0
+  66               		.stabs	"__gnuc_va_list:t(5,1)=(5,2)=*(0,15)",128,0,40,0
+  67               		.stabs	"va_list:t(5,3)=(5,1)",128,0,102,0
+  68               		.stabn	162,0,0,0
+  69               		.stabs	"/usr/lib/gcc/avr/4.5.3/include/stddef.h",130,0,0,0
+  70               		.stabs	"size_t:t(6,1)=(0,4)",128,0,211,0
+  71               		.stabn	162,0,0,0
+  72               		.stabs	"__file:T(1,1)=s14buf:(1,2)=*(0,2),0,16;unget:(0,11),16,8;flags:(4,2),24,8;size:(0,1),32,16
+  73               		.stabn	162,0,0,0
+  74               		.stabs	"/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/io.h",130,0,0,0
+  75               		.stabs	"/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/iox16a4.h",130,0,0,0
+  76               		.stabs	"register8_t:t(8,1)=(8,2)=B(4,2)",128,0,104,0
+  77               		.stabs	"register16_t:t(8,3)=(8,4)=B(4,4)",128,0,105,0
+  78               		.stabs	"register32_t:t(8,5)=(8,6)=B(4,6)",128,0,106,0
+  79               		.stabs	"OCD_struct:T(8,7)=s2OCDR0:(8,8)=B(0,11),0,8;OCDR1:(8,8),8,8;;",128,0,0,0
+  80               		.stabs	"OCD_t:t(8,9)=(8,7)",128,0,158,0
+  81               		.stabs	"CCP_enum:T(8,10)=@s8;eCCP_SPM_gc:157,CCP_IOREG_gc:216,;",128,0,0,0
+  82               		.stabs	"CCP_t:t(8,11)=(8,10)",128,0,166,0
+  83               		.stabs	"CLK_struct:T(8,12)=s4CTRL:(8,8),0,8;PSCTRL:(8,8),8,8;LOCK:(8,8),16,8;RTCCTRL:(8,8),24,8;;"
+  84               		.stabs	"CLK_t:t(8,13)=(8,12)",128,0,182,0
+  85               		.stabs	"PR_struct:T(8,14)=s7PRGEN:(8,8),0,8;PRPA:(8,8),8,8;PRPB:(8,8),16,8;PRPC:(8,8),24,8;PRPD:(8
+  86               		.stabs	"PR_t:t(8,15)=(8,14)",128,0,200,0
+  87               		.stabs	"CLK_SCLKSEL_enum:T(8,16)=@s8;eCLK_SCLKSEL_RC2M_gc:0,CLK_SCLKSEL_RC32M_gc:1,CLK_SCLKSEL_RC3
+  88               		.stabs	"CLK_SCLKSEL_t:t(8,17)=(8,16)",128,0,210,0
+  89               		.stabs	"CLK_PSADIV_enum:T(8,18)=@s8;eCLK_PSADIV_1_gc:0,CLK_PSADIV_2_gc:4,CLK_PSADIV_4_gc:12,CLK_PS
+  90               		.stabs	"CLK_PSADIV_t:t(8,19)=(8,18)",128,0,225,0
+  91               		.stabs	"CLK_PSBCDIV_enum:T(8,20)=@s8;eCLK_PSBCDIV_1_1_gc:0,CLK_PSBCDIV_1_2_gc:1,CLK_PSBCDIV_4_1_gc
+  92               		.stabs	"CLK_PSBCDIV_t:t(8,21)=(8,20)",128,0,234,0
+  93               		.stabs	"CLK_RTCSRC_enum:T(8,22)=@s8;eCLK_RTCSRC_ULP_gc:0,CLK_RTCSRC_TOSC_gc:2,CLK_RTCSRC_RCOSC_gc:
+  94               		.stabs	"CLK_RTCSRC_t:t(8,23)=(8,22)",128,0,243,0
+  95               		.stabs	"SLEEP_struct:T(8,24)=s1CTRL:(8,8),0,8;;",128,0,0,0
+  96               		.stabs	"SLEEP_t:t(8,25)=(8,24)",128,0,256,0
+  97               		.stabs	"SLEEP_SMODE_enum:T(8,26)=@s8;eSLEEP_SMODE_IDLE_gc:0,SLEEP_SMODE_PDOWN_gc:4,SLEEP_SMODE_PSA
+  98               		.stabs	"SLEEP_SMODE_t:t(8,27)=(8,26)",128,0,266,0
+  99               		.stabs	"OSC_struct:T(8,28)=s7CTRL:(8,8),0,8;STATUS:(8,8),8,8;XOSCCTRL:(8,8),16,8;XOSCFAIL:(8,8),24
+ 100               		.stabs	"OSC_t:t(8,29)=(8,28)",128,0,285,0
+ 101               		.stabs	"OSC_FRQRANGE_enum:T(8,30)=@s8;eOSC_FRQRANGE_04TO2_gc:0,OSC_FRQRANGE_2TO9_gc:64,OSC_FRQRANG
+ 102               		.stabs	"OSC_FRQRANGE_t:t(8,31)=(8,30)",128,0,294,0
+ 103               		.stabs	"OSC_XOSCSEL_enum:T(8,32)=@s8;eOSC_XOSCSEL_EXTCLK_gc:0,OSC_XOSCSEL_32KHz_gc:2,OSC_XOSCSEL_X
+ 104               		.stabs	"OSC_XOSCSEL_t:t(8,33)=(8,32)",128,0,304,0
+ 105               		.stabs	"OSC_PLLSRC_enum:T(8,34)=@s8;eOSC_PLLSRC_RC2M_gc:0,OSC_PLLSRC_RC32M_gc:128,OSC_PLLSRC_XOSC_
+ 106               		.stabs	"OSC_PLLSRC_t:t(8,35)=(8,34)",128,0,312,0
+ 107               		.stabs	"DFLL_struct:T(8,36)=s8CTRL:(8,8),0,8;reserved_0x01:(8,8),8,8;CALA:(8,8),16,8;CALB:(8,8),24
+ 108               		.stabs	"DFLL_t:t(8,37)=(8,36)",128,0,332,0
+ 109               		.stabs	"RST_struct:T(8,38)=s2STATUS:(8,8),0,8;CTRL:(8,8),8,8;;",128,0,0,0
+ 110               		.stabs	"RST_t:t(8,39)=(8,38)",128,0,346,0
+ 111               		.stabs	"WDT_struct:T(8,40)=s3CTRL:(8,8),0,8;WINCTRL:(8,8),8,8;STATUS:(8,8),16,8;;",128,0,0,0
+ 112               		.stabs	"WDT_t:t(8,41)=(8,40)",128,0,361,0
+ 113               		.stabs	"WDT_PER_enum:T(8,42)=@s8;eWDT_PER_8CLK_gc:0,WDT_PER_16CLK_gc:4,WDT_PER_32CLK_gc:8,WDT_PER_
+ 114               		.stabs	"WDT_PER_t:t(8,43)=(8,42)",128,0,377,0
+GAS LISTING /tmp/ccWPoaT8.s 			page 3
+
+
+ 115               		.stabs	"WDT_WPER_enum:T(8,44)=@s8;eWDT_WPER_8CLK_gc:0,WDT_WPER_16CLK_gc:4,WDT_WPER_32CLK_gc:8,WDT_
+ 116               		.stabs	"WDT_WPER_t:t(8,45)=(8,44)",128,0,393,0
+ 117               		.stabs	"MCU_struct:T(8,46)=s12DEVID0:(8,8),0,8;DEVID1:(8,8),8,8;DEVID2:(8,8),16,8;REVID:(8,8),24,8
+ 118               		.stabs	"MCU_t:t(8,47)=(8,46)",128,0,417,0
+ 119               		.stabs	"PMIC_struct:T(8,48)=s3STATUS:(8,8),0,8;INTPRI:(8,8),8,8;CTRL:(8,8),16,8;;",128,0,0,0
+ 120               		.stabs	"PMIC_t:t(8,49)=(8,48)",128,0,432,0
+ 121               		.stabs	"DMA_CH_struct:T(8,50)=s16CTRLA:(8,8),0,8;CTRLB:(8,8),8,8;ADDRCTRL:(8,8),16,8;TRIGSRC:(8,8)
+ 122               		.stabs	"DMA_CH_t:t(8,54)=(8,50)",128,0,459,0
+ 123               		.stabs	"DMA_struct:T(8,55)=s80CTRL:(8,8),0,8;reserved_0x01:(8,8),8,8;reserved_0x02:(8,8),16,8;INTF
+ 124               		.stabs	"DMA_t:t(8,58)=(8,55)",128,0,489,0
+ 125               		.stabs	"DMA_CH_BURSTLEN_enum:T(8,59)=@s8;eDMA_CH_BURSTLEN_1BYTE_gc:0,DMA_CH_BURSTLEN_2BYTE_gc:1,DM
+ 126               		.stabs	"DMA_CH_BURSTLEN_t:t(8,60)=(8,59)",128,0,498,0
+ 127               		.stabs	"DMA_CH_SRCRELOAD_enum:T(8,61)=@s8;eDMA_CH_SRCRELOAD_NONE_gc:0,DMA_CH_SRCRELOAD_BLOCK_gc:64
+ 128               		.stabs	"DMA_CH_SRCRELOAD_t:t(8,62)=(8,61)",128,0,507,0
+ 129               		.stabs	"DMA_CH_SRCDIR_enum:T(8,63)=@s8;eDMA_CH_SRCDIR_FIXED_gc:0,DMA_CH_SRCDIR_INC_gc:16,DMA_CH_SR
+ 130               		.stabs	"DMA_CH_SRCDIR_t:t(8,64)=(8,63)",128,0,515,0
+ 131               		.stabs	"DMA_CH_DESTRELOAD_enum:T(8,65)=@s8;eDMA_CH_DESTRELOAD_NONE_gc:0,DMA_CH_DESTRELOAD_BLOCK_gc
+ 132               		.stabs	"DMA_CH_DESTRELOAD_t:t(8,66)=(8,65)",128,0,524,0
+ 133               		.stabs	"DMA_CH_DESTDIR_enum:T(8,67)=@s8;eDMA_CH_DESTDIR_FIXED_gc:0,DMA_CH_DESTDIR_INC_gc:1,DMA_CH_
+ 134               		.stabs	"DMA_CH_DESTDIR_t:t(8,68)=(8,67)",128,0,532,0
+ 135               		.stabs	"DMA_CH_TRIGSRC_enum:T(8,69)=@s8;eDMA_CH_TRIGSRC_OFF_gc:0,DMA_CH_TRIGSRC_EVSYS_CH0_gc:1,DMA
+ 136               		.stabs	"DMA_CH_TRIGSRC_t:t(8,70)=(8,69)",128,0,615,0
+ 137               		.stabs	"DMA_DBUFMODE_enum:T(8,71)=@s8;eDMA_DBUFMODE_DISABLED_gc:0,DMA_DBUFMODE_CH01_gc:4,DMA_DBUFM
+ 138               		.stabs	"DMA_DBUFMODE_t:t(8,72)=(8,71)",128,0,624,0
+ 139               		.stabs	"DMA_PRIMODE_enum:T(8,73)=@s8;eDMA_PRIMODE_RR0123_gc:0,DMA_PRIMODE_CH0RR123_gc:1,DMA_PRIMOD
+ 140               		.stabs	"DMA_PRIMODE_t:t(8,74)=(8,73)",128,0,633,0
+ 141               		.stabs	"DMA_CH_ERRINTLVL_enum:T(8,75)=@s8;eDMA_CH_ERRINTLVL_OFF_gc:0,DMA_CH_ERRINTLVL_LO_gc:4,DMA_
+ 142               		.stabs	"DMA_CH_ERRINTLVL_t:t(8,76)=(8,75)",128,0,642,0
+ 143               		.stabs	"DMA_CH_TRNINTLVL_enum:T(8,77)=@s8;eDMA_CH_TRNINTLVL_OFF_gc:0,DMA_CH_TRNINTLVL_LO_gc:1,DMA_
+ 144               		.stabs	"DMA_CH_TRNINTLVL_t:t(8,78)=(8,77)",128,0,651,0
+ 145               		.stabs	"EVSYS_struct:T(8,79)=s18CH0MUX:(8,8),0,8;CH1MUX:(8,8),8,8;CH2MUX:(8,8),16,8;CH3MUX:(8,8),2
+ 146               		.stabs	"EVSYS_t:t(8,80)=(8,79)",128,0,681,0
+ 147               		.stabs	"EVSYS_QDIRM_enum:T(8,81)=@s8;eEVSYS_QDIRM_00_gc:0,EVSYS_QDIRM_01_gc:32,EVSYS_QDIRM_10_gc:6
+ 148               		.stabs	"EVSYS_QDIRM_t:t(8,82)=(8,81)",128,0,690,0
+ 149               		.stabs	"EVSYS_DIGFILT_enum:T(8,83)=@s8;eEVSYS_DIGFILT_1SAMPLE_gc:0,EVSYS_DIGFILT_2SAMPLES_gc:1,EVS
+ 150               		.stabs	"EVSYS_DIGFILT_t:t(8,84)=(8,83)",128,0,703,0
+ 151               		.stabs	"EVSYS_CHMUX_enum:T(8,85)=@s8;eEVSYS_CHMUX_OFF_gc:0,EVSYS_CHMUX_RTC_OVF_gc:8,EVSYS_CHMUX_RT
+ 152               		.stabs	"EVSYS_CHMUX_t:t(8,86)=(8,85)",128,0,829,0
+ 153               		.stabs	"NVM_struct:T(8,87)=s17ADDR0:(8,8),0,8;ADDR1:(8,8),8,8;ADDR2:(8,8),16,8;reserved_0x03:(8,8)
+ 154               		.stabs	"NVM_t:t(8,88)=(8,87)",128,0,858,0
+ 155               		.stabs	"NVM_LOCKBITS_struct:T(8,89)=s1LOCKBITS:(8,8),0,8;;",128,0,0,0
+ 156               		.stabs	"NVM_LOCKBITS_t:t(8,90)=(8,89)",128,0,870,0
+ 157               		.stabs	"NVM_FUSES_struct:T(8,91)=s6FUSEBYTE0:(8,8),0,8;FUSEBYTE1:(8,8),8,8;FUSEBYTE2:(8,8),16,8;re
+ 158               		.stabs	"NVM_FUSES_t:t(8,92)=(8,91)",128,0,887,0
+ 159               		.stabs	"NVM_PROD_SIGNATURES_struct:T(8,93)=s63RCOSC2M:(8,8),0,8;reserved_0x01:(8,8),8,8;RCOSC32K:(
+ 160               		.stabs	"NVM_PROD_SIGNATURES_t:t(8,94)=(8,93)",128,0,961,0
+ 161               		.stabs	"NVM_CMD_enum:T(8,95)=@s8;eNVM_CMD_NO_OPERATION_gc:0,NVM_CMD_READ_CALIB_ROW_gc:2,NVM_CMD_RE
+ 162               		.stabs	"NVM_CMD_t:t(8,96)=(8,95)",128,0,992,0
+ 163               		.stabs	"NVM_SPMLVL_enum:T(8,97)=@s8;eNVM_SPMLVL_OFF_gc:0,NVM_SPMLVL_LO_gc:4,NVM_SPMLVL_MED_gc:8,NV
+ 164               		.stabs	"NVM_SPMLVL_t:t(8,98)=(8,97)",128,0,1001,0
+ 165               		.stabs	"NVM_EELVL_enum:T(8,99)=@s8;eNVM_EELVL_OFF_gc:0,NVM_EELVL_LO_gc:1,NVM_EELVL_MED_gc:2,NVM_EE
+ 166               		.stabs	"NVM_EELVL_t:t(8,100)=(8,99)",128,0,1010,0
+ 167               		.stabs	"NVM_BLBB_enum:T(8,101)=@s8;eNVM_BLBB_NOLOCK_gc:192,NVM_BLBB_WLOCK_gc:128,NVM_BLBB_RLOCK_gc
+ 168               		.stabs	"NVM_BLBB_t:t(8,102)=(8,101)",128,0,1019,0
+ 169               		.stabs	"NVM_BLBA_enum:T(8,103)=@s8;eNVM_BLBA_NOLOCK_gc:48,NVM_BLBA_WLOCK_gc:32,NVM_BLBA_RLOCK_gc:1
+ 170               		.stabs	"NVM_BLBA_t:t(8,104)=(8,103)",128,0,1028,0
+ 171               		.stabs	"NVM_BLBAT_enum:T(8,105)=@s8;eNVM_BLBAT_NOLOCK_gc:12,NVM_BLBAT_WLOCK_gc:8,NVM_BLBAT_RLOCK_g
+GAS LISTING /tmp/ccWPoaT8.s 			page 4
+
+
+ 172               		.stabs	"NVM_BLBAT_t:t(8,106)=(8,105)",128,0,1037,0
+ 173               		.stabs	"NVM_LB_enum:T(8,107)=@s8;eNVM_LB_NOLOCK_gc:3,NVM_LB_WLOCK_gc:2,NVM_LB_RWLOCK_gc:0,;",128,0
+ 174               		.stabs	"NVM_LB_t:t(8,108)=(8,107)",128,0,1045,0
+ 175               		.stabs	"BOOTRST_enum:T(8,109)=@s8;eBOOTRST_BOOTLDR_gc:0,BOOTRST_APPLICATION_gc:64,;",128,0,0,0
+ 176               		.stabs	"BOOTRST_t:t(8,110)=(8,109)",128,0,1052,0
+ 177               		.stabs	"BOD_enum:T(8,111)=@s8;eBOD_INSAMPLEDMODE_gc:1,BOD_CONTINOUSLY_gc:2,BOD_DISABLED_gc:3,;",12
+ 178               		.stabs	"BOD_t:t(8,112)=(8,111)",128,0,1060,0
+ 179               		.stabs	"WD_enum:T(8,113)=@s8;eWD_8CLK_gc:0,WD_16CLK_gc:16,WD_32CLK_gc:32,WD_64CLK_gc:48,WD_128CLK_
+ 180               		.stabs	"WD_t:t(8,114)=(8,113)",128,0,1076,0
+ 181               		.stabs	"SUT_enum:T(8,115)=@s8;eSUT_0MS_gc:12,SUT_4MS_gc:4,SUT_64MS_gc:0,;",128,0,0,0
+ 182               		.stabs	"SUT_t:t(8,116)=(8,115)",128,0,1084,0
+ 183               		.stabs	"BODLVL_enum:T(8,117)=@s8;eBODLVL_1V6_gc:7,BODLVL_1V9_gc:6,BODLVL_2V1_gc:5,BODLVL_2V4_gc:4,
+ 184               		.stabs	"BODLVL_t:t(8,118)=(8,117)",128,0,1096,0
+ 185               		.stabs	"AC_struct:T(8,119)=s8AC0CTRL:(8,8),0,8;AC1CTRL:(8,8),8,8;AC0MUXCTRL:(8,8),16,8;AC1MUXCTRL:
+ 186               		.stabs	"AC_t:t(8,120)=(8,119)",128,0,1116,0
+ 187               		.stabs	"AC_INTMODE_enum:T(8,121)=@s8;eAC_INTMODE_BOTHEDGES_gc:0,AC_INTMODE_FALLING_gc:128,AC_INTMO
+ 188               		.stabs	"AC_INTMODE_t:t(8,122)=(8,121)",128,0,1124,0
+ 189               		.stabs	"AC_INTLVL_enum:T(8,123)=@s8;eAC_INTLVL_OFF_gc:0,AC_INTLVL_LO_gc:16,AC_INTLVL_MED_gc:32,AC_
+ 190               		.stabs	"AC_INTLVL_t:t(8,124)=(8,123)",128,0,1133,0
+ 191               		.stabs	"AC_HYSMODE_enum:T(8,125)=@s8;eAC_HYSMODE_NO_gc:0,AC_HYSMODE_SMALL_gc:2,AC_HYSMODE_LARGE_gc
+ 192               		.stabs	"AC_HYSMODE_t:t(8,126)=(8,125)",128,0,1141,0
+ 193               		.stabs	"AC_MUXPOS_enum:T(8,127)=@s8;eAC_MUXPOS_PIN0_gc:0,AC_MUXPOS_PIN1_gc:8,AC_MUXPOS_PIN2_gc:16,
+ 194               		.stabs	"AC_MUXPOS_t:t(8,128)=(8,127)",128,0,1154,0
+ 195               		.stabs	"AC_MUXNEG_enum:T(8,129)=@s8;eAC_MUXNEG_PIN0_gc:0,AC_MUXNEG_PIN1_gc:1,AC_MUXNEG_PIN3_gc:2,A
+ 196               		.stabs	"AC_MUXNEG_t:t(8,130)=(8,129)",128,0,1167,0
+ 197               		.stabs	"AC_WINTMODE_enum:T(8,131)=@s8;eAC_WINTMODE_ABOVE_gc:0,AC_WINTMODE_INSIDE_gc:4,AC_WINTMODE_
+ 198               		.stabs	"AC_WINTMODE_t:t(8,132)=(8,131)",128,0,1176,0
+ 199               		.stabs	"AC_WINTLVL_enum:T(8,133)=@s8;eAC_WINTLVL_OFF_gc:0,AC_WINTLVL_LO_gc:1,AC_WINTLVL_MED_gc:2,A
+ 200               		.stabs	"AC_WINTLVL_t:t(8,134)=(8,133)",128,0,1185,0
+ 201               		.stabs	"AC_WSTATE_enum:T(8,135)=@s8;eAC_WSTATE_ABOVE_gc:0,AC_WSTATE_INSIDE_gc:64,AC_WSTATE_BELOW_g
+ 202               		.stabs	"AC_WSTATE_t:t(8,136)=(8,135)",128,0,1193,0
+ 203               		.stabs	"ADC_CH_struct:T(8,137)=s8CTRL:(8,8),0,8;MUXCTRL:(8,8),8,8;INTCTRL:(8,8),16,8;INTFLAGS:(8,8
+ 204               		.stabs	"ADC_CH_t:t(8,140)=(8,137)",128,0,1212,0
+ 205               		.stabs	"ADC_struct:T(8,141)=s64CTRLA:(8,8),0,8;CTRLB:(8,8),8,8;REFCTRL:(8,8),16,8;EVCTRL:(8,8),24,
+ 206               		.stabs	"ADC_t:t(8,154)=(8,141)",128,0,1253,0
+ 207               		.stabs	"ADC_CH_MUXPOS_enum:T(8,155)=@s8;eADC_CH_MUXPOS_PIN0_gc:0,ADC_CH_MUXPOS_PIN1_gc:8,ADC_CH_MU
+ 208               		.stabs	"ADC_CH_MUXPOS_t:t(8,156)=(8,155)",128,0,1266,0
+ 209               		.stabs	"ADC_CH_MUXINT_enum:T(8,157)=@s8;eADC_CH_MUXINT_TEMP_gc:0,ADC_CH_MUXINT_BANDGAP_gc:8,ADC_CH
+ 210               		.stabs	"ADC_CH_MUXINT_t:t(8,158)=(8,157)",128,0,1275,0
+ 211               		.stabs	"ADC_CH_MUXNEG_enum:T(8,159)=@s8;eADC_CH_MUXNEG_PIN0_gc:0,ADC_CH_MUXNEG_PIN1_gc:1,ADC_CH_MU
+ 212               		.stabs	"ADC_CH_MUXNEG_t:t(8,160)=(8,159)",128,0,1288,0
+ 213               		.stabs	"ADC_CH_INPUTMODE_enum:T(8,161)=@s8;eADC_CH_INPUTMODE_INTERNAL_gc:0,ADC_CH_INPUTMODE_SINGLE
+ 214               		.stabs	"ADC_CH_INPUTMODE_t:t(8,162)=(8,161)",128,0,1297,0
+ 215               		.stabs	"ADC_CH_GAIN_enum:T(8,163)=@s8;eADC_CH_GAIN_1X_gc:0,ADC_CH_GAIN_2X_gc:4,ADC_CH_GAIN_4X_gc:8
+ 216               		.stabs	"ADC_CH_GAIN_t:t(8,164)=(8,163)",128,0,1309,0
+ 217               		.stabs	"ADC_RESOLUTION_enum:T(8,165)=@s8;eADC_RESOLUTION_12BIT_gc:0,ADC_RESOLUTION_8BIT_gc:4,ADC_R
+ 218               		.stabs	"ADC_RESOLUTION_t:t(8,166)=(8,165)",128,0,1317,0
+ 219               		.stabs	"ADC_REFSEL_enum:T(8,167)=@s8;eADC_REFSEL_INT1V_gc:0,ADC_REFSEL_VCC_gc:16,ADC_REFSEL_AREFA_
+ 220               		.stabs	"ADC_REFSEL_t:t(8,168)=(8,167)",128,0,1326,0
+ 221               		.stabs	"ADC_SWEEP_enum:T(8,169)=@s8;eADC_SWEEP_0_gc:0,ADC_SWEEP_01_gc:64,ADC_SWEEP_012_gc:128,ADC_
+ 222               		.stabs	"ADC_SWEEP_t:t(8,170)=(8,169)",128,0,1335,0
+ 223               		.stabs	"ADC_EVSEL_enum:T(8,171)=@s8;eADC_EVSEL_0123_gc:0,ADC_EVSEL_1234_gc:8,ADC_EVSEL_2345_gc:16,
+ 224               		.stabs	"ADC_EVSEL_t:t(8,172)=(8,171)",128,0,1348,0
+ 225               		.stabs	"ADC_EVACT_enum:T(8,173)=@s8;eADC_EVACT_NONE_gc:0,ADC_EVACT_CH0_gc:1,ADC_EVACT_CH01_gc:2,AD
+ 226               		.stabs	"ADC_EVACT_t:t(8,174)=(8,173)",128,0,1360,0
+ 227               		.stabs	"ADC_CH_INTMODE_enum:T(8,175)=@s8;eADC_CH_INTMODE_COMPLETE_gc:0,ADC_CH_INTMODE_BELOW_gc:4,A
+ 228               		.stabs	"ADC_CH_INTMODE_t:t(8,176)=(8,175)",128,0,1368,0
+GAS LISTING /tmp/ccWPoaT8.s 			page 5
+
+
+ 229               		.stabs	"ADC_CH_INTLVL_enum:T(8,177)=@s8;eADC_CH_INTLVL_OFF_gc:0,ADC_CH_INTLVL_LO_gc:1,ADC_CH_INTLV
+ 230               		.stabs	"ADC_CH_INTLVL_t:t(8,178)=(8,177)",128,0,1377,0
+ 231               		.stabs	"ADC_DMASEL_enum:T(8,179)=@s8;eADC_DMASEL_OFF_gc:0,ADC_DMASEL_CH01_gc:64,ADC_DMASEL_CH012_g
+ 232               		.stabs	"ADC_DMASEL_t:t(8,180)=(8,179)",128,0,1386,0
+ 233               		.stabs	"ADC_PRESCALER_enum:T(8,181)=@s8;eADC_PRESCALER_DIV4_gc:0,ADC_PRESCALER_DIV8_gc:1,ADC_PRESC
+ 234               		.stabs	"ADC_PRESCALER_t:t(8,182)=(8,181)",128,0,1399,0
+ 235               		.stabs	"DAC_struct:T(8,183)=s28CTRLA:(8,8),0,8;CTRLB:(8,8),8,8;CTRLC:(8,8),16,8;EVCTRL:(8,8),24,8;
+ 236               		.stabs	"DAC_t:t(8,188)=(8,183)",128,0,1437,0
+ 237               		.stabs	"DAC_CHSEL_enum:T(8,189)=@s8;eDAC_CHSEL_SINGLE_gc:0,DAC_CHSEL_DUAL_gc:64,;",128,0,0,0
+ 238               		.stabs	"DAC_CHSEL_t:t(8,190)=(8,189)",128,0,1444,0
+ 239               		.stabs	"DAC_REFSEL_enum:T(8,191)=@s8;eDAC_REFSEL_INT1V_gc:0,DAC_REFSEL_AVCC_gc:8,DAC_REFSEL_AREFA_
+ 240               		.stabs	"DAC_REFSEL_t:t(8,192)=(8,191)",128,0,1453,0
+ 241               		.stabs	"DAC_EVSEL_enum:T(8,193)=@s8;eDAC_EVSEL_0_gc:0,DAC_EVSEL_1_gc:1,DAC_EVSEL_2_gc:2,DAC_EVSEL_
+ 242               		.stabs	"DAC_EVSEL_t:t(8,194)=(8,193)",128,0,1466,0
+ 243               		.stabs	"DAC_CONINTVAL_enum:T(8,195)=@s8;eDAC_CONINTVAL_1CLK_gc:0,DAC_CONINTVAL_2CLK_gc:16,DAC_CONI
+ 244               		.stabs	"DAC_CONINTVAL_t:t(8,196)=(8,195)",128,0,1479,0
+ 245               		.stabs	"DAC_REFRESH_enum:T(8,197)=@s8;eDAC_REFRESH_16CLK_gc:0,DAC_REFRESH_32CLK_gc:1,DAC_REFRESH_6
+ 246               		.stabs	"DAC_REFRESH_t:t(8,198)=(8,197)",128,0,1498,0
+ 247               		.stabs	"RTC_struct:T(8,199)=s14CTRL:(8,8),0,8;STATUS:(8,8),8,8;INTCTRL:(8,8),16,8;INTFLAGS:(8,8),2
+ 248               		.stabs	"RTC_t:t(8,206)=(8,199)",128,0,1521,0
+ 249               		.stabs	"RTC_PRESCALER_enum:T(8,207)=@s8;eRTC_PRESCALER_OFF_gc:0,RTC_PRESCALER_DIV1_gc:1,RTC_PRESCA
+ 250               		.stabs	"RTC_PRESCALER_t:t(8,208)=(8,207)",128,0,1534,0
+ 251               		.stabs	"RTC_COMPINTLVL_enum:T(8,209)=@s8;eRTC_COMPINTLVL_OFF_gc:0,RTC_COMPINTLVL_LO_gc:4,RTC_COMPI
+ 252               		.stabs	"RTC_COMPINTLVL_t:t(8,210)=(8,209)",128,0,1543,0
+ 253               		.stabs	"RTC_OVFINTLVL_enum:T(8,211)=@s8;eRTC_OVFINTLVL_OFF_gc:0,RTC_OVFINTLVL_LO_gc:1,RTC_OVFINTLV
+ 254               		.stabs	"RTC_OVFINTLVL_t:t(8,212)=(8,211)",128,0,1552,0
+ 255               		.stabs	"EBI_CS_struct:T(8,213)=s4CTRLA:(8,8),0,8;CTRLB:(8,8),8,8;:(8,214)=u2BASEADDR:(8,52),0,16;:
+ 256               		.stabs	"EBI_CS_t:t(8,216)=(8,213)",128,0,1567,0
+ 257               		.stabs	"EBI_struct:T(8,217)=s32CTRL:(8,8),0,8;SDRAMCTRLA:(8,8),8,8;reserved_0x02:(8,8),16,8;reserv
+ 258               		.stabs	"EBI_t:t(8,222)=(8,217)",128,0,1596,0
+ 259               		.stabs	"EBI_CS_ASIZE_enum:T(8,223)=@s8;eEBI_CS_ASIZE_256B_gc:0,EBI_CS_ASIZE_512B_gc:4,EBI_CS_ASIZE
+ 260               		.stabs	"EBI_CS_ASIZE_t:t(8,224)=(8,223)",128,0,1618,0
+ 261               		.stabs	"EBI_CS_SRWS_enum:T(8,225)=@s8;eEBI_CS_SRWS_0CLK_gc:0,EBI_CS_SRWS_1CLK_gc:1,EBI_CS_SRWS_2CL
+ 262               		.stabs	"EBI_CS_SRWS_t:t(8,226)=(8,225)",128,0,1631,0
+ 263               		.stabs	"EBI_CS_MODE_enum:T(8,227)=@s8;eEBI_CS_MODE_DISABLED_gc:0,EBI_CS_MODE_SRAM_gc:1,EBI_CS_MODE
+ 264               		.stabs	"EBI_CS_MODE_t:t(8,228)=(8,227)",128,0,1640,0
+ 265               		.stabs	"EBI_CS_SDMODE_enum:T(8,229)=@s8;eEBI_CS_SDMODE_NORMAL_gc:0,EBI_CS_SDMODE_LOAD_gc:1,;",128,
+ 266               		.stabs	"EBI_CS_SDMODE_t:t(8,230)=(8,229)",128,0,1647,0
+ 267               		.stabs	"EBI_SDDATAW_enum:T(8,231)=@s8;eEBI_SDDATAW_4BIT_gc:0,EBI_SDDATAW_8BIT_gc:64,;",128,0,0,0
+ 268               		.stabs	"EBI_SDDATAW_t:t(8,232)=(8,231)",128,0,1654,0
+ 269               		.stabs	"EBI_LPCMODE_enum:T(8,233)=@s8;eEBI_LPCMODE_ALE1_gc:0,EBI_LPCMODE_ALE12_gc:32,;",128,0,0,0
+ 270               		.stabs	"EBI_LPCMODE_t:t(8,234)=(8,233)",128,0,1661,0
+ 271               		.stabs	"EBI_SRMODE_enum:T(8,235)=@s8;eEBI_SRMODE_ALE1_gc:0,EBI_SRMODE_ALE2_gc:4,EBI_SRMODE_ALE12_g
+ 272               		.stabs	"EBI_SRMODE_t:t(8,236)=(8,235)",128,0,1670,0
+ 273               		.stabs	"EBI_IFMODE_enum:T(8,237)=@s8;eEBI_IFMODE_DISABLED_gc:0,EBI_IFMODE_3PORT_gc:1,EBI_IFMODE_4P
+ 274               		.stabs	"EBI_IFMODE_t:t(8,238)=(8,237)",128,0,1679,0
+ 275               		.stabs	"EBI_SDCOL_enum:T(8,239)=@s8;eEBI_SDCOL_8BIT_gc:0,EBI_SDCOL_9BIT_gc:1,EBI_SDCOL_10BIT_gc:2,
+ 276               		.stabs	"EBI_SDCOL_t:t(8,240)=(8,239)",128,0,1688,0
+ 277               		.stabs	"EBI_MRDLY_enum:T(8,241)=@s8;eEBI_MRDLY_0CLK_gc:0,EBI_MRDLY_1CLK_gc:64,EBI_MRDLY_2CLK_gc:12
+ 278               		.stabs	"EBI_MRDLY_t:t(8,242)=(8,241)",128,0,1697,0
+ 279               		.stabs	"EBI_ROWCYCDLY_enum:T(8,243)=@s8;eEBI_ROWCYCDLY_0CLK_gc:0,EBI_ROWCYCDLY_1CLK_gc:8,EBI_ROWCY
+ 280               		.stabs	"EBI_ROWCYCDLY_t:t(8,244)=(8,243)",128,0,1710,0
+ 281               		.stabs	"EBI_RPDLY_enum:T(8,245)=@s8;eEBI_RPDLY_0CLK_gc:0,EBI_RPDLY_1CLK_gc:1,EBI_RPDLY_2CLK_gc:2,E
+ 282               		.stabs	"EBI_RPDLY_t:t(8,246)=(8,245)",128,0,1723,0
+ 283               		.stabs	"EBI_WRDLY_enum:T(8,247)=@s8;eEBI_WRDLY_0CLK_gc:0,EBI_WRDLY_1CLK_gc:64,EBI_WRDLY_2CLK_gc:12
+ 284               		.stabs	"EBI_WRDLY_t:t(8,248)=(8,247)",128,0,1732,0
+ 285               		.stabs	"EBI_ESRDLY_enum:T(8,249)=@s8;eEBI_ESRDLY_0CLK_gc:0,EBI_ESRDLY_1CLK_gc:8,EBI_ESRDLY_2CLK_gc
+GAS LISTING /tmp/ccWPoaT8.s 			page 6
+
+
+ 286               		.stabs	"EBI_ESRDLY_t:t(8,250)=(8,249)",128,0,1745,0
+ 287               		.stabs	"EBI_ROWCOLDLY_enum:T(8,251)=@s8;eEBI_ROWCOLDLY_0CLK_gc:0,EBI_ROWCOLDLY_1CLK_gc:1,EBI_ROWCO
+ 288               		.stabs	"EBI_ROWCOLDLY_t:t(8,252)=(8,251)",128,0,1758,0
+ 289               		.stabs	"TWI_MASTER_struct:T(8,253)=s7CTRLA:(8,8),0,8;CTRLB:(8,8),8,8;CTRLC:(8,8),16,8;STATUS:(8,8)
+ 290               		.stabs	"TWI_MASTER_t:t(8,254)=(8,253)",128,0,1777,0
+ 291               		.stabs	"TWI_SLAVE_struct:T(8,255)=s6CTRLA:(8,8),0,8;CTRLB:(8,8),8,8;STATUS:(8,8),16,8;ADDR:(8,8),2
+ 292               		.stabs	"TWI_SLAVE_t:t(8,256)=(8,255)",128,0,1794,0
+ 293               		.stabs	"TWI_struct:T(8,257)=s14CTRL:(8,8),0,8;MASTER:(8,254),8,56;SLAVE:(8,256),64,48;;",128,0,0,0
+ 294               		.stabs	"TWI_t:t(8,258)=(8,257)",128,0,1808,0
+ 295               		.stabs	"TWI_MASTER_INTLVL_enum:T(8,259)=@s8;eTWI_MASTER_INTLVL_OFF_gc:0,TWI_MASTER_INTLVL_LO_gc:64
+ 296               		.stabs	"TWI_MASTER_INTLVL_t:t(8,260)=(8,259)",128,0,1817,0
+ 297               		.stabs	"TWI_MASTER_TIMEOUT_enum:T(8,261)=@s8;eTWI_MASTER_TIMEOUT_DISABLED_gc:0,TWI_MASTER_TIMEOUT_
+ 298               		.stabs	"TWI_MASTER_TIMEOUT_t:t(8,262)=(8,261)",128,0,1826,0
+ 299               		.stabs	"TWI_MASTER_CMD_enum:T(8,263)=@s8;eTWI_MASTER_CMD_NOACT_gc:0,TWI_MASTER_CMD_REPSTART_gc:1,T
+ 300               		.stabs	"TWI_MASTER_CMD_t:t(8,264)=(8,263)",128,0,1835,0
+ 301               		.stabs	"TWI_MASTER_BUSSTATE_enum:T(8,265)=@s8;eTWI_MASTER_BUSSTATE_UNKNOWN_gc:0,TWI_MASTER_BUSSTAT
+ 302               		.stabs	"TWI_MASTER_BUSSTATE_t:t(8,266)=(8,265)",128,0,1844,0
+ 303               		.stabs	"TWI_SLAVE_INTLVL_enum:T(8,267)=@s8;eTWI_SLAVE_INTLVL_OFF_gc:0,TWI_SLAVE_INTLVL_LO_gc:64,TW
+ 304               		.stabs	"TWI_SLAVE_INTLVL_t:t(8,268)=(8,267)",128,0,1853,0
+ 305               		.stabs	"TWI_SLAVE_CMD_enum:T(8,269)=@s8;eTWI_SLAVE_CMD_NOACT_gc:0,TWI_SLAVE_CMD_COMPTRANS_gc:2,TWI
+ 306               		.stabs	"TWI_SLAVE_CMD_t:t(8,270)=(8,269)",128,0,1861,0
+ 307               		.stabs	"PORTCFG_struct:T(8,271)=s5MPCMASK:(8,8),0,8;reserved_0x01:(8,8),8,8;VPCTRLA:(8,8),16,8;VPC
+ 308               		.stabs	"PORTCFG_t:t(8,272)=(8,271)",128,0,1878,0
+ 309               		.stabs	"VPORT_struct:T(8,273)=s4DIR:(8,8),0,8;OUT:(8,8),8,8;IN:(8,8),16,8;INTFLAGS:(8,8),24,8;;",1
+ 310               		.stabs	"VPORT_t:t(8,274)=(8,273)",128,0,1893,0
+ 311               		.stabs	"PORT_struct:T(8,275)=s24DIR:(8,8),0,8;DIRSET:(8,8),8,8;DIRCLR:(8,8),16,8;DIRTGL:(8,8),24,8
+ 312               		.stabs	"PORT_t:t(8,276)=(8,275)",128,0,1928,0
+ 313               		.stabs	"PORTCFG_VP0MAP_enum:T(8,277)=@s8;ePORTCFG_VP0MAP_PORTA_gc:0,PORTCFG_VP0MAP_PORTB_gc:1,PORT
+ 314               		.stabs	"PORTCFG_VP0MAP_t:t(8,278)=(8,277)",128,0,1949,0
+ 315               		.stabs	"PORTCFG_VP1MAP_enum:T(8,279)=@s8;ePORTCFG_VP1MAP_PORTA_gc:0,PORTCFG_VP1MAP_PORTB_gc:16,POR
+ 316               		.stabs	"PORTCFG_VP1MAP_t:t(8,280)=(8,279)",128,0,1970,0
+ 317               		.stabs	"PORTCFG_VP2MAP_enum:T(8,281)=@s8;ePORTCFG_VP2MAP_PORTA_gc:0,PORTCFG_VP2MAP_PORTB_gc:1,PORT
+ 318               		.stabs	"PORTCFG_VP2MAP_t:t(8,282)=(8,281)",128,0,1991,0
+ 319               		.stabs	"PORTCFG_VP3MAP_enum:T(8,283)=@s8;ePORTCFG_VP3MAP_PORTA_gc:0,PORTCFG_VP3MAP_PORTB_gc:16,POR
+ 320               		.stabs	"PORTCFG_VP3MAP_t:t(8,284)=(8,283)",128,0,2012,0
+ 321               		.stabs	"PORTCFG_CLKOUT_enum:T(8,285)=@s8;ePORTCFG_CLKOUT_OFF_gc:0,PORTCFG_CLKOUT_PC7_gc:1,PORTCFG_
+ 322               		.stabs	"PORTCFG_CLKOUT_t:t(8,286)=(8,285)",128,0,2021,0
+ 323               		.stabs	"PORTCFG_EVOUT_enum:T(8,287)=@s8;ePORTCFG_EVOUT_OFF_gc:0,PORTCFG_EVOUT_PC7_gc:16,PORTCFG_EV
+ 324               		.stabs	"PORTCFG_EVOUT_t:t(8,288)=(8,287)",128,0,2030,0
+ 325               		.stabs	"PORT_INT0LVL_enum:T(8,289)=@s8;ePORT_INT0LVL_OFF_gc:0,PORT_INT0LVL_LO_gc:1,PORT_INT0LVL_ME
+ 326               		.stabs	"PORT_INT0LVL_t:t(8,290)=(8,289)",128,0,2039,0
+ 327               		.stabs	"PORT_INT1LVL_enum:T(8,291)=@s8;ePORT_INT1LVL_OFF_gc:0,PORT_INT1LVL_LO_gc:4,PORT_INT1LVL_ME
+ 328               		.stabs	"PORT_INT1LVL_t:t(8,292)=(8,291)",128,0,2048,0
+ 329               		.stabs	"PORT_OPC_enum:T(8,293)=@s8;ePORT_OPC_TOTEM_gc:0,PORT_OPC_BUSKEEPER_gc:8,PORT_OPC_PULLDOWN_
+ 330               		.stabs	"PORT_OPC_t:t(8,294)=(8,293)",128,0,2061,0
+ 331               		.stabs	"PORT_ISC_enum:T(8,295)=@s8;ePORT_ISC_BOTHEDGES_gc:0,PORT_ISC_RISING_gc:1,PORT_ISC_FALLING_
+ 332               		.stabs	"PORT_ISC_t:t(8,296)=(8,295)",128,0,2071,0
+ 333               		.stabs	"TC0_struct:T(8,297)=s64CTRLA:(8,8),0,8;CTRLB:(8,8),8,8;CTRLC:(8,8),16,8;CTRLD:(8,8),24,8;C
+ 334               		.stabs	"TC0_t:t(8,320)=(8,297)",128,0,2136,0
+ 335               		.stabs	"TC1_struct:T(8,321)=s60CTRLA:(8,8),0,8;CTRLB:(8,8),8,8;CTRLC:(8,8),16,8;CTRLD:(8,8),24,8;C
+ 336               		.stabs	"TC1_t:t(8,336)=(8,321)",128,0,2200,0
+ 337               		.stabs	"AWEX_struct:T(8,337)=s13CTRL:(8,8),0,8;reserved_0x01:(8,8),8,8;FDEMASK:(8,8),16,8;FDCTRL:(
+ 338               		.stabs	"AWEX_t:t(8,338)=(8,337)",128,0,2224,0
+ 339               		.stabs	"HIRES_struct:T(8,339)=s1CTRLA:(8,8),0,8;;",128,0,0,0
+ 340               		.stabs	"HIRES_t:t(8,340)=(8,339)",128,0,2236,0
+ 341               		.stabs	"TC_CLKSEL_enum:T(8,341)=@s8;eTC_CLKSEL_OFF_gc:0,TC_CLKSEL_DIV1_gc:1,TC_CLKSEL_DIV2_gc:2,TC
+ 342               		.stabs	"TC_CLKSEL_t:t(8,342)=(8,341)",128,0,2257,0
+GAS LISTING /tmp/ccWPoaT8.s 			page 7
+
+
+ 343               		.stabs	"TC_WGMODE_enum:T(8,343)=@s8;eTC_WGMODE_NORMAL_gc:0,TC_WGMODE_FRQ_gc:1,TC_WGMODE_SS_gc:3,TC
+ 344               		.stabs	"TC_WGMODE_t:t(8,344)=(8,343)",128,0,2268,0
+ 345               		.stabs	"TC_EVACT_enum:T(8,345)=@s8;eTC_EVACT_OFF_gc:0,TC_EVACT_CAPT_gc:32,TC_EVACT_UPDOWN_gc:64,TC
+ 346               		.stabs	"TC_EVACT_t:t(8,346)=(8,345)",128,0,2280,0
+ 347               		.stabs	"TC_EVSEL_enum:T(8,347)=@s8;eTC_EVSEL_OFF_gc:0,TC_EVSEL_CH0_gc:8,TC_EVSEL_CH1_gc:9,TC_EVSEL
+ 348               		.stabs	"TC_EVSEL_t:t(8,348)=(8,347)",128,0,2294,0
+ 349               		.stabs	"TC_ERRINTLVL_enum:T(8,349)=@s8;eTC_ERRINTLVL_OFF_gc:0,TC_ERRINTLVL_LO_gc:4,TC_ERRINTLVL_ME
+ 350               		.stabs	"TC_ERRINTLVL_t:t(8,350)=(8,349)",128,0,2303,0
+ 351               		.stabs	"TC_OVFINTLVL_enum:T(8,351)=@s8;eTC_OVFINTLVL_OFF_gc:0,TC_OVFINTLVL_LO_gc:1,TC_OVFINTLVL_ME
+ 352               		.stabs	"TC_OVFINTLVL_t:t(8,352)=(8,351)",128,0,2312,0
+ 353               		.stabs	"TC_CCDINTLVL_enum:T(8,353)=@s8;eTC_CCDINTLVL_OFF_gc:0,TC_CCDINTLVL_LO_gc:64,TC_CCDINTLVL_M
+ 354               		.stabs	"TC_CCDINTLVL_t:t(8,354)=(8,353)",128,0,2321,0
+ 355               		.stabs	"TC_CCCINTLVL_enum:T(8,355)=@s8;eTC_CCCINTLVL_OFF_gc:0,TC_CCCINTLVL_LO_gc:16,TC_CCCINTLVL_M
+ 356               		.stabs	"TC_CCCINTLVL_t:t(8,356)=(8,355)",128,0,2330,0
+ 357               		.stabs	"TC_CCBINTLVL_enum:T(8,357)=@s8;eTC_CCBINTLVL_OFF_gc:0,TC_CCBINTLVL_LO_gc:4,TC_CCBINTLVL_ME
+ 358               		.stabs	"TC_CCBINTLVL_t:t(8,358)=(8,357)",128,0,2339,0
+ 359               		.stabs	"TC_CCAINTLVL_enum:T(8,359)=@s8;eTC_CCAINTLVL_OFF_gc:0,TC_CCAINTLVL_LO_gc:1,TC_CCAINTLVL_ME
+ 360               		.stabs	"TC_CCAINTLVL_t:t(8,360)=(8,359)",128,0,2348,0
+ 361               		.stabs	"TC_CMD_enum:T(8,361)=@s8;eTC_CMD_NONE_gc:0,TC_CMD_UPDATE_gc:4,TC_CMD_RESTART_gc:8,TC_CMD_R
+ 362               		.stabs	"TC_CMD_t:t(8,362)=(8,361)",128,0,2357,0
+ 363               		.stabs	"AWEX_FDACT_enum:T(8,363)=@s8;eAWEX_FDACT_NONE_gc:0,AWEX_FDACT_CLEAROE_gc:1,AWEX_FDACT_CLEA
+ 364               		.stabs	"AWEX_FDACT_t:t(8,364)=(8,363)",128,0,2365,0
+ 365               		.stabs	"HIRES_HREN_enum:T(8,365)=@s8;eHIRES_HREN_NONE_gc:0,HIRES_HREN_TC0_gc:1,HIRES_HREN_TC1_gc:2
+ 366               		.stabs	"HIRES_HREN_t:t(8,366)=(8,365)",128,0,2374,0
+ 367               		.stabs	"USART_struct:T(8,367)=s8DATA:(8,8),0,8;STATUS:(8,8),8,8;reserved_0x02:(8,8),16,8;CTRLA:(8,
+ 368               		.stabs	"USART_t:t(8,368)=(8,367)",128,0,2394,0
+ 369               		.stabs	"USART_RXCINTLVL_enum:T(8,369)=@s8;eUSART_RXCINTLVL_OFF_gc:0,USART_RXCINTLVL_LO_gc:16,USART
+ 370               		.stabs	"USART_RXCINTLVL_t:t(8,370)=(8,369)",128,0,2403,0
+ 371               		.stabs	"USART_TXCINTLVL_enum:T(8,371)=@s8;eUSART_TXCINTLVL_OFF_gc:0,USART_TXCINTLVL_LO_gc:4,USART_
+ 372               		.stabs	"USART_TXCINTLVL_t:t(8,372)=(8,371)",128,0,2412,0
+ 373               		.stabs	"USART_DREINTLVL_enum:T(8,373)=@s8;eUSART_DREINTLVL_OFF_gc:0,USART_DREINTLVL_LO_gc:1,USART_
+ 374               		.stabs	"USART_DREINTLVL_t:t(8,374)=(8,373)",128,0,2421,0
+ 375               		.stabs	"USART_CHSIZE_enum:T(8,375)=@s8;eUSART_CHSIZE_5BIT_gc:0,USART_CHSIZE_6BIT_gc:1,USART_CHSIZE
+ 376               		.stabs	"USART_CHSIZE_t:t(8,376)=(8,375)",128,0,2431,0
+ 377               		.stabs	"USART_CMODE_enum:T(8,377)=@s8;eUSART_CMODE_ASYNCHRONOUS_gc:0,USART_CMODE_SYNCHRONOUS_gc:64
+ 378               		.stabs	"USART_CMODE_t:t(8,378)=(8,377)",128,0,2440,0
+ 379               		.stabs	"USART_PMODE_enum:T(8,379)=@s8;eUSART_PMODE_DISABLED_gc:0,USART_PMODE_EVEN_gc:32,USART_PMOD
+ 380               		.stabs	"USART_PMODE_t:t(8,380)=(8,379)",128,0,2448,0
+ 381               		.stabs	"SPI_struct:T(8,381)=s4CTRL:(8,8),0,8;INTCTRL:(8,8),8,8;STATUS:(8,8),16,8;DATA:(8,8),24,8;;
+ 382               		.stabs	"SPI_t:t(8,382)=(8,381)",128,0,2464,0
+ 383               		.stabs	"SPI_MODE_enum:T(8,383)=@s8;eSPI_MODE_0_gc:0,SPI_MODE_1_gc:4,SPI_MODE_2_gc:8,SPI_MODE_3_gc:
+ 384               		.stabs	"SPI_MODE_t:t(8,384)=(8,383)",128,0,2473,0
+ 385               		.stabs	"SPI_PRESCALER_enum:T(8,385)=@s8;eSPI_PRESCALER_DIV4_gc:0,SPI_PRESCALER_DIV16_gc:1,SPI_PRES
+ 386               		.stabs	"SPI_PRESCALER_t:t(8,386)=(8,385)",128,0,2482,0
+ 387               		.stabs	"SPI_INTLVL_enum:T(8,387)=@s8;eSPI_INTLVL_OFF_gc:0,SPI_INTLVL_LO_gc:1,SPI_INTLVL_MED_gc:2,S
+ 388               		.stabs	"SPI_INTLVL_t:t(8,388)=(8,387)",128,0,2491,0
+ 389               		.stabs	"IRCOM_struct:T(8,389)=s3CTRL:(8,8),0,8;TXPLCTRL:(8,8),8,8;RXPLCTRL:(8,8),16,8;;",128,0,0,0
+ 390               		.stabs	"IRCOM_t:t(8,390)=(8,389)",128,0,2506,0
+ 391               		.stabs	"IRDA_EVSEL_enum:T(8,391)=@s8;eIRDA_EVSEL_OFF_gc:0,IRDA_EVSEL_0_gc:8,IRDA_EVSEL_1_gc:9,IRDA
+ 392               		.stabs	"IRDA_EVSEL_t:t(8,392)=(8,391)",128,0,2520,0
+ 393               		.stabs	"AES_struct:T(8,393)=s5CTRL:(8,8),0,8;STATUS:(8,8),8,8;STATE:(8,8),16,8;KEY:(8,8),24,8;INTC
+ 394               		.stabs	"AES_t:t(8,394)=(8,393)",128,0,2537,0
+ 395               		.stabs	"AES_INTLVL_enum:T(8,395)=@s8;eAES_INTLVL_OFF_gc:0,AES_INTLVL_LO_gc:1,AES_INTLVL_MED_gc:2,A
+ 396               		.stabs	"AES_INTLVL_t:t(8,396)=(8,395)",128,0,2546,0
+ 397               		.stabn	162,0,0,0
+ 398               		.stabs	"/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/fuse.h",130,0,0,0
+ 399               		.stabs	"__fuse_t:t(9,1)=(9,2)=s6byte:(9,3)=ar(9,4)=r(9,4);0;0177777;;0;5;(0,11),0,48;;",128,0,234,
+GAS LISTING /tmp/ccWPoaT8.s 			page 8
+
+
+ 400               		.stabn	162,0,0,0
+ 401               		.stabn	162,0,0,0
+ 402               		.stabs	"requiredFiles/avr_compiler.h",130,0,0,0
+ 403               		.stabs	"/usr/lib/gcc/avr/4.5.3/../../../avr/include/stdlib.h",130,0,0,0
+ 404               		.stabs	"/usr/lib/gcc/avr/4.5.3/include/stddef.h",130,0,0,0
+ 405               		.stabs	"wchar_t:t(12,1)=(0,1)",128,0,323,0
+ 406               		.stabn	162,0,0,0
+ 407               		.stabs	"div_t:t(11,1)=(11,2)=s4quot:(0,1),0,16;rem:(0,1),16,16;;",128,0,71,0
+ 408               		.stabs	"ldiv_t:t(11,3)=(11,4)=s8quot:(0,3),0,32;rem:(0,3),32,32;;",128,0,77,0
+ 409               		.stabs	"__compar_fn_t:t(11,5)=(11,6)=*(11,7)=f(0,1)",128,0,80,0
+ 410               		.stabn	162,0,0,0
+ 411               		.stabs	"/usr/lib/gcc/avr/4.5.3/../../../avr/include/avr/pgmspace.h",130,0,0,0
+ 412               		.stabs	"prog_void:t(13,1)=(13,2)=(13,2)",128,0,217,0
+ 413               		.stabs	"prog_char:t(13,3)=(13,4)=@s8;r(13,4);0;255;",128,0,218,0
+ 414               		.stabs	"prog_uchar:t(13,5)=(13,6)=@s8;r(13,6);0;255;",128,0,219,0
+ 415               		.stabs	"prog_int8_t:t(13,7)=(13,8)=(0,10)",128,0,221,0
+ 416               		.stabs	"prog_uint8_t:t(13,9)=(13,10)=(0,11)",128,0,222,0
+ 417               		.stabs	"prog_int16_t:t(13,11)=(13,12)=(0,1)",128,0,223,0
+ 418               		.stabs	"prog_uint16_t:t(13,13)=(13,14)=(0,4)",128,0,224,0
+ 419               		.stabs	"prog_int32_t:t(13,15)=(13,16)=(0,3)",128,0,225,0
+ 420               		.stabs	"prog_uint32_t:t(13,17)=(13,18)=(0,5)",128,0,226,0
+ 421               		.stabs	"prog_int64_t:t(13,19)=(13,20)=(0,6)",128,0,228,0
+ 422               		.stabs	"prog_uint64_t:t(13,21)=(13,22)=(0,7)",128,0,229,0
+ 423               		.stabn	162,0,0,0
+ 424               		.stabn	162,0,0,0
+ 425               		.stabs	"uart_putchar:f(0,1)",36,0,122,uart_putchar
+ 426               		.stabs	"c:P(0,2)",64,0,122,17
+ 427               		.stabs	"stream:P(0,16)=*(1,1)",64,0,122,22
+ 428               		.type	uart_putchar, @function
+ 429               	uart_putchar:
+ 430               		.stabd	46,0,0
+   1:main.c        **** /* UART: an atxmega16a4 example
+   2:main.c        ****  * Daniel J. Gonzalez December 2012
+   3:main.c        ****  * dgonz@mit.edu
+   4:main.c        ****  * yameb.blogspot.com
+   5:main.c        ****  * 
+   6:main.c        ****  * MCU: atxmega16a4u
+   7:main.c        ****  * Board: TinyArmTroller REV2
+   8:main.c        ****  * Setup: Button between C3 and GND, Resistor and LED between E0 and GND
+   9:main.c        ****  */
+  10:main.c        **** 
+  11:main.c        **** #define F_CPU 	32000000UL //32 MHz Internal Oscillator
+  12:main.c        **** 
+  13:main.c        **** #include <stdio.h> 
+  14:main.c        **** #include <avr/io.h>
+  15:main.c        **** #include <util/delay.h>
+  16:main.c        **** #include "requiredFiles/avr_compiler.h"
+  17:main.c        **** #include "requiredFiles/clksys_driver.h"
+  18:main.c        **** #include "requiredFiles/clksys_driver.c"
+  19:main.c        **** 
+  20:main.c        **** static int uart_putchar(char c, FILE *stream); 
+  21:main.c        **** static void uart_init (void); 
+  22:main.c        **** 
+  23:main.c        **** static FILE mystdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
+  24:main.c        **** //static FILE mystdin = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_READ);
+  25:main.c        **** 
+  26:main.c        **** int vals[6] = {0,0,0,0,0,0};
+GAS LISTING /tmp/ccWPoaT8.s 			page 9
+
+
+  27:main.c        **** 
+  28:main.c        **** void delay_ms(int ms) //My own Delay function, because the built-in _delay_ms() can delay for only 
+  29:main.c        **** { 
+  30:main.c        ****     while (ms--) 
+  31:main.c        ****         _delay_us(1000);  
+  32:main.c        **** } 
+  33:main.c        **** 
+  34:main.c        **** void Config32MHzClock(void) //Set Clock Speed to 32MHz (XMega Only)
+  35:main.c        **** { 
+  36:main.c        **** 	CCP = CCP_IOREG_gc; //Security Signature to modify clock 
+  37:main.c        **** 	// initialize clock source to be 32MHz internal oscillator (no PLL) 
+  38:main.c        **** 	OSC.CTRL = OSC_RC32MEN_bm; // enable internal 32MHz oscillator 
+  39:main.c        **** 	while(!(OSC.STATUS & OSC_RC32MRDY_bm)); // wait for oscillator ready 
+  40:main.c        **** 	CCP = CCP_IOREG_gc; //Security Signature to modify clock 
+  41:main.c        **** 	CLK.CTRL = 0x01; //select sysclock 32MHz osc 
+  42:main.c        **** }
+  43:main.c        **** 
+  44:main.c        **** void blink(int myVal){
+  45:main.c        **** 		PORTE.OUTSET = _BV(0);
+  46:main.c        ****         delay_ms(myVal);
+  47:main.c        ****         PORTE.OUTCLR = _BV(0);
+  48:main.c        ****         delay_ms(myVal);
+  49:main.c        **** }
+  50:main.c        **** 
+  51:main.c        **** void blinkQuick(void){
+  52:main.c        **** 	blink(500);
+  53:main.c        **** }
+  54:main.c        **** 
+  55:main.c        **** void blinkTen(void){
+  56:main.c        **** 	int i;
+  57:main.c        **** 	for (i=0;i<10;i++){
+  58:main.c        **** 		blink(50);
+  59:main.c        **** 	}
+  60:main.c        **** }
+  61:main.c        **** 
+  62:main.c        **** void blinkN(int n){
+  63:main.c        ****     int i;
+  64:main.c        **** 	for (i=0;i<n;i++){
+  65:main.c        **** 		blink(50);
+  66:main.c        **** 	}
+  67:main.c        **** }
+  68:main.c        **** 
+  69:main.c        **** void update(void){
+  70:main.c        ****     int c;
+  71:main.c        ****     int i;
+  72:main.c        ****     for(i = 0; i < 6; i++){
+  73:main.c        ****         vals[i] = 0; 
+  74:main.c        ****         while(1){
+  75:main.c        ****             c = uart_getchar();
+  76:main.c        ****             if(c == ','){
+  77:main.c        ****                 break;
+  78:main.c        ****             }else if(c == '\n' && i == 5){
+  79:main.c        ****                 break;
+  80:main.c        ****             }else{
+  81:main.c        ****                 vals[i] = vals[i]*10+(c - '0');
+  82:main.c        ****             }
+  83:main.c        ****         }
+GAS LISTING /tmp/ccWPoaT8.s 			page 10
+
+
+  84:main.c        ****     }
+  85:main.c        ****     return 0;
+  86:main.c        **** }
+  87:main.c        **** 
+  88:main.c        **** void mainLoop(void){
+  89:main.c        ****     stdout = &mystdout; 
+  90:main.c        ****     blink(1000);
+  91:main.c        ****     while (1){
+  92:main.c        ****         printf("Hello, world!\n");
+  93:main.c        ****         update();
+  94:main.c        ****         int i;
+  95:main.c        ****         for(i = 0; i < 6; i++){
+  96:main.c        ****             blinkN(vals[i]);
+  97:main.c        ****             delay_ms(1000);
+  98:main.c        ****         }
+  99:main.c        ****     }
+ 100:main.c        **** }
+ 101:main.c        **** 
+ 102:main.c        **** /* See Atmel doc8050.pdf : AVR1313: Using the XMEGA IO Pins and External Interrupts
+ 103:main.c        ****  * 
+ 104:main.c        ****  * 
+ 105:main.c        ****  */
+ 106:main.c        **** void init(void){
+ 107:main.c        **** 		Config32MHzClock(); //Set Clock Speed to 32MHz	
+ 108:main.c        **** 		PORTD.PIN4CTRL = PORT_OPC_PULLUP_gc; //Set pin D4 as INPUT and as a pullup (Detect when pulled LO
+ 109:main.c        **** 		PORTE.DIRSET |= _BV(0); //Set pin E0 as OUTPUT
+ 110:main.c        ****         uart_init(); 
+ 111:main.c        **** }
+ 112:main.c        **** 
+ 113:main.c        **** int main (void)
+ 114:main.c        **** {
+ 115:main.c        **** 	init();	
+ 116:main.c        **** 	delay_ms(1000);
+ 117:main.c        **** 	mainLoop();
+ 118:main.c        **** 	return 0;
+ 119:main.c        **** }
+ 120:main.c        **** 
+ 121:main.c        **** 
+ 122:main.c        **** static int uart_putchar (char c, FILE *stream) { 
+ 431               		.stabn	68,0,122,.LM0-.LFBB1
+ 432               	.LM0:
+ 433               	.LFBB1:
+ 434 0000 1F93      		push r17
+ 435               	/* prologue: function */
+ 436               	/* frame size = 0 */
+ 437               	/* stack size = 1 */
+ 438               	.L__stack_usage = 1
+ 439 0002 182F      		mov r17,r24
+ 123:main.c        ****     if (c == '\n') 
+ 440               		.stabn	68,0,123,.LM1-.LFBB1
+ 441               	.LM1:
+ 442 0004 8A30      		cpi r24,lo8(10)
+ 443 0006 01F4      		brne .L4
+ 124:main.c        ****         uart_putchar('\r', stream); 
+ 444               		.stabn	68,0,124,.LM2-.LFBB1
+ 445               	.LM2:
+ 446 0008 8DE0      		ldi r24,lo8(13)
+GAS LISTING /tmp/ccWPoaT8.s 			page 11
+
+
+ 447 000a 0E94 0000 		call uart_putchar
+ 448               	.L4:
+ 125:main.c        **** 
+ 126:main.c        ****     // Wait for the transmit buffer to be empty 
+ 127:main.c        ****     while ( !( USARTD1.STATUS & USART_DREIF_bm) ); 
+ 449               		.stabn	68,0,127,.LM3-.LFBB1
+ 450               	.LM3:
+ 451 000e 8091 B109 		lds r24,2481
+ 452 0012 85FF      		sbrs r24,5
+ 453 0014 00C0      		rjmp .L4
+ 128:main.c        **** 
+ 129:main.c        ****     // Put our character into the transmit buffer 
+ 130:main.c        ****     USARTD1.DATA = c; 
+ 454               		.stabn	68,0,130,.LM4-.LFBB1
+ 455               	.LM4:
+ 456 0016 1093 B009 		sts 2480,r17
+ 131:main.c        **** 
+ 132:main.c        ****     return 0; 
+ 133:main.c        **** } 
+ 457               		.stabn	68,0,133,.LM5-.LFBB1
+ 458               	.LM5:
+ 459 001a 80E0      		ldi r24,lo8(0)
+ 460 001c 90E0      		ldi r25,hi8(0)
+ 461               	/* epilogue start */
+ 462 001e 1F91      		pop r17
+ 463 0020 0895      		ret
+ 464               		.size	uart_putchar, .-uart_putchar
+ 465               	.Lscope1:
+ 466               		.stabs	"",36,0,0,.Lscope1-.LFBB1
+ 467               		.stabd	78,0,0
+ 468               		.stabs	"CCPWrite:F(0,15)",36,0,77,CCPWrite
+ 469               		.stabs	"address:P(0,17)=*(8,2)",64,0,77,24
+ 470               		.stabs	"value:P(4,2)",64,0,77,22
+ 471               	.global	CCPWrite
+ 472               		.type	CCPWrite, @function
+ 473               	CCPWrite:
+ 474               		.stabd	46,0,0
+ 475               		.stabs	"requiredFiles/clksys_driver.c",132,0,0,.Ltext1
+ 476               	.Ltext1:
+   1:requiredFiles/clksys_driver.c **** /* This file has been prepared for Doxygen automatic documentation generation.*/
+   2:requiredFiles/clksys_driver.c **** /*! \file *********************************************************************
+   3:requiredFiles/clksys_driver.c ****  *
+   4:requiredFiles/clksys_driver.c ****  * \brief  XMEGA Clock System driver source file.
+   5:requiredFiles/clksys_driver.c ****  *
+   6:requiredFiles/clksys_driver.c ****  *      This file contains the function implementations for the XMEGA Clock
+   7:requiredFiles/clksys_driver.c ****  *      System driver.
+   8:requiredFiles/clksys_driver.c ****  *
+   9:requiredFiles/clksys_driver.c ****  *      The driver is not intended for size and/or speed critical code, since
+  10:requiredFiles/clksys_driver.c ****  *      most functions are just a few lines of code, and the function call
+  11:requiredFiles/clksys_driver.c ****  *      overhead would decrease code performance. The driver is intended for
+  12:requiredFiles/clksys_driver.c ****  *      rapid prototyping and documentation purposes for getting started with
+  13:requiredFiles/clksys_driver.c ****  *      the XMEGA Clock System.
+  14:requiredFiles/clksys_driver.c ****  *
+  15:requiredFiles/clksys_driver.c ****  *      For size and/or speed critical code, it is recommended to copy the
+  16:requiredFiles/clksys_driver.c ****  *      function contents directly into your application instead of making
+  17:requiredFiles/clksys_driver.c ****  *      a function call.
+  18:requiredFiles/clksys_driver.c ****  *
+GAS LISTING /tmp/ccWPoaT8.s 			page 12
+
+
+  19:requiredFiles/clksys_driver.c ****  *      Several functions use the following construct:
+  20:requiredFiles/clksys_driver.c ****  *          "some_register = ... | (some_parameter ? SOME_BIT_bm : 0) | ..."
+  21:requiredFiles/clksys_driver.c ****  *      Although the use of the ternary operator ( if ? then : else ) is
+  22:requiredFiles/clksys_driver.c ****  *      discouraged, in some occasions the operator makes it possible to
+  23:requiredFiles/clksys_driver.c ****  *      write pretty clean and neat code. In this driver, the construct is
+  24:requiredFiles/clksys_driver.c ****  *      used to set or not set a configuration bit based on a boolean input
+  25:requiredFiles/clksys_driver.c ****  *      parameter, such as the "some_parameter" in the example above.
+  26:requiredFiles/clksys_driver.c ****  *
+  27:requiredFiles/clksys_driver.c ****  * \par Application note:
+  28:requiredFiles/clksys_driver.c ****  *      AVR1003: Using the XMEGA Clock System
+  29:requiredFiles/clksys_driver.c ****  *
+  30:requiredFiles/clksys_driver.c ****  * \par Documentation
+  31:requiredFiles/clksys_driver.c ****  *      For comprehensive code documentation, supported compilers, compiler
+  32:requiredFiles/clksys_driver.c ****  *      settings and supported devices see readme.html
+  33:requiredFiles/clksys_driver.c ****  *
+  34:requiredFiles/clksys_driver.c ****  * \author
+  35:requiredFiles/clksys_driver.c ****  *      Atmel Corporation: http://www.atmel.com \n
+  36:requiredFiles/clksys_driver.c ****  *      Support email: avr@atmel.com
+  37:requiredFiles/clksys_driver.c ****  *
+  38:requiredFiles/clksys_driver.c ****  * $Revision: 2771 $
+  39:requiredFiles/clksys_driver.c ****  * $Date: 2009-09-11 11:54:26 +0200 (fr, 11 sep 2009) $  \n
+  40:requiredFiles/clksys_driver.c ****  *
+  41:requiredFiles/clksys_driver.c ****  * Copyright (c) 2008, Atmel Corporation All rights reserved.
+  42:requiredFiles/clksys_driver.c ****  *
+  43:requiredFiles/clksys_driver.c ****  * Redistribution and use in source and binary forms, with or without
+  44:requiredFiles/clksys_driver.c ****  * modification, are permitted provided that the following conditions are met:
+  45:requiredFiles/clksys_driver.c ****  *
+  46:requiredFiles/clksys_driver.c ****  * 1. Redistributions of source code must retain the above copyright notice,
+  47:requiredFiles/clksys_driver.c ****  * this list of conditions and the following disclaimer.
+  48:requiredFiles/clksys_driver.c ****  *
+  49:requiredFiles/clksys_driver.c ****  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  50:requiredFiles/clksys_driver.c ****  * this list of conditions and the following disclaimer in the documentation
+  51:requiredFiles/clksys_driver.c ****  * and/or other materials provided with the distribution.
+  52:requiredFiles/clksys_driver.c ****  *
+  53:requiredFiles/clksys_driver.c ****  * 3. The name of ATMEL may not be used to endorse or promote products derived
+  54:requiredFiles/clksys_driver.c ****  * from this software without specific prior written permission.
+  55:requiredFiles/clksys_driver.c ****  *
+  56:requiredFiles/clksys_driver.c ****  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+  57:requiredFiles/clksys_driver.c ****  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  58:requiredFiles/clksys_driver.c ****  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE EXPRESSLY AND
+  59:requiredFiles/clksys_driver.c ****  * SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT,
+  60:requiredFiles/clksys_driver.c ****  * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  61:requiredFiles/clksys_driver.c ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  62:requiredFiles/clksys_driver.c ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  63:requiredFiles/clksys_driver.c ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  64:requiredFiles/clksys_driver.c ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  65:requiredFiles/clksys_driver.c ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  66:requiredFiles/clksys_driver.c ****  *****************************************************************************/
+  67:requiredFiles/clksys_driver.c **** #include "clksys_driver.h"
+  68:requiredFiles/clksys_driver.c **** 
+  69:requiredFiles/clksys_driver.c **** /*! \brief CCP write helper function written in assembly.
+  70:requiredFiles/clksys_driver.c ****  *
+  71:requiredFiles/clksys_driver.c ****  *  This function is written in assembly because of the timecritial
+  72:requiredFiles/clksys_driver.c ****  *  operation of writing to the registers.
+  73:requiredFiles/clksys_driver.c ****  *
+  74:requiredFiles/clksys_driver.c ****  *  \param address A pointer to the address to write to.
+  75:requiredFiles/clksys_driver.c ****  *  \param value   The value to put in to the register.
+GAS LISTING /tmp/ccWPoaT8.s 			page 13
+
+
+  76:requiredFiles/clksys_driver.c ****  */
+  77:requiredFiles/clksys_driver.c **** void CCPWrite( volatile uint8_t * address, uint8_t value )
+  78:requiredFiles/clksys_driver.c **** {
+ 477               		.stabn	68,0,78,.LM6-.LFBB2
+ 478               	.LM6:
+ 479               	.LFBB2:
+ 480 0022 0F93      		push r16
+ 481 0024 DF93      		push r29
+ 482 0026 CF93      		push r28
+ 483 0028 0F92      		push __tmp_reg__
+ 484 002a CDB7      		in r28,__SP_L__
+ 485 002c DEB7      		in r29,__SP_H__
+ 486               	/* prologue: function */
+ 487               	/* frame size = 1 */
+ 488               	/* stack size = 4 */
+ 489               	.L__stack_usage = 4
+  79:requiredFiles/clksys_driver.c **** #ifdef __ICCAVR__
+  80:requiredFiles/clksys_driver.c **** 
+  81:requiredFiles/clksys_driver.c **** 	// Store global interrupt setting in scratch register and disable interrupts.
+  82:requiredFiles/clksys_driver.c ****         asm("in  R1, 0x3F \n"
+  83:requiredFiles/clksys_driver.c **** 	    "cli"
+  84:requiredFiles/clksys_driver.c **** 	    );
+  85:requiredFiles/clksys_driver.c **** 
+  86:requiredFiles/clksys_driver.c **** 	// Move destination address pointer to Z pointer registers.
+  87:requiredFiles/clksys_driver.c **** 	asm("movw r30, r16");
+  88:requiredFiles/clksys_driver.c **** #ifdef RAMPZ
+  89:requiredFiles/clksys_driver.c **** 	asm("ldi  R16, 0 \n"
+  90:requiredFiles/clksys_driver.c ****             "out  0x3B, R16"
+  91:requiredFiles/clksys_driver.c **** 	    );
+  92:requiredFiles/clksys_driver.c **** 
+  93:requiredFiles/clksys_driver.c **** #endif
+  94:requiredFiles/clksys_driver.c **** 	asm("ldi  r16,  0xD8 \n"
+  95:requiredFiles/clksys_driver.c **** 	    "out  0x34, r16  \n"
+  96:requiredFiles/clksys_driver.c **** #if (__MEMORY_MODEL__ == 1)
+  97:requiredFiles/clksys_driver.c **** 	    "st     Z,  r17  \n");
+  98:requiredFiles/clksys_driver.c **** #elif (__MEMORY_MODEL__ == 2)
+  99:requiredFiles/clksys_driver.c **** 	    "st     Z,  r18  \n");
+ 100:requiredFiles/clksys_driver.c **** #else /* (__MEMORY_MODEL__ == 3) || (__MEMORY_MODEL__ == 5) */
+ 101:requiredFiles/clksys_driver.c **** 	    "st     Z,  r19  \n");
+ 102:requiredFiles/clksys_driver.c **** #endif /* __MEMORY_MODEL__ */
+ 103:requiredFiles/clksys_driver.c **** 
+ 104:requiredFiles/clksys_driver.c **** 	// Restore global interrupt setting from scratch register.
+ 105:requiredFiles/clksys_driver.c ****         asm("out  0x3F, R1");
+ 106:requiredFiles/clksys_driver.c **** 
+ 107:requiredFiles/clksys_driver.c **** #elif defined __GNUC__
+ 108:requiredFiles/clksys_driver.c **** 	AVR_ENTER_CRITICAL_REGION( );
+ 490               		.stabn	68,0,108,.LM7-.LFBB2
+ 491               	.LM7:
+ 492 002e 2FB7      		in r18,__SREG__
+ 493 0030 2983      		std Y+1,r18
+ 494               	/* #APP */
+ 495               	 ;  108 "requiredFiles/clksys_driver.c" 1
+ 496 0032 F894      		cli
+ 497               	 ;  0 "" 2
+ 109:requiredFiles/clksys_driver.c **** 	volatile uint8_t * tmpAddr = address;
+ 110:requiredFiles/clksys_driver.c **** #ifdef RAMPZ
+ 111:requiredFiles/clksys_driver.c **** 	RAMPZ = 0;
+GAS LISTING /tmp/ccWPoaT8.s 			page 14
+
+
+ 498               		.stabn	68,0,111,.LM8-.LFBB2
+ 499               	.LM8:
+ 500               	/* #NOAPP */
+ 501 0034 1BBE      		out 59-0,__zero_reg__
+ 112:requiredFiles/clksys_driver.c **** #endif
+ 113:requiredFiles/clksys_driver.c **** 	asm volatile(
+ 502               		.stabn	68,0,113,.LM9-.LFBB2
+ 503               	.LM9:
+ 504               	/* #APP */
+ 505               	 ;  113 "requiredFiles/clksys_driver.c" 1
+ 506 0036 FC01      		movw r30,  r24
+ 507 0038 08ED      		ldi  r16,  216
+ 508 003a 04BF      		out   52, r16
+ 509 003c 6083      		st     Z,  r22
+ 510               		
+ 511               	 ;  0 "" 2
+ 114:requiredFiles/clksys_driver.c **** 		"movw r30,  %0"	      "\n\t"
+ 115:requiredFiles/clksys_driver.c **** 		"ldi  r16,  %2"	      "\n\t"
+ 116:requiredFiles/clksys_driver.c **** 		"out   %3, r16"	      "\n\t"
+ 117:requiredFiles/clksys_driver.c **** 		"st     Z,  %1"       "\n\t"
+ 118:requiredFiles/clksys_driver.c **** 		:
+ 119:requiredFiles/clksys_driver.c **** 		: "r" (tmpAddr), "r" (value), "M" (CCP_IOREG_gc), "i" (&CCP)
+ 120:requiredFiles/clksys_driver.c **** 		: "r16", "r30", "r31"
+ 121:requiredFiles/clksys_driver.c **** 		);
+ 122:requiredFiles/clksys_driver.c **** 
+ 123:requiredFiles/clksys_driver.c **** 	AVR_LEAVE_CRITICAL_REGION( );
+ 512               		.stabn	68,0,123,.LM10-.LFBB2
+ 513               	.LM10:
+ 514               	/* #NOAPP */
+ 515 003e 8981      		ldd r24,Y+1
+ 516 0040 8FBF      		out __SREG__,r24
+ 517               	/* epilogue start */
+ 124:requiredFiles/clksys_driver.c **** #endif
+ 125:requiredFiles/clksys_driver.c **** }
+ 518               		.stabn	68,0,125,.LM11-.LFBB2
+ 519               	.LM11:
+ 520 0042 0F90      		pop __tmp_reg__
+ 521 0044 CF91      		pop r28
+ 522 0046 DF91      		pop r29
+ 523 0048 0F91      		pop r16
+ 524 004a 0895      		ret
+ 525               		.size	CCPWrite, .-CCPWrite
+ 526               		.stabs	"saved_sreg:(8,2)",128,0,108,1
+ 527               		.stabn	192,0,0,.LFBB2-.LFBB2
+ 528               		.stabn	224,0,0,.Lscope2-.LFBB2
+ 529               	.Lscope2:
+ 530               		.stabs	"",36,0,0,.Lscope2-.LFBB2
+ 531               		.stabd	78,0,0
+ 532               		.stabs	"CLKSYS_XOSC_Config:F(0,15)",36,0,141,CLKSYS_XOSC_Config
+ 533               		.stabs	"freqRange:P(8,31)",64,0,141,24
+ 534               		.stabs	"lowPower32kHz:P(0,18)=@s8;-16;",64,0,142,22
+ 535               		.stabs	"xoscModeSelection:P(8,33)",64,0,143,20
+ 536               	.global	CLKSYS_XOSC_Config
+ 537               		.type	CLKSYS_XOSC_Config, @function
+ 538               	CLKSYS_XOSC_Config:
+ 539               		.stabd	46,0,0
+ 126:requiredFiles/clksys_driver.c **** 
+GAS LISTING /tmp/ccWPoaT8.s 			page 15
+
+
+ 127:requiredFiles/clksys_driver.c **** /*! \brief This function configures the external oscillator.
+ 128:requiredFiles/clksys_driver.c ****  *
+ 129:requiredFiles/clksys_driver.c ****  *  \note Note that the oscillator cannot be used as a main system clock
+ 130:requiredFiles/clksys_driver.c ****  *        source without being enabled and stable first. Check the ready flag
+ 131:requiredFiles/clksys_driver.c ****  *        before using the clock. The macro CLKSYS_IsReady( _oscSel )
+ 132:requiredFiles/clksys_driver.c ****  *        can be used to check this.
+ 133:requiredFiles/clksys_driver.c ****  *
+ 134:requiredFiles/clksys_driver.c ****  *  \param  freqRange          Frequency range for high-frequency crystal, does
+ 135:requiredFiles/clksys_driver.c ****  *                             not apply for external clock or 32kHz crystals.
+ 136:requiredFiles/clksys_driver.c ****  *  \param  lowPower32kHz      True of high-quality watch crystals are used and
+ 137:requiredFiles/clksys_driver.c ****  *                             low-power oscillator is desired.
+ 138:requiredFiles/clksys_driver.c ****  *  \param  xoscModeSelection  Combined selection of oscillator type (or
+ 139:requiredFiles/clksys_driver.c ****  *                             external clock) and startup times.
+ 140:requiredFiles/clksys_driver.c ****  */
+ 141:requiredFiles/clksys_driver.c **** void CLKSYS_XOSC_Config( OSC_FRQRANGE_t freqRange,
+ 142:requiredFiles/clksys_driver.c ****                          bool lowPower32kHz,
+ 143:requiredFiles/clksys_driver.c ****                          OSC_XOSCSEL_t xoscModeSelection )
+ 144:requiredFiles/clksys_driver.c **** {
+ 540               		.stabn	68,0,144,.LM12-.LFBB3
+ 541               	.LM12:
+ 542               	.LFBB3:
+ 543               	/* prologue: function */
+ 544               	/* frame size = 0 */
+ 545               	/* stack size = 0 */
+ 546               	.L__stack_usage = 0
+ 145:requiredFiles/clksys_driver.c **** 	OSC.XOSCCTRL = (uint8_t) freqRange |
+ 547               		.stabn	68,0,145,.LM13-.LFBB3
+ 548               	.LM13:
+ 549 004c 6623      		tst r22
+ 550 004e 01F0      		breq .L9
+ 551 0050 90E2      		ldi r25,lo8(32)
+ 552 0052 00C0      		rjmp .L8
+ 553               	.L9:
+ 554 0054 90E0      		ldi r25,lo8(0)
+ 555               	.L8:
+ 556               		.stabn	68,0,145,.LM14-.LFBB3
+ 557               	.LM14:
+ 558 0056 842B      		or r24,r20
+ 559 0058 892B      		or r24,r25
+ 560 005a E0E5      		ldi r30,lo8(80)
+ 561 005c F0E0      		ldi r31,hi8(80)
+ 562 005e 8283      		std Z+2,r24
+ 563               	/* epilogue start */
+ 146:requiredFiles/clksys_driver.c **** 	               ( lowPower32kHz ? OSC_X32KLPM_bm : 0 ) |
+ 147:requiredFiles/clksys_driver.c **** 	               xoscModeSelection;
+ 148:requiredFiles/clksys_driver.c **** }
+ 564               		.stabn	68,0,148,.LM15-.LFBB3
+ 565               	.LM15:
+ 566 0060 0895      		ret
+ 567               		.size	CLKSYS_XOSC_Config, .-CLKSYS_XOSC_Config
+ 568               	.Lscope3:
+ 569               		.stabs	"",36,0,0,.Lscope3-.LFBB3
+ 570               		.stabd	78,0,0
+ 571               		.stabs	"CLKSYS_PLL_Config:F(0,15)",36,0,167,CLKSYS_PLL_Config
+ 572               		.stabs	"clockSource:P(8,35)",64,0,167,24
+ 573               		.stabs	"factor:P(4,2)",64,0,167,22
+ 574               	.global	CLKSYS_PLL_Config
+GAS LISTING /tmp/ccWPoaT8.s 			page 16
+
+
+ 575               		.type	CLKSYS_PLL_Config, @function
+ 576               	CLKSYS_PLL_Config:
+ 577               		.stabd	46,0,0
+ 149:requiredFiles/clksys_driver.c **** 
+ 150:requiredFiles/clksys_driver.c **** 
+ 151:requiredFiles/clksys_driver.c **** /*! \brief This function configures the internal high-frequency PLL.
+ 152:requiredFiles/clksys_driver.c ****  *
+ 153:requiredFiles/clksys_driver.c ****  *  Configuration of the internal high-frequency PLL to the correct
+ 154:requiredFiles/clksys_driver.c ****  *  values. It is used to define the input of the PLL and the factor of
+ 155:requiredFiles/clksys_driver.c ****  *  multiplication of the input clock source.
+ 156:requiredFiles/clksys_driver.c ****  *
+ 157:requiredFiles/clksys_driver.c ****  *  \note Note that the oscillator cannot be used as a main system clock
+ 158:requiredFiles/clksys_driver.c ****  *        source without being enabled and stable first. Check the ready flag
+ 159:requiredFiles/clksys_driver.c ****  *        before using the clock. The macro CLKSYS_IsReady( _oscSel )
+ 160:requiredFiles/clksys_driver.c ****  *        can be used to check this.
+ 161:requiredFiles/clksys_driver.c ****  *
+ 162:requiredFiles/clksys_driver.c ****  *  \param  clockSource Reference clock source for the PLL,
+ 163:requiredFiles/clksys_driver.c ****  *                      must be above 0.4MHz.
+ 164:requiredFiles/clksys_driver.c ****  *  \param  factor      PLL multiplication factor, must be
+ 165:requiredFiles/clksys_driver.c ****  *                      from 1 to 31, inclusive.
+ 166:requiredFiles/clksys_driver.c ****  */
+ 167:requiredFiles/clksys_driver.c **** void CLKSYS_PLL_Config( OSC_PLLSRC_t clockSource, uint8_t factor )
+ 168:requiredFiles/clksys_driver.c **** {
+ 578               		.stabn	68,0,168,.LM16-.LFBB4
+ 579               	.LM16:
+ 580               	.LFBB4:
+ 581               	/* prologue: function */
+ 582               	/* frame size = 0 */
+ 583               	/* stack size = 0 */
+ 584               	.L__stack_usage = 0
+ 169:requiredFiles/clksys_driver.c **** 	factor &= OSC_PLLFAC_gm;
+ 585               		.stabn	68,0,169,.LM17-.LFBB4
+ 586               	.LM17:
+ 587 0062 6F71      		andi r22,lo8(31)
+ 170:requiredFiles/clksys_driver.c **** 	OSC.PLLCTRL = (uint8_t) clockSource | ( factor << OSC_PLLFAC_gp );
+ 588               		.stabn	68,0,170,.LM18-.LFBB4
+ 589               	.LM18:
+ 590 0064 682B      		or r22,r24
+ 591 0066 E0E5      		ldi r30,lo8(80)
+ 592 0068 F0E0      		ldi r31,hi8(80)
+ 593 006a 6583      		std Z+5,r22
+ 594               	/* epilogue start */
+ 171:requiredFiles/clksys_driver.c **** }
+ 595               		.stabn	68,0,171,.LM19-.LFBB4
+ 596               	.LM19:
+ 597 006c 0895      		ret
+ 598               		.size	CLKSYS_PLL_Config, .-CLKSYS_PLL_Config
+ 599               	.Lscope4:
+ 600               		.stabs	"",36,0,0,.Lscope4-.LFBB4
+ 601               		.stabd	78,0,0
+ 602               		.stabs	"CLKSYS_Disable:F(4,2)",36,0,187,CLKSYS_Disable
+ 603               		.stabs	"oscSel:P(4,2)",64,0,187,24
+ 604               	.global	CLKSYS_Disable
+ 605               		.type	CLKSYS_Disable, @function
+ 606               	CLKSYS_Disable:
+ 607               		.stabd	46,0,0
+ 172:requiredFiles/clksys_driver.c **** 
+GAS LISTING /tmp/ccWPoaT8.s 			page 17
+
+
+ 173:requiredFiles/clksys_driver.c **** 
+ 174:requiredFiles/clksys_driver.c **** /*! \brief This function disables the selected oscillator.
+ 175:requiredFiles/clksys_driver.c ****  *
+ 176:requiredFiles/clksys_driver.c ****  *  This function will disable the selected oscillator if possible.
+ 177:requiredFiles/clksys_driver.c ****  *  If it is currently used as a main system clock source, hardware will
+ 178:requiredFiles/clksys_driver.c ****  *  disregard the disable attempt, and this function will return zero.
+ 179:requiredFiles/clksys_driver.c ****  *  If it fails, change to another main system clock source and try again.
+ 180:requiredFiles/clksys_driver.c ****  *
+ 181:requiredFiles/clksys_driver.c ****  *  \param oscSel  Bitmask of selected clock. Can be one of the following
+ 182:requiredFiles/clksys_driver.c ****  *                 OSC_RC2MEN_bm, OSC_RC32MEN_bm, OSC_RC32KEN_bm,
+ 183:requiredFiles/clksys_driver.c ****  *                 OSC_XOSCEN_bm, OSC_PLLEN_bm.
+ 184:requiredFiles/clksys_driver.c ****  *
+ 185:requiredFiles/clksys_driver.c ****  *  \return  Non-zero if oscillator was disabled successfully.
+ 186:requiredFiles/clksys_driver.c ****  */
+ 187:requiredFiles/clksys_driver.c **** uint8_t CLKSYS_Disable( uint8_t oscSel )
+ 188:requiredFiles/clksys_driver.c **** {
+ 608               		.stabn	68,0,188,.LM20-.LFBB5
+ 609               	.LM20:
+ 610               	.LFBB5:
+ 611               	/* prologue: function */
+ 612               	/* frame size = 0 */
+ 613               	/* stack size = 0 */
+ 614               	.L__stack_usage = 0
+ 189:requiredFiles/clksys_driver.c **** 	OSC.CTRL &= ~oscSel;
+ 615               		.stabn	68,0,189,.LM21-.LFBB5
+ 616               	.LM21:
+ 617 006e E0E5      		ldi r30,lo8(80)
+ 618 0070 F0E0      		ldi r31,hi8(80)
+ 619 0072 2081      		ld r18,Z
+ 620 0074 982F      		mov r25,r24
+ 621 0076 9095      		com r25
+ 622 0078 9223      		and r25,r18
+ 623 007a 9083      		st Z,r25
+ 190:requiredFiles/clksys_driver.c **** 	uint8_t clkEnabled = OSC.CTRL & oscSel;
+ 624               		.stabn	68,0,190,.LM22-.LFBB5
+ 625               	.LM22:
+ 626 007c 9081      		ld r25,Z
+ 191:requiredFiles/clksys_driver.c **** 	return clkEnabled;
+ 192:requiredFiles/clksys_driver.c **** }
+ 627               		.stabn	68,0,192,.LM23-.LFBB5
+ 628               	.LM23:
+ 629 007e 8923      		and r24,r25
+ 630               	/* epilogue start */
+ 631 0080 0895      		ret
+ 632               		.size	CLKSYS_Disable, .-CLKSYS_Disable
+ 633               	.Lscope5:
+ 634               		.stabs	"",36,0,0,.Lscope5-.LFBB5
+ 635               		.stabd	78,0,0
+ 636               		.stabs	"CLKSYS_Prescalers_Config:F(0,15)",36,0,206,CLKSYS_Prescalers_Config
+ 637               		.stabs	"PSAfactor:P(8,19)",64,0,206,24
+ 638               		.stabs	"PSBCfactor:P(8,21)",64,0,207,22
+ 639               	.global	CLKSYS_Prescalers_Config
+ 640               		.type	CLKSYS_Prescalers_Config, @function
+ 641               	CLKSYS_Prescalers_Config:
+ 642               		.stabd	46,0,0
+ 193:requiredFiles/clksys_driver.c **** 
+ 194:requiredFiles/clksys_driver.c **** 
+GAS LISTING /tmp/ccWPoaT8.s 			page 18
+
+
+ 195:requiredFiles/clksys_driver.c **** /*! \brief This function changes the prescaler configuration.
+ 196:requiredFiles/clksys_driver.c ****  *
+ 197:requiredFiles/clksys_driver.c ****  *  Change the configuration of the three system clock
+ 198:requiredFiles/clksys_driver.c ****  *  prescaler is one single operation. The user must make sure that
+ 199:requiredFiles/clksys_driver.c ****  *  the main CPU clock does not exceed recommended limits.
+ 200:requiredFiles/clksys_driver.c ****  *
+ 201:requiredFiles/clksys_driver.c ****  *  \param  PSAfactor   Prescaler A division factor, OFF or 2 to 512 in
+ 202:requiredFiles/clksys_driver.c ****  *                      powers of two.
+ 203:requiredFiles/clksys_driver.c ****  *  \param  PSBCfactor  Prescaler B and C division factor, in the combination
+ 204:requiredFiles/clksys_driver.c ****  *                      of (1,1), (1,2), (4,1) or (2,2).
+ 205:requiredFiles/clksys_driver.c ****  */
+ 206:requiredFiles/clksys_driver.c **** void CLKSYS_Prescalers_Config( CLK_PSADIV_t PSAfactor,
+ 207:requiredFiles/clksys_driver.c ****                                CLK_PSBCDIV_t PSBCfactor )
+ 208:requiredFiles/clksys_driver.c **** {
+ 643               		.stabn	68,0,208,.LM24-.LFBB6
+ 644               	.LM24:
+ 645               	.LFBB6:
+ 646               	/* prologue: function */
+ 647               	/* frame size = 0 */
+ 648               	/* stack size = 0 */
+ 649               	.L__stack_usage = 0
+ 209:requiredFiles/clksys_driver.c **** 	uint8_t PSconfig = (uint8_t) PSAfactor | PSBCfactor;
+ 650               		.stabn	68,0,209,.LM25-.LFBB6
+ 651               	.LM25:
+ 652 0082 682B      		or r22,r24
+ 210:requiredFiles/clksys_driver.c **** 	CCPWrite( &CLK.PSCTRL, PSconfig );
+ 653               		.stabn	68,0,210,.LM26-.LFBB6
+ 654               	.LM26:
+ 655 0084 81E4      		ldi r24,lo8(65)
+ 656 0086 90E0      		ldi r25,hi8(65)
+ 657 0088 0E94 0000 		call CCPWrite
+ 658               	/* epilogue start */
+ 211:requiredFiles/clksys_driver.c **** }
+ 659               		.stabn	68,0,211,.LM27-.LFBB6
+ 660               	.LM27:
+ 661 008c 0895      		ret
+ 662               		.size	CLKSYS_Prescalers_Config, .-CLKSYS_Prescalers_Config
+ 663               	.Lscope6:
+ 664               		.stabs	"",36,0,0,.Lscope6-.LFBB6
+ 665               		.stabd	78,0,0
+ 666               		.stabs	"CLKSYS_Main_ClockSource_Select:F(4,2)",36,0,225,CLKSYS_Main_ClockSource_Select
+ 667               		.stabs	"clockSource:P(8,17)",64,0,225,17
+ 668               	.global	CLKSYS_Main_ClockSource_Select
+ 669               		.type	CLKSYS_Main_ClockSource_Select, @function
+ 670               	CLKSYS_Main_ClockSource_Select:
+ 671               		.stabd	46,0,0
+ 212:requiredFiles/clksys_driver.c **** 
+ 213:requiredFiles/clksys_driver.c **** 
+ 214:requiredFiles/clksys_driver.c **** /*! \brief This function selects the main system clock source.
+ 215:requiredFiles/clksys_driver.c ****  *
+ 216:requiredFiles/clksys_driver.c ****  *  Hardware will disregard any attempts to select a clock source that is not
+ 217:requiredFiles/clksys_driver.c ****  *  enabled or not stable. If the change fails, make sure the source is ready
+ 218:requiredFiles/clksys_driver.c ****  *  and running and try again.
+ 219:requiredFiles/clksys_driver.c ****  *
+ 220:requiredFiles/clksys_driver.c ****  *  \param  clockSource  Clock source to use as input for the system clock
+ 221:requiredFiles/clksys_driver.c ****  *                       prescaler block.
+ 222:requiredFiles/clksys_driver.c ****  *
+GAS LISTING /tmp/ccWPoaT8.s 			page 19
+
+
+ 223:requiredFiles/clksys_driver.c ****  *  \return  Non-zero if change was successful.
+ 224:requiredFiles/clksys_driver.c ****  */
+ 225:requiredFiles/clksys_driver.c **** uint8_t CLKSYS_Main_ClockSource_Select( CLK_SCLKSEL_t clockSource )
+ 226:requiredFiles/clksys_driver.c **** {
+ 672               		.stabn	68,0,226,.LM28-.LFBB7
+ 673               	.LM28:
+ 674               	.LFBB7:
+ 675 008e 1F93      		push r17
+ 676 0090 CF93      		push r28
+ 677 0092 DF93      		push r29
+ 678               	/* prologue: function */
+ 679               	/* frame size = 0 */
+ 680               	/* stack size = 3 */
+ 681               	.L__stack_usage = 3
+ 682 0094 182F      		mov r17,r24
+ 227:requiredFiles/clksys_driver.c **** 	uint8_t clkCtrl = ( CLK.CTRL & ~CLK_SCLKSEL_gm ) | clockSource;
+ 683               		.stabn	68,0,227,.LM29-.LFBB7
+ 684               	.LM29:
+ 685 0096 C0E4      		ldi r28,lo8(64)
+ 686 0098 D0E0      		ldi r29,hi8(64)
+ 687 009a 6881      		ld r22,Y
+ 688 009c 687F      		andi r22,lo8(-8)
+ 689 009e 682B      		or r22,r24
+ 228:requiredFiles/clksys_driver.c **** 	CCPWrite( &CLK.CTRL, clkCtrl );
+ 690               		.stabn	68,0,228,.LM30-.LFBB7
+ 691               	.LM30:
+ 692 00a0 80E4      		ldi r24,lo8(64)
+ 693 00a2 90E0      		ldi r25,hi8(64)
+ 694 00a4 0E94 0000 		call CCPWrite
+ 229:requiredFiles/clksys_driver.c **** 	clkCtrl = ( CLK.CTRL & clockSource );
+ 695               		.stabn	68,0,229,.LM31-.LFBB7
+ 696               	.LM31:
+ 697 00a8 8881      		ld r24,Y
+ 230:requiredFiles/clksys_driver.c **** 	return clkCtrl;
+ 231:requiredFiles/clksys_driver.c **** }
+ 698               		.stabn	68,0,231,.LM32-.LFBB7
+ 699               	.LM32:
+ 700 00aa 8123      		and r24,r17
+ 701               	/* epilogue start */
+ 702 00ac DF91      		pop r29
+ 703 00ae CF91      		pop r28
+ 704 00b0 1F91      		pop r17
+ 705 00b2 0895      		ret
+ 706               		.size	CLKSYS_Main_ClockSource_Select, .-CLKSYS_Main_ClockSource_Select
+ 707               	.Lscope7:
+ 708               		.stabs	"",36,0,0,.Lscope7-.LFBB7
+ 709               		.stabd	78,0,0
+ 710               		.stabs	"CLKSYS_RTC_ClockSource_Enable:F(0,15)",36,0,241,CLKSYS_RTC_ClockSource_Enable
+ 711               		.stabs	"clockSource:P(8,23)",64,0,241,24
+ 712               	.global	CLKSYS_RTC_ClockSource_Enable
+ 713               		.type	CLKSYS_RTC_ClockSource_Enable, @function
+ 714               	CLKSYS_RTC_ClockSource_Enable:
+ 715               		.stabd	46,0,0
+ 232:requiredFiles/clksys_driver.c **** 
+ 233:requiredFiles/clksys_driver.c **** 
+ 234:requiredFiles/clksys_driver.c **** /*! \brief This function selects a Real-Time Counter clock source.
+ 235:requiredFiles/clksys_driver.c ****  *
+GAS LISTING /tmp/ccWPoaT8.s 			page 20
+
+
+ 236:requiredFiles/clksys_driver.c ****  *  Selects the clock source for use by the Real-Time Counter (RTC)
+ 237:requiredFiles/clksys_driver.c ****  *  and enables clock signal routing to the RTC module.
+ 238:requiredFiles/clksys_driver.c ****  *
+ 239:requiredFiles/clksys_driver.c ****  *  \param  clockSource  Clock source to use for the RTC.
+ 240:requiredFiles/clksys_driver.c ****  */
+ 241:requiredFiles/clksys_driver.c **** void CLKSYS_RTC_ClockSource_Enable( CLK_RTCSRC_t clockSource )
+ 242:requiredFiles/clksys_driver.c **** {
+ 716               		.stabn	68,0,242,.LM33-.LFBB8
+ 717               	.LM33:
+ 718               	.LFBB8:
+ 719               	/* prologue: function */
+ 720               	/* frame size = 0 */
+ 721               	/* stack size = 0 */
+ 722               	.L__stack_usage = 0
+ 243:requiredFiles/clksys_driver.c **** 	CLK.RTCCTRL = ( CLK.RTCCTRL & ~CLK_RTCSRC_gm ) |
+ 723               		.stabn	68,0,243,.LM34-.LFBB8
+ 724               	.LM34:
+ 725 00b4 E0E4      		ldi r30,lo8(64)
+ 726 00b6 F0E0      		ldi r31,hi8(64)
+ 727 00b8 9381      		ldd r25,Z+3
+ 728 00ba 917F      		andi r25,lo8(-15)
+ 729 00bc 9160      		ori r25,lo8(1)
+ 730 00be 982B      		or r25,r24
+ 731 00c0 9383      		std Z+3,r25
+ 732               	/* epilogue start */
+ 244:requiredFiles/clksys_driver.c **** 	              clockSource |
+ 245:requiredFiles/clksys_driver.c **** 	              CLK_RTCEN_bm;
+ 246:requiredFiles/clksys_driver.c **** }
+ 733               		.stabn	68,0,246,.LM35-.LFBB8
+ 734               	.LM35:
+ 735 00c2 0895      		ret
+ 736               		.size	CLKSYS_RTC_ClockSource_Enable, .-CLKSYS_RTC_ClockSource_Enable
+ 737               	.Lscope8:
+ 738               		.stabs	"",36,0,0,.Lscope8-.LFBB8
+ 739               		.stabd	78,0,0
+ 740               		.stabs	"CLKSYS_AutoCalibration_Enable:F(0,15)",36,0,260,CLKSYS_AutoCalibration_Enable
+ 741               		.stabs	"clkSource:P(4,2)",64,0,260,24
+ 742               		.stabs	"extReference:P(0,18)",64,0,260,22
+ 743               	.global	CLKSYS_AutoCalibration_Enable
+ 744               		.type	CLKSYS_AutoCalibration_Enable, @function
+ 745               	CLKSYS_AutoCalibration_Enable:
+ 746               		.stabd	46,0,0
+ 247:requiredFiles/clksys_driver.c **** 
+ 248:requiredFiles/clksys_driver.c **** 
+ 249:requiredFiles/clksys_driver.c **** /*! \brief This function enables automatic calibration of the selected internal
+ 250:requiredFiles/clksys_driver.c ****  *         oscillator.
+ 251:requiredFiles/clksys_driver.c ****  *
+ 252:requiredFiles/clksys_driver.c ****  *  Either the internal 32kHz RC oscillator or an external 32kHz
+ 253:requiredFiles/clksys_driver.c ****  *  crystal can be used as a calibration reference. The user must make sure
+ 254:requiredFiles/clksys_driver.c ****  *  that the selected reference is ready and running.
+ 255:requiredFiles/clksys_driver.c ****  *
+ 256:requiredFiles/clksys_driver.c ****  *  \param  clkSource    Clock source to calibrate, either OSC_RC2MCREF_bm or
+ 257:requiredFiles/clksys_driver.c ****  *                       OSC_RC32MCREF_bm.
+ 258:requiredFiles/clksys_driver.c ****  *  \param  extReference True if external crystal should be used as reference.
+ 259:requiredFiles/clksys_driver.c ****  */
+ 260:requiredFiles/clksys_driver.c **** void CLKSYS_AutoCalibration_Enable( uint8_t clkSource, bool extReference )
+ 261:requiredFiles/clksys_driver.c **** {
+GAS LISTING /tmp/ccWPoaT8.s 			page 21
+
+
+ 747               		.stabn	68,0,261,.LM36-.LFBB9
+ 748               	.LM36:
+ 749               	.LFBB9:
+ 750               	/* prologue: function */
+ 751               	/* frame size = 0 */
+ 752               	/* stack size = 0 */
+ 753               	.L__stack_usage = 0
+ 262:requiredFiles/clksys_driver.c **** 	OSC.DFLLCTRL = ( OSC.DFLLCTRL & ~clkSource ) |
+ 754               		.stabn	68,0,262,.LM37-.LFBB9
+ 755               	.LM37:
+ 756 00c4 3091 5600 		lds r19,86
+ 757 00c8 282F      		mov r18,r24
+ 758 00ca 982F      		mov r25,r24
+ 759 00cc 9095      		com r25
+ 760 00ce 9323      		and r25,r19
+ 761 00d0 6623      		tst r22
+ 762 00d2 01F4      		brne .L16
+ 763 00d4 20E0      		ldi r18,lo8(0)
+ 764               	.L16:
+ 765               		.stabn	68,0,262,.LM38-.LFBB9
+ 766               	.LM38:
+ 767 00d6 922B      		or r25,r18
+ 768 00d8 E0E5      		ldi r30,lo8(80)
+ 769 00da F0E0      		ldi r31,hi8(80)
+ 770 00dc 9683      		std Z+6,r25
+ 263:requiredFiles/clksys_driver.c **** 	               ( extReference ? clkSource : 0 );
+ 264:requiredFiles/clksys_driver.c **** 	if (clkSource == OSC_RC2MCREF_bm) {
+ 771               		.stabn	68,0,264,.LM39-.LFBB9
+ 772               	.LM39:
+ 773 00de 8130      		cpi r24,lo8(1)
+ 774 00e0 01F4      		brne .L17
+ 265:requiredFiles/clksys_driver.c **** 		DFLLRC2M.CTRL |= DFLL_ENABLE_bm;
+ 775               		.stabn	68,0,265,.LM40-.LFBB9
+ 776               	.LM40:
+ 777 00e2 8091 6800 		lds r24,104
+ 778 00e6 8160      		ori r24,lo8(1)
+ 779 00e8 8093 6800 		sts 104,r24
+ 780 00ec 0895      		ret
+ 781               	.L17:
+ 266:requiredFiles/clksys_driver.c **** 	} else if (clkSource == OSC_RC32MCREF_bm) {
+ 782               		.stabn	68,0,266,.LM41-.LFBB9
+ 783               	.LM41:
+ 784 00ee 8230      		cpi r24,lo8(2)
+ 785 00f0 01F4      		brne .L15
+ 267:requiredFiles/clksys_driver.c **** 		DFLLRC32M.CTRL |= DFLL_ENABLE_bm;
+ 786               		.stabn	68,0,267,.LM42-.LFBB9
+ 787               	.LM42:
+ 788 00f2 8091 6000 		lds r24,96
+ 789 00f6 8160      		ori r24,lo8(1)
+ 790 00f8 8093 6000 		sts 96,r24
+ 791               	.L15:
+ 792 00fc 0895      		ret
+ 793               		.size	CLKSYS_AutoCalibration_Enable, .-CLKSYS_AutoCalibration_Enable
+ 794               	.Lscope9:
+ 795               		.stabs	"",36,0,0,.Lscope9-.LFBB9
+ 796               		.stabd	78,0,0
+ 797               		.stabs	"CLKSYS_XOSC_FailureDetection_Enable:F(0,15)",36,0,280,CLKSYS_XOSC_FailureDetection_Enable
+GAS LISTING /tmp/ccWPoaT8.s 			page 22
+
+
+ 798               	.global	CLKSYS_XOSC_FailureDetection_Enable
+ 799               		.type	CLKSYS_XOSC_FailureDetection_Enable, @function
+ 800               	CLKSYS_XOSC_FailureDetection_Enable:
+ 801               		.stabd	46,0,0
+ 268:requiredFiles/clksys_driver.c **** 	}
+ 269:requiredFiles/clksys_driver.c **** }
+ 270:requiredFiles/clksys_driver.c **** 
+ 271:requiredFiles/clksys_driver.c **** 
+ 272:requiredFiles/clksys_driver.c **** /*! \brief This function enables the External Oscillator Failure Detection
+ 273:requiredFiles/clksys_driver.c ****  *         (XOSCFD) feature.
+ 274:requiredFiles/clksys_driver.c ****  *
+ 275:requiredFiles/clksys_driver.c ****  *  The feature will stay enabled until next reset. Note that the
+ 276:requiredFiles/clksys_driver.c ****  *  XOSCFD _will_ issue the XOSCF Non-maskable Interrupt (NMI) regardless of
+ 277:requiredFiles/clksys_driver.c ****  *  any interrupt priorities and settings. Therefore, make sure that a handler
+ 278:requiredFiles/clksys_driver.c ****  *  is implemented for the XOSCF NMI when you enable it.
+ 279:requiredFiles/clksys_driver.c ****  */
+ 280:requiredFiles/clksys_driver.c **** void CLKSYS_XOSC_FailureDetection_Enable( void )
+ 281:requiredFiles/clksys_driver.c **** {
+ 802               		.stabn	68,0,281,.LM43-.LFBB10
+ 803               	.LM43:
+ 804               	.LFBB10:
+ 805               	/* prologue: function */
+ 806               	/* frame size = 0 */
+ 807               	/* stack size = 0 */
+ 808               	.L__stack_usage = 0
+ 282:requiredFiles/clksys_driver.c **** 	CCPWrite( &OSC.XOSCFAIL, ( OSC_XOSCFDIF_bm | OSC_XOSCFDEN_bm ) );
+ 809               		.stabn	68,0,282,.LM44-.LFBB10
+ 810               	.LM44:
+ 811 00fe 83E5      		ldi r24,lo8(83)
+ 812 0100 90E0      		ldi r25,hi8(83)
+ 813 0102 63E0      		ldi r22,lo8(3)
+ 814 0104 0E94 0000 		call CCPWrite
+ 815               	/* epilogue start */
+ 283:requiredFiles/clksys_driver.c **** }
+ 816               		.stabn	68,0,283,.LM45-.LFBB10
+ 817               	.LM45:
+ 818 0108 0895      		ret
+ 819               		.size	CLKSYS_XOSC_FailureDetection_Enable, .-CLKSYS_XOSC_FailureDetection_Enable
+ 820               	.Lscope10:
+ 821               		.stabs	"",36,0,0,.Lscope10-.LFBB10
+ 822               		.stabd	78,0,0
+ 823               		.stabs	"CLKSYS_Configuration_Lock:F(0,15)",36,0,292,CLKSYS_Configuration_Lock
+ 824               	.global	CLKSYS_Configuration_Lock
+ 825               		.type	CLKSYS_Configuration_Lock, @function
+ 826               	CLKSYS_Configuration_Lock:
+ 827               		.stabd	46,0,0
+ 284:requiredFiles/clksys_driver.c **** 
+ 285:requiredFiles/clksys_driver.c **** 
+ 286:requiredFiles/clksys_driver.c **** /*! \brief This function lock the entire clock system configuration.
+ 287:requiredFiles/clksys_driver.c ****  *
+ 288:requiredFiles/clksys_driver.c ****  *  This will lock the configuration until the next reset, or until the
+ 289:requiredFiles/clksys_driver.c ****  *  External Oscillator Failure Detections (XOSCFD) feature detects a failure
+ 290:requiredFiles/clksys_driver.c ****  *  and switches to internal 2MHz RC oscillator.
+ 291:requiredFiles/clksys_driver.c ****  */
+ 292:requiredFiles/clksys_driver.c **** void CLKSYS_Configuration_Lock( void )
+ 293:requiredFiles/clksys_driver.c **** {
+ 828               		.stabn	68,0,293,.LM46-.LFBB11
+GAS LISTING /tmp/ccWPoaT8.s 			page 23
+
+
+ 829               	.LM46:
+ 830               	.LFBB11:
+ 831               	/* prologue: function */
+ 832               	/* frame size = 0 */
+ 833               	/* stack size = 0 */
+ 834               	.L__stack_usage = 0
+ 294:requiredFiles/clksys_driver.c **** 	CCPWrite( &CLK.LOCK, CLK_LOCK_bm );
+ 835               		.stabn	68,0,294,.LM47-.LFBB11
+ 836               	.LM47:
+ 837 010a 82E4      		ldi r24,lo8(66)
+ 838 010c 90E0      		ldi r25,hi8(66)
+ 839 010e 61E0      		ldi r22,lo8(1)
+ 840 0110 0E94 0000 		call CCPWrite
+ 841               	/* epilogue start */
+ 295:requiredFiles/clksys_driver.c **** }
+ 842               		.stabn	68,0,295,.LM48-.LFBB11
+ 843               	.LM48:
+ 844 0114 0895      		ret
+ 845               		.size	CLKSYS_Configuration_Lock, .-CLKSYS_Configuration_Lock
+ 846               	.Lscope11:
+ 847               		.stabs	"",36,0,0,.Lscope11-.LFBB11
+ 848               		.stabd	78,0,0
+ 849               		.stabs	"delay_ms:F(0,15)",36,0,28,delay_ms
+ 850               	.global	delay_ms
+ 851               		.type	delay_ms, @function
+ 852               	delay_ms:
+ 853               		.stabd	46,0,0
+ 854               		.stabs	"main.c",132,0,0,.Ltext2
+ 855               	.Ltext2:
+  29:main.c        **** { 
+ 856               		.stabn	68,0,29,.LM49-.LFBB12
+ 857               	.LM49:
+ 858               	.LFBB12:
+ 859               	/* prologue: function */
+ 860               	/* frame size = 0 */
+ 861               	/* stack size = 0 */
+ 862               	.L__stack_usage = 0
+  29:main.c        **** { 
+ 863               		.stabn	68,0,29,.LM50-.LFBB12
+ 864               	.LM50:
+ 865 0116 282F      		mov r18,r24
+ 866 0118 392F      		mov r19,r25
+ 867 011a C901      		movw r24,r18
+  30:main.c        ****     while (ms--) 
+ 868               		.stabn	68,0,30,.LM51-.LFBB12
+ 869               	.LM51:
+ 870 011c 00C0      		rjmp .L22
+ 871               	.L23:
+ 872               	.LBB6:
+ 873               	.LBB7:
+ 874               		.stabs	"/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h",132,0,0,.Ltext3
+ 875               	.Ltext3:
+   1:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    All rights reserved.
+   5:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+GAS LISTING /tmp/ccWPoaT8.s 			page 24
+
+
+   6:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Redistribution and use in source and binary forms, with or without
+   7:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+   9:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    * Redistributions of source code must retain the above copyright
+  10:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  12:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****      the documentation and/or other materials provided with the
+  15:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****      distribution.
+  16:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  17:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****      contributors may be used to endorse or promote products derived
+  19:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****      from this software without specific prior written permission.
+  20:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  21:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  33:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** /* $Id: delay.h.in 2189 2010-10-13 09:39:34Z aboyapati $ */
+  34:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  35:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #ifndef _UTIL_DELAY_H_
+  36:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #define _UTIL_DELAY_H_ 1
+  37:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  38:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #ifndef __HAS_DELAY_CYCLES
+  39:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #define __HAS_DELAY_CYCLES 1
+  40:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #endif
+  41:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  42:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #include <inttypes.h>
+  43:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #include <util/delay_basic.h>
+  44:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #include <math.h>
+  45:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  46:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** /** \file */
+  47:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  48:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     \code
+  49:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  50:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     //#define F_CPU 14.7456E6
+  51:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     #include <util/delay.h>
+  52:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     \endcode
+  53:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  54:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     \note As an alternative method, it is possible to pass the
+  55:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  56:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     Obviously, in that case, no \c \#define statement should be
+  57:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     used.
+  58:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  59:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     The functions in this header file are wrappers around the basic
+  60:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  61:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     convenience functions where actual time values can be specified
+  62:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+GAS LISTING /tmp/ccWPoaT8.s 			page 25
+
+
+  63:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     that compile-time constant expressions will be eliminated by
+  64:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     compiler optimization so floating-point expressions can be used
+  65:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  66:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     frequency passed by the macro F_CPU.
+  67:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  68:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     \note In order for these functions to work as intended, compiler
+  69:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  70:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     <em>must</em> be an expression that is a known constant at
+  71:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     compile-time.  If these requirements are not met, the resulting
+  72:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     delay will be much longer (and basically unpredictable), and
+  73:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     applications that otherwise do not use floating-point calculations
+  74:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     will experience severe code bloat by the floating-point library
+  75:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     routines linked into the application.
+  76:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  77:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     The functions available allow the specification of microsecond, and
+  78:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     millisecond delays directly, using the application-supplied macro
+  79:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  80:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  81:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** */
+  82:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  83:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #if !defined(__DOXYGEN__)
+  84:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** static inline void _delay_us(double __us) __attribute__((always_inline));
+  85:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** static inline void _delay_ms(double __ms) __attribute__((always_inline));
+  86:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #endif
+  87:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  88:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #ifndef F_CPU
+  89:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** /* prevent compiler error by supplying a default */
+  90:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  91:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** # define F_CPU 1000000UL
+  92:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #endif
+  93:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  94:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #ifndef __OPTIMIZE__
+  95:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+  96:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #endif
+  97:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+  98:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** /**
+  99:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    \ingroup util_delay
+ 100:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 101:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 102:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 103:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 104:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 105:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 106:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 107:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 108:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    When the user request delay which exceed the maximum possible one,
+ 109:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 110:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 111:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 112:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    user will not be informed about decreased resolution.
+ 113:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 114:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles(unsigned long)
+ 115:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 116:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    values greater than the maximal possible delay, overflows results in
+ 117:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    no delay i.e., 0ms.
+ 118:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 119:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Conversion of __us into clock cycles may not always result in integer.
+GAS LISTING /tmp/ccWPoaT8.s 			page 26
+
+
+ 120:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    By default, the clock cycles rounded up to next integer. This ensures that
+ 121:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    the user gets atleast __us microseconds of delay.
+ 122:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 123:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Alternatively, user can define __DELAY_ROUND_DOWN__ and __DELAY_ROUND_CLOSEST__
+ 124:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    to round down and round to closest integer.
+ 125:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 126:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Note: The new implementation of _delay_ms(double __ms) with 
+ 127:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     __builtin_avr_delay_cycles(unsigned long) support is not backward compatible. 
+ 128:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    User can define __DELAY_BACKWARD_COMPATIBLE__ to get a backward compatible delay
+ 129:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    although this will be deprecated in future.
+ 130:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 131:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****  */
+ 132:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** void
+ 133:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** _delay_ms(double __ms)
+ 134:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** {
+ 135:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	uint16_t __ticks;
+ 136:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	double __tmp ; 
+ 137:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && !defined(__DELAY_BACKWARD_COMPATIBLE__)
+ 138:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+ 139:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 140:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+ 141:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 142:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 143:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 144:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 145:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 146:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 147:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 148:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	#else
+ 149:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		//round up by default
+ 150:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 151:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	#endif
+ 152:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 153:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 154:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 155:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #elif !__HAS_DELAY_CYCLES || (__HAS_DELAY_CYCLES && !defined(__OPTIMIZE__)) || defined (__DELAY_BAC
+ 156:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 4e3) * __ms;
+ 157:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	if (__tmp < 1.0)
+ 158:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		__ticks = 1;
+ 159:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	else if (__tmp > 65535)
+ 160:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	{
+ 161:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		//	__ticks = requested delay in 1/10 ms
+ 162:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		__ticks = (uint16_t) (__ms * 10.0);
+ 163:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		while(__ticks)
+ 164:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		{
+ 165:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 			// wait 1/10 ms
+ 166:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 			_delay_loop_2(((F_CPU) / 4e3) / 10);
+ 167:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 			__ticks --;
+ 168:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		}
+ 169:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		return;
+ 170:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	}
+ 171:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	else
+ 172:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		__ticks = (uint16_t)__tmp;
+ 173:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	_delay_loop_2(__ticks);
+ 174:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #endif
+ 175:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** }
+ 176:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+GAS LISTING /tmp/ccWPoaT8.s 			page 27
+
+
+ 177:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** /**
+ 178:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    \ingroup util_delay
+ 179:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 180:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Perform a delay of \c __us microseconds, using _delay_loop_1().
+ 181:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 182:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 183:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 184:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 185:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    The maximal possible delay is 768 us / F_CPU in MHz.
+ 186:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 187:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    If the user requests a delay greater than the maximal possible one,
+ 188:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    _delay_us() will automatically call _delay_ms() instead.  The user
+ 189:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    will not be informed about this case.
+ 190:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 191:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles(unsigned long)
+ 192:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 us/ F_CPU in MHz. For
+ 193:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    values greater than the maximal possible delay, overflow results in
+ 194:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    no delay i.e., 0us.
+ 195:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****   
+ 196:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Conversion of __us into clock cycles may not always result in integer.
+ 197:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    By default, the clock cycles rounded up to next integer. This ensures that
+ 198:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    the user gets atleast __us microseconds of delay.
+ 199:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 200:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Alternatively, user can define __DELAY_ROUND_DOWN__ and __DELAY_ROUND_CLOSEST__
+ 201:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    to round down and round to closest integer.
+ 202:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****  
+ 203:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    Note: The new implementation of _delay_us(double __us) with 
+ 204:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****     __builtin_avr_delay_cycles(unsigned long) support is not backward compatible.
+ 205:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    User can define __DELAY_BACKWARD_COMPATIBLE__ to get a backward compatible delay
+ 206:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****    although this will be deprecated in future.
+ 207:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 208:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h ****  */
+ 209:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** void
+ 210:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** _delay_us(double __us)
+ 211:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** {
+ 212:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	uint8_t __ticks;
+ 213:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	double __tmp ; 
+ 214:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && !defined(__DELAY_BACKWARD_COMPATIBLE__)
+ 215:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+ 216:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 217:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+ 218:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 219:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 220:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 221:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 222:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 223:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 224:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 225:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	#else
+ 226:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		//round up by default
+ 227:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 228:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	#endif
+ 229:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 
+ 230:/usr/lib/gcc/avr/4.5.3/../../../avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 876               		.stabn	68,0,230,.LM52-.LFBB12
+ 877               	.LM52:
+ 878 011e EFE3      		 ldi r30,lo8(7999)
+GAS LISTING /tmp/ccWPoaT8.s 			page 28
+
+
+ 879 0120 FFE1      	    ldi r31,hi8(7999)
+ 880 0122 3197      	    1:sbiw r30,1
+ 881 0124 01F4      	    brne 1b
+ 882 0126 00C0      		rjmp .
+ 883 0128 0000      		nop
+ 884 012a 0197      		sbiw r24,1
+ 885               	.L22:
+ 886               	.LBE7:
+ 887               	.LBE6:
+ 888               		.stabs	"main.c",132,0,0,.Ltext4
+ 889               	.Ltext4:
+  30:main.c        ****     while (ms--) 
+ 890               		.stabn	68,0,30,.LM53-.LFBB12
+ 891               	.LM53:
+ 892 012c 0097      		sbiw r24,0
+ 893 012e 01F4      		brne .L23
+ 894               	/* epilogue start */
+  32:main.c        **** } 
+ 895               		.stabn	68,0,32,.LM54-.LFBB12
+ 896               	.LM54:
+ 897 0130 0895      		ret
+ 898               		.size	delay_ms, .-delay_ms
+ 899               	.Lscope12:
+ 900               		.stabs	"",36,0,0,.Lscope12-.LFBB12
+ 901               		.stabd	78,0,0
+ 902               		.stabs	"Config32MHzClock:F(0,15)",36,0,34,Config32MHzClock
+ 903               	.global	Config32MHzClock
+ 904               		.type	Config32MHzClock, @function
+ 905               	Config32MHzClock:
+ 906               		.stabd	46,0,0
+  35:main.c        **** { 
+ 907               		.stabn	68,0,35,.LM55-.LFBB13
+ 908               	.LM55:
+ 909               	.LFBB13:
+ 910               	/* prologue: function */
+ 911               	/* frame size = 0 */
+ 912               	/* stack size = 0 */
+ 913               	.L__stack_usage = 0
+  36:main.c        **** 	CCP = CCP_IOREG_gc; //Security Signature to modify clock 
+ 914               		.stabn	68,0,36,.LM56-.LFBB13
+ 915               	.LM56:
+ 916 0132 88ED      		ldi r24,lo8(-40)
+ 917 0134 84BF      		out 52-0,r24
+  38:main.c        **** 	OSC.CTRL = OSC_RC32MEN_bm; // enable internal 32MHz oscillator 
+ 918               		.stabn	68,0,38,.LM57-.LFBB13
+ 919               	.LM57:
+ 920 0136 82E0      		ldi r24,lo8(2)
+ 921 0138 8093 5000 		sts 80,r24
+ 922               	.L25:
+  39:main.c        **** 	while(!(OSC.STATUS & OSC_RC32MRDY_bm)); // wait for oscillator ready 
+ 923               		.stabn	68,0,39,.LM58-.LFBB13
+ 924               	.LM58:
+ 925 013c 8091 5100 		lds r24,81
+ 926 0140 81FF      		sbrs r24,1
+ 927 0142 00C0      		rjmp .L25
+  40:main.c        **** 	CCP = CCP_IOREG_gc; //Security Signature to modify clock 
+ 928               		.stabn	68,0,40,.LM59-.LFBB13
+GAS LISTING /tmp/ccWPoaT8.s 			page 29
+
+
+ 929               	.LM59:
+ 930 0144 88ED      		ldi r24,lo8(-40)
+ 931 0146 84BF      		out 52-0,r24
+  41:main.c        **** 	CLK.CTRL = 0x01; //select sysclock 32MHz osc 
+ 932               		.stabn	68,0,41,.LM60-.LFBB13
+ 933               	.LM60:
+ 934 0148 81E0      		ldi r24,lo8(1)
+ 935 014a 8093 4000 		sts 64,r24
+ 936               	/* epilogue start */
+  42:main.c        **** }
+ 937               		.stabn	68,0,42,.LM61-.LFBB13
+ 938               	.LM61:
+ 939 014e 0895      		ret
+ 940               		.size	Config32MHzClock, .-Config32MHzClock
+ 941               	.Lscope13:
+ 942               		.stabs	"",36,0,0,.Lscope13-.LFBB13
+ 943               		.stabd	78,0,0
+ 944               		.stabs	"blink:F(0,15)",36,0,44,blink
+ 945               		.stabs	"myVal:P(0,1)",64,0,44,28
+ 946               	.global	blink
+ 947               		.type	blink, @function
+ 948               	blink:
+ 949               		.stabd	46,0,0
+  44:main.c        **** void blink(int myVal){
+ 950               		.stabn	68,0,44,.LM62-.LFBB14
+ 951               	.LM62:
+ 952               	.LFBB14:
+ 953 0150 FF92      		push r15
+ 954 0152 0F93      		push r16
+ 955 0154 1F93      		push r17
+ 956 0156 CF93      		push r28
+ 957 0158 DF93      		push r29
+ 958               	/* prologue: function */
+ 959               	/* frame size = 0 */
+ 960               	/* stack size = 5 */
+ 961               	.L__stack_usage = 5
+ 962 015a EC01      		movw r28,r24
+  45:main.c        **** 		PORTE.OUTSET = _BV(0);
+ 963               		.stabn	68,0,45,.LM63-.LFBB14
+ 964               	.LM63:
+ 965 015c 00E8      		ldi r16,lo8(1664)
+ 966 015e 16E0      		ldi r17,hi8(1664)
+ 967 0160 FF24      		clr r15
+ 968 0162 F394      		inc r15
+ 969 0164 F801      		movw r30,r16
+ 970 0166 F582      		std Z+5,r15
+  46:main.c        ****         delay_ms(myVal);
+ 971               		.stabn	68,0,46,.LM64-.LFBB14
+ 972               	.LM64:
+ 973 0168 0E94 0000 		call delay_ms
+  47:main.c        ****         PORTE.OUTCLR = _BV(0);
+ 974               		.stabn	68,0,47,.LM65-.LFBB14
+ 975               	.LM65:
+ 976 016c F801      		movw r30,r16
+ 977 016e F682      		std Z+6,r15
+  48:main.c        ****         delay_ms(myVal);
+ 978               		.stabn	68,0,48,.LM66-.LFBB14
+GAS LISTING /tmp/ccWPoaT8.s 			page 30
+
+
+ 979               	.LM66:
+ 980 0170 CE01      		movw r24,r28
+ 981 0172 0E94 0000 		call delay_ms
+ 982               	/* epilogue start */
+  49:main.c        **** }
+ 983               		.stabn	68,0,49,.LM67-.LFBB14
+ 984               	.LM67:
+ 985 0176 DF91      		pop r29
+ 986 0178 CF91      		pop r28
+ 987 017a 1F91      		pop r17
+ 988 017c 0F91      		pop r16
+ 989 017e FF90      		pop r15
+ 990 0180 0895      		ret
+ 991               		.size	blink, .-blink
+ 992               	.Lscope14:
+ 993               		.stabs	"",36,0,0,.Lscope14-.LFBB14
+ 994               		.stabd	78,0,0
+ 995               		.stabs	"blinkQuick:F(0,15)",36,0,51,blinkQuick
+ 996               	.global	blinkQuick
+ 997               		.type	blinkQuick, @function
+ 998               	blinkQuick:
+ 999               		.stabd	46,0,0
+  51:main.c        **** void blinkQuick(void){
+ 1000               		.stabn	68,0,51,.LM68-.LFBB15
+ 1001               	.LM68:
+ 1002               	.LFBB15:
+ 1003               	/* prologue: function */
+ 1004               	/* frame size = 0 */
+ 1005               	/* stack size = 0 */
+ 1006               	.L__stack_usage = 0
+  52:main.c        **** 	blink(500);
+ 1007               		.stabn	68,0,52,.LM69-.LFBB15
+ 1008               	.LM69:
+ 1009 0182 84EF      		ldi r24,lo8(500)
+ 1010 0184 91E0      		ldi r25,hi8(500)
+ 1011 0186 0E94 0000 		call blink
+ 1012               	/* epilogue start */
+  53:main.c        **** }
+ 1013               		.stabn	68,0,53,.LM70-.LFBB15
+ 1014               	.LM70:
+ 1015 018a 0895      		ret
+ 1016               		.size	blinkQuick, .-blinkQuick
+ 1017               	.Lscope15:
+ 1018               		.stabs	"",36,0,0,.Lscope15-.LFBB15
+ 1019               		.stabd	78,0,0
+ 1020               		.stabs	"blinkTen:F(0,15)",36,0,55,blinkTen
+ 1021               	.global	blinkTen
+ 1022               		.type	blinkTen, @function
+ 1023               	blinkTen:
+ 1024               		.stabd	46,0,0
+  55:main.c        **** void blinkTen(void){
+ 1025               		.stabn	68,0,55,.LM71-.LFBB16
+ 1026               	.LM71:
+ 1027               	.LFBB16:
+ 1028 018c CF93      		push r28
+ 1029 018e DF93      		push r29
+ 1030               	/* prologue: function */
+GAS LISTING /tmp/ccWPoaT8.s 			page 31
+
+
+ 1031               	/* frame size = 0 */
+ 1032               	/* stack size = 2 */
+ 1033               	.L__stack_usage = 2
+  55:main.c        **** void blinkTen(void){
+ 1034               		.stabn	68,0,55,.LM72-.LFBB16
+ 1035               	.LM72:
+ 1036 0190 CAE0      		ldi r28,lo8(10)
+ 1037 0192 D0E0      		ldi r29,hi8(10)
+ 1038               	.L30:
+  58:main.c        **** 		blink(50);
+ 1039               		.stabn	68,0,58,.LM73-.LFBB16
+ 1040               	.LM73:
+ 1041 0194 82E3      		ldi r24,lo8(50)
+ 1042 0196 90E0      		ldi r25,hi8(50)
+ 1043 0198 0E94 0000 		call blink
+ 1044 019c 2197      		sbiw r28,1
+  57:main.c        **** 	for (i=0;i<10;i++){
+ 1045               		.stabn	68,0,57,.LM74-.LFBB16
+ 1046               	.LM74:
+ 1047 019e 01F4      		brne .L30
+ 1048               	/* epilogue start */
+  60:main.c        **** }
+ 1049               		.stabn	68,0,60,.LM75-.LFBB16
+ 1050               	.LM75:
+ 1051 01a0 DF91      		pop r29
+ 1052 01a2 CF91      		pop r28
+ 1053 01a4 0895      		ret
+ 1054               		.size	blinkTen, .-blinkTen
+ 1055               	.Lscope16:
+ 1056               		.stabs	"",36,0,0,.Lscope16-.LFBB16
+ 1057               		.stabd	78,0,0
+ 1058               		.stabs	"blinkN:F(0,15)",36,0,62,blinkN
+ 1059               		.stabs	"n:P(0,1)",64,0,62,16
+ 1060               	.global	blinkN
+ 1061               		.type	blinkN, @function
+ 1062               	blinkN:
+ 1063               		.stabd	46,0,0
+  62:main.c        **** void blinkN(int n){
+ 1064               		.stabn	68,0,62,.LM76-.LFBB17
+ 1065               	.LM76:
+ 1066               	.LFBB17:
+ 1067 01a6 0F93      		push r16
+ 1068 01a8 1F93      		push r17
+ 1069 01aa CF93      		push r28
+ 1070 01ac DF93      		push r29
+ 1071               	/* prologue: function */
+ 1072               	/* frame size = 0 */
+ 1073               	/* stack size = 4 */
+ 1074               	.L__stack_usage = 4
+ 1075 01ae 8C01      		movw r16,r24
+  64:main.c        **** 	for (i=0;i<n;i++){
+ 1076               		.stabn	68,0,64,.LM77-.LFBB17
+ 1077               	.LM77:
+ 1078 01b0 C0E0      		ldi r28,lo8(0)
+ 1079 01b2 D0E0      		ldi r29,hi8(0)
+ 1080 01b4 00C0      		rjmp .L33
+ 1081               	.L34:
+GAS LISTING /tmp/ccWPoaT8.s 			page 32
+
+
+  65:main.c        **** 		blink(50);
+ 1082               		.stabn	68,0,65,.LM78-.LFBB17
+ 1083               	.LM78:
+ 1084 01b6 82E3      		ldi r24,lo8(50)
+ 1085 01b8 90E0      		ldi r25,hi8(50)
+ 1086 01ba 0E94 0000 		call blink
+  64:main.c        **** 	for (i=0;i<n;i++){
+ 1087               		.stabn	68,0,64,.LM79-.LFBB17
+ 1088               	.LM79:
+ 1089 01be 2196      		adiw r28,1
+ 1090               	.L33:
+  64:main.c        **** 	for (i=0;i<n;i++){
+ 1091               		.stabn	68,0,64,.LM80-.LFBB17
+ 1092               	.LM80:
+ 1093 01c0 C017      		cp r28,r16
+ 1094 01c2 D107      		cpc r29,r17
+ 1095 01c4 04F0      		brlt .L34
+ 1096               	/* epilogue start */
+  67:main.c        **** }
+ 1097               		.stabn	68,0,67,.LM81-.LFBB17
+ 1098               	.LM81:
+ 1099 01c6 DF91      		pop r29
+ 1100 01c8 CF91      		pop r28
+ 1101 01ca 1F91      		pop r17
+ 1102 01cc 0F91      		pop r16
+ 1103 01ce 0895      		ret
+ 1104               		.size	blinkN, .-blinkN
+ 1105               		.stabs	"i:r(0,1)",64,0,63,28
+ 1106               		.stabn	192,0,0,.LFBB17-.LFBB17
+ 1107               		.stabn	224,0,0,.Lscope17-.LFBB17
+ 1108               	.Lscope17:
+ 1109               		.stabs	"",36,0,0,.Lscope17-.LFBB17
+ 1110               		.stabd	78,0,0
+ 1111               		.stabs	"init:F(0,15)",36,0,106,init
+ 1112               	.global	init
+ 1113               		.type	init, @function
+ 1114               	init:
+ 1115               		.stabd	46,0,0
+ 106:main.c        **** void init(void){
+ 1116               		.stabn	68,0,106,.LM82-.LFBB18
+ 1117               	.LM82:
+ 1118               	.LFBB18:
+ 1119               	/* prologue: function */
+ 1120               	/* frame size = 0 */
+ 1121               	/* stack size = 0 */
+ 1122               	.L__stack_usage = 0
+ 107:main.c        **** 		Config32MHzClock(); //Set Clock Speed to 32MHz	
+ 1123               		.stabn	68,0,107,.LM83-.LFBB18
+ 1124               	.LM83:
+ 1125 01d0 0E94 0000 		call Config32MHzClock
+ 108:main.c        **** 		PORTD.PIN4CTRL = PORT_OPC_PULLUP_gc; //Set pin D4 as INPUT and as a pullup (Detect when pulled LO
+ 1126               		.stabn	68,0,108,.LM84-.LFBB18
+ 1127               	.LM84:
+ 1128 01d4 E0E6      		ldi r30,lo8(1632)
+ 1129 01d6 F6E0      		ldi r31,hi8(1632)
+ 1130 01d8 98E1      		ldi r25,lo8(24)
+ 1131 01da 948B      		std Z+20,r25
+GAS LISTING /tmp/ccWPoaT8.s 			page 33
+
+
+ 109:main.c        **** 		PORTE.DIRSET |= _BV(0); //Set pin E0 as OUTPUT
+ 1132               		.stabn	68,0,109,.LM85-.LFBB18
+ 1133               	.LM85:
+ 1134 01dc A0E8      		ldi r26,lo8(1664)
+ 1135 01de B6E0      		ldi r27,hi8(1664)
+ 1136 01e0 1196      		adiw r26,1
+ 1137 01e2 8C91      		ld r24,X
+ 1138 01e4 1197      		sbiw r26,1
+ 1139 01e6 8160      		ori r24,lo8(1)
+ 1140 01e8 1196      		adiw r26,1
+ 1141 01ea 8C93      		st X,r24
+ 1142 01ec 1197      		sbiw r26,1
+ 1143               	.LBB8:
+ 1144               	.LBB9:
+ 134:main.c        **** 
+ 135:main.c        **** 
+ 136:main.c        **** int uart_get(void){
+ 137:main.c        ****     int output;
+ 138:main.c        ****     while(1){
+ 139:main.c        ****         if(uart_getchar() == '\n')
+ 140:main.c        ****             break;
+ 141:main.c        ****         else
+ 142:main.c        ****             output = uart_getchar();
+ 143:main.c        ****     }
+ 144:main.c        ****     return output;
+ 145:main.c        **** }
+ 146:main.c        **** 
+ 147:main.c        **** int uart_getchar (void) { 
+ 148:main.c        ****     while( !(USARTD1_STATUS & USART_RXCIF_bm) ){
+ 149:main.c        ****         PORTE.OUTSET = _BV(0);
+ 150:main.c        ****     }
+ 151:main.c        ****     PORTE.OUTCLR = _BV(0);
+ 152:main.c        ****     return USARTD1.DATA;
+ 153:main.c        **** } 
+ 154:main.c        **** 
+ 155:main.c        **** // Init USART.  Transmit only (we're not receiving anything) 
+ 156:main.c        **** // We use USARTD1, transmit pin on PC7. 
+ 157:main.c        **** // Want 115200 baud. Have a 32 MHz clock. BSCALE = 0 
+ 158:main.c        **** // BSEL = ( 32000000 / (2^0 * 16*115200)) -1 = 16.361111111
+ 159:main.c        **** // Fbaud = 32000000 / (2^0 * 16 * (16+1))  = 117647 bits/sec 
+ 160:main.c        **** static void uart_init (void) { 
+ 161:main.c        ****     // Set the TxD pin high - set PORTD DIR register bit 7 to 1 
+ 162:main.c        ****     PORTD.OUTSET = PIN7_bm; 
+ 1145               		.stabn	68,0,162,.LM86-.LFBB18
+ 1146               	.LM86:
+ 1147 01ee 80E8      		ldi r24,lo8(-128)
+ 1148 01f0 8583      		std Z+5,r24
+ 163:main.c        **** 
+ 164:main.c        ****     // Set the TxD pin as an output - set PORTC OUT register bit 3 to 1 
+ 165:main.c        ****     PORTD.DIRSET = PIN7_bm; 
+ 1149               		.stabn	68,0,165,.LM87-.LFBB18
+ 1150               	.LM87:
+ 1151 01f2 8183      		std Z+1,r24
+ 166:main.c        **** 
+ 167:main.c        ****     // Set baud rate & frame format 
+ 168:main.c        ****     
+ 169:main.c        ****     USARTD1.BAUDCTRLB = 0;                      // BSCALE = 0 as well 
+GAS LISTING /tmp/ccWPoaT8.s 			page 34
+
+
+ 1152               		.stabn	68,0,169,.LM88-.LFBB18
+ 1153               	.LM88:
+ 1154 01f4 E0EB      		ldi r30,lo8(2480)
+ 1155 01f6 F9E0      		ldi r31,hi8(2480)
+ 1156 01f8 1782      		std Z+7,__zero_reg__
+ 170:main.c        ****     USARTD1.BAUDCTRLA = 51; //16 for 32MHz at 115200, 12 for 2MHz at 9600, 51 for  38400 at 32MHz
+ 1157               		.stabn	68,0,170,.LM89-.LFBB18
+ 1158               	.LM89:
+ 1159 01fa 83E3      		ldi r24,lo8(51)
+ 1160 01fc 8683      		std Z+6,r24
+ 171:main.c        **** 
+ 172:main.c        ****     // Set mode of operation 
+ 173:main.c        ****     USARTD1.CTRLA = 0;                          // no interrupts please 
+ 1161               		.stabn	68,0,173,.LM90-.LFBB18
+ 1162               	.LM90:
+ 1163 01fe 1382      		std Z+3,__zero_reg__
+ 174:main.c        ****     USARTD1.CTRLC = 0x03;                       // async, no parity, 8 bit data, 1 stop bit 
+ 1164               		.stabn	68,0,174,.LM91-.LFBB18
+ 1165               	.LM91:
+ 1166 0200 83E0      		ldi r24,lo8(3)
+ 1167 0202 8583      		std Z+5,r24
+ 175:main.c        **** 
+ 176:main.c        ****     // Enable transmitter only 
+ 177:main.c        ****     USARTD1.CTRLB =USART_RXEN_bm|USART_TXEN_bm; 
+ 1168               		.stabn	68,0,177,.LM92-.LFBB18
+ 1169               	.LM92:
+ 1170 0204 9483      		std Z+4,r25
+ 1171               	/* epilogue start */
+ 1172               	.LBE9:
+ 1173               	.LBE8:
+ 111:main.c        **** }
+ 1174               		.stabn	68,0,111,.LM93-.LFBB18
+ 1175               	.LM93:
+ 1176 0206 0895      		ret
+ 1177               		.size	init, .-init
+ 1178               	.Lscope18:
+ 1179               		.stabs	"",36,0,0,.Lscope18-.LFBB18
+ 1180               		.stabd	78,0,0
+ 1181               		.stabs	"uart_getchar:F(0,1)",36,0,147,uart_getchar
+ 1182               	.global	uart_getchar
+ 1183               		.type	uart_getchar, @function
+ 1184               	uart_getchar:
+ 1185               		.stabd	46,0,0
+ 147:main.c        **** int uart_getchar (void) { 
+ 1186               		.stabn	68,0,147,.LM94-.LFBB19
+ 1187               	.LM94:
+ 1188               	.LFBB19:
+ 1189               	/* prologue: function */
+ 1190               	/* frame size = 0 */
+ 1191               	/* stack size = 0 */
+ 1192               	.L__stack_usage = 0
+ 149:main.c        ****         PORTE.OUTSET = _BV(0);
+ 1193               		.stabn	68,0,149,.LM95-.LFBB19
+ 1194               	.LM95:
+ 1195 0208 E0E8      		ldi r30,lo8(1664)
+ 1196 020a F6E0      		ldi r31,hi8(1664)
+ 1197 020c 81E0      		ldi r24,lo8(1)
+GAS LISTING /tmp/ccWPoaT8.s 			page 35
+
+
+ 148:main.c        ****     while( !(USARTD1_STATUS & USART_RXCIF_bm) ){
+ 1198               		.stabn	68,0,148,.LM96-.LFBB19
+ 1199               	.LM96:
+ 1200 020e 00C0      		rjmp .L37
+ 1201               	.L38:
+ 149:main.c        ****         PORTE.OUTSET = _BV(0);
+ 1202               		.stabn	68,0,149,.LM97-.LFBB19
+ 1203               	.LM97:
+ 1204 0210 8583      		std Z+5,r24
+ 1205               	.L37:
+ 148:main.c        ****     while( !(USARTD1_STATUS & USART_RXCIF_bm) ){
+ 1206               		.stabn	68,0,148,.LM98-.LFBB19
+ 1207               	.LM98:
+ 1208 0212 9091 B109 		lds r25,2481
+ 1209 0216 97FF      		sbrs r25,7
+ 1210 0218 00C0      		rjmp .L38
+ 151:main.c        ****     PORTE.OUTCLR = _BV(0);
+ 1211               		.stabn	68,0,151,.LM99-.LFBB19
+ 1212               	.LM99:
+ 1213 021a 81E0      		ldi r24,lo8(1)
+ 1214 021c E0E8      		ldi r30,lo8(1664)
+ 1215 021e F6E0      		ldi r31,hi8(1664)
+ 1216 0220 8683      		std Z+6,r24
+ 152:main.c        ****     return USARTD1.DATA;
+ 1217               		.stabn	68,0,152,.LM100-.LFBB19
+ 1218               	.LM100:
+ 1219 0222 8091 B009 		lds r24,2480
+ 153:main.c        **** } 
+ 1220               		.stabn	68,0,153,.LM101-.LFBB19
+ 1221               	.LM101:
+ 1222 0226 90E0      		ldi r25,lo8(0)
+ 1223               	/* epilogue start */
+ 1224 0228 0895      		ret
+ 1225               		.size	uart_getchar, .-uart_getchar
+ 1226               	.Lscope19:
+ 1227               		.stabs	"",36,0,0,.Lscope19-.LFBB19
+ 1228               		.stabd	78,0,0
+ 1229               		.stabs	"uart_get:F(0,1)",36,0,136,uart_get
+ 1230               	.global	uart_get
+ 1231               		.type	uart_get, @function
+ 1232               	uart_get:
+ 1233               		.stabd	46,0,0
+ 136:main.c        **** int uart_get(void){
+ 1234               		.stabn	68,0,136,.LM102-.LFBB20
+ 1235               	.LM102:
+ 1236               	.LFBB20:
+ 1237 022a 0F93      		push r16
+ 1238 022c 1F93      		push r17
+ 1239               	/* prologue: function */
+ 1240               	/* frame size = 0 */
+ 1241               	/* stack size = 2 */
+ 1242               	.L__stack_usage = 2
+ 1243               	.L41:
+ 1244               	.LBB10:
+ 139:main.c        ****         if(uart_getchar() == '\n')
+ 1245               		.stabn	68,0,139,.LM103-.LFBB20
+ 1246               	.LM103:
+GAS LISTING /tmp/ccWPoaT8.s 			page 36
+
+
+ 1247 022e 0E94 0000 		call uart_getchar
+ 1248 0232 8A30      		cpi r24,10
+ 1249 0234 9105      		cpc r25,__zero_reg__
+ 1250 0236 01F0      		breq .L40
+ 142:main.c        ****             output = uart_getchar();
+ 1251               		.stabn	68,0,142,.LM104-.LFBB20
+ 1252               	.LM104:
+ 1253 0238 0E94 0000 		call uart_getchar
+ 1254 023c 8C01      		movw r16,r24
+ 1255               	.LBE10:
+ 143:main.c        ****     }
+ 1256               		.stabn	68,0,143,.LM105-.LFBB20
+ 1257               	.LM105:
+ 1258 023e 00C0      		rjmp .L41
+ 1259               	.L40:
+ 145:main.c        **** }
+ 1260               		.stabn	68,0,145,.LM106-.LFBB20
+ 1261               	.LM106:
+ 1262 0240 C801      		movw r24,r16
+ 1263               	/* epilogue start */
+ 1264 0242 1F91      		pop r17
+ 1265 0244 0F91      		pop r16
+ 1266 0246 0895      		ret
+ 1267               		.size	uart_get, .-uart_get
+ 1268               	.Lscope20:
+ 1269               		.stabs	"",36,0,0,.Lscope20-.LFBB20
+ 1270               		.stabd	78,0,0
+ 1271               		.stabs	"update:F(0,15)",36,0,69,update
+ 1272               	.global	update
+ 1273               		.type	update, @function
+ 1274               	update:
+ 1275               		.stabd	46,0,0
+  69:main.c        **** void update(void){
+ 1276               		.stabn	68,0,69,.LM107-.LFBB21
+ 1277               	.LM107:
+ 1278               	.LFBB21:
+ 1279 0248 0F93      		push r16
+ 1280 024a 1F93      		push r17
+ 1281 024c CF93      		push r28
+ 1282 024e DF93      		push r29
+ 1283               	/* prologue: function */
+ 1284               	/* frame size = 0 */
+ 1285               	/* stack size = 4 */
+ 1286               	.L__stack_usage = 4
+  72:main.c        ****     for(i = 0; i < 6; i++){
+ 1287               		.stabn	68,0,72,.LM108-.LFBB21
+ 1288               	.LM108:
+ 1289 0250 C0E0      		ldi r28,lo8(vals)
+ 1290 0252 D0E0      		ldi r29,hi8(vals)
+ 1291 0254 00E0      		ldi r16,lo8(0)
+ 1292 0256 10E0      		ldi r17,hi8(0)
+ 1293               	.L46:
+  73:main.c        ****         vals[i] = 0; 
+ 1294               		.stabn	68,0,73,.LM109-.LFBB21
+ 1295               	.LM109:
+ 1296 0258 1882      		st Y,__zero_reg__
+ 1297 025a 1982      		std Y+1,__zero_reg__
+GAS LISTING /tmp/ccWPoaT8.s 			page 37
+
+
+ 1298               	.L45:
+ 1299               	.LBB11:
+  75:main.c        ****             c = uart_getchar();
+ 1300               		.stabn	68,0,75,.LM110-.LFBB21
+ 1301               	.LM110:
+ 1302 025c 0E94 0000 		call uart_getchar
+  76:main.c        ****             if(c == ','){
+ 1303               		.stabn	68,0,76,.LM111-.LFBB21
+ 1304               	.LM111:
+ 1305 0260 8C32      		cpi r24,44
+ 1306 0262 9105      		cpc r25,__zero_reg__
+ 1307 0264 01F0      		breq .L43
+  78:main.c        ****             }else if(c == '\n' && i == 5){
+ 1308               		.stabn	68,0,78,.LM112-.LFBB21
+ 1309               	.LM112:
+ 1310 0266 8A30      		cpi r24,10
+ 1311 0268 9105      		cpc r25,__zero_reg__
+ 1312 026a 01F4      		brne .L44
+  78:main.c        ****             }else if(c == '\n' && i == 5){
+ 1313               		.stabn	68,0,78,.LM113-.LFBB21
+ 1314               	.LM113:
+ 1315 026c 0530      		cpi r16,5
+ 1316 026e 1105      		cpc r17,__zero_reg__
+ 1317 0270 01F0      		breq .L43
+ 1318               	.L44:
+  81:main.c        ****                 vals[i] = vals[i]*10+(c - '0');
+ 1319               		.stabn	68,0,81,.LM114-.LFBB21
+ 1320               	.LM114:
+ 1321 0272 4881      		ld r20,Y
+ 1322 0274 5981      		ldd r21,Y+1
+ 1323 0276 9A01      		movw r18,r20
+ 1324 0278 220F      		lsl r18
+ 1325 027a 331F      		rol r19
+ 1326 027c 63E0      		ldi r22,3
+ 1327 027e 440F      	1:	lsl r20
+ 1328 0280 551F      		rol r21
+ 1329 0282 6A95      		dec r22
+ 1330 0284 01F4      		brne 1b
+ 1331 0286 240F      		add r18,r20
+ 1332 0288 351F      		adc r19,r21
+ 1333 028a 2053      		subi r18,lo8(-(-48))
+ 1334 028c 3040      		sbci r19,hi8(-(-48))
+ 1335 028e 280F      		add r18,r24
+ 1336 0290 391F      		adc r19,r25
+ 1337 0292 2883      		st Y,r18
+ 1338 0294 3983      		std Y+1,r19
+ 1339               	.LBE11:
+  83:main.c        ****         }
+ 1340               		.stabn	68,0,83,.LM115-.LFBB21
+ 1341               	.LM115:
+ 1342 0296 00C0      		rjmp .L45
+ 1343               	.L43:
+  72:main.c        ****     for(i = 0; i < 6; i++){
+ 1344               		.stabn	68,0,72,.LM116-.LFBB21
+ 1345               	.LM116:
+ 1346 0298 0F5F      		subi r16,lo8(-(1))
+ 1347 029a 1F4F      		sbci r17,hi8(-(1))
+GAS LISTING /tmp/ccWPoaT8.s 			page 38
+
+
+ 1348 029c 2296      		adiw r28,2
+ 1349 029e 0630      		cpi r16,6
+ 1350 02a0 1105      		cpc r17,__zero_reg__
+ 1351 02a2 01F4      		brne .L46
+ 1352               	/* epilogue start */
+  86:main.c        **** }
+ 1353               		.stabn	68,0,86,.LM117-.LFBB21
+ 1354               	.LM117:
+ 1355 02a4 DF91      		pop r29
+ 1356 02a6 CF91      		pop r28
+ 1357 02a8 1F91      		pop r17
+ 1358 02aa 0F91      		pop r16
+ 1359 02ac 0895      		ret
+ 1360               		.size	update, .-update
+ 1361               		.stabs	"c:r(0,1)",64,0,70,24
+ 1362               		.stabs	"i:r(0,1)",64,0,71,16
+ 1363               		.stabn	192,0,0,.LFBB21-.LFBB21
+ 1364               		.stabn	224,0,0,.Lscope21-.LFBB21
+ 1365               	.Lscope21:
+ 1366               		.stabs	"",36,0,0,.Lscope21-.LFBB21
+ 1367               		.stabd	78,0,0
+ 1368               		.data
+ 1369               	.LC0:
+ 1370 0000 4865 6C6C 		.string	"Hello, world!"
+ 1370      6F2C 2077 
+ 1370      6F72 6C64 
+ 1370      2100 
+ 1371               		.text
+ 1372               		.stabs	"mainLoop:F(0,15)",36,0,88,mainLoop
+ 1373               	.global	mainLoop
+ 1374               		.type	mainLoop, @function
+ 1375               	mainLoop:
+ 1376               		.stabd	46,0,0
+  88:main.c        **** void mainLoop(void){
+ 1377               		.stabn	68,0,88,.LM118-.LFBB22
+ 1378               	.LM118:
+ 1379               	.LFBB22:
+ 1380 02ae CF93      		push r28
+ 1381 02b0 DF93      		push r29
+ 1382               	/* prologue: function */
+ 1383               	/* frame size = 0 */
+ 1384               	/* stack size = 2 */
+ 1385               	.L__stack_usage = 2
+  89:main.c        ****     stdout = &mystdout; 
+ 1386               		.stabn	68,0,89,.LM119-.LFBB22
+ 1387               	.LM119:
+ 1388 02b2 80E0      		ldi r24,lo8(mystdout)
+ 1389 02b4 90E0      		ldi r25,hi8(mystdout)
+ 1390 02b6 8093 0000 		sts __iob+2,r24
+ 1391 02ba 9093 0000 		sts __iob+2+1,r25
+  90:main.c        ****     blink(1000);
+ 1392               		.stabn	68,0,90,.LM120-.LFBB22
+ 1393               	.LM120:
+ 1394 02be 88EE      		ldi r24,lo8(1000)
+ 1395 02c0 93E0      		ldi r25,hi8(1000)
+ 1396 02c2 0E94 0000 		call blink
+ 1397               	.L50:
+GAS LISTING /tmp/ccWPoaT8.s 			page 39
+
+
+ 1398               	.LBB12:
+  92:main.c        ****         printf("Hello, world!\n");
+ 1399               		.stabn	68,0,92,.LM121-.LFBB22
+ 1400               	.LM121:
+ 1401 02c6 80E0      		ldi r24,lo8(.LC0)
+ 1402 02c8 90E0      		ldi r25,hi8(.LC0)
+ 1403 02ca 0E94 0000 		call puts
+  93:main.c        ****         update();
+ 1404               		.stabn	68,0,93,.LM122-.LFBB22
+ 1405               	.LM122:
+ 1406 02ce 0E94 0000 		call update
+ 1407 02d2 C0E0      		ldi r28,lo8(vals)
+ 1408 02d4 D0E0      		ldi r29,hi8(vals)
+ 1409               	.L49:
+  96:main.c        ****             blinkN(vals[i]);
+ 1410               		.stabn	68,0,96,.LM123-.LFBB22
+ 1411               	.LM123:
+ 1412 02d6 8991      		ld r24,Y+
+ 1413 02d8 9991      		ld r25,Y+
+ 1414 02da 0E94 0000 		call blinkN
+  97:main.c        ****             delay_ms(1000);
+ 1415               		.stabn	68,0,97,.LM124-.LFBB22
+ 1416               	.LM124:
+ 1417 02de 88EE      		ldi r24,lo8(1000)
+ 1418 02e0 93E0      		ldi r25,hi8(1000)
+ 1419 02e2 0E94 0000 		call delay_ms
+  95:main.c        ****         for(i = 0; i < 6; i++){
+ 1420               		.stabn	68,0,95,.LM125-.LFBB22
+ 1421               	.LM125:
+ 1422 02e6 80E0      		ldi r24,hi8(vals+12)
+ 1423 02e8 C030      		cpi r28,lo8(vals+12)
+ 1424 02ea D807      		cpc r29,r24
+ 1425 02ec 01F4      		brne .L49
+ 1426 02ee 00C0      		rjmp .L50
+ 1427               	.LBE12:
+ 1428               		.size	mainLoop, .-mainLoop
+ 1429               	.Lscope22:
+ 1430               		.stabs	"",36,0,0,.Lscope22-.LFBB22
+ 1431               		.stabd	78,0,0
+ 1432               		.stabs	"main:F(0,1)",36,0,113,main
+ 1433               	.global	main
+ 1434               		.type	main, @function
+ 1435               	main:
+ 1436               		.stabd	46,0,0
+ 114:main.c        **** {
+ 1437               		.stabn	68,0,114,.LM126-.LFBB23
+ 1438               	.LM126:
+ 1439               	.LFBB23:
+ 1440               	/* prologue: function */
+ 1441               	/* frame size = 0 */
+ 1442               	/* stack size = 0 */
+ 1443               	.L__stack_usage = 0
+ 115:main.c        **** 	init();	
+ 1444               		.stabn	68,0,115,.LM127-.LFBB23
+ 1445               	.LM127:
+ 1446 02f0 0E94 0000 		call init
+ 116:main.c        **** 	delay_ms(1000);
+GAS LISTING /tmp/ccWPoaT8.s 			page 40
+
+
+ 1447               		.stabn	68,0,116,.LM128-.LFBB23
+ 1448               	.LM128:
+ 1449 02f4 88EE      		ldi r24,lo8(1000)
+ 1450 02f6 93E0      		ldi r25,hi8(1000)
+ 1451 02f8 0E94 0000 		call delay_ms
+ 117:main.c        **** 	mainLoop();
+ 1452               		.stabn	68,0,117,.LM129-.LFBB23
+ 1453               	.LM129:
+ 1454 02fc 0E94 0000 		call mainLoop
+ 119:main.c        **** }
+ 1455               		.stabn	68,0,119,.LM130-.LFBB23
+ 1456               	.LM130:
+ 1457 0300 80E0      		ldi r24,lo8(0)
+ 1458 0302 90E0      		ldi r25,hi8(0)
+ 1459               	/* epilogue start */
+ 1460 0304 0895      		ret
+ 1461               		.size	main, .-main
+ 1462               	.Lscope23:
+ 1463               		.stabs	"",36,0,0,.Lscope23-.LFBB23
+ 1464               		.stabd	78,0,0
+ 1465               	.global	vals
+ 1466               	.global	vals
+ 1467               		.section .bss
+ 1468               		.type	vals, @object
+ 1469               		.size	vals, 12
+ 1470               	vals:
+ 1471 0000 0000 0000 		.skip 12,0
+ 1471      0000 0000 
+ 1471      0000 0000 
+ 1472               		.data
+ 1473               		.type	mystdout, @object
+ 1474               		.size	mystdout, 14
+ 1475               	mystdout:
+ 1476 000e 0000 00   		.skip 3,0
+ 1477 0011 02        		.byte	2
+ 1478 0012 0000 0000 		.skip 4,0
+ 1479 0016 0000      		.word	gs(uart_putchar)
+ 1480 0018 0000      		.word	0
+ 1481 001a 0000      		.word	0
+ 1482               		.stabs	"mystdout:S(1,1)",38,0,23,mystdout
+ 1483               		.stabs	"vals:G(0,19)=ar(9,4);0;5;(0,1)",32,0,26,0
+ 1484               		.text
+ 1485               		.stabs	"",100,0,0,.Letext0
+ 1486               	.Letext0:
+ 1487               	.global __do_copy_data
+ 1488               	.global __do_clear_bss
+GAS LISTING /tmp/ccWPoaT8.s 			page 41
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+     /tmp/ccWPoaT8.s:2      *ABS*:0000003f __SREG__
+     /tmp/ccWPoaT8.s:3      *ABS*:0000003e __SP_H__
+     /tmp/ccWPoaT8.s:4      *ABS*:0000003d __SP_L__
+     /tmp/ccWPoaT8.s:5      *ABS*:00000034 __CCP__
+     /tmp/ccWPoaT8.s:6      *ABS*:00000000 __tmp_reg__
+     /tmp/ccWPoaT8.s:7      *ABS*:00000001 __zero_reg__
+     /tmp/ccWPoaT8.s:429    .text:00000000 uart_putchar
+     /tmp/ccWPoaT8.s:473    .text:00000022 CCPWrite
+     /tmp/ccWPoaT8.s:538    .text:0000004c CLKSYS_XOSC_Config
+     /tmp/ccWPoaT8.s:576    .text:00000062 CLKSYS_PLL_Config
+     /tmp/ccWPoaT8.s:606    .text:0000006e CLKSYS_Disable
+     /tmp/ccWPoaT8.s:641    .text:00000082 CLKSYS_Prescalers_Config
+     /tmp/ccWPoaT8.s:670    .text:0000008e CLKSYS_Main_ClockSource_Select
+     /tmp/ccWPoaT8.s:714    .text:000000b4 CLKSYS_RTC_ClockSource_Enable
+     /tmp/ccWPoaT8.s:745    .text:000000c4 CLKSYS_AutoCalibration_Enable
+     /tmp/ccWPoaT8.s:800    .text:000000fe CLKSYS_XOSC_FailureDetection_Enable
+     /tmp/ccWPoaT8.s:826    .text:0000010a CLKSYS_Configuration_Lock
+     /tmp/ccWPoaT8.s:852    .text:00000116 delay_ms
+     /tmp/ccWPoaT8.s:905    .text:00000132 Config32MHzClock
+     /tmp/ccWPoaT8.s:948    .text:00000150 blink
+     /tmp/ccWPoaT8.s:998    .text:00000182 blinkQuick
+     /tmp/ccWPoaT8.s:1023   .text:0000018c blinkTen
+     /tmp/ccWPoaT8.s:1062   .text:000001a6 blinkN
+     /tmp/ccWPoaT8.s:1114   .text:000001d0 init
+     /tmp/ccWPoaT8.s:1184   .text:00000208 uart_getchar
+     /tmp/ccWPoaT8.s:1232   .text:0000022a uart_get
+     /tmp/ccWPoaT8.s:1274   .text:00000248 update
+     /tmp/ccWPoaT8.s:1470   .bss:00000000 vals
+     /tmp/ccWPoaT8.s:1375   .text:000002ae mainLoop
+     /tmp/ccWPoaT8.s:1475   .data:0000000e mystdout
+     /tmp/ccWPoaT8.s:1435   .text:000002f0 main
+
+UNDEFINED SYMBOLS
+__iob
+puts
+__do_copy_data
+__do_clear_bss

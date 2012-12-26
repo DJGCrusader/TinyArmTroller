@@ -1,0 +1,1614 @@
+Archive member included because of file (symbol)
+
+/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_exit.o)
+                              /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o (exit)
+/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_copy_data.o)
+                              usbExample.o (__do_copy_data)
+/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_clear_bss.o)
+                              usbExample.o (__do_clear_bss)
+/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy_P.o)
+                              LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o (memcpy_P)
+/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcmp.o)
+                              LUFA//Drivers/USB/Class/Device/HIDClassDevice.o (memcmp)
+/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy.o)
+                              LUFA//Drivers/USB/Class/Device/HIDClassDevice.o (memcpy)
+/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memset.o)
+                              LUFA//Drivers/USB/Class/Device/HIDClassDevice.o (memset)
+/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eerd_byte_atxmega16a4u.o)
+                              LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o (__eerd_byte_x16a4u)
+/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eeupd_byte_atxmega16a4u.o)
+                              LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o (__eeupd_byte_x16a4u)
+/home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eewr_byte_atxmega16a4u.o)
+                              /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eeupd_byte_atxmega16a4u.o) (__eewr_r18_x16a4u)
+
+Allocating common symbols
+Common symbol       size              file
+
+USB_IsInitialized   0x1               LUFA//Drivers/USB/Core/USBTask.o
+USB_EndpointTable   0x103             LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+USB_Endpoint_SelectedFIFO
+                    0x2               LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+USB_DeviceState     0x1               LUFA//Drivers/USB/Core/USBTask.o
+USB_Device_ConfigurationNumber
+                    0x1               LUFA//Drivers/USB/Core/DeviceStandardReq.o
+USB_Endpoint_SelectedHandle
+                    0x2               LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+USB_Device_CurrentlySelfPowered
+                    0x1               LUFA//Drivers/USB/Core/DeviceStandardReq.o
+USB_Endpoint_SelectedEndpoint
+                    0x1               LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+USB_ControlRequest  0x8               LUFA//Drivers/USB/Core/USBTask.o
+USB_Endpoint_FIFOs  0x840             LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+USB_Device_RemoteWakeupEnabled
+                    0x1               LUFA//Drivers/USB/Core/DeviceStandardReq.o
+
+Discarded input sections
+
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+ .text          0x00000000        0x0 usbExample.o
+ .text.Endpoint_SelectEndpoint
+                0x00000000       0x7e usbExample.o
+ .text.process_SET_GOAL
+                0x00000000       0x84 usbExample.o
+ .text.process_SET_STOP
+                0x00000000       0x60 usbExample.o
+ .text.process_GET_STATUS
+                0x00000000       0xbc usbExample.o
+ .text.process_GET_POSE
+                0x00000000       0xbc usbExample.o
+ .text.millis   0x00000000       0x1e usbExample.o
+ .text.signum   0x00000000       0x1c usbExample.o
+ .text          0x00000000        0x0 Descriptors.o
+ .bss           0x00000000        0x0 Descriptors.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+ .text.USB_Device_SendRemoteWakeup
+                0x00000000        0xc LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/Host_XMEGA.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/Host_XMEGA.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/Pipe_XMEGA.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/Pipe_XMEGA.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .text.USB_Disable
+                0x00000000       0x1e LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Discard_Stream
+                0x00000000       0xbc LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Null_Stream
+                0x00000000       0xcc LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_Stream_LE
+                0x00000000       0xe2 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_Stream_BE
+                0x00000000       0xf0 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Read_Stream_LE
+                0x00000000       0xda LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Read_Stream_BE
+                0x00000000       0xe8 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_PStream_LE
+                0x00000000       0xe6 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_PStream_BE
+                0x00000000       0xf0 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_EStream_LE
+                0x00000000      0x10c LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_EStream_BE
+                0x00000000      0x112 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Read_EStream_LE
+                0x00000000       0xe0 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Read_EStream_BE
+                0x00000000       0xea LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_Control_Stream_BE
+                0x00000000      0x1f0 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Read_Control_Stream_LE
+                0x00000000      0x18e LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Read_Control_Stream_BE
+                0x00000000      0x150 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_Control_PStream_BE
+                0x00000000      0x1f4 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_Control_EStream_LE
+                0x00000000      0x206 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_Control_EStream_BE
+                0x00000000      0x20a LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Read_Control_EStream_LE
+                0x00000000      0x18c LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Read_Control_EStream_BE
+                0x00000000      0x152 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/PipeStream_XMEGA.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/XMEGA/PipeStream_XMEGA.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .text.USB_GetNextDescriptorOfType
+                0x00000000       0x4e LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .text.USB_GetNextDescriptorOfTypeBefore
+                0x00000000       0x56 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .text.USB_GetNextDescriptorOfTypeAfter
+                0x00000000       0x34 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .text.USB_GetNextDescriptorComp
+                0x00000000       0x8e LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/Events.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/Events.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/HostStandardReq.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/HostStandardReq.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Core/USBTask.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Core/USBTask.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .text.USB_ProcessHIDReport
+                0x00000000      0x76e LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .text.USB_GetHIDReportItemInfo
+                0x00000000       0xc2 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .text.USB_SetHIDReportItemInfo
+                0x00000000       0xd8 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .text.USB_GetHIDReportSize
+                0x00000000       0x60 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .text.Endpoint_SelectEndpoint
+                0x00000000       0x7e LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .text.Audio_Device_ProcessControlRequest
+                0x00000000      0x4f4 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .text.Audio_Device_ConfigureEndpoints
+                0x00000000       0x30 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .text.Audio_Device_Event_Stub
+                0x00000000        0x2 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .text.CDC_Device_SendString
+                0x00000000       0x62 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .text.CDC_Device_SendData
+                0x00000000       0x46 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .text.CDC_Device_BytesReceived
+                0x00000000       0xc0 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .text.CDC_Device_getchar_Blocking
+                0x00000000       0x34 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .text.CDC_Device_SendControlLineStateChange
+                0x00000000       0xa8 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .text.CDC_Device_CreateBlockingStream
+                0x00000000       0x26 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .text.Endpoint_SelectEndpoint
+                0x00000000       0x7e LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .text.HID_Device_ProcessControlRequest
+                0x00000000      0x540 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .text.HID_Device_ConfigureEndpoints
+                0x00000000       0x34 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .text.HID_Device_USBTask
+                0x00000000      0x200 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .text.Endpoint_SelectEndpoint
+                0x00000000       0x7e LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .text.MS_Device_ProcessControlRequest
+                0x00000000      0x19a LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .text.MS_Device_ConfigureEndpoints
+                0x00000000       0x3c LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .text.MS_Device_USBTask
+                0x00000000      0x3a2 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .text.Endpoint_SelectEndpoint
+                0x00000000       0x7e LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .text.MIDI_Device_ConfigureEndpoints
+                0x00000000       0x30 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .text.MIDI_Device_SendEventPacket
+                0x00000000       0x72 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .text.MIDI_Device_Flush
+                0x00000000       0x84 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .text.MIDI_Device_USBTask
+                0x00000000       0x38 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .text.MIDI_Device_ReceiveEventPacket
+                0x00000000       0x86 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .text.Endpoint_SelectEndpoint
+                0x00000000       0x7e LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .text.RNDIS_Device_ProcessControlRequest
+                0x00000000      0x6ce LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .text.RNDIS_Device_ConfigureEndpoints
+                0x00000000       0x4e LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .text.RNDIS_Device_USBTask
+                0x00000000       0xb4 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .text.RNDIS_Device_IsPacketReceived
+                0x00000000       0x56 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .text.RNDIS_Device_ReadPacket
+                0x00000000      0x11c LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .text.RNDIS_Device_SendPacket
+                0x00000000       0xfc LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .progmem.data  0x00000000       0x6c LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Host/AndroidAccessoryClassHost.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Host/AndroidAccessoryClassHost.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Host/AudioClassHost.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Host/AudioClassHost.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Host/CDCClassHost.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Host/CDCClassHost.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Host/HIDClassHost.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Host/HIDClassHost.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Host/MassStorageClassHost.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Host/MassStorageClassHost.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Host/MIDIClassHost.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Host/MIDIClassHost.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Host/PrinterClassHost.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Host/PrinterClassHost.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Host/RNDISClassHost.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Host/RNDISClassHost.o
+ .text          0x00000000        0x0 LUFA//Drivers/USB/Class/Host/StillImageClassHost.o
+ .bss           0x00000000        0x0 LUFA//Drivers/USB/Class/Host/StillImageClassHost.o
+ .text          0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_exit.o)
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_exit.o)
+ .text.libgcc   0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_exit.o)
+ .text          0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_copy_data.o)
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_copy_data.o)
+ .text          0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_clear_bss.o)
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_clear_bss.o)
+ .text          0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy_P.o)
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy_P.o)
+ .text.avr-libc
+                0x00000000       0x12 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy_P.o)
+ .text          0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcmp.o)
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcmp.o)
+ .text.avr-libc
+                0x00000000       0x1a /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcmp.o)
+ .text          0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy.o)
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy.o)
+ .text.avr-libc
+                0x00000000       0x12 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy.o)
+ .text          0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memset.o)
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memset.o)
+ .text.avr-libc
+                0x00000000        0xe /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memset.o)
+ .text          0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eerd_byte_atxmega16a4u.o)
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eerd_byte_atxmega16a4u.o)
+ .text.avr-libc
+                0x00000000       0x20 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eerd_byte_atxmega16a4u.o)
+ .text          0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eeupd_byte_atxmega16a4u.o)
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eeupd_byte_atxmega16a4u.o)
+ .text.avr-libc
+                0x00000000       0x16 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eeupd_byte_atxmega16a4u.o)
+ .text          0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eewr_byte_atxmega16a4u.o)
+ .bss           0x00000000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eewr_byte_atxmega16a4u.o)
+ .text.avr-libc
+                0x00000000       0x46 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eewr_byte_atxmega16a4u.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00100000         xr
+data             0x00802000         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+LOAD usbExample.o
+LOAD Descriptors.o
+LOAD LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+LOAD LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+LOAD LUFA//Drivers/USB/Core/XMEGA/Host_XMEGA.o
+LOAD LUFA//Drivers/USB/Core/XMEGA/Pipe_XMEGA.o
+LOAD LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+LOAD LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+LOAD LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+LOAD LUFA//Drivers/USB/Core/XMEGA/PipeStream_XMEGA.o
+LOAD LUFA//Drivers/USB/Core/ConfigDescriptors.o
+LOAD LUFA//Drivers/USB/Core/DeviceStandardReq.o
+LOAD LUFA//Drivers/USB/Core/Events.o
+LOAD LUFA//Drivers/USB/Core/HostStandardReq.o
+LOAD LUFA//Drivers/USB/Core/USBTask.o
+LOAD LUFA//Drivers/USB/Class/Common/HIDParser.o
+LOAD LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+LOAD LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+LOAD LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+LOAD LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+LOAD LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+LOAD LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+LOAD LUFA//Drivers/USB/Class/Host/AndroidAccessoryClassHost.o
+LOAD LUFA//Drivers/USB/Class/Host/AudioClassHost.o
+LOAD LUFA//Drivers/USB/Class/Host/CDCClassHost.o
+LOAD LUFA//Drivers/USB/Class/Host/HIDClassHost.o
+LOAD LUFA//Drivers/USB/Class/Host/MassStorageClassHost.o
+LOAD LUFA//Drivers/USB/Class/Host/MIDIClassHost.o
+LOAD LUFA//Drivers/USB/Class/Host/PrinterClassHost.o
+LOAD LUFA//Drivers/USB/Class/Host/RNDISClassHost.o
+LOAD LUFA//Drivers/USB/Class/Host/StillImageClassHost.o
+LOAD /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libm.a
+LOAD /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a
+LOAD /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a
+LOAD /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x1d82
+ *(.vectors)
+ .vectors       0x00000000      0x1fc /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+ .progmem.data  0x000001fc       0x8c Descriptors.o
+                0x000001fc                ProductString
+                0x0000021a                ManufacturerString
+                0x00000234                LanguageString
+                0x00000238                ConfigurationDescriptor
+                0x00000276                DeviceDescriptor
+                0x00000288                . = ALIGN (0x2)
+                0x00000288                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000288        0x0 linker stubs
+ *(.trampolines*)
+                0x00000288                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000288                __ctors_start = .
+ *(.ctors)
+                0x00000288                __ctors_end = .
+                0x00000288                __dtors_start = .
+ *(.dtors)
+                0x00000288                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000288        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+                0x00000288                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000288        0xc /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000294       0x16 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_copy_data.o)
+                0x00000294                __do_copy_data
+ .init4         0x000002aa       0x10 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_clear_bss.o)
+                0x000002aa                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000002ba        0x6 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+ *(.init9)
+ *(.text)
+ .text          0x000002c0        0x2 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+                0x000002c0                __vector_38
+                0x000002c0                __vector_104
+                0x000002c0                __vector_22
+                0x000002c0                __vector_63
+                0x000002c0                __vector_28
+                0x000002c0                __vector_67
+                0x000002c0                __vector_1
+                0x000002c0                __vector_119
+                0x000002c0                __vector_32
+                0x000002c0                __vector_75
+                0x000002c0                __vector_71
+                0x000002c0                __vector_91
+                0x000002c0                __vector_34
+                0x000002c0                __vector_62
+                0x000002c0                __vector_77
+                0x000002c0                __vector_102
+                0x000002c0                __vector_24
+                0x000002c0                __vector_12
+                0x000002c0                __vector_55
+                0x000002c0                __vector_69
+                0x000002c0                __vector_81
+                0x000002c0                __vector_90
+                0x000002c0                __vector_46
+                0x000002c0                __bad_interrupt
+                0x000002c0                __vector_122
+                0x000002c0                __vector_72
+                0x000002c0                __vector_114
+                0x000002c0                __vector_6
+                0x000002c0                __vector_110
+                0x000002c0                __vector_31
+                0x000002c0                __vector_92
+                0x000002c0                __vector_35
+                0x000002c0                __vector_78
+                0x000002c0                __vector_74
+                0x000002c0                __vector_117
+                0x000002c0                __vector_39
+                0x000002c0                __vector_107
+                0x000002c0                __vector_3
+                0x000002c0                __vector_105
+                0x000002c0                __vector_98
+                0x000002c0                __vector_23
+                0x000002c0                __vector_68
+                0x000002c0                __vector_30
+                0x000002c0                __vector_73
+                0x000002c0                __vector_45
+                0x000002c0                __vector_25
+                0x000002c0                __vector_93
+                0x000002c0                __vector_61
+                0x000002c0                __vector_11
+                0x000002c0                __vector_54
+                0x000002c0                __vector_99
+                0x000002c0                __vector_13
+                0x000002c0                __vector_17
+                0x000002c0                __vector_19
+                0x000002c0                __vector_56
+                0x000002c0                __vector_7
+                0x000002c0                __vector_49
+                0x000002c0                __vector_123
+                0x000002c0                __vector_41
+                0x000002c0                __vector_86
+                0x000002c0                __vector_100
+                0x000002c0                __vector_101
+                0x000002c0                __vector_64
+                0x000002c0                __vector_88
+                0x000002c0                __vector_109
+                0x000002c0                __vector_43
+                0x000002c0                __vector_27
+                0x000002c0                __vector_5
+                0x000002c0                __vector_113
+                0x000002c0                __vector_33
+                0x000002c0                __vector_76
+                0x000002c0                __vector_115
+                0x000002c0                __vector_47
+                0x000002c0                __vector_52
+                0x000002c0                __vector_37
+                0x000002c0                __vector_95
+                0x000002c0                __vector_103
+                0x000002c0                __vector_96
+                0x000002c0                __vector_89
+                0x000002c0                __vector_108
+                0x000002c0                __vector_4
+                0x000002c0                __vector_44
+                0x000002c0                __vector_82
+                0x000002c0                __vector_106
+                0x000002c0                __vector_118
+                0x000002c0                __vector_51
+                0x000002c0                __vector_9
+                0x000002c0                __vector_2
+                0x000002c0                __vector_21
+                0x000002c0                __vector_15
+                0x000002c0                __vector_66
+                0x000002c0                __vector_36
+                0x000002c0                __vector_79
+                0x000002c0                __vector_58
+                0x000002c0                __vector_70
+                0x000002c0                __vector_83
+                0x000002c0                __vector_29
+                0x000002c0                __vector_60
+                0x000002c0                __vector_121
+                0x000002c0                __vector_40
+                0x000002c0                __vector_85
+                0x000002c0                __vector_94
+                0x000002c0                __vector_126
+                0x000002c0                __vector_8
+                0x000002c0                __vector_26
+                0x000002c0                __vector_48
+                0x000002c0                __vector_124
+                0x000002c0                __vector_116
+                0x000002c0                __vector_112
+                0x000002c0                __vector_111
+                0x000002c0                __vector_80
+                0x000002c0                __vector_14
+                0x000002c0                __vector_84
+                0x000002c0                __vector_57
+                0x000002c0                __vector_53
+                0x000002c0                __vector_10
+                0x000002c0                __vector_50
+                0x000002c0                __vector_16
+                0x000002c0                __vector_59
+                0x000002c0                __vector_18
+                0x000002c0                __vector_97
+                0x000002c0                __vector_20
+                0x000002c0                __vector_42
+                0x000002c0                __vector_87
+                0x000002c0                __vector_65
+                0x000002c0                __vector_120
+                0x000002c2                . = ALIGN (0x2)
+ *(.text.*)
+ .text.EVENT_USB_Device_Connect
+                0x000002c2        0x2 usbExample.o
+                0x000002c2                EVENT_USB_Device_Connect
+ .text.EVENT_USB_Device_Disconnect
+                0x000002c4        0x2 usbExample.o
+                0x000002c4                EVENT_USB_Device_Disconnect
+ .text.EVENT_USB_Device_ControlRequest
+                0x000002c6        0x8 usbExample.o
+                0x000002c6                EVENT_USB_Device_ControlRequest
+ .text.delay_ms
+                0x000002ce       0x1c usbExample.o
+                0x000002ce                delay_ms
+ .text.blink    0x000002ea       0x2a usbExample.o
+                0x000002ea                blink
+ .text.EVENT_USB_Device_ConfigurationChanged
+                0x00000314        0xe usbExample.o
+                0x00000314                EVENT_USB_Device_ConfigurationChanged
+ .text.SetupHardware
+                0x00000322       0xae usbExample.o
+                0x00000322                SetupHardware
+ .text.setupIO  0x000003d0        0xc usbExample.o
+                0x000003d0                setupIO
+ .text.interruptInit
+                0x000003dc       0x28 usbExample.o
+                0x000003dc                interruptInit
+ .text.startup.main
+                0x00000404       0x2a usbExample.o
+                0x00000404                main
+ .text.CALLBACK_USB_GetDescriptor
+                0x0000042e       0x58 Descriptors.o
+                0x0000042e                CALLBACK_USB_GetDescriptor
+ .text.Endpoint_SelectEndpoint
+                0x00000486       0x7e LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .text.Endpoint_ConfigureEndpoint_PRV
+                0x00000504       0x7c LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                0x00000504                Endpoint_ConfigureEndpoint_PRV
+ .text.Endpoint_ConfigureEndpointTable
+                0x00000580       0xb4 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                0x00000580                Endpoint_ConfigureEndpointTable
+ .text.Endpoint_ClearEndpoints
+                0x00000634       0x36 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                0x00000634                Endpoint_ClearEndpoints
+ .text.Endpoint_ClearStatusStage
+                0x0000066a       0x98 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                0x0000066a                Endpoint_ClearStatusStage
+ .text.Endpoint_WaitUntilReady
+                0x00000702       0xbe LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                0x00000702                Endpoint_WaitUntilReady
+ .text.USB_ResetInterface
+                0x000007c0       0x5e LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+                0x000007c0                USB_ResetInterface
+ .text.USB_Init
+                0x0000081e       0x56 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+                0x0000081e                USB_Init
+ .text.USB_INT_DisableAllInterrupts
+                0x00000874        0xe LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                0x00000874                USB_INT_DisableAllInterrupts
+ .text.USB_INT_ClearAllInterrupts
+                0x00000882        0xc LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                0x00000882                USB_INT_ClearAllInterrupts
+ .text.__vector_125
+                0x0000088e       0xd0 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                0x0000088e                __vector_125
+ .text.Endpoint_SelectEndpoint
+                0x0000095e       0x7e LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .text.Endpoint_Write_Control_Stream_LE
+                0x000009dc      0x1e2 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                0x000009dc                Endpoint_Write_Control_Stream_LE
+ .text.Endpoint_Write_Control_PStream_LE
+                0x00000bbe      0x1ea LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                0x00000bbe                Endpoint_Write_Control_PStream_LE
+ .text.Endpoint_SelectEndpoint
+                0x00000da8       0x7e LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .text.USB_Device_ProcessControlRequest
+                0x00000e26      0x64e LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                0x00000e26                USB_Device_ProcessControlRequest
+ .text.USB_Event_Stub
+                0x00001474        0x2 LUFA//Drivers/USB/Core/Events.o
+                0x00001474                EVENT_USB_Device_WakeUp
+                0x00001474                USB_Event_Stub
+                0x00001474                EVENT_USB_Device_Suspend
+                0x00001474                EVENT_USB_Device_StartOfFrame
+                0x00001474                EVENT_USB_Device_Reset
+ .text.Endpoint_SelectEndpoint
+                0x00001476       0x7e LUFA//Drivers/USB/Core/USBTask.o
+ .text.USB_USBTask
+                0x000014f4       0x48 LUFA//Drivers/USB/Core/USBTask.o
+                0x000014f4                USB_USBTask
+ .text.Endpoint_SelectEndpoint
+                0x0000153c       0x7e LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .text.CDC_Device_ProcessControlRequest
+                0x000015ba      0x48a LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                0x000015ba                CDC_Device_ProcessControlRequest
+ .text.CDC_Device_ConfigureEndpoints
+                0x00001a44       0x4e LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                0x00001a44                CDC_Device_ConfigureEndpoints
+ .text.CDC_Device_SendByte
+                0x00001a92       0x98 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                0x00001a92                CDC_Device_SendByte
+ .text.CDC_Device_putchar
+                0x00001b2a       0x1c LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .text.CDC_Device_Flush
+                0x00001b46       0xe2 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                0x00001b46                CDC_Device_Flush
+ .text.CDC_Device_USBTask
+                0x00001c28       0x42 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                0x00001c28                CDC_Device_USBTask
+ .text.CDC_Device_ReceiveByte
+                0x00001c6a       0xda LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                0x00001c6a                CDC_Device_ReceiveByte
+ .text.CDC_Device_getchar
+                0x00001d44       0x12 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .text.CDC_Device_CreateStream
+                0x00001d56       0x26 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                0x00001d56                CDC_Device_CreateStream
+ .text.CDC_Device_Event_Stub
+                0x00001d7c        0x2 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                0x00001d7c                EVENT_CDC_Device_LineEncodingChanged
+                0x00001d7c                EVENT_CDC_Device_ControLineStateChanged
+                0x00001d7c                EVENT_CDC_Device_BreakSent
+                0x00001d7c                CDC_Device_Event_Stub
+                0x00001d7e                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00001d7e        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_exit.o)
+                0x00001d7e                exit
+                0x00001d7e                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00001d7e        0x4 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_exit.o)
+ *(.fini0)
+                0x00001d82                _etext = .
+
+.data           0x00802000       0x2c load address 0x00001d82
+                0x00802000                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00802000        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+ .data          0x00802000       0x1b usbExample.o
+                0x00802000                VirtualSerial_CDC_Interface
+ .data          0x0080201b        0x0 Descriptors.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/XMEGA/Host_XMEGA.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/XMEGA/Pipe_XMEGA.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/XMEGA/PipeStream_XMEGA.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/Events.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/HostStandardReq.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Core/USBTask.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .data          0x0080201b        0x0 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .data          0x0080201b        0x8 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .data          0x00802023        0x0 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .data          0x00802023        0x0 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .data          0x00802023        0x0 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .data          0x00802023        0x8 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .data          0x0080202b        0x0 LUFA//Drivers/USB/Class/Host/AndroidAccessoryClassHost.o
+ .data          0x0080202b        0x0 LUFA//Drivers/USB/Class/Host/AudioClassHost.o
+ .data          0x0080202b        0x0 LUFA//Drivers/USB/Class/Host/CDCClassHost.o
+ .data          0x0080202b        0x0 LUFA//Drivers/USB/Class/Host/HIDClassHost.o
+ .data          0x0080202b        0x0 LUFA//Drivers/USB/Class/Host/MassStorageClassHost.o
+ .data          0x0080202b        0x0 LUFA//Drivers/USB/Class/Host/MIDIClassHost.o
+ .data          0x0080202b        0x0 LUFA//Drivers/USB/Class/Host/PrinterClassHost.o
+ .data          0x0080202b        0x0 LUFA//Drivers/USB/Class/Host/RNDISClassHost.o
+ .data          0x0080202b        0x0 LUFA//Drivers/USB/Class/Host/StillImageClassHost.o
+ .data          0x0080202b        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_exit.o)
+ .data          0x0080202b        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_copy_data.o)
+ .data          0x0080202b        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_clear_bss.o)
+ .data          0x0080202b        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy_P.o)
+ .data          0x0080202b        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcmp.o)
+ .data          0x0080202b        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy.o)
+ .data          0x0080202b        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memset.o)
+ .data          0x0080202b        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eerd_byte_atxmega16a4u.o)
+ .data          0x0080202b        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eeupd_byte_atxmega16a4u.o)
+ .data          0x0080202b        0x0 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eewr_byte_atxmega16a4u.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x0080202c                . = ALIGN (0x2)
+ *fill*         0x0080202b        0x1 00
+                0x0080202c                _edata = .
+                0x0080202c                PROVIDE (__data_end, .)
+
+.bss            0x0080202c      0x967
+                0x0080202c                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x0080202c       0x12 usbExample.o
+                0x0080202c                elapsedMillis
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x0080203e      0x845 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                0x0080203e                USB_Endpoint_SelectedFIFO
+                0x00802040                USB_Endpoint_SelectedHandle
+                0x00802042                USB_Endpoint_SelectedEndpoint
+                0x00802043                USB_Endpoint_FIFOs
+ COMMON         0x00802883      0x103 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+                0x00802883                USB_EndpointTable
+ COMMON         0x00802986        0x3 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                0x00802986                USB_Device_ConfigurationNumber
+                0x00802987                USB_Device_CurrentlySelfPowered
+                0x00802988                USB_Device_RemoteWakeupEnabled
+ COMMON         0x00802989        0xa LUFA//Drivers/USB/Core/USBTask.o
+                0x00802989                USB_IsInitialized
+                0x0080298a                USB_DeviceState
+                0x0080298b                USB_ControlRequest
+                0x00802993                PROVIDE (__bss_end, .)
+                0x00001d82                __data_load_start = LOADADDR (.data)
+                0x00001dae                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x00802993        0x0
+                0x00802993                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x00802993                PROVIDE (__noinit_end, .)
+                0x00802993                _end = .
+                0x00802993                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab           0x00000000      0x6cc
+ *(.stab)
+ .stab          0x00000000      0x6cc /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+
+.stabstr        0x00000000       0x85
+ *(.stabstr)
+ .stabstr       0x00000000       0x85 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x518
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0xa0 usbExample.o
+ .debug_aranges
+                0x000000a0       0x20 Descriptors.o
+ .debug_aranges
+                0x000000c0       0x20 LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+ .debug_aranges
+                0x000000e0       0x48 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .debug_aranges
+                0x00000128       0x30 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .debug_aranges
+                0x00000158       0x30 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+ .debug_aranges
+                0x00000188       0xd0 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .debug_aranges
+                0x00000258       0x38 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .debug_aranges
+                0x00000290       0x28 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .debug_aranges
+                0x000002b8       0x20 LUFA//Drivers/USB/Core/Events.o
+ .debug_aranges
+                0x000002d8       0x28 LUFA//Drivers/USB/Core/USBTask.o
+ .debug_aranges
+                0x00000300       0x38 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .debug_aranges
+                0x00000338       0x38 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .debug_aranges
+                0x00000370       0xa0 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .debug_aranges
+                0x00000410       0x38 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .debug_aranges
+                0x00000448       0x38 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .debug_aranges
+                0x00000480       0x48 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .debug_aranges
+                0x000004c8       0x50 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x00000000     0xedd1
+ *(.debug_info)
+ .debug_info    0x00000000     0x1d52 usbExample.o
+ .debug_info    0x00001d52      0x9c2 Descriptors.o
+ .debug_info    0x00002714      0x680 LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+ .debug_info    0x00002d94      0xbf2 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .debug_info    0x00003986       0x5e LUFA//Drivers/USB/Core/XMEGA/Host_XMEGA.o
+ .debug_info    0x000039e4      0xd21 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .debug_info    0x00004705      0x9e5 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+ .debug_info    0x000050ea     0x1be7 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .debug_info    0x00006cd1       0x5e LUFA//Drivers/USB/Core/XMEGA/PipeStream_XMEGA.o
+ .debug_info    0x00006d2f      0x5b1 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .debug_info    0x000072e0     0x1209 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .debug_info    0x000084e9       0x77 LUFA//Drivers/USB/Core/Events.o
+ .debug_info    0x00008560      0x880 LUFA//Drivers/USB/Core/USBTask.o
+ .debug_info    0x00008de0      0x6fa LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .debug_info    0x000094da      0xc18 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .debug_info    0x0000a0f2     0x1290 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .debug_info    0x0000b382      0xccc LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .debug_info    0x0000c04e      0xda7 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .debug_info    0x0000cdf5      0xada LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .debug_info    0x0000d8cf     0x1502 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000     0x2920
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x404 usbExample.o
+ .debug_abbrev  0x00000404      0x1c5 Descriptors.o
+ .debug_abbrev  0x000005c9      0x11b LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+ .debug_abbrev  0x000006e4      0x280 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .debug_abbrev  0x00000964       0x2a LUFA//Drivers/USB/Core/XMEGA/Host_XMEGA.o
+ .debug_abbrev  0x0000098e        0x1 LUFA//Drivers/USB/Core/XMEGA/Pipe_XMEGA.o
+ .debug_abbrev  0x0000098f      0x2b0 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .debug_abbrev  0x00000c3f      0x202 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+ .debug_abbrev  0x00000e41      0x21d LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .debug_abbrev  0x0000105e       0x2a LUFA//Drivers/USB/Core/XMEGA/PipeStream_XMEGA.o
+ .debug_abbrev  0x00001088      0x1f0 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .debug_abbrev  0x00001278      0x2d8 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .debug_abbrev  0x00001550       0x41 LUFA//Drivers/USB/Core/Events.o
+ .debug_abbrev  0x00001591        0x1 LUFA//Drivers/USB/Core/HostStandardReq.o
+ .debug_abbrev  0x00001592      0x1ec LUFA//Drivers/USB/Core/USBTask.o
+ .debug_abbrev  0x0000177e      0x1ec LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .debug_abbrev  0x0000196a      0x210 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .debug_abbrev  0x00001b7a      0x399 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .debug_abbrev  0x00001f13      0x265 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .debug_abbrev  0x00002178      0x284 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .debug_abbrev  0x000023fc      0x1dd LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .debug_abbrev  0x000025d9      0x33e LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .debug_abbrev  0x00002917        0x1 LUFA//Drivers/USB/Class/Host/AndroidAccessoryClassHost.o
+ .debug_abbrev  0x00002918        0x1 LUFA//Drivers/USB/Class/Host/AudioClassHost.o
+ .debug_abbrev  0x00002919        0x1 LUFA//Drivers/USB/Class/Host/CDCClassHost.o
+ .debug_abbrev  0x0000291a        0x1 LUFA//Drivers/USB/Class/Host/HIDClassHost.o
+ .debug_abbrev  0x0000291b        0x1 LUFA//Drivers/USB/Class/Host/MassStorageClassHost.o
+ .debug_abbrev  0x0000291c        0x1 LUFA//Drivers/USB/Class/Host/MIDIClassHost.o
+ .debug_abbrev  0x0000291d        0x1 LUFA//Drivers/USB/Class/Host/PrinterClassHost.o
+ .debug_abbrev  0x0000291e        0x1 LUFA//Drivers/USB/Class/Host/RNDISClassHost.o
+ .debug_abbrev  0x0000291f        0x1 LUFA//Drivers/USB/Class/Host/StillImageClassHost.o
+
+.debug_line     0x00000000     0x49e3
+ *(.debug_line)
+ .debug_line    0x00000000      0x57d usbExample.o
+ .debug_line    0x0000057d      0x2a5 Descriptors.o
+ .debug_line    0x00000822      0x1aa LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+ .debug_line    0x000009cc      0x428 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .debug_line    0x00000df4       0x1a LUFA//Drivers/USB/Core/XMEGA/Host_XMEGA.o
+ .debug_line    0x00000e0e        0x0 LUFA//Drivers/USB/Core/XMEGA/Pipe_XMEGA.o
+ .debug_line    0x00000e0e      0x33c LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .debug_line    0x0000114a      0x31b LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+ .debug_line    0x00001465      0xd3d LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .debug_line    0x000021a2       0x1a LUFA//Drivers/USB/Core/XMEGA/PipeStream_XMEGA.o
+ .debug_line    0x000021bc      0x264 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .debug_line    0x00002420      0x447 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .debug_line    0x00002867       0x4d LUFA//Drivers/USB/Core/Events.o
+ .debug_line    0x000028b4        0x0 LUFA//Drivers/USB/Core/HostStandardReq.o
+ .debug_line    0x000028b4      0x249 LUFA//Drivers/USB/Core/USBTask.o
+ .debug_line    0x00002afd      0x291 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .debug_line    0x00002d8e      0x3fb LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .debug_line    0x00003189      0x6a3 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .debug_line    0x0000382c      0x490 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .debug_line    0x00003cbc      0x487 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .debug_line    0x00004143      0x3ca LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .debug_line    0x0000450d      0x4d6 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+ .debug_line    0x000049e3        0x0 LUFA//Drivers/USB/Class/Host/AndroidAccessoryClassHost.o
+ .debug_line    0x000049e3        0x0 LUFA//Drivers/USB/Class/Host/AudioClassHost.o
+ .debug_line    0x000049e3        0x0 LUFA//Drivers/USB/Class/Host/CDCClassHost.o
+ .debug_line    0x000049e3        0x0 LUFA//Drivers/USB/Class/Host/HIDClassHost.o
+ .debug_line    0x000049e3        0x0 LUFA//Drivers/USB/Class/Host/MassStorageClassHost.o
+ .debug_line    0x000049e3        0x0 LUFA//Drivers/USB/Class/Host/MIDIClassHost.o
+ .debug_line    0x000049e3        0x0 LUFA//Drivers/USB/Class/Host/PrinterClassHost.o
+ .debug_line    0x000049e3        0x0 LUFA//Drivers/USB/Class/Host/RNDISClassHost.o
+ .debug_line    0x000049e3        0x0 LUFA//Drivers/USB/Class/Host/StillImageClassHost.o
+
+.debug_frame    0x00000000     0x1238
+ *(.debug_frame)
+ .debug_frame   0x00000000      0x17c usbExample.o
+ .debug_frame   0x0000017c       0x24 Descriptors.o
+ .debug_frame   0x000001a0       0x24 LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+ .debug_frame   0x000001c4       0xdc LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .debug_frame   0x000002a0       0x5c LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .debug_frame   0x000002fc       0x98 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+ .debug_frame   0x00000394      0x5c4 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .debug_frame   0x00000958       0xc8 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .debug_frame   0x00000a20       0x50 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .debug_frame   0x00000a70       0x24 LUFA//Drivers/USB/Core/Events.o
+ .debug_frame   0x00000a94       0x3c LUFA//Drivers/USB/Core/USBTask.o
+ .debug_frame   0x00000ad0      0x134 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .debug_frame   0x00000c04       0xc8 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .debug_frame   0x00000ccc      0x1e4 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .debug_frame   0x00000eb0      0x130 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .debug_frame   0x00000fe0       0x98 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .debug_frame   0x00001078       0xa4 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .debug_frame   0x0000111c      0x11c LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+
+.debug_str      0x00000000     0x44da
+ *(.debug_str)
+ .debug_str     0x00000000     0x13f1 usbExample.o
+                               0x14b1 (size before relaxing)
+ .debug_str     0x000013f1      0x8a8 Descriptors.o
+                                0xb06 (size before relaxing)
+ .debug_str     0x00001c99       0x48 LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+                                0x500 (size before relaxing)
+ .debug_str     0x00001ce1      0x3ff LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                0x994 (size before relaxing)
+ .debug_str     0x000020e0       0x2a LUFA//Drivers/USB/Core/XMEGA/Host_XMEGA.o
+                                 0xdd (size before relaxing)
+ .debug_str     0x0000210a      0x22d LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+                                0xd54 (size before relaxing)
+ .debug_str     0x00002337       0xc3 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                                0x7d8 (size before relaxing)
+ .debug_str     0x000023fa      0x4e3 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                0xb9c (size before relaxing)
+ .debug_str     0x000028dd       0x30 LUFA//Drivers/USB/Core/XMEGA/PipeStream_XMEGA.o
+                                 0xe3 (size before relaxing)
+ .debug_str     0x0000290d      0x222 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+                                0x41c (size before relaxing)
+ .debug_str     0x00002b2f      0x349 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                               0x10e1 (size before relaxing)
+ .debug_str     0x00002e78       0x2f LUFA//Drivers/USB/Core/Events.o
+                                 0xe2 (size before relaxing)
+ .debug_str     0x00002ea7       0x65 LUFA//Drivers/USB/Core/USBTask.o
+                                0x6ae (size before relaxing)
+ .debug_str     0x00002f0c      0x477 LUFA//Drivers/USB/Class/Common/HIDParser.o
+                                0x5d0 (size before relaxing)
+ .debug_str     0x00003383      0x234 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                0x964 (size before relaxing)
+ .debug_str     0x000035b7      0x30d LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                0xd00 (size before relaxing)
+ .debug_str     0x000038c4      0x1e8 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                0x976 (size before relaxing)
+ .debug_str     0x00003aac      0x238 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                0xb45 (size before relaxing)
+ .debug_str     0x00003ce4      0x113 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                0x963 (size before relaxing)
+ .debug_str     0x00003df7      0x6e3 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                               0x1082 (size before relaxing)
+
+.debug_loc      0x00000000     0x5811
+ *(.debug_loc)
+ .debug_loc     0x00000000      0x25e usbExample.o
+ .debug_loc     0x0000025e      0x142 Descriptors.o
+ .debug_loc     0x000003a0      0x40c LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .debug_loc     0x000007ac       0xa3 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .debug_loc     0x0000084f      0x194 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+ .debug_loc     0x000009e3     0x20e0 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .debug_loc     0x00002ac3      0x433 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .debug_loc     0x00002ef6      0x2e7 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .debug_loc     0x000031dd       0x53 LUFA//Drivers/USB/Core/USBTask.o
+ .debug_loc     0x00003230      0xb47 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .debug_loc     0x00003d77      0x2d7 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .debug_loc     0x0000404e      0x75e LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .debug_loc     0x000047ac      0x466 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .debug_loc     0x00004c12      0x201 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .debug_loc     0x00004e13      0x24b LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .debug_loc     0x0000505e      0x7b3 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(usbExample.elf elf32-avr)
+LOAD linker stubs
+
+.debug_ranges   0x00000000      0x738
+ .debug_ranges  0x00000000       0x90 usbExample.o
+ .debug_ranges  0x00000090       0x10 Descriptors.o
+ .debug_ranges  0x000000a0       0x10 LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+ .debug_ranges  0x000000b0       0x68 LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+ .debug_ranges  0x00000118       0x20 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+ .debug_ranges  0x00000138       0x20 LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+ .debug_ranges  0x00000158      0x270 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+ .debug_ranges  0x000003c8       0x28 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+ .debug_ranges  0x000003f0       0x18 LUFA//Drivers/USB/Core/DeviceStandardReq.o
+ .debug_ranges  0x00000408       0x10 LUFA//Drivers/USB/Core/Events.o
+ .debug_ranges  0x00000418       0x18 LUFA//Drivers/USB/Core/USBTask.o
+ .debug_ranges  0x00000430       0xc8 LUFA//Drivers/USB/Class/Common/HIDParser.o
+ .debug_ranges  0x000004f8       0x28 LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+ .debug_ranges  0x00000520       0xc0 LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+ .debug_ranges  0x000005e0       0x28 LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+ .debug_ranges  0x00000608       0x28 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ .debug_ranges  0x00000630       0x38 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+ .debug_ranges  0x00000668       0xd0 LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+
+Cross Reference Table
+
+Symbol                                            File
+Audio_Device_ConfigureEndpoints                   LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+Audio_Device_Event_Stub                           LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+Audio_Device_ProcessControlRequest                LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+CALLBACK_Audio_Device_GetSetEndpointProperty      LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+CALLBACK_Audio_Device_GetSetInterfaceProperty     LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+CALLBACK_HIDParser_FilterHIDReportItem            LUFA//Drivers/USB/Class/Common/HIDParser.o
+CALLBACK_HID_Device_CreateHIDReport               LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+CALLBACK_HID_Device_ProcessHIDReport              LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+CALLBACK_MS_Device_SCSICommandReceived            LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+CALLBACK_USB_GetDescriptor                        Descriptors.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+CDC_Device_BytesReceived                          LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+CDC_Device_ConfigureEndpoints                     LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  usbExample.o
+CDC_Device_CreateBlockingStream                   LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+CDC_Device_CreateStream                           LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  usbExample.o
+CDC_Device_Event_Stub                             LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+CDC_Device_Flush                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+CDC_Device_ProcessControlRequest                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  usbExample.o
+CDC_Device_ReceiveByte                            LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  usbExample.o
+CDC_Device_SendByte                               LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+CDC_Device_SendControlLineStateChange             LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+CDC_Device_SendData                               LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+CDC_Device_SendString                             LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+CDC_Device_USBTask                                LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  usbExample.o
+ConfigurationDescriptor                           Descriptors.o
+DeviceDescriptor                                  Descriptors.o
+EVENT_Audio_Device_StreamStartStop                LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+EVENT_CDC_Device_BreakSent                        LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+EVENT_CDC_Device_ControLineStateChanged           LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+EVENT_CDC_Device_LineEncodingChanged              LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+EVENT_USB_Device_ConfigurationChanged             usbExample.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+EVENT_USB_Device_Connect                          usbExample.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+EVENT_USB_Device_ControlRequest                   usbExample.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+EVENT_USB_Device_Disconnect                       usbExample.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+EVENT_USB_Device_Reset                            LUFA//Drivers/USB/Core/Events.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+EVENT_USB_Device_StartOfFrame                     LUFA//Drivers/USB/Core/Events.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+EVENT_USB_Device_Suspend                          LUFA//Drivers/USB/Core/Events.o
+EVENT_USB_Device_WakeUp                           LUFA//Drivers/USB/Core/Events.o
+Endpoint_ClearEndpoints                           LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+Endpoint_ClearStatusStage                         LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  usbExample.o
+Endpoint_ConfigureEndpointTable                   LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+Endpoint_ConfigureEndpoint_PRV                    LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+Endpoint_Discard_Stream                           LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Null_Stream                              LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Read_Control_EStream_BE                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Read_Control_EStream_LE                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Read_Control_Stream_BE                   LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Read_Control_Stream_LE                   LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                                  usbExample.o
+Endpoint_Read_EStream_BE                          LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Read_EStream_LE                          LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Read_Stream_BE                           LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Read_Stream_LE                           LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+Endpoint_WaitUntilReady                           LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Write_Control_EStream_BE                 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Write_Control_EStream_LE                 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Write_Control_PStream_BE                 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Write_Control_PStream_LE                 LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+Endpoint_Write_Control_Stream_BE                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Write_Control_Stream_LE                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+Endpoint_Write_EStream_BE                         LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Write_EStream_LE                         LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Write_PStream_BE                         LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Write_PStream_LE                         LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Write_Stream_BE                          LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+Endpoint_Write_Stream_LE                          LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  usbExample.o
+HID_Device_ConfigureEndpoints                     LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+HID_Device_ProcessControlRequest                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+HID_Device_USBTask                                LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+LanguageString                                    Descriptors.o
+MIDI_Device_ConfigureEndpoints                    LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+MIDI_Device_Flush                                 LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+MIDI_Device_ReceiveEventPacket                    LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+MIDI_Device_SendEventPacket                       LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+MIDI_Device_USBTask                               LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+MS_Device_ConfigureEndpoints                      LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+MS_Device_ProcessControlRequest                   LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+MS_Device_USBTask                                 LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+ManufacturerString                                Descriptors.o
+ProductString                                     Descriptors.o
+RNDIS_Device_ConfigureEndpoints                   LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+RNDIS_Device_IsPacketReceived                     LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+RNDIS_Device_ProcessControlRequest                LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+RNDIS_Device_ReadPacket                           LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+RNDIS_Device_SendPacket                           LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+RNDIS_Device_USBTask                              LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+SetupHardware                                     usbExample.o
+USB_ControlRequest                                LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                                  LUFA//Drivers/USB/Core/USBTask.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+USB_DeviceState                                   LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Core/USBTask.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+USB_Device_ConfigurationNumber                    LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+USB_Device_CurrentlySelfPowered                   LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+USB_Device_ProcessControlRequest                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/USBTask.o
+USB_Device_RemoteWakeupEnabled                    LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+USB_Device_SendRemoteWakeup                       LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+USB_Disable                                       LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+USB_EndpointTable                                 LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+USB_Endpoint_FIFOs                                LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                                  LUFA//Drivers/USB/Core/USBTask.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  usbExample.o
+USB_Endpoint_SelectedEndpoint                     LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                                  LUFA//Drivers/USB/Core/USBTask.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  usbExample.o
+USB_Endpoint_SelectedFIFO                         LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                                  LUFA//Drivers/USB/Core/USBTask.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  usbExample.o
+USB_Endpoint_SelectedHandle                       LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                                  LUFA//Drivers/USB/Core/USBTask.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  usbExample.o
+USB_Event_Stub                                    LUFA//Drivers/USB/Core/Events.o
+USB_GetHIDReportItemInfo                          LUFA//Drivers/USB/Class/Common/HIDParser.o
+USB_GetHIDReportSize                              LUFA//Drivers/USB/Class/Common/HIDParser.o
+USB_GetNextDescriptorComp                         LUFA//Drivers/USB/Core/ConfigDescriptors.o
+USB_GetNextDescriptorOfType                       LUFA//Drivers/USB/Core/ConfigDescriptors.o
+USB_GetNextDescriptorOfTypeAfter                  LUFA//Drivers/USB/Core/ConfigDescriptors.o
+USB_GetNextDescriptorOfTypeBefore                 LUFA//Drivers/USB/Core/ConfigDescriptors.o
+USB_INT_ClearAllInterrupts                        LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+USB_INT_DisableAllInterrupts                      LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+USB_Init                                          LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+                                                  usbExample.o
+USB_IsInitialized                                 LUFA//Drivers/USB/Core/USBTask.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+USB_ProcessHIDReport                              LUFA//Drivers/USB/Class/Common/HIDParser.o
+USB_ResetInterface                                LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+USB_SetHIDReportItemInfo                          LUFA//Drivers/USB/Class/Common/HIDParser.o
+USB_USBTask                                       LUFA//Drivers/USB/Core/USBTask.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  usbExample.o
+VirtualSerial_CDC_Interface                       usbExample.o
+__bad_interrupt                                   /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__bss_end                                         /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_clear_bss.o)
+__bss_start                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_clear_bss.o)
+__data_end                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_copy_data.o)
+__data_load_start                                 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_copy_data.o)
+__data_start                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_copy_data.o)
+__do_clear_bss                                    /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_clear_bss.o)
+                                                  LUFA//Drivers/USB/Class/Host/StillImageClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/RNDISClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/PrinterClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/MIDIClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/MassStorageClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/HIDClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/CDCClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/AudioClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/AndroidAccessoryClassHost.o
+                                                  LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Common/HIDParser.o
+                                                  LUFA//Drivers/USB/Core/USBTask.o
+                                                  LUFA//Drivers/USB/Core/HostStandardReq.o
+                                                  LUFA//Drivers/USB/Core/Events.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/ConfigDescriptors.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/PipeStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Pipe_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Host_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+                                                  Descriptors.o
+                                                  usbExample.o
+__do_copy_data                                    /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_copy_data.o)
+                                                  LUFA//Drivers/USB/Class/Host/StillImageClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/RNDISClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/PrinterClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/MIDIClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/MassStorageClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/HIDClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/CDCClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/AudioClassHost.o
+                                                  LUFA//Drivers/USB/Class/Host/AndroidAccessoryClassHost.o
+                                                  LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MIDIClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/MassStorageClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/CDCClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/AudioClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Common/HIDParser.o
+                                                  LUFA//Drivers/USB/Core/USBTask.o
+                                                  LUFA//Drivers/USB/Core/HostStandardReq.o
+                                                  LUFA//Drivers/USB/Core/Events.o
+                                                  LUFA//Drivers/USB/Core/DeviceStandardReq.o
+                                                  LUFA//Drivers/USB/Core/ConfigDescriptors.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/PipeStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/USBController_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Pipe_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Host_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Endpoint_XMEGA.o
+                                                  LUFA//Drivers/USB/Core/XMEGA/Device_XMEGA.o
+                                                  Descriptors.o
+                                                  usbExample.o
+__eerd_byte_x16a4u                                /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eerd_byte_atxmega16a4u.o)
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+__eeupd_byte_x16a4u                               /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eeupd_byte_atxmega16a4u.o)
+                                                  LUFA//Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.o
+__eeupd_r18_x16a4u                                /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eeupd_byte_atxmega16a4u.o)
+__eewr_byte_x16a4u                                /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eewr_byte_atxmega16a4u.o)
+__eewr_r18_x16a4u                                 /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eewr_byte_atxmega16a4u.o)
+                                                  /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eeupd_byte_atxmega16a4u.o)
+__heap_end                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__init                                            /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__stack                                           /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_1                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_10                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_100                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_101                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_102                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_103                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_104                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_105                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_106                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_107                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_108                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_109                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_11                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_110                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_111                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_112                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_113                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_114                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_115                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_116                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_117                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_118                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_119                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_12                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_120                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_121                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_122                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_123                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_124                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_125                                      LUFA//Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.o
+                                                  /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_126                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_13                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_14                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_15                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_16                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_17                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_18                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_19                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_2                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_20                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_21                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_22                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_23                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_24                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_25                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_26                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_27                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_28                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_29                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_3                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_30                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_31                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_32                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_33                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_34                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_35                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_36                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_37                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_38                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_39                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_4                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_40                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_41                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_42                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_43                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_44                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_45                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_46                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_47                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_48                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_49                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_5                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_50                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_51                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_52                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_53                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_54                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_55                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_56                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_57                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_58                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_59                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_6                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_60                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_61                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_62                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_63                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_64                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_65                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_66                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_67                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_68                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_69                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_7                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_70                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_71                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_72                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_73                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_74                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_75                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_76                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_77                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_78                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_79                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_8                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_80                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_81                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_82                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_83                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_84                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_85                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_86                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_87                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_88                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_89                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_9                                        /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_90                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_91                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_92                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_93                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_94                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_95                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_96                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_97                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_98                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_99                                       /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vector_default                                  /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+__vectors                                         /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+_exit                                             /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_exit.o)
+blink                                             usbExample.o
+delay_ms                                          usbExample.o
+eeprom_mapen                                      /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eerd_byte_atxmega16a4u.o)
+                                                  /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(eeupd_byte_atxmega16a4u.o)
+elapsedMillis                                     usbExample.o
+exit                                              /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/avrxmega2/libgcc.a(_exit.o)
+                                                  /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+interruptInit                                     usbExample.o
+main                                              usbExample.o
+                                                  /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/crtx16a4u.o
+memcmp                                            /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcmp.o)
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+memcpy                                            /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy.o)
+                                                  LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+memcpy_P                                          /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memcpy_P.o)
+                                                  LUFA//Drivers/USB/Class/Device/RNDISClassDevice.o
+memset                                            /home/dgonz/projects/Useful/avrTools/avr8-gnu-toolchain-linux_x86/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avrxmega2/libc.a(memset.o)
+                                                  LUFA//Drivers/USB/Class/Device/HIDClassDevice.o
+millis                                            usbExample.o
+process_GET_POSE                                  usbExample.o
+process_GET_STATUS                                usbExample.o
+process_SET_GOAL                                  usbExample.o
+process_SET_STOP                                  usbExample.o
+setupIO                                           usbExample.o
+signum                                            usbExample.o
