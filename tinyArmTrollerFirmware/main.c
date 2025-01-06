@@ -27,7 +27,8 @@
 #define MOTOR_4 Right_Wrist
 #define MOTOR_5 Left_Wrist
 #define MOTOR_6 Gripper
-#define MAXSPEED 40
+#define MAXSPEED 65
+#define NAK  0x15
 
 #include <stdio.h> 
 #include <avr/io.h>
@@ -57,6 +58,7 @@ int debugFlag = 0;
 int goal[6]={0,0,0,0,0,0};
 int pose[6]={0,0,0,0,0,0};
 volatile unsigned long elapsedMillis = 0;
+int maxSpeed = 65;
 
 static int uart_putchar(char c, FILE *stream); 
 static void uart_init (void); 
@@ -67,6 +69,53 @@ static FILE mystdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE)
 
 ISR(TCC0_OVF_vect){
 	elapsedMillis++;
+}
+
+static int uart_putchar (char c, FILE *stream) { 
+    if (c == '\n') 
+        uart_putchar('\r', stream); 
+
+    // Wait for the transmit buffer to be empty 
+    while ( !( USARTD1.STATUS & USART_DREIF_bm) ); 
+
+    // Put our character into the transmit buffer 
+    USARTD1.DATA = c; 
+
+    return 0; 
+} 
+
+int uart_getchar (void) { 
+    while( !(USARTD1_STATUS & USART_RXCIF_bm) ){
+    //    PORTE.OUTSET = _BV(0);
+    }
+    PORTE.OUTCLR = _BV(0);
+    return USARTD1.DATA;
+} 
+
+// Init USART.  Transmit only (we're not receiving anything) 
+// We use USARTD1, transmit pin on PC7. 
+// Want 115200 baud. Have a 32 MHz clock. BSCALE = 0 
+// BSEL = ( 32000000 / (2^0 * 16*115200)) -1 = 16.361111111
+// Fbaud = 32000000 / (2^0 * 16 * (16+1))  = 117647 bits/sec 
+static void uart_init (void) { 
+    // Set the TxD pin high - set PORTD DIR register bit 7 to 1 
+    PORTD.OUTSET = PIN7_bm; 
+
+    // Set the TxD pin as an output - set PORTC OUT register bit 3 to 1 
+    PORTD.DIRSET = PIN7_bm; 
+
+    // Set baud rate & frame format 
+    
+    USARTD1.BAUDCTRLB = 0;                      // BSCALE = 0 as well 
+    USARTD1.BAUDCTRLA = 51; //16 for 32MHz at 115200, 12 for 2MHz at 9600, 51 for  38400 at 32MHz
+
+    // Set mode of operation 
+    USARTD1.CTRLA = 0;                          // no interrupts please 
+    USARTD1.CTRLC = 0x03;                       // async, no parity, 8 bit data, 1 stop bit 
+
+    // Enable transmitter only 
+    USARTD1.CTRLB =USART_RXEN_bm|USART_TXEN_bm; 
+     
 }
 
 // My own Delay function, because the built-in _delay_ms() can delay for only a limited time
@@ -276,8 +325,8 @@ struct Stepper Base = {
 	.number_of_steps = 100,
 	.pin_count = 4,
 	.step_number = 0,
-	.minSteps = -850,
-	.maxSteps = 850,
+	.minSteps = -900,
+	.maxSteps = 900,
 	.motor_port_1 = 'A',
 	.motor_pin_1 = 0,
 	.motor_port_2 = 'A',
@@ -297,7 +346,7 @@ struct Stepper Shoulder = {
 	.pin_count = 4,
 	.step_number = 0, 
 	.minSteps = 0,
-	.maxSteps = -1450,
+	.maxSteps = -1700,
 	.motor_port_1 = 'A',
 	.motor_pin_1 = 4,
 	.motor_port_2 = 'A',
@@ -557,13 +606,14 @@ void stepOne(struct Stepper *stepper, int myDir){
 }
 
 void changeGoal(int val0, int val1, int val2, int val3, int val4, int val5){
+    /*
 	// Take limits into account
 	if((val1*(-1.875/3.0)-875)>(val2)){// Shoulder and Elbow, bias Shoulder (for now)
 		val2 = (int)(val1*(-1.875/3.0)-875);
-		//Send to USB: BAD POSE
+		printf("bad pose\n");
 	}else if((val1*(-1.875/3.0))<(val2)){
 		val2 = (int)(val1*(-1.875/3.0));
-		//Send to USB: BAD POSE
+		printf("bad pose\n");
 	}
 	
 	if(abs(val3)==abs(val4)){
@@ -574,15 +624,13 @@ void changeGoal(int val0, int val1, int val2, int val3, int val4, int val5){
 			val3 = (int)(val2*(-.625/1.875)-200);
 			val4 = -1*val3;
 		}
-	}
+	}*/
 	goal[0] = val0;
 	goal[1] = val1;
 	goal[2] = val2;
 	goal[3] = val3;
 	goal[4] = val4;
 	goal[5] = val5;
-    printf("-----------------GOAL------------------\n");
-    printf(val0);
 }
 
 void moveToGoal(void){
@@ -607,12 +655,12 @@ void moveToGoal(void){
 	//Determine the speed each motor needs to step at based on error array
 	//Speeds are such that each motor arrives at the end point at the same time. 
 	
-	setSpeed(&MOTOR_1,abs((int)(MAXSPEED*(error[0]/(double)maxError))));
-	setSpeed(&MOTOR_2,abs((int)(MAXSPEED*(error[1]/(double)maxError))));
-	setSpeed(&MOTOR_3,abs((int)(MAXSPEED*(error[2]/(double)maxError))));
-	setSpeed(&MOTOR_4,abs((int)(MAXSPEED*(error[3]/(double)maxError))));
-	setSpeed(&MOTOR_5,abs((int)(MAXSPEED*(error[4]/(double)maxError))));
-	setSpeed(&MOTOR_6,abs((int)(MAXSPEED*(error[5]/(double)maxError))));
+	setSpeed(&MOTOR_1,abs((int)(maxSpeed*(error[0]/(double)maxError))));
+	setSpeed(&MOTOR_2,abs((int)(maxSpeed*(error[1]/(double)maxError))));
+	setSpeed(&MOTOR_3,abs((int)(maxSpeed*(error[2]/(double)maxError))));
+	setSpeed(&MOTOR_4,abs((int)(maxSpeed*(error[3]/(double)maxError))));
+	setSpeed(&MOTOR_5,abs((int)(maxSpeed*(error[4]/(double)maxError))));
+	setSpeed(&MOTOR_6,abs((int)(maxSpeed*(error[5]/(double)maxError))));
 	
 	//Step
 	//while(!compareArray(pose,goal)){
@@ -672,12 +720,12 @@ void mainLoop(void){
 		if(state == DEBUG){
 			
 		} else if(state == INIT){
-			setSpeed(&MOTOR_1,MAXSPEED/2);
-			setSpeed(&MOTOR_2,MAXSPEED/2);
-			setSpeed(&MOTOR_3,MAXSPEED/2);
-			setSpeed(&MOTOR_4,MAXSPEED/2);
-			setSpeed(&MOTOR_5,MAXSPEED/2);
-			setSpeed(&MOTOR_6,MAXSPEED/2);
+			setSpeed(&MOTOR_1,maxSpeed/2);
+			setSpeed(&MOTOR_2,maxSpeed/2);
+			setSpeed(&MOTOR_3,maxSpeed/2);
+			setSpeed(&MOTOR_4,maxSpeed/2);
+			setSpeed(&MOTOR_5,maxSpeed/2);
+			setSpeed(&MOTOR_6,maxSpeed/2);
 			while((PORTD.IN & _BV(4))){ //Localize Base
 				break;
 			}
@@ -700,7 +748,7 @@ void mainLoop(void){
 				}
 				if(!(PORTD.IN & _BV(4))){
 					int i;
-					for (i=0;i<30;i++){
+					for (i=0;i<15;i++){
 						delay_ms(MOTOR_6.step_delay);
 						stepOne(&MOTOR_6,1);
 					}
@@ -749,23 +797,29 @@ void mainLoop(void){
 
 void update(void){
     printf("gimme\n");
-    int vals[6] = {0,0,0,0,0,0};
+    int vals[7] = {0,0,0,0,0,0,0};
     int c;
     int i;
-    for(i = 0; i < 6; i++){
+    int f = 1;
+    for(i = 0; i < 7; i++){
+        f = 1;
         while(1){
             c = uart_getchar();
             if(c == ','){
                 break;
             }else if(c == '\n'){
                 break;
+            }else if (c == '-'){
+                f = -1;
+            }else if((c - '0')<0){
             }else{
                 vals[i] = vals[i]*10+(c - '0');
             }
         }
+        vals[i] = vals[i]*f;
     }
-    printf("-----------------newVals------------------\n");
     changeGoal(vals[0],vals[1],vals[2],vals[3],vals[4],vals[5]);
+    vals[6] = maxSpeed;
     return 0;
 }
 
@@ -809,50 +863,3 @@ int main (void){
 	mainLoop();
 	return 0;
 }
-
-static int uart_putchar (char c, FILE *stream) { 
-    if (c == '\n') 
-        uart_putchar('\r', stream); 
-
-    // Wait for the transmit buffer to be empty 
-    while ( !( USARTD1.STATUS & USART_DREIF_bm) ); 
-
-    // Put our character into the transmit buffer 
-    USARTD1.DATA = c; 
-
-    return 0; 
-} 
-
-int uart_getchar (void) { 
-    while( !(USARTD1_STATUS & USART_RXCIF_bm) ){
-    //    PORTE.OUTSET = _BV(0);
-    }
-    PORTE.OUTCLR = _BV(0);
-    return USARTD1.DATA;
-} 
-
-// Init USART.  Transmit only (we're not receiving anything) 
-// We use USARTD1, transmit pin on PC7. 
-// Want 115200 baud. Have a 32 MHz clock. BSCALE = 0 
-// BSEL = ( 32000000 / (2^0 * 16*115200)) -1 = 16.361111111
-// Fbaud = 32000000 / (2^0 * 16 * (16+1))  = 117647 bits/sec 
-static void uart_init (void) { 
-    // Set the TxD pin high - set PORTD DIR register bit 7 to 1 
-    PORTD.OUTSET = PIN7_bm; 
-
-    // Set the TxD pin as an output - set PORTC OUT register bit 3 to 1 
-    PORTD.DIRSET = PIN7_bm; 
-
-    // Set baud rate & frame format 
-    
-    USARTD1.BAUDCTRLB = 0;                      // BSCALE = 0 as well 
-    USARTD1.BAUDCTRLA = 51; //16 for 32MHz at 115200, 12 for 2MHz at 9600, 51 for  38400 at 32MHz
-
-    // Set mode of operation 
-    USARTD1.CTRLA = 0;                          // no interrupts please 
-    USARTD1.CTRLC = 0x03;                       // async, no parity, 8 bit data, 1 stop bit 
-
-    // Enable transmitter only 
-    USARTD1.CTRLB =USART_RXEN_bm|USART_TXEN_bm; 
-     
-} 

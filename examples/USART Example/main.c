@@ -1,4 +1,4 @@
-/* UART: an atxmega16a4 example
+/* UART: an atxmega16a4u example
  * Daniel J. Gonzalez December 2012
  * dgonz@mit.edu
  * yameb.blogspot.com
