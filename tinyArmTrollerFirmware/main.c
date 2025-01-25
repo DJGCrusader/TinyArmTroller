@@ -18,54 +18,7 @@
  *  - Port D5, E0 - E3 Unused I/O
  */
 
-#define F_CPU 	32000000UL //32 MHz Internal Oscillator
-#define LOW 0
-#define HIGH 1
-#define MOTOR_1 Base
-#define MOTOR_2 Shoulder
-#define MOTOR_3 Elbow
-#define MOTOR_4 Right_Wrist
-#define MOTOR_5 Left_Wrist
-#define MOTOR_6 Gripper
-#define MAXSPEED 65
-#define NAK  0x15
-
-#include <stdio.h> 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
-#include "requiredFiles/avr_compiler.h"
-#include "requiredFiles/clksys_driver.h"
-#include "requiredFiles/clksys_driver.c"
-
-#define set_it(p,m) ((p) = (m))
-#define bit_get(p,m) ((p) & (m)) 
-#define bit_set(p,m) ((p) |= (m)) 
-#define bit_clear(p,m) ((p) &= ~(m)) 
-#define bit_flip(p,m) ((p) ^= (m)) 
-#define BIT(x) (0x01 << (x))
-#define LONGBIT(x) ((unsigned long)0x00000001 << (x))
-
-// State Machine Definitions
-#define DEBUG 0
-#define INIT 1
-#define IDLE 2
-#define MOVING 3
-#define LOST 4
-
-int state = INIT;
-int debugFlag = 0;
-int goal[6]={0,0,0,0,0,0};
-int pose[6]={0,0,0,0,0,0};
-volatile unsigned long elapsedMillis = 0;
-int maxSpeed = 65;
-
-static int uart_putchar(char c, FILE *stream); 
-static void uart_init (void); 
-
-
-static FILE mystdout = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_WRITE);
-//static FILE mystdin = FDEV_SETUP_STREAM (uart_putchar, NULL, _FDEV_SETUP_READ);
+#include "main.h"
 
 ISR(TCC0_OVF_vect){
 	elapsedMillis++;
@@ -336,7 +289,6 @@ struct Stepper Base = {
 	.motor_port_4 = 'A',
 	.motor_pin_4 = 3
 	};
-	
 struct Stepper Shoulder = {
 	.motorNumber = 2,
 	.direction = 1,
@@ -413,7 +365,6 @@ struct Stepper Left_Wrist = {
 	.motor_port_4 = 'C',
 	.motor_pin_4 = 7
 	};
-	
 struct Stepper Gripper = {
 	.motorNumber = 6,
 	.direction = 1,
@@ -436,7 +387,7 @@ struct Stepper Gripper = {
 	
 
 // Set Speed, in RPM
-// (60 seconds per minute*1000 Microseconds per second)/200 steps per rotation/ 40 Rotations per minute = units of milliseconds/step
+// (60 seconds per minute*1000 Microseconds per second)/100 steps per rotation/ 40 Rotations per minute = units of milliseconds/step
 void setSpeed(struct Stepper *stepper, long whatSpeed){
 	(*stepper).step_delay = 60L * 1000L / (*stepper).number_of_steps / whatSpeed;
 }
@@ -500,13 +451,12 @@ void step(struct Stepper *stepper, int steps_to_move){
 	if (steps_to_move > 1) {
 		steps_left = steps_to_move; // how many steps to take
 		(*stepper).direction = 1;// determine direction
-	} 
-    else {
+	}else{
 		steps_left = -steps_to_move;
 		(*stepper).direction = 0;
 	}
-	// decrease the number of steps, moving on step each time:
-	while(steps_left >0) {
+	// decrease the number of steps, moving one step each time:
+	while(steps_left > 0) {
 		// move only if the appropriate delay has passed:
 		if (millis() - (*stepper).last_step_time >= (*stepper).step_delay){
 			// get the timeStamp of when you stepped:
@@ -742,18 +692,23 @@ void mainLoop(void){
 			pose[2]=0;
 			
 			while(1){ // Localize Gripper
+				gripperState = !(PORTD.IN & _BV(4));
+				
+				if(gripperState == 1){
+					if (gripperStatePrev == 0){
+						int i;
+						for (i=0;i<15;i++){ //Preload by 15 steps only if we detected a switch from on to off.
+							delay_ms(MOTOR_6.step_delay);
+							stepOne(&MOTOR_6,1);
+						}
+					}					
+					break;
+				}
 				if (millis() - MOTOR_6.last_step_time >= MOTOR_6.step_delay){
 					MOTOR_6.last_step_time = millis();
 					stepOne(&MOTOR_6,1);
 				}
-				if(!(PORTD.IN & _BV(4))){
-					int i;
-					for (i=0;i<15;i++){
-						delay_ms(MOTOR_6.step_delay);
-						stepOne(&MOTOR_6,1);
-					}
-					break;
-				}
+				gripperStatePrev = gripperState;
 			}
 			pose[5]=0;
 			
@@ -776,7 +731,9 @@ void mainLoop(void){
 			state = IDLE;
 		} else if(state == IDLE){
             //printf("idle\n");	
-			update();
+
+			// update();
+			updateSign();
 			if(!compareArray(pose,goal)){
 				state = MOVING;
                 printf("moving\n");
@@ -793,6 +750,14 @@ void mainLoop(void){
 			
 		}	
 	}
+}
+
+void updateSign(void){
+  	if(debugFlag > 3) debugFlag = 0;
+	if(debugFlag == 0) changeGoal(-850,-200,-200,-200,-200,0);
+	if(debugFlag == 1) changeGoal(-1700,-400,-400,-400,-400,0);
+	if(debugFlag == 2) changeGoal(-850,-200,-200,-200,-200,0);
+	if(debugFlag == 3) changeGoal(0,0,0,0,0,0);
 }
 
 void update(void){
@@ -819,8 +784,7 @@ void update(void){
         vals[i] = vals[i]*f;
     }
     changeGoal(vals[0],vals[1],vals[2],vals[3],vals[4],vals[5]);
-    vals[6] = maxSpeed;
-    return 0;
+    maxSpeed = vals[6];
 }
 
 void init(void){
@@ -859,6 +823,8 @@ int main (void){
     
     stdout = &mystdout; 
     printf("LETSDOTHIS\n");	
+	gripperState = !(PORTD.IN & _BV(4));
+	gripperStatePrev = gripperState;
     
 	mainLoop();
 	return 0;

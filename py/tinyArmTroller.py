@@ -15,10 +15,9 @@ ik Command is: [X, Y, Z, thetaE, thetaR, Gripper, RPM]
 import serial
 import time
 import math
-#import viz
 
 # 'deg', 'stp', 'ik', or 'string'
-control = 'ik'
+control = 'string'
 sim = 0
 
 port = '/dev/ttyUSB0'
@@ -32,7 +31,7 @@ baseStep0 = 0
 baseStepMin = -900
 baseStepMax = 900
 
-homeAng = [0,125,-20,0,0,0,65]
+homeAng = [0,125,-20,0,0,0,30]
 
 def limitAnglesDeg(a):
     #Limit Base
@@ -150,6 +149,8 @@ def main():
                 outRaw = outRaw.split('. ')
                 
                 while(len(outRaw)!=0):
+                    print x
+                    print outRaw
                     if x[0:len(x)-2] == 'gimme':
                         x = ''
                         if (outRaw[0]=='pickUp'):
@@ -166,7 +167,7 @@ def main():
                             outRaw.insert(1,'8,-1,'+drawHeight+',0,0,0,30')
                             outRaw.insert(2,'8,-1,3,0,0,0,30')
                             
-                            outRaw.insert(3,'7,1,'+drawHeight+',0,0,0,30')#left ete
+                            outRaw.insert(3,'7,1,'+drawHeight+',0,0,0,30')#left eye
                             outRaw.insert(4,'8,1,'+drawHeight+',0,0,0,30')
                             outRaw.insert(5,'8,1,3,0,0,0,30')
                             
@@ -189,28 +190,31 @@ def main():
                             outRaw.insert(7,'idle')
                         
                         if(outRaw[0] == 'home'):
-                            writeOut([0,0,0,0,0,0,65])
+                            writeOut([0,0,0,0,0,0,30])
                         elif(outRaw[0] == 'extend'):
-                            writeOut(degToSteps([0,0,0,0,0,0,65]))
+                            writeOut(degToSteps([0,0,0,0,0,0,30]))
                         elif(outRaw[0] == 'up'):
-                            writeOut(degToSteps([0,90,90,90,90,0,65]))
+                            writeOut(degToSteps([0,90,90,90,90,0,30]))
                         elif(outRaw[0] == 'ready'):
-                            writeOut(degToSteps(limitAnglesDeg(inverseKinematics([4,0,1,-90,90,150,65]))))
-                            #writeOut(degToSteps([0,35,-80,-90,0,150,65]))
+                            writeOut(degToSteps(limitAnglesDeg(inverseKinematics([4,0,1,-90,90,150,30]))))
+                            #writeOut(degToSteps([0,35,-80,-90,0,150,30]))
                         elif(outRaw[0] == 'down'):
-                            writeOut(degToSteps(limitAnglesDeg(inverseKinematics([4,0,0,-90,90,150,65]))))
-                            #writeOut(degToSteps([0,28,-87,-90,0,150,65]))
+                            writeOut(degToSteps(limitAnglesDeg(inverseKinematics([4,0,0,-90,90,150,30]))))
+                            #writeOut(degToSteps([0,28,-87,-90,0,150,30]))
                         elif(outRaw[0] == 'grab'):
-                            writeOut(degToSteps(limitAnglesDeg(inverseKinematics([4,0,0,-90,90,0,65]))))
-                            #writeOut(degToSteps([0,28,-87,-90,0,0,65])
+                            writeOut(degToSteps(limitAnglesDeg(inverseKinematics([4,0,0,-90,90,0,30]))))
+                            #writeOut(degToSteps([0,28,-87,-90,0,0,30])
                         elif(outRaw[0] == 'lift'):
-                            writeOut(degToSteps(limitAnglesDeg(inverseKinematics([4,0,3,-90,90,0,65]))))
+                            writeOut(degToSteps(limitAnglesDeg(inverseKinematics([4,0,3,-90,90,0,30]))))
                         elif(outRaw[0] == 'idle'):
-                            writeOut(degToSteps(limitAnglesDeg(inverseKinematics([7,0,3,0,0,0,65]))))
-                            #writeOut(degToSteps([0,28,-87,-90,0,0,65]))    
+                            writeOut(degToSteps(limitAnglesDeg(inverseKinematics([7,0,3,0,0,0,30]))))
+                            #writeOut(degToSteps([0,28,-87,-90,0,0,30]))    
                         else:
+                            print outRaw
                             outRaw[0] = outRaw[0].split(',')
+                            print outRaw
                             outRaw[0] = [float(x) for x in outRaw[0]]
+                            print outRaw
                             if(control == 'ik'):
                                 writeOut(degToSteps(limitAnglesDeg(inverseKinematics(outRaw[0]))))
                             if(control == 'deg'):
